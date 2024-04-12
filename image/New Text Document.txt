@@ -24,6 +24,11 @@
 
         p {
             color: #ff5733;
+            font-weight: bold;
+        }
+
+        ul {
+            list-style-type: none;
         }
 
         .quote {
@@ -32,15 +37,13 @@
             margin-top: 20px;
         }
 
-        /* Coursework columns */
-        .coursework {
-            columns: 2;
+        a {
+            color: #0077b6;
+            text-decoration: none;
         }
 
-        /* Achievement and Awards list style */
-        .awards li {
-            list-style-type: decimal;
-            margin-bottom: 10px;
+        a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
@@ -51,6 +54,8 @@
     <p>📧 sahil.maurya21@iiitg.ac.in</p>
     <p>🏠 Janki Vihar Colony, Jankipuram<br>
         Lucknow, Uttar Pradesh, India - 226021</p>
+    <p><a href="https://www.linkedin.com/in/sahilmaurya007/" target="_blank">LinkedIn</a></p>
+
 
     <h2>Education</h2>
     <ul>
@@ -75,20 +80,16 @@
     <p>Area Of Interest: Digital VLSI Design, Memory Design (SRAM, DRAM), Neuromorphic Computing, In Memory Computing, Quantum Cryptography, Hardware Architecture Design, Design Algorithms</p>
 
     <h2>Relevant Coursework</h2>
-    <div class="coursework">
-        <ul>
-            <li>Digital VLSI Design</li>
-            <li>Analog Electronics</li>
-            <li>Low Power VLSI (CMOS)</li>
-            <li>VLSI Circuits and System</li>
-        </ul>
-        <ul>
-            <li>VLSI CAD Lab</li>
-            <li>System Modelling Lab</li>
-            <li>Architectural Design of Digital Integrated Circuits</li>
-            <li>In Memory Computing</li>
-        </ul>
-    </div>
+    <ul>
+        <li>Digital VLSI Design</li>
+        <li>Analog Electronics</li>
+        <li>Low Power VLSI (CMOS)</li>
+        <li>VLSI Circuits and System</li>
+        <li>VLSI CAD Lab</li>
+        <li>System Modelling Lab</li>
+        <li>Architectural Design of Digital Integrated Circuits</li>
+        <li>In Memory Computing</li>
+    </ul>
 
     <h2>Certifications</h2>
     <ul>
@@ -96,7 +97,7 @@
     </ul>
 
     <h2>Achievements & Awards</h2>
-    <ul class="awards">
+    <ul>
         <li>Secure highest CGPA (9.11) in M.TECH ECE 2021-2023 batch from IIIT Guwahati</li>
         <li>Certificate of Participation: Hands-on Training by Entuple Technology on Cadence RTL to GDS Flow</li>
         <li>Certificate Course in System Design using Verilog by Udemy</li>
@@ -109,7 +110,8 @@
         "The future belongs to those who believe in the beauty of their dreams." - Eleanor Roosevelt
     </div>
 
-    <img src="image/sahil.jpeg" alt="Sahil Maurya" width="720" height="1600">
+   <img src="images/sahil.jpeg" alt="Sahil Maurya" width="720" height="1600">
+
 
 </body>
 
