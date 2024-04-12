@@ -13,17 +13,24 @@
             color: #333;
         }
 
+        h1, h2 {
+            border-bottom: 2px solid #0077b6;
+        }
+
         h1 {
             color: #0077b6;
-            border-bottom: 2px solid #0077b6;
         }
 
         h2 {
             color: #009688;
+            margin-top: 20px;
+        }
+
+        p, ul {
+            margin-top: 10px;
         }
 
         p {
-            color: #ff5733;
             font-weight: bold;
         }
 
@@ -35,7 +42,7 @@
             font-style: italic;
             color: #555;
             margin-top: 20px;
-            font-weight: bold; /* Make the quote bold */
+            font-weight: bold;
         }
 
         a {
@@ -46,6 +53,22 @@
         a:hover {
             text-decoration: underline;
         }
+
+        .line {
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 20px;
+        }
+
+        .coursework {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .coursework li {
+            width: 45%;
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 
@@ -55,8 +78,8 @@
     <p>📧 sahil.maurya21@iiitg.ac.in</p>
     <p>🏠 Janki Vihar Colony, Jankipuram<br>
         Lucknow, Uttar Pradesh, India - 226021</p>
-    <p><a href="https://www.linkedin.com/in/sahilmaurya007/" target="_blank">LinkedIn</a></p> <!-- LinkedIn hyperlink corrected -->
-
+    <p><a href="https://www.linkedin.com/in/sahilmaurya007/" target="_blank">LinkedIn</a></p>
+    <div class="line"></div>
 
     <h2>Education</h2>
     <ul>
@@ -64,6 +87,7 @@
         <li><strong>University Of Lucknow, Uttar Pradesh</strong> - B.TECH Electronics & Communication Engineering (2021) | Percentage: 66.1</li>
         <li><strong>Board Of High School & Intermediate Education, Uttar Pradesh</strong> - Senior Secondary Education in Science (2016) | Percentage: 85</li>
     </ul>
+    <div class="line"></div>
 
     <h2>Personal Projects</h2>
     <ul>
@@ -74,14 +98,16 @@
         <li><strong>IoT Based Weather Monitoring System using Arduino UNO</strong> (December-2020 – May-2021)<br>
             Academic Project - Design an electronic device to capture & restore Temperature & Humidity and send data to the cloud or website for analysis.</li>
     </ul>
+    <div class="line"></div>
 
     <h2>Technical Skills and Interests</h2>
     <p>Programming Language: Verilog HDL, C</p>
     <p>Synthesis & Simulation Tool: Xilinx Vivado & ISE, FPGA, Cadence Virtuoso, Genus, Innovus, Xcelium Logic Simulator, EDA Playground, Matlab & Simulink, TINA-TI, LTSpice, Tinkercad</p>
     <p>Area Of Interest: Digital VLSI Design, Memory Design (SRAM, DRAM), Neuromorphic Computing, In Memory Computing, Quantum Cryptography, Hardware Architecture Design, Design Algorithms</p>
+    <div class="line"></div>
 
     <h2>Relevant Coursework</h2>
-    <ul>
+    <ul class="coursework">
         <li>Digital VLSI Design</li>
         <li>Analog Electronics</li>
         <li>Low Power VLSI (CMOS)</li>
@@ -91,30 +117,30 @@
         <li>Architectural Design of Digital Integrated Circuits</li>
         <li>In Memory Computing</li>
     </ul>
+    <div class="line"></div>
 
     <h2>Certifications</h2>
     <ul>
         <li>System Design Using Verilog HDL Training Course by Udemy (August-2022)</li>
     </ul>
+    <div class="line"></div>
 
     <h2>Achievements & Awards</h2>
     <ul>
-        <li>Secure highest CGPA (9.11) in M.TECH ECE 2021-2023 batch from IIIT Guwahati</li>
-        <li>Certificate of Participation: Hands-on Training by Entuple Technology on Cadence RTL to GDS Flow</li>
-        <li>Certificate Course in System Design using Verilog by Udemy</li>
-        <li>Certificate Of Participation Xilinx Webinar on VLSI Design flow using Vivado by CoreEL Technologies and Xilinx</li>
-        <li>Certificate Of Participation VeriFi a Verilog HDL based digital design challenge by Department of Electronics and Communication Eng.,FET Jamia Millia Islamia in association with Electronic-Bit.</li>
-        <li>2nd prize in Creative Writing competition by EN-LIT Lucknow University.</li>
+        <li>1. Secure highest CGPA (9.11) in M.TECH ECE 2021-2023 batch from IIIT Guwahati</li>
+        <li>2. Certificate of Participation: Hands-on Training by Entuple Technology on Cadence RTL to GDS Flow</li>
+        <li>3. Certificate Course in System Design using Verilog by Udemy</li>
+        <li>4. Certificate Of Participation Xilinx Webinar on VLSI Design flow using Vivado by CoreEL Technologies and Xilinx</li>
+        <li>5. Certificate Of Participation VeriFi a Verilog HDL based digital design challenge by Department of Electronics and Communication Eng.,FET Jamia Millia Islamia in association with Electronic-Bit.</li>
+        <li>6. 2nd prize in Creative Writing competition by EN-LIT Lucknow University.</li>
     </ul>
+    <div class="line"></div>
 
     <div class="quote">
         "The future belongs to those who believe in the beauty of their dreams." - Eleanor Roosevelt
     </div>
 
-  <img src="images/sahil.jpeg" alt="Sahil Maurya" width="720" height="1600">
-
-
-
+    <img src="images/sahil.jpeg" alt="Sahil Maurya" width="720" height="1600">
 
 </body>
 
