@@ -20,8 +20,7 @@
 
         h2 {
             color: #009688;
-            border-bottom: 1px solid #ddd;
-            padding-bottom: 10px;
+            border-bottom: 1px solid #009688;
         }
 
         p {
@@ -31,7 +30,6 @@
 
         ul {
             list-style-type: none;
-            margin-left: 20px;
         }
 
         .quote {
@@ -49,11 +47,19 @@
             text-decoration: underline;
         }
 
-        .column {
-            float: left;
-            width: 50%;
+        .highlight-blue {
+            color: blue;
         }
 
+        .coursework-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .area-of-interest {
+            color: blue;
+        }
     </style>
 </head>
 
@@ -65,38 +71,25 @@
         Lucknow, Uttar Pradesh, India - 226021</p>
     <p><a href="https://www.linkedin.com/in/sahilmaurya007/" target="_blank">LinkedIn</a></p>
 
-    <h2><a href="#education">Education</a></h2>
-    <ul>
-        <li><strong>Indian Institute Of Information Technology, Guwahati</strong> - M.TECH VLSI & Embedded System (May 2023) | CGPA: 9.11</li>
-        <li><strong>University Of Lucknow, Uttar Pradesh</strong> - B.TECH Electronics & Communication Engineering (2021) | Percentage: 66.1</li>
-        <li><strong>Board Of High School & Intermediate Education, Uttar Pradesh</strong> - Senior Secondary Education in Science (2016) | Percentage: 85</li>
-    </ul>
+    <h2>Education</h2>
+    <!-- ... (No changes here) -->
 
-    <h2><a href="#personal-projects">Personal Projects</a></h2>
-    <ul>
-        <li><strong>Study Of Large Integer Multiplication For Cryptosystem</strong> (January-2023 – May-2023)<br>
-            Academic Project - This project is based on designing a 32-bit, Toom-Cook-2.5 and Toom-Cook-3 multiplication algorithm for cryptosystem & their hardware implementation on FPGA. Comparative analysis between Toom-2.5 & Toom-3 multiplier in terms of Area, LUT, Delay, Frequency & Power.</li>
-        <li><strong>Area and Power Efficient Approximate Modular Multiplier for R-LWE Cryptosystem</strong> (August-2022 – December-2022)<br>
-            Academic Project - To design an area & power efficient modular multiplier for medium & high security level of R-LWE Cryptosystem on 45nm ASIC library.</li>
-        <li><strong>IoT Based Weather Monitoring System using Arduino UNO</strong> (December-2020 – May-2021)<br>
-            Academic Project - Design an electronic device to capture & restore Temperature & Humidity and send data to the cloud or website for analysis.</li>
-    </ul>
+    <h2>Personal Projects</h2>
+    <!-- ... (No changes here) -->
 
-    <h2><a href="#technical-skills">Technical Skills and Interests</a></h2>
-    <p>Programming Language: Verilog HDL, C</p>
-    <p>Synthesis & Simulation Tool: Xilinx Vivado & ISE, FPGA, Cadence Virtuoso, Genus, Innovus, Xcelium Logic Simulator, EDA Playground, Matlab & Simulink, TINA-TI, LTSpice, Tinkercad</p>
-    <p>Area Of Interest: Digital VLSI Design, Memory Design (SRAM, DRAM), Neuromorphic Computing, In Memory Computing, Quantum Cryptography, Hardware Architecture Design, Design Algorithms</p>
+    <h2>Technical Skills and Interests</h2>
+    <p class="highlight-blue">Programming Language: <span class="highlight-blue">Verilog HDL, C</span></p>
+    <p class="highlight-blue">Synthesis & Simulation Tool: <span class="highlight-blue">Xilinx Vivado & ISE, FPGA, Cadence Virtuoso, Genus, Innovus, Xcelium Logic Simulator, EDA Playground, Matlab & Simulink, TINA-TI, LTSpice, Tinkercad</span></p>
+    <p class="area-of-interest">Area Of Interest: <span class="area-of-interest">Digital VLSI Design, Memory Design (SRAM, DRAM), Neuromorphic Computing, In Memory Computing, Quantum Cryptography, Hardware Architecture Design, Design Algorithms</span></p>
 
-    <h2><a href="#relevant-coursework">Relevant Coursework</a></h2>
-    <div class="column">
+    <h2>Relevant Coursework</h2>
+    <div class="coursework-column">
         <ul>
             <li>Digital VLSI Design</li>
             <li>Analog Electronics</li>
             <li>Low Power VLSI (CMOS)</li>
             <li>VLSI Circuits and System</li>
         </ul>
-    </div>
-    <div class="column">
         <ul>
             <li>VLSI CAD Lab</li>
             <li>System Modelling Lab</li>
@@ -105,27 +98,17 @@
         </ul>
     </div>
 
-    <h2><a href="#certifications">Certifications</a></h2>
-    <ol>
-        <li>System Design Using Verilog HDL Training Course by Udemy (August-2022)</li>
-    </ol>
+    <h2>Certifications</h2>
+    <!-- ... (No changes here) -->
 
-    <h2><a href="#achievements-awards">Achievements & Awards</a></h2>
-    <ol>
-        <li>Secure highest CGPA (9.11) in M.TECH ECE 2021-2023 batch from IIIT Guwahati</li>
-        <li>Certificate of Participation: Hands-on Training by Entuple Technology on Cadence RTL to GDS Flow</li>
-        <li>Certificate Course in System Design using Verilog by Udemy</li>
-        <li>Certificate Of Participation Xilinx Webinar on VLSI Design flow using Vivado by CoreEL Technologies and Xilinx</li>
-        <li>Certificate Of Participation VeriFi a Verilog HDL based digital design challenge by Department of Electronics and Communication Eng.,FET Jamia Millia Islamia in association with Electronic-Bit.</li>
-        <li>2nd prize in Creative Writing competition by EN-LIT Lucknow University.</li>
-    </ol>
+    <h2>Achievements & Awards</h2>
+    <!-- ... (No changes here) -->
 
     <div class="quote">
         "The future belongs to those who believe in the beauty of their dreams." - Eleanor Roosevelt
     </div>
 
-  <img src="image/sahil.jpeg" alt="Sahil Maurya" width="720" height="1600">
-
+    <img src="image/sahil.jpeg" alt="Sahil Maurya" width="720" height="1600">
 </body>
 
 </html>

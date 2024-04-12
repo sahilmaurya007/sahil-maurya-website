@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sahil Maurya</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        h1 {
+            color: #0077b6;
+            border-bottom: 2px solid #0077b6;
+        }
+
+        h2 {
+            color: #009688;
+        }
+
+        p {
+            color: #ff5733;
+            font-weight: bold;
+        }
+
+        ul {
+            list-style-type: none;
+        }
+
+        .quote {
+            font-style: italic;
+            color: #555;
+            margin-top: 20px;
+        }
+
+        a {
+            color: #0077b6;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Sahil Maurya</h1>
+    <p>📞 +91-7270020537</p>
+    <p>📧 sahil.maurya21@iiitg.ac.in</p>
+    <p>🏠 Janki Vihar Colony, Jankipuram<br>
+        Lucknow, Uttar Pradesh, India - 226021</p>
+    <p><a href="https://www.linkedin.com/in/sahilmaurya007/" target="_blank">LinkedIn</a></p>
+
+
+    <h2>Education</h2>
+    <ul>
+        <li><strong>Indian Institute Of Information Technology, Guwahati</strong> - M.TECH VLSI & Embedded System (May 2023) | CGPA: 9.11</li>
+        <li><strong>University Of Lucknow, Uttar Pradesh</strong> - B.TECH Electronics & Communication Engineering (2021) | Percentage: 66.1</li>
+        <li><strong>Board Of High School & Intermediate Education, Uttar Pradesh</strong> - Senior Secondary Education in Science (2016) | Percentage: 85</li>
+    </ul>
+
+    <h2>Personal Projects</h2>
+    <ul>
+        <li><strong>Study Of Large Integer Multiplication For Cryptosystem</strong> (January-2023 – May-2023)<br>
+            Academic Project - This project is based on designing a 32-bit, Toom-Cook-2.5 and Toom-Cook-3 multiplication algorithm for cryptosystem & their hardware implementation on FPGA. Comparative analysis between Toom-2.5 & Toom-3 multiplier in terms of Area, LUT, Delay, Frequency & Power.</li>
+        <li><strong>Area and Power Efficient Approximate Modular Multiplier for R-LWE Cryptosystem</strong> (August-2022 – December-2022)<br>
+            Academic Project - To design an area & power efficient modular multiplier for medium & high security level of R-LWE Cryptosystem on 45nm ASIC library.</li>
+        <li><strong>IoT Based Weather Monitoring System using Arduino UNO</strong> (December-2020 – May-2021)<br>
+            Academic Project - Design an electronic device to capture & restore Temperature & Humidity and send data to the cloud or website for analysis.</li>
+    </ul>
+
+    <h2>Technical Skills and Interests</h2>
+    <p>Programming Language: Verilog HDL, C</p>
+    <p>Synthesis & Simulation Tool: Xilinx Vivado & ISE, FPGA, Cadence Virtuoso, Genus, Innovus, Xcelium Logic Simulator, EDA Playground, Matlab & Simulink, TINA-TI, LTSpice, Tinkercad</p>
+    <p>Area Of Interest: Digital VLSI Design, Memory Design (SRAM, DRAM), Neuromorphic Computing, In Memory Computing, Quantum Cryptography, Hardware Architecture Design, Design Algorithms</p>
+
+    <h2>Relevant Coursework</h2>
+    <ul>
+        <li>Digital VLSI Design</li>
+        <li>Analog Electronics</li>
+        <li>Low Power VLSI (CMOS)</li>
+        <li>VLSI Circuits and System</li>
+        <li>VLSI CAD Lab</li>
+        <li>System Modelling Lab</li>
+        <li>Architectural Design of Digital Integrated Circuits</li>
+        <li>In Memory Computing</li>
+    </ul>
+
+    <h2>Certifications</h2>
+    <ul>
+        <li>System Design Using Verilog HDL Training Course by Udemy (August-2022)</li>
+    </ul>
+
+    <h2>Achievements & Awards</h2>
+    <ul>
+        <li>Secure highest CGPA (9.11) in M.TECH ECE 2021-2023 batch from IIIT Guwahati</li>
+        <li>Certificate of Participation: Hands-on Training by Entuple Technology on Cadence RTL to GDS Flow</li>
+        <li>Certificate Course in System Design using Verilog by Udemy</li>
+        <li>Certificate Of Participation Xilinx Webinar on VLSI Design flow using Vivado by CoreEL Technologies and Xilinx</li>
+        <li>Certificate Of Participation VeriFi a Verilog HDL based digital design challenge by Department of Electronics and Communication Eng.,FET Jamia Millia Islamia in association with Electronic-Bit.</li>
+        <li>2nd prize in Creative Writing competition by EN-LIT Lucknow University.</li>
+    </ul>
+
+    <div class="quote">
+        "The future belongs to those who believe in the beauty of their dreams." - Eleanor Roosevelt
+    </div>
+
+   <img src="images/sahil.jpeg" alt="Sahil Maurya" width="720" height="1600">
+
+
+</body>
+
+</html>
