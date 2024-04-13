@@ -74,16 +74,14 @@
             border-radius: 5px;
         }
 
-       gallery {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
+        .gallery {
+            display: flex;
+            justify-content: space-between;
             margin-top: 20px;
         }
 
         .gallery img {
-            width: 100%; /* Set width to 100% of the container */
-            height: auto; /* Maintain aspect ratio */
+            width: 30%;
             border-radius: 5px;
         }
 
@@ -101,11 +99,10 @@
 
 <body>
     <!-- LinkedIn Profile Link -->
-    <a href="https://www.linkedin.com/in/sahilmaurya007/" class="linkedin-profile">Visit my LinkedIn Profile</a>
+    <a href="/sahilmaurya007/" class="linkedin-profile">Visit my LinkedIn Profile</a>
 
     <!-- Image Section for "Semi" -->
-   <img src="image/IIITGConvocation.jpg" alt="IIITGConvocation" width="100%" height="50%" style="margin-bottom: 20px;">
-
+    <img src="image/semi.jpg" alt="Semi" width="100%" style="margin-bottom: 20px;">
 
     <!-- Hyperlinks for Sections -->
     <ul style="list-style-type:none; display:flex; justify-content:center; gap:10px; padding:0;">
@@ -144,8 +141,7 @@
     </div>
 
     <!-- LinkedIn Profile Link Again -->
-   <a href="https://www.linkedin.com/in/sahilmaurya007/" class="linkedin-profile">Visit my LinkedIn Profile</a>
-
+    <a href="/sahilmaurya007/" class="linkedin-profile">Visit my LinkedIn Profile</a>
 
     <!-- Education Section -->
     <div id="education">
@@ -243,18 +239,16 @@
     <div id="gallery">
      <h2 class="navy-blue-light">11. Image Gallery</h2>
         <div class="gallery">
-            <img src="image/Friends.jpg" alt="IIITGConvocation" />
-            <img src="image/SAHIL.jpg" alt="SAHIL" />
+            <img src="image/sahil.jpeg" alt="Sahil" />
             <img src="image/Sam.jpeg" alt="Sam" />
             <img src="image/iiitg.jpg" alt="IIITG" />
-            
         </div>
-    
+    </div>
 
     <!-- Quote Section -->
-<div class="quote" style="font-size: 24px; font-weight: bold; color: #0077b6;">
-    "The future belongs to those who believe in the beauty of their dreams." - Eleanor Roosevelt
-</div>
+    <div class="quote">
+        "The future belongs to those who believe in the beauty of their dreams." - Eleanor Roosevelt
+    </div>
 
 </body>
 
