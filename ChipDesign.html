@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Setup Instructions</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e0f7fa; /* Light blue background */
+            color: #000;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            padding: 20px;
+        }
+        h1, h2 {
+            color: #00796b; /* Darker blue-green for headings */
+        }
+        .blackbox {
+            background-color: #ffffff; /* White background for commands */
+            border: 1px solid #00796b;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 10px 0;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .command-line {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+        .command-line span {
+            flex: 1;
+            font-size: 14px; /* Font size of the commands */
+        }
+        .copy-btn {
+            background-color: #00796b; /* Button color */
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        .copy-btn:hover {
+            background-color: #004d40; /* Darker blue-green on hover */
+        }
+    </style>
+</head>
+<body>
+  <div class="container">
+    <h1>VLSI Chip Design Setup: Analog and Digital Workflows with Open Source Tools: <span style="color: red; font-style: italic; font-weight: bold;">By Sahil Maurya</span></h1>
+
+    <h2>System Requirements</h2>
+    <p>Start with a Linux system with version: “Ubuntu 22.04.4 LTS” fresh.</p>
+    <p><strong>(Kindly note: Open your Linux Terminal, then copy and paste each of these commands step by step.)</strong></p>
+
+    <h2>STEP 1: System Updation</h2>
+    <p>It is necessary to update the system, for this, open a terminal in the desktop/home and give command:</p>
+    <div class="blackbox">
+        <div class="command-line">
+            <span><strong>sudo apt-get update</strong></span>
+            <button class="copy-btn" onclick="copyToClipboard('sudo apt-get update')">Copy</button>
+        </div>
+    </div>
+
+    <h2>STEP 2: Specific Folder Creation</h2>
+    <p>Now, we will be installing all the required tools in a new folder. To create that folder type:</p>
+    <div class="blackbox">
+        <div class="command-line">
+            <span><strong>mkdir -p &lt;Installation_directory_name&gt;</strong></span>
+            <button class="copy-btn" onclick="copyToClipboard('mkdir -p &lt;Installation_directory_name&gt;')">Copy</button>
+        </div>
+        <p>Now, change the directory from desktop to the newly created folder by running the command:</p>
+        <div class="command-line">
+            <span><strong>cd &lt;Installation_directory_name&gt;</strong></span>
+            <button class="copy-btn" onclick="copyToClipboard('cd &lt;Installation_directory_name&gt;')">Copy</button>
+        </div>
+        <p><em>Example:</em> mkdir -p chip_design<br>cd chip_design</p>
+    </div>
+
+    <h2>STEP 3: Pre-Requisites</h2>
+    <p>Next step is to install all the necessary supporting libraries for the installation of open-source tools for Ubuntu LTS version.</p>
+    <div class="blackbox">
+        <div class="command-line">
+            <span><strong>sudo apt install git</strong></span>
+            <button class="copy-btn" onclick="copyToClipboard('sudo apt install git')">Copy</button>
+        </div>
+        <div class="command-line">
+            <span><strong>sudo apt-get install build-essential clang bison flex</strong></span>
+            <button class="copy-btn" onclick="copyToClipboard('sudo apt-get install build-essential clang bison flex')">Copy</button>
+        </div>
+        <div class="command-line">
+            <span><strong>sudo apt-get install libreadline-dev gawk tcl-dev libffi-dev</strong></span>
+            <button class="copy-btn" onclick="copyToClipboard('sudo apt-get install libreadline-dev gawk tcl-dev libffi-dev')">Copy</button>
+        </div>
+        <div class="command-line">
+            <span><strong>sudo apt-get install git graphviz xdot pkg-config python3</strong></span>
+            <button class="copy-btn" onclick="copyToClipboard('sudo apt-get install git graphviz xdot pkg-config python3')">Copy</button>
+        </div>
+        <div class="command-line">
+            <span><strong>sudo apt-get install libboost-system-dev libboost-python-dev</strong></span>
+            <button class="copy-btn" onclick="copyToClipboard('sudo apt-get install libboost-system-dev libboost-python-dev')">Copy</button>
+        </div>
+        <div class="command-line">
+            <span><strong>sudo apt-get install libboost-filesystem-dev zlib1g-dev make m4</strong></span>
+            <button class="copy-btn" onclick="copyToClipboard('sudo apt-get install libboost-filesystem-dev zlib1g-dev make m4')">Copy</button>
+        </div>
+        <div class="command-line">
+            <span><strong>sudo apt-get install tcsh csh libx11-dev gperf tcl8.6-dev tk8.6</strong></span>
+            <button class="copy-btn" onclick="copyToClipboard('sudo apt-get install tcsh csh libx11-dev gperf tcl8.6-dev tk8.6')">Copy</button>
+        </div>
+        <div class="command-line">
+            <span><strong>sudo apt-get install tk8.6-dev libxmp4 libxpm-dev libxcb1</strong></span>
+            <button class="copy-btn" onclick="copyToClipboard('sudo apt-get install tk8.6-dev libxmp4 libxpm-dev libxcb1')">Copy</button>
+        </div>
+        <div class="command-line">
+            <span><strong>sudo apt-get install libcairo2 libxrender-dev libx11-xcb-dev</strong></span>
+            <button class="copy-btn" onclick="copyToClipboard('sudo apt-get install libcairo2 libxrender-dev libx11-xcb-dev')">Copy</button>
+        </div>
+        <div class="command-line">
+            <span><strong>sudo apt-get install libxaw7-dev freeglut3-dev automake yosys</strong></span>
+            <button class="copy-btn" onclick="copyToClipboard('sudo apt-get install libxaw7-dev freeglut3-dev automake yosys')">Copy</button>
+        </div>
+        <div class="command-line">
+            <span><strong>sudo apt-get update</strong></span>
+            <button class="copy-btn" onclick="copyToClipboard('sudo apt-get update')">Copy</button>
+        </div>
+        <div class="command-line">
+            <span><strong>sudo apt-get -y install libtool</strong></span>
+            <button class="copy-btn" onclick="copyToClipboard('sudo apt-get -y install libtool')">Copy</button>
+        </div>
+        <p>Check whether .local/bin is included in $PATH:</p>
+        <div class="command-line">
+            <span><strong>echo $PATH | grep '\.local'</strong></span>
+            <button class="copy-btn" onclick="copyToClipboard('echo $PATH | grep \'\\.local\'')">Copy</button>
+        </div>
+        <p>If it’s not there, then add it to your path before starting the install by adding this to your ~/.bashrc file:</p>
+        <div class="command-line">
+            <span><strong>export PATH="$HOME/.local/bin:$PATH"</strong></span>
+            <button class="copy-btn" onclick="copyToClipboard('export PATH="$HOME/.local/bin:$PATH"')">Copy</button>
+        </div>
+    </div>
+
+    <h2>For Analog Chip Design: Magic, Xschem, Open PDKs, Xterm, Ngspice</h2>
+
+    <h2>STEP 4: Installing Xschem Tool</h2>
+    <p>Once the installation of all the prerequisites is done, we can proceed with the installation of individual tools one by one. First, we are going to install Xschem. For that, open a terminal and run the following commands:</p>
+    <div class="blackbox">
+        <div class="command-line">
+            <span><strong>cd ~/&lt;Installation_directory_name&gt;/</strong></span>
+            <button class="copy-btn" onclick="copyToClipboard('cd ~/&lt;Installation_directory_name&gt;/')">Copy</button>
+        </div>
+        <div class="command-line">
+            <span><strong>git clone https://github.com/StefanSchippers/xschem.git xschem</strong></span>
+            <button class="copy-btn" onclick="copyToClipboard('git clone https://github.com/StefanSchippers/xschem.git xschem')">Copy</button>
+        </div>
+        <div class="command-line">
+            <span><strong>cd xschem</strong></span>
+            <button class="copy-btn" onclick="copyToClipboard('cd xschem')">Copy</button>
+        </div>
+        <div class="command-line">
+            <span><strong>./configure</strong></span>
+            <button class="copy-btn" onclick="copyToClipboard('./configure')">Copy</button>
+        </div>
+        <div class="command-line">
+            <span><strong>make</strong></span>
+            <button class="copy-btn" onclick="copyToClipboard('make')">Copy</button>
+        </div>
+        <div class="command-line">
+            <span><strong>sudo make install</strong></span>
+            <button class="copy-btn" onclick="copyToClipboard('sudo make install')">Copy</button>
+        </div>
+        <p>To run Xschem:</p>
+        <div class="command-line">
+            <span><strong>xschem</strong></span>
+            <button class="copy-btn" onclick="copyToClipboard('xschem')">Copy</button>
+        </div>
+    </div>
+
+    <h2>STEP 5: Installing Magic Tool</h2>
+    <p>Next, we will be installing Magic. For that, open a terminal in our installation folder and run the following commands:</p>
+    <div class="blackbox">
+        <div class="command-line">
+            <span><strong>cd ~/&lt;Installation_directory_name&gt;/</strong></span>
+            <button class="copy-btn" onclick="copyToClipboard('cd ~/&lt;Installation_directory_name&gt;/')">Copy</button>
+        </div>
+        <div class="command-line">
+            <span><strong>git clone git://opencircuitdesign.com/magic</strong></span>
+            <button class="copy-btn" onclick="copyToClipboard('git clone git://opencircuitdesign.com/magic')">Copy</button>
+        </div>
+        <div class="command-line">
+            <span><strong>cd magic</strong></span>
+            <button class="copy-btn" onclick="copyToClipboard('cd magic')">Copy</button>
+        </div>
+        <div class="command-line">
+            <span><strong>./configure</strong></span>
+            <button class="copy-btn" onclick="copyToClipboard('./configure')">Copy</button>
+        </div>
+        <div class="command-line">
+            <span><strong>make</strong></span>
+            <button class="copy-btn" onclick="copyToClipboard('make')">Copy</button>
+        </div>
+        <div class="command-line">
+            <span><strong>sudo make install</strong></span>
+            <button class="copy-btn" onclick="copyToClipboard('sudo make install')">Copy</button>
+        </div>
+    </div>
+
+    <h2>STEP 6: Installing Ngspice Tool</h2>
+    <p>Next is the installation of Ngspice. Before installing Ngspice, just update the system by:</p>
+    <div class="blackbox">
+        <div class="command-line">
+            <span><strong>sudo apt-get update</strong></span>
+            <button class="copy-btn" onclick="copyToClipboard('sudo apt-get update')">Copy</button>
+        </div>
+    </div>
+    <p>Then run the following commands:</p>
+    <div class="blackbox">
+        <div class="command-line">
+            <span><strong>wget https://sourceforge.net/projects/ngspice/files/ng-spice-rework/43/ngspice-43.tar.gz/download</strong></span>
+            <button class="copy-btn" onclick="copyToClipboard('wget https://sourceforge.net/projects/ngspice/files/ng-spice-rework/43/ngspice-43.tar.gz/download')">Copy</button>
+        </div>
+        <p>(Once the zip file is downloaded, extract the ngspice-43 folder and then run the following commands)</p>
+        <div class="command-line">
+            <span><strong>cd ngspice-43</strong></span>
+            <button class="copy-btn" onclick="copyToClipboard('cd ngspice-43')">Copy</button>
+        </div>
+        <div class="command-line">
+            <span><strong>./configure</strong></span>
+            <button class="copy-btn" onclick="copyToClipboard('./configure')">Copy</button>
+        </div>
+        <div class="command-line">
+            <span><strong>make</strong></span>
+            <button class="copy-btn" onclick="copyToClipboard('make')">Copy</button>
+        </div>
+        <div class="command-line">
+            <span><strong>sudo make install</strong></span>
+            <button class="copy-btn" onclick="copyToClipboard('sudo make install')">Copy</button>
+        </div>
+        <p>When successful, check the version using:</p>
+        <div class="command-line">
+            <span><strong>ngspice –version</strong></span>
+            <button class="copy-btn" onclick="copyToClipboard('ngspice –version')">Copy</button>
+        </div>
+    </div>
+
+    <h2>STEP 7: Installing Open_PDKs</h2>
+    <p>Next comes the most time-consuming part of the installation process, i.e., the installation of Open_PDKs. Once again start by updating the system:</p>
+    <div class="blackbox">
+        <div class="command-line">
+            <span><strong>sudo apt-get update</strong></span>
+            <button class="copy-btn" onclick="copyToClipboard('sudo apt-get update')">Copy</button>
+        </div>
+    </div>
+    <p>Thereafter run the following commands:</p>
+    <div class="blackbox">
+        <div class="command-line">
+            <span><strong>git clone git://opencircuitdesign.com/open_pdks</strong></span>
+            <button class="copy-btn" onclick="copyToClipboard('git clone git://opencircuitdesign.com/open_pdks')">Copy</button>
+        </div>
+        <div class="command-line">
+            <span><strong>cd open_pdks</strong></span>
+            <button class="copy-btn" onclick="copyToClipboard('cd open_pdks')">Copy</button>
+        </div>
+        <div class="command-line">
+            <span><strong>./configure --enable-sky130-pdk</strong></span>
+            <button class="copy-btn" onclick="copyToClipboard('./configure --enable-sky130-pdk')">Copy</button>
+        </div>
+        <div class="command-line">
+            <span><strong>sudo make</strong></span>
+            <button class="copy-btn" onclick="copyToClipboard('sudo make')">Copy</button>
+        </div>
+        <div class="command-line">
+            <span><strong>sudo make install</strong></span>
+            <button class="copy-btn" onclick="copyToClipboard('sudo make install')">Copy</button>
+        </div>
+        <p>Copy the .magicrc file and paste it in the magic directory:</p>
+        <div class="command-line">
+            <span><strong>cd ~</strong></span>
+            <button class="copy-btn" onclick="copyToClipboard('cd ~')">Copy</button>
+        </div>
+        <div class="command-line">
+            <span><strong>cd ~/.xschem</strong></span>
+            <button class="copy-btn" onclick="copyToClipboard('cd ~/.xschem')">Copy</button>
+        </div>
+        <div class="command-line">
+            <span><strong>cp ~/&lt;Installation_directory_name&gt;/open_pdks/sky130/sky130A/libs.tech/xs/xschemrc</strong></span>
+            <button class="copy-btn" onclick="copyToClipboard('cp ~/&lt;Installation_directory_name&gt;/open_pdks/sky130/sky130A/libs.tech/xs/xschemrc')">Copy</button>
+        </div>
+        <div class="command-line">
+            <span><strong>cd ~</strong></span>
+            <button class="copy-btn" onclick="copyToClipboard('cd ~')">Copy</button>
+        </div>
+        <div class="command-line">
+            <span><strong>cp ~/&lt;Installation_directory_name&gt;/open_pdks/sky130/sky130A/libs.tech/ma/sky130A.magicrc ~/.magicrc</strong></span>
+            <button class="copy-btn" onclick="copyToClipboard('cp ~/&lt;Installation_directory_name&gt;/open_pdks/sky130/sky130A/libs.tech/ma/sky130A.magicrc ~/.magicrc')">Copy</button>
+        </div>
+        <div class="command-line">
+            <span><strong>sudo apt -y install vim-gtk3 xterm</strong></span>
+            <button class="copy-btn" onclick="copyToClipboard('sudo apt -y install vim-gtk3 xterm')">Copy</button>
+        </div>
+        <div class="command-line">
+            <span><strong>sudo apt-get -y install xterm</strong></span>
+            <button class="copy-btn" onclick="copyToClipboard('sudo apt-get -y install xterm')">Copy</button>
+        </div>
+        <div class="command-line">
+            <span><strong>sudo apt-get -y install vim-gtk</strong></span>
+            <button class="copy-btn" onclick="copyToClipboard('sudo apt-get -y install vim-gtk')">Copy</button>
+        </div>
+    </div>
+
+    <h2>STEP 8: Installing LVS</h2>
+    <p>Next, install LVS tool to perform Layout versus Schematic check using the command:</p>
+    <div class="blackbox">
+        <div class="command-line">
+            <span><strong>sudo apt-get install netgen-lvs</strong></span>
+            <button class="copy-btn" onclick="copyToClipboard('sudo apt-get install netgen-lvs')">Copy</button>
+        </div>
+    </div>
+
+    <h2>STEP 8: Installing KLayout</h2>
+    <p>Next, install the tool KLayout to have a look at the GDS file using command:</p>
+    <div class="blackbox">
+        <div class="command-line">
+            <span><strong>sudo apt-get install klayout</strong></span>
+            <button class="copy-btn" onclick="copyToClipboard('sudo apt-get install klayout')">Copy</button>
+        </div>
+    </div>
+
+    <h2>For Digital Chip Design: OpenLane, Iverilog, GTKWave, KLayout</h2>
+
+    <h2>STEP 1: Installing OpenLane</h2>
+    <p>In order to generate the GDS file for our digital design, we need to have OpenLane installed. For the same, Docker needs to be installed. Use the following commands to install and run Docker tests:</p>
+    <div class="blackbox">
+        <div class="command-line">
+            <span><strong>sudo apt install docker.io</strong></span>
+            <button class="copy-btn" onclick="copyToClipboard('sudo apt install docker.io')">Copy</button>
+        </div>
+        <div class="command-line">
+            <span><strong>docker run hello-world</strong></span>
+            <button class="copy-btn" onclick="copyToClipboard('docker run hello-world')">Copy</button>
+        </div>
+        <p><strong>Note:</strong> After installing Docker, run "docker run hello-world" to test if Docker runs without root/sudo permissions. If it requires root permissions, you will get an error regarding docker.sock in /var/run. You need to change this file permission by running the following:</p>
+        <div class="command-line">
+            <span><strong>cd /var/run</strong></span>
+            <button class="copy-btn" onclick="copyToClipboard('cd /var/run')">Copy</button>
+        </div>
+        <div class="command-line">
+            <span><strong>sudo su</strong></span>
+            <button class="copy-btn" onclick="copyToClipboard('sudo su')">Copy</button>
+        </div>
+        <div class="command-line">
+            <span><strong>chmod 666 docker.sock</strong></span>
+            <button class="copy-btn" onclick="copyToClipboard('chmod 666 docker.sock')">Copy</button>
+        </div>
+        <div class="command-line">
+            <span><strong>exit</strong></span>
+            <button class="copy-btn" onclick="copyToClipboard('exit')">Copy</button>
+        </div>
+        <p>Inside the working directory (chip_design here), clone the following and install OpenLane:</p>
+        <div class="command-line">
+            <span><strong>git clone https://github.com/The-OpenROAD-Project/OpenLane</strong></span>
+            <button class="copy-btn" onclick="copyToClipboard('git clone https://github.com/The-OpenROAD-Project/OpenLane')">Copy</button>
+        </div>
+        <div class="command-line">
+            <span><strong>cd OpenLane</strong></span>
+            <button class="copy-btn" onclick="copyToClipboard('cd OpenLane')">Copy</button>
+        </div>
+        <div class="command-line">
+            <span><strong>make</strong></span>
+            <button class="copy-btn" onclick="copyToClipboard('make')">Copy</button>
+        </div>
+        <div class="command-line">
+            <span><strong>make test</strong></span>
+            <button class="copy-btn" onclick="copyToClipboard('make test')">Copy</button>
+        </div>
+    </div>
+
+    <h2>STEP 2: Installing Icarus, GTKWave, KLayout</h2>
+    <p>In order to run different digital designs, Icarus Verilog serves as a means. Further, in order to cross-verify the output GTKWave needs to be installed so as to verify the simulation results.</p>
+    <p>1) Installation of Iverilog:</p>
+    <div class="blackbox">
+        <div class="command-line">
+            <span><strong>sudo apt install iverilog</strong></span>
+            <button class="copy-btn" onclick="copyToClipboard('sudo apt install iverilog')">Copy</button>
+        </div>
+    </div>
+    <p>2) Installation of GTKWave:</p>
+    <p>To install GTKWave, first update the system using:</p>
+    <div class="blackbox">
+        <div class="command-line">
+            <span><strong>sudo apt-get update</strong></span>
+            <button class="copy-btn" onclick="copyToClipboard('sudo apt-get update')">Copy</button>
+        </div>
+    </div>
+    <p>Then, run the following command:</p>
+    <div class="blackbox">
+        <div class="command-line">
+            <span><strong>sudo apt-get -y install gtkwave</strong></span>
+            <button class="copy-btn" onclick="copyToClipboard('sudo apt-get -y install gtkwave')">Copy</button>
+        </div>
+    </div>
+    <p>We can see the GTKWave window by calling it on the respective terminal.</p>
+    <p>3) Installation of KLayout:</p>
+    <div class="blackbox">
+        <div class="command-line">
+            <span><strong>sudo apt-get install klayout</strong></span>
+            <button class="copy-btn" onclick="copyToClipboard('sudo apt-get install klayout')">Copy</button>
+        </div>
+    </div>
+    <p>Now, KLayout can be opened by calling “klayout”. Sometimes, Wayland errors may occur. At such instances, run the command:</p>
+    <div class="blackbox">
+        <div class="command-line">
+            <span><strong>XDG_SESSION_TYPE=x11 klayout</strong></span>
+            <button class="copy-btn" onclick="copyToClipboard('XDG_SESSION_TYPE=x11 klayout')">Copy</button>
+        </div>
+    </div>
+    <p>Now, try running KLayout and see if the window appears.</p>
+  </div>
+
+  <script>
+    function copyToClipboard(text) {
+        navigator.clipboard.writeText(text).then(() => {
+            alert('Command copied to clipboard!');
+        }, (err) => {
+            console.error('Failed to copy text: ', err);
+        });
+    }
+  </script>
+</body>
+</html>
+
