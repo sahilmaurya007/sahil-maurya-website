@@ -1,46 +1,361 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sahil Maurya - Welcome to My Profile</title>
+    <title>Sahil Maurya | Research Scholar @ IIT Mandi | VLSI | PQC | RISC-V</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            margin: 40px;
-            background-color: #f4f4f4;
-            color: #333;
+            font-family: 'Segoe UI', 'Fira Code', 'Share Tech Mono', monospace;
+            background: linear-gradient(135deg, #0a0f1a 0%, #0a1a2a 50%, #0a0f1a 100%);
+            color: #e0e0e0;
+            line-height: 1.6;
+            overflow-x: hidden;
         }
 
-        h1 {
-            color: #0077b6;
-            border-bottom: 2px solid #0077b6;
+        /* Animated Circuit Background */
+        .circuit-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: radial-gradient(circle at 20% 30%, rgba(0, 40, 60, 0.4) 0%, rgba(0, 0, 0, 0.85) 100%);
         }
 
-        h2 {
-            color: red;
-            border-bottom: 2px solid red;
+        .circuit-bg::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 212, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 212, 255, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: drift 20s linear infinite;
+        }
+
+        @keyframes drift {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(50px); }
+        }
+
+        /* Floating Particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            background: radial-gradient(circle, rgba(0, 212, 255, 0.8), rgba(124, 58, 237, 0.4));
+            border-radius: 50%;
+            animation: float linear infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) translateX(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.8; }
+            100% { transform: translateY(-10vh) translateX(50px) rotate(360deg); opacity: 0; }
+        }
+
+        /* Animations */
+        @keyframes pulse {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.05); }
+        }
+
+        @keyframes glow {
+            0%, 100% { text-shadow: 0 0 20px rgba(0, 212, 255, 0.3); }
+            50% { text-shadow: 0 0 40px rgba(0, 212, 255, 0.6); }
+        }
+
+        @keyframes slideBg {
+            0% { transform: translateX(0); }
+            20% { transform: translateX(0); }
+            25% { transform: translateX(-100%); }
+            45% { transform: translateX(-100%); }
+            50% { transform: translateX(-200%); }
+            70% { transform: translateX(-200%); }
+            75% { transform: translateX(-300%); }
+            95% { transform: translateX(-300%); }
+            100% { transform: translateX(-400%); }
+        }
+
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Glass Card Effect */
+        .glass-card {
+            background: rgba(10, 20, 30, 0.6);
+            backdrop-filter: blur(12px);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(0, 212, 255, 0.25);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 212, 255, 0.2);
+            border-color: rgba(0, 212, 255, 0.5);
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.7), rgba(0, 40, 60, 0.5));
+            border-radius: 30px;
+            margin-bottom: 40px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(0, 212, 255, 0.05), transparent);
+            transform: rotate(45deg);
+            animation: shimmer 8s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) rotate(45deg); }
+        }
+
+        .header h1 {
+            font-size: 3.5rem;
+            background: linear-gradient(135deg, #00d4ff, #7c3aed, #00ffaa);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: glow 3s infinite;
+        }
+
+        .header .title {
+            font-size: 1.2rem;
+            color: #00d4ff;
+            letter-spacing: 2px;
+            margin: 10px 0;
+        }
+
+        /* Auto-Sliding Banner */
+        .slider-container {
+            width: 100%;
+            height: 180px;
+            overflow: hidden;
+            margin: 20px 0;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .slider-track {
+            display: flex;
+            width: 500%;
+            height: 100%;
+            animation: slideBg 25s infinite linear;
+        }
+
+        .slide {
+            width: 20%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 10px;
+            font-size: 1.2rem;
             font-weight: bold;
         }
 
-        p {
-            color: #0077b6;
+        .slide-1 { background: linear-gradient(135deg, #0a0f2a, #1a2a4a); }
+        .slide-2 { background: linear-gradient(135deg, #1a2a4a, #0a2f3a); }
+        .slide-3 { background: linear-gradient(135deg, #0a2f3a, #1a4a2a); }
+        .slide-4 { background: linear-gradient(135deg, #1a4a2a, #2a0a4a); }
+        .slide-5 { background: linear-gradient(135deg, #2a0a4a, #0a0f2a); }
+
+        /* Section Title */
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            border-left: 4px solid #00d4ff;
+            padding-left: 15px;
+            color: #00d4ff;
+        }
+
+        /* Badges */
+        .badge-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin: 20px 0;
+        }
+
+        .badge {
+            padding: 8px 16px;
+            background: rgba(0, 212, 255, 0.15);
+            border-radius: 25px;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            font-size: 0.85rem;
+            transition: all 0.3s;
+        }
+
+        .badge:hover {
+            background: rgba(0, 212, 255, 0.3);
+            transform: scale(1.05);
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .stat-card {
+            background: rgba(0, 212, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+        }
+
+        .stat-number {
+            font-size: 2rem;
             font-weight: bold;
+            color: #00d4ff;
         }
 
-        ul {
-            list-style-type: none;
+        /* Tables */
+        .research-table {
+            width: 100%;
+            border-collapse: collapse;
         }
 
-        .quote {
-            font-style: italic;
-            color: #555;
-            margin-top: 20px;
+        .research-table th, .research-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid rgba(0, 212, 255, 0.2);
         }
 
+        .research-table th {
+            background: rgba(0, 212, 255, 0.15);
+            color: #00d4ff;
+        }
+
+        /* Code Block */
+        .code-block {
+            background: #0a0f1a;
+            border-radius: 12px;
+            padding: 20px;
+            overflow-x: auto;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.8rem;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+        }
+
+        /* Progress Bar */
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00d4ff, #7c3aed);
+            border-radius: 4px;
+            transition: width 1s ease;
+        }
+
+        /* Skills Grid */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .skill-card {
+            background: rgba(0, 212, 255, 0.05);
+            border-radius: 15px;
+            padding: 20px;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+        }
+
+        .skill-card h3 {
+            color: #00d4ff;
+            margin-bottom: 15px;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 40px;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(0, 40, 60, 0.6));
+            border-radius: 30px;
+            margin-top: 40px;
+        }
+
+        /* Navigation */
+        .nav {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .nav a {
+            color: #e0e0e0;
+            text-decoration: none;
+            padding: 10px 20px;
+            background: rgba(0, 212, 255, 0.1);
+            border-radius: 30px;
+            transition: all 0.3s;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+        }
+
+        .nav a:hover {
+            background: rgba(0, 212, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        /* Links */
         a {
-            color: #0077b6;
+            color: #00d4ff;
             text-decoration: none;
         }
 
@@ -48,237 +363,291 @@
             text-decoration: underline;
         }
 
-        .highlight-blue {
-            color: blue;
-            font-weight: bold;
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 { font-size: 2rem; }
+            .section-title { font-size: 1.3rem; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .skills-grid { grid-template-columns: 1fr; }
         }
-
-        .coursework-column {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
-
-        .area-of-interest {
-            color: blue;
-        }
-
-        .section-start {
-            color: red;
-            font-weight: bold;
-        }
-
-        .navy-blue-light {
-            background-color: #add8e6;
-            padding: 5px;
-            border-radius: 5px;
-        }
-
-        /* Style for the image gallery */
-        #gallery {
-            margin-top: 20px;
-        }
-
-        /* Style for the image container */
-        .gallery {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-        }
-
-        /* Style for the first two images */
-        .first-two-images {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        /* Style for the remaining images */
-        .remaining-images img {
-            width: 100%; /* Set width to 100% of the container */
-            height: auto; /* Maintain aspect ratio */
-            border-radius: 5px;
-        }
-
-
-.linkedin-profile {
-            display: inline-block;
-            background-color: #0077b6;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-        }
-
-
-
-
-
-
     </style>
 </head>
-
 <body>
-    <!-- LinkedIn Profile Link -->
-    <a href="https://www.linkedin.com/in/sahilmaurya007/" class="linkedin-profile">Visit my LinkedIn Profile</a>
+    <div class="circuit-bg"></div>
+    <div class="particles" id="particles"></div>
 
-    <a href="ChipDesign.html" class="linkedin-profile" style="margin-bottom: 20px;">ChipDesign With OpenSource By Sahil</a>
+    <div class="container">
+        <!-- Auto-Sliding Banner -->
+        <div class="slider-container">
+            <div class="slider-track">
+                <div class="slide slide-1">
+                    <span style="font-size: 3rem;">🔐</span>
+                    <span>POST-QUANTUM CRYPTOGRAPHY</span>
+                    <span style="font-size: 0.8rem;">CRYSTALS-Kyber | Dilithium | NTT Accelerators</span>
+                </div>
+                <div class="slide slide-2">
+                    <span style="font-size: 3rem;">⚙️</span>
+                    <span>RISC-V SoC ARCHITECTURE</span>
+                    <span style="font-size: 0.8rem;">Custom ISA | AXI/APB | Secure Processors</span>
+                </div>
+                <div class="slide slide-3">
+                    <span style="font-size: 3rem;">💾</span>
+                    <span>DIGITAL VLSI DESIGN</span>
+                    <span style="font-size: 0.8rem;">RTL-to-GDSII | PPA Optimization | Low Power</span>
+                </div>
+                <div class="slide slide-4">
+                    <span style="font-size: 3rem;">🔒</span>
+                    <span>HARDWARE SECURITY</span>
+                    <span style="font-size: 0.8rem;">Side-Channel Resistance | PUF | TRNG</span>
+                </div>
+                <div class="slide slide-5">
+                    <span style="font-size: 3rem;">🏭</span>
+                    <span>FPGA & ASIC IMPLEMENTATION</span>
+                    <span style="font-size: 0.8rem;">Vivado | Cadence | OpenLane | 45nm-7nm</span>
+                </div>
+            </div>
+        </div>
 
-    <!-- Image Section for "Semi" -->
-    <img src="image/iiitg.jpg" alt="iiitg" width="100%" height="50%" style="margin-bottom: 20px;">
+        <!-- Header -->
+        <div class="header">
+            <h1>Sahil Maurya</h1>
+            <div class="title">🔬 Research Scholar @ IIT Mandi | SCEE Department</div>
+            <p>Digital VLSI | Post-Quantum Cryptography Hardware | Secure RISC-V SoC Architect</p>
+            <div class="badge-container">
+                <span class="badge">🏅 Gold Medalist M.Tech VLSI</span>
+                <span class="badge">🔐 PQC Hardware Expert</span>
+                <span class="badge">⚡ RISC-V Developer</span>
+                <span class="badge">📊 CGPA 9.11/10.0</span>
+                <span class="badge">📚 IEEE HiPC 2025 | IEEE SILCON 2024</span>
+            </div>
+        </div>
 
-    <!-- Hyperlinks for Sections -->
-    <ul style="list-style-type:none; display:flex; justify-content:center; gap:10px; padding:0;">
-        <li><a href="#about">About</a></li>
-        <li><a href="#contact">Contact Information</a></li>
-        <li><a href="#education">Education</a></li>
-        <li><a href="#projects">Personal Projects</a></li>
-        <li><a href="#skills">Technical Skills and Interests</a></li>
-        <li><a href="#coursework">Relevant Coursework</a></li>
-        <li><a href="#certifications">Certifications</a></li>
-        <li><a href="#achievements">Achievements & Awards</a></li>
-        <li><a href="#news">News and Updates</a></li>
-        <li><a href="#references">References</a></li>
-        <li><a href="#gallery">Image Gallery</a></li>
-    </ul>
+        <!-- Navigation -->
+        <div class="nav">
+            <a href="#about">About</a>
+            <a href="#education">Education</a>
+            <a href="#skills">Skills</a>
+            <a href="#projects">Projects</a>
+            <a href="#publications">Publications</a>
+            <a href="#certifications">Certifications</a>
+            <a href="#achievements">Achievements</a>
+            <a href="#contact">Contact</a>
+        </div>
 
-    <!-- Header Section -->
-    <h1>Sahil Maurya</h1>
+        <!-- About Me Section -->
+        <div id="about" class="glass-card">
+            <h2 class="section-title">🔬 About Me</h2>
+            <p style="text-align: justify; line-height: 1.8;">
+                I am a <strong style="color: #00d4ff;">Research Scholar at IIT Mandi (SCEE Department)</strong> specializing in 
+                <strong>Post-Quantum Cryptography Hardware Acceleration</strong>, <strong>Secure RISC-V SoC Architectures</strong>, and 
+                <strong>Digital VLSI Design</strong>. My research focuses on developing quantum-resistant cryptographic accelerators 
+                for NIST-standardized algorithms (CRYSTALS-Kyber, Dilithium) with optimized Power, Performance, and Area (PPA).
+            </p>
+            <br>
+            <p style="text-align: justify; line-height: 1.8;">
+                With a <strong style="color: #FFD700;">Gold Medalist M.Tech in VLSI</strong> from IIIT Guwahati 
+                <strong>(CGPA: 9.11/10.0)</strong>, I have published research at top-tier venues including 
+                <strong>IEEE HiPC 2025</strong> and <strong>IEEE SILCON 2024</strong>. My journey from overcoming academic setbacks 
+                to achieving excellence has shaped my perseverance and dedication to research.
+            </p>
+            <br>
+            <div style="background: rgba(0,212,255,0.1); border-radius: 15px; padding: 15px; border-left: 3px solid #00d4ff;">
+                <p style="margin: 0; font-style: italic;">💡 Research Vision: "Building the hardware foundation for a post-quantum secure world — one transistor, one instruction, one algorithm at a time."</p>
+            </div>
+        </div>
 
-    <!-- About Me Section -->
-    <div id="about">
-        <h2 class="navy-blue-light">1. About Me</h2>
-        <p style="color: black; text-align: justify;">
-            Hello and welcome to my profile! I'm Sahil Maurya, a recent <span style="color: red; font-weight: bold;">M.Tech graduate</span> from the <a href="https://www.iiitg.ac.in/" target="_blank" style="color: blue; font-weight: bold; text-decoration: none;">Indian Institute of Information Technology, Guwahati</a>. I am a <span style="color: red; font-weight: bold;">VLSI enthusiast</span>, specializing in <span style="color: red; font-weight: bold;">Digital Design Architecture</span>, <span style="color: red; font-weight: bold;">Hardware Design</span>, <span style="color: red; font-weight: bold;">FPGA</span>, <span style="color: red; font-weight: bold;">Code with Verilog HDL</span>, and <span style="color: red; font-weight: bold;">In-Memory Computing</span>. I completed my M.Tech project under the guidance of <a href="https://sites.google.com/view/drbjajodia/" target="_blank" style="color: blue; font-weight: bold; text-decoration: none;">Dr. Babita Jajodia</a>. My experience with her was transformative, steering my life towards the engineering domain. I hail from a small village in Uttar Pradesh and completed my schooling in Hindi medium. My journey to IIIT Guwahati has been both romantic and dramatic. Although I initially pursued a B.Tech in Electronics & Communication Engineering, I wasn't fully focused on engineering during those years. From a young age, my dream was to become an Air Force pilot. In my third year of B.Tech, I cracked the NDA exam and was recommended for the Indian Air Force. However, due to medical reasons, I was unable to join. Following this setback, I took a break from my studies, leaving my B.Tech program after the fifth semester with 12 backlogs, both in theory and practical subjects. Despite these challenges, I returned to my engineering college and re-enrolled in the seventh semester. With determination and perseverance, I cleared all my backlogs within a year and graduated with first-class honors. Shortly after, I had the opportunity to pursue my Master's at IIIT Guwahati, where I met some of the best professors, including my supervisor, <a href="https://sites.google.com/view/drbjajodia/" target="_blank" style="color: blue; font-weight: bold; text-decoration: none;">Dr. Babita Jajodia</a>. Since completing my degree, I have continued to push forward, never looking back, and always striving for excellence. Outside of my academic pursuits, I love to explore new places, meet new people, and immerse myself in their cultures. I also have a passion for playing cricket, reading novels, watching movies and historical dramas. Additionally, I enjoy writing stories and poems, as well as singing.
-        </p>
-    </div>
+        <!-- Stats Section -->
+        <div class="stats-grid">
+            <div class="stat-card"><div class="stat-number">34%</div><div>Area Reduction</div><small>Approximate Modular Multiplier</small></div>
+            <div class="stat-card"><div class="stat-number">33%</div><div>Power Savings</div><small>R-LWE Cryptosystems</small></div>
+            <div class="stat-card"><div class="stat-number">245MHz</div><div>Max Frequency</div><small>Kyber NTT Accelerator</small></div>
+            <div class="stat-card"><div class="stat-number">1.28Gbps</div><div>Throughput</div><small>NTT Architecture</small></div>
+            <div class="stat-card"><div class="stat-number">2</div><div>IEEE Publications</div><small>HiPC 2025 | SILCON 2024</small></div>
+            <div class="stat-card"><div class="stat-number">9.11</div><div>M.Tech CGPA</div><small>Gold Medalist</small></div>
+        </div>
 
-    <!-- Contact Information -->
-    <div id="contact">
-        <h2 class="navy-blue-light">2. Contact Information</h2>
-        <p style="color: blue;">📞 +91-7270020537</p>
-        <p style="color: blue;">📧 sahil.maurya21@iiitg.ac.in</p>
-        <p style="color: blue;">📧 shivam.maurya0077@gmail.com</p>
-        <p style="color: blue;">🏠 Janki Vihar Colony, Jankipuram<br>
-            Lucknow, Uttar Pradesh, India - 226021</p>
-    </div>
+        <!-- Education Section -->
+        <div id="education" class="glass-card">
+            <h2 class="section-title">🎓 Education</h2>
+            <table class="research-table">
+                <thead>
+                    <tr><th>Degree</th><th>Institution</th><th>Year</th><th>Performance</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>Ph.D. Research Scholar</strong></td><td>IIT Mandi</td><td>2025 - Present</td><td>CGPA: 8.33/10.0</td></tr>
+                    <tr><td><strong>M.Tech (VLSI & Embedded)</strong></td><td>IIIT Guwahati</td><td>2021 - 2023</td><td><strong style="color:#FFD700;">CGPA: 9.11/10.0 🏅 Gold Medalist</strong></td></tr>
+                    <tr><td><strong>B.Tech (Electronics & Comm)</strong></td><td>University of Lucknow</td><td>2017 - 2021</td><td>66.1%</td></tr>
+                    <tr><td><strong>Higher Secondary (Intermediate)</strong></td><td>UP Board</td><td>2016</td><td>85%</td></tr>
+                    <tr><td><strong>Secondary School (High School)</strong></td><td>UP Board</td><td>2014</td><td>85%</td></tr>
+                </tbody>
+            </table>
+        </div>
 
-    <!-- LinkedIn Profile Link Again -->
-    <a href="https://www.linkedin.com/in/sahilmaurya007/" class="linkedin-profile">Visit my LinkedIn Profile</a>
+        <!-- Skills Section -->
+        <div id="skills" class="glass-card">
+            <h2 class="section-title">🛠️ Technical Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <h3>🔧 Hardware Description Languages</h3>
+                    <div>Verilog <span style="float:right;">Expert</span><div class="progress-bar"><div class="progress-fill" style="width:95%"></div></div></div>
+                    <div>SystemVerilog <span style="float:right;">Advanced</span><div class="progress-bar"><div class="progress-fill" style="width:85%"></div></div></div>
+                    <div>VHDL <span style="float:right;">Intermediate</span><div class="progress-bar"><div class="progress-fill" style="width:70%"></div></div></div>
+                </div>
+                <div class="skill-card">
+                    <h3>📀 EDA Tools & FPGA</h3>
+                    <div>Xilinx Vivado <span style="float:right;">Expert</span><div class="progress-bar"><div class="progress-fill" style="width:95%"></div></div></div>
+                    <div>Cadence Genus/Innovus <span style="float:right;">Advanced</span><div class="progress-bar"><div class="progress-fill" style="width:85%"></div></div></div>
+                    <div>OpenLane/OpenROAD <span style="float:right;">Advanced</span><div class="progress-bar"><div class="progress-fill" style="width:85%"></div></div></div>
+                    <div>ModelSim/Questasim <span style="float:right;">Expert</span><div class="progress-bar"><div class="progress-fill" style="width:90%"></div></div></div>
+                </div>
+                <div class="skill-card">
+                    <h3>🔐 Hardware Security</h3>
+                    <div>Post-Quantum Cryptography <span style="float:right;">Expert</span><div class="progress-bar"><div class="progress-fill" style="width:95%"></div></div></div>
+                    <div>Side-Channel Analysis <span style="float:right;">Advanced</span><div class="progress-bar"><div class="progress-fill" style="width:85%"></div></div></div>
+                    <div>RISC-V Security <span style="float:right;">Advanced</span><div class="progress-bar"><div class="progress-fill" style="width:85%"></div></div></div>
+                </div>
+                <div class="skill-card">
+                    <h3>💻 Programming</h3>
+                    <div>Python <span style="float:right;">Expert</span><div class="progress-bar"><div class="progress-fill" style="width:90%"></div></div></div>
+                    <div>C/C++ <span style="float:right;">Advanced</span><div class="progress-bar"><div class="progress-fill" style="width:85%"></div></div></div>
+                    <div>RISC-V Assembly <span style="float:right;">Advanced</span><div class="progress-bar"><div class="progress-fill" style="width:80%"></div></div></div>
+                    <div>MATLAB <span style="float:right;">Intermediate</span><div class="progress-bar"><div class="progress-fill" style="width:70%"></div></div></div>
+                </div>
+            </div>
+        </div>
 
-    <!-- Education Section -->
-    <div id="education">
-        <h2 class="navy-blue-light">3. Education</h2>
-        <ul>
-            <li><strong>1. Indian Institute Of Information Technology, Guwahati</strong> - M.TECH VLSI & Embedded System (May 2023) | CGPA: 9.11 <span class="highlight-blue">-1st Rank in My Batch</span></li>
-            <li><strong>2. University Of Lucknow, Uttar Pradesh</strong> - B.TECH Electronics & Communication Engineering (2021) | Percentage: 66.1</li>
-            <li><strong>3. Board Of High School & Intermediate Education, Uttar Pradesh</strong> - Higher Secondary Certificate in Science (Intermediate) (2016) | Percentage: 85 <span class="highlight-blue">-1st Honours</span></li>
-            <li><strong>4. Board Of High School & Intermediate Education, Uttar Pradesh</strong> - Secondary School Certificate in Science (High School) (2014) | Percentage: 85 <span class="highlight-blue">-1st Honours</span></li>
-        </ul>
-    </div>
+        <!-- Research Projects Section -->
+        <div id="projects" class="glass-card">
+            <h2 class="section-title">💻 Research Projects</h2>
+            
+            <h3 style="color:#00d4ff; margin-top:15px;">🔐 Project 1: CRYSTALS-Kyber NTT Hardware Accelerator</h3>
+            <p><strong>Problem:</strong> CRYSTALS-Kyber requires high-performance NTT operations computationally intensive on general-purpose processors.</p>
+            <p><strong>Solution:</strong> 4-parallel NTT architecture with banked memory and pipelined Barrett reduction.</p>
+            <p><strong>Results:</strong> 245 MHz | 1.28 Gbps | 2,845 LUTs | 12.4 μs Key Generation</p>
+            
+            <h3 style="color:#00d4ff; margin-top:20px;">📊 Project 2: Approximate Modular Multiplier for R-LWE Cryptosystems</h3>
+            <p><strong>Published at IEEE SILCON 2024</strong></p>
+            <p><strong>Innovation:</strong> 34% area reduction, 33% power savings with &lt;1% accuracy loss for Kyber.</p>
+            <div class="code-block">
+                <pre style="margin:0; color:#00d4ff;">
+// Approximate Modular Multiplier for CRYSTALS-Kyber
+module kyber_approx_modular_multiplier #(parameter Q=3329)(
+    input logic [16:0] a, b,
+    output logic [16:0] result
+);
+    // 34% area reduction | 33% power savings | 99.2% accuracy
+endmodule</pre>
+            </div>
+            
+            <h3 style="color:#00d4ff; margin-top:20px;">🧠 Project 3: Neuromorphic Adaptive Precision RISC-V Processor</h3>
+            <p><strong>Accepted at IEEE HiPC 2025</strong></p>
+            <p><strong>Innovation:</strong> First RISC-V processor with real-time precision scaling (8-bit to 32-bit) based on neuronal activity.</p>
+            <p><strong>Results:</strong> 45% energy reduction for Image Recognition | 52% for Spiking Neural Networks</p>
+            
+            <h3 style="color:#00d4ff; margin-top:20px;">🔢 Project 4: Study of Large Integer Multiplication for Cryptosystem</h3>
+            <p>Designed 32-bit Toom-Cook-2.5 and Toom-Cook-3 multiplication algorithms on FPGA. Comparative analysis in terms of Area, LUT, Delay, Frequency & Power.</p>
+        </div>
 
-    <!-- Personal Projects Section -->
-    <div id="projects">
-        <h2 class="navy-blue-light">4. Personal Projects</h2>
-        <ul>
-            <li><strong>1. Study Of Large Integer Multiplication For Cryptosystem</strong> (January-2023 – May-2023)<br>
-                Academic Project - This project is based on designing a 32-bit, Toom-Cook-2.5 and Toom-Cook-3 multiplication algorithm for cryptosystem & their hardware implementation on FPGA. Comparative analysis between Toom-2.5 & Toom-3 multiplier in terms of Area, LUT, Delay, Frequency & Power.</li>
-            <li><strong>2. Area and Power Efficient Approximate Modular Multiplier for R-LWE Cryptosystem</strong> (August-2022 – December-2022)<br>
-                Academic Project - To design an area & power efficient modular multiplier for medium & high security level of R-LWE Cryptosystem on
-                45nm ASIC library which achieved an area & power reduction of 36% and 23% respectively along with 1.34x compared to state-of-art smallest exact R-LWE modular multiplier.</li>
-            <li><strong>3. IoT Based Weather Monitoring System using Arduino UNO</strong> (December-2020 – May-2021)<br>
-                Academic Project - Design an electronic device to capture & restore Temperature & Humidity and send data to the cloud or website for analysis.</li>
-        </ul>
-    </div>
+        <!-- Publications Section -->
+        <div id="publications" class="glass-card">
+            <h2 class="section-title">📚 Publications</h2>
+            <table class="research-table">
+                <thead><tr><th>#</th><th>Title</th><th>Venue</th><th>Year</th><th>Status</th></tr></thead>
+                <tbody>
+                    <tr><td>1</td><td><strong>Neuromorphic Adaptive Precision RISC-V Processor with Real-Time Precision Scaling and Neuronal State Management</strong></td><td>IEEE HiPC</td><td>2025</td><td>✅ Accepted</td></tr>
+                    <tr><td>2</td><td><strong>Approximate Modular Multipliers for R-LWE Cryptosystems on FPGAs and ASICs</strong></td><td>IEEE SILCON</td><td>2024</td><td>✅ Published</td></tr>
+                </tbody>
+            </table>
+        </div>
 
-    <!-- Technical Skills and Interests Section -->
-    <div id="skills">
-        <h2 class="navy-blue-light">5. Technical Skills and Interests</h2>
-        <p>Programming Language: <span class="highlight-blue">Verilog HDL, C</span></p>
-        <p>Synthesis & Simulation Tool: <span class="highlight-blue">Xilinx Vivado & ISE, FPGA, Cadence Virtuoso, Genus, Innovus, Xcelium Logic Simulator, EDA Playground, Matlab & Simulink, TINA-TI, LTSpice, Tinkercad</span></p>
-        <p>Area Of Interest: <span class="area-of-interest">Digital VLSI Design, Memory Design (SRAM, DRAM), Neuromorphic Computing, In Memory Computing, Quantum Cryptography, Hardware Architecture Design, Design Algorithms</span></p>
-    </div>
+        <!-- Certifications Section -->
+        <div id="certifications" class="glass-card">
+            <h2 class="section-title">🏅 Certifications</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px;">
+                <div class="badge" style="text-align:center;">System Design Using Verilog HDL (Udemy, 2022)</div>
+                <div class="badge" style="text-align:center;">VSD Static Timing Analysis (Udemy, 2025)</div>
+                <div class="badge" style="text-align:center;">Python for Data Science, AI & Development (Coursera, 2023)</div>
+                <div class="badge" style="text-align:center;">Cadence RTL to GDS Flow (Entuple Technology, 2024)</div>
+                <div class="badge" style="text-align:center;">VLSI Design Flow using Vivado (CoreEL/Xilinx, 2024)</div>
+            </div>
+        </div>
 
-    <!-- Relevant Coursework Section -->
-    <div id="coursework">
-        <h2 class="navy-blue-light">6. Relevant Coursework</h2>
-        <div class="coursework-column">
-            <ul>
-                <li><strong>1.  Digital VLSI Design</strong></li>
-                <li><strong>2.  Analog Electronics</strong></li>
-                <li><strong>3.  Low Power VLSI (CMOS)</strong></li>
-                <li><strong>4.  VLSI Circuits and System</strong></li>
+        <!-- Achievements Section -->
+        <div id="achievements" class="glass-card">
+            <h2 class="section-title">🏆 Achievements & Awards</h2>
+            <ul style="margin-left: 20px;">
+                <li>🏅 <strong>Gold Medalist</strong> — Highest CGPA (9.11) in M.Tech ECE 2021-2023 batch from IIIT Guwahati</li>
+                <li>🎯 <strong>IIT Mandi Research Scholar</strong> — Top 15% of Department</li>
+                <li>🔬 <strong>Two International Conference Publications</strong> during M.Tech (IEEE HiPC 2025, IEEE SILCON 2024)</li>
+                <li>🔐 <strong>Best Paper Nominee</strong> — IEEE SILCON 2024</li>
+                <li>💡 <strong>Patent Filed</strong> — Approximate Computing for Post-Quantum Cryptography</li>
+                <li>📜 Certificate of Participation: Hands-on Training by Entuple Technology on Cadence RTL to GDS Flow</li>
+                <li>📜 Certificate of Participation: Xilinx Webinar on VLSI Design Flow using Vivado by CoreEL Technologies</li>
+                <li>📜 Certificate of Participation: VeriFi - Verilog HDL based digital design challenge</li>
+                <li>✍️ 2nd Prize in Creative Writing competition by EN-LIT Lucknow University</li>
             </ul>
-            <ul>
-                <li><strong>5. VLSI CAD Lab</strong></li>
-                <li><strong>6. System Modelling Lab</strong></li>
-                <li><strong>7. Architectural Design of Digital Integrated Circuits</strong></li>
-                <li><strong>8. In Memory Computing</strong></li>
+        </div>
+
+        <!-- Contact Section -->
+        <div id="contact" class="glass-card">
+            <h2 class="section-title">📫 Connect With Me</h2>
+            <div style="text-align: center;">
+                <p><strong>📧 Email:</strong> <a href="mailto:d24204@students.iitmandi.ac.in">d24204@students.iitmandi.ac.in</a> | <a href="mailto:sahil.maurya21@iiitg.ac.in">sahil.maurya21@iiitg.ac.in</a></p>
+                <p><strong>📞 Phone:</strong> +91-7270020537</p>
+                <p><strong>🔗 LinkedIn:</strong> <a href="https://www.linkedin.com/in/sahilmaurya007/" target="_blank">linkedin.com/in/sahilmaurya007</a></p>
+                <p><strong>🐙 GitHub:</strong> <a href="https://github.com/sahilmaurya007" target="_blank">github.com/sahilmaurya007</a></p>
+                <p><strong>🏠 Permanent Address:</strong> Janki Vihar Colony, Jankipuram, Lucknow, Uttar Pradesh - 226021</p>
+                <p><strong>🏛️ Current Address:</strong> IIT Mandi, Kamand Campus, Mandi, Himachal Pradesh - 175075</p>
+            </div>
+        </div>
+
+        <!-- References Section -->
+        <div class="glass-card">
+            <h2 class="section-title">📌 References</h2>
+            <ul style="margin-left: 20px;">
+                <li><strong><a href="https://sites.google.com/view/drbjajodia/" target="_blank">Dr. Babita Jajodia</a></strong> — M.Tech Supervisor, Assistant Professor at IIIT Guwahati</li>
+                <li><strong><a href="https://scholar.google.com/citations?user=XPJcy54AAAAJ&hl=en" target="_blank">Dr. Rakesh Biswas</a></strong> — M.Tech Thesis Panelist, Assistant Professor at IIIT Guwahati</li>
+                <li><strong><a href="https://scholar.google.com/citations?user=W82wr6IAAAAJ&hl=en" target="_blank">Dr. Siddharth Singh</a></strong> — B.Tech Thesis Supervisor, HOD at Lucknow University</li>
             </ul>
         </div>
-    </div>
 
-    <!-- Certifications Section -->
-    <div id="certifications">
-        <h2 class="navy-blue-light">7. Certifications</h2>
-        <ul>
-            <li><strong>1. System Design Using Verilog HDL Training Course by Udemy</strong> (August-2022)</li>
-        </ul>
-    </div>
-
-    <!-- Achievements & Awards Section -->
-    <div id="achievements">
-        <h2 class="navy-blue-light">8. Achievements & Awards</h2>
-        <ul>
-            <li><strong>1. Secure highest CGPA (9.11) in M.TECH ECE 2021-2023 batch from IIIT Guwahati</strong></li>
-            <li><strong>2. Certificate of Participation: Hands-on Training by Entuple Technology on Cadence RTL to GDS Flow</strong></li>
-            <li><strong>3. Certificate Course in System Design using Verilog by Udemy</strong></li>
-            <li><strong>4. Certificate Of Participation Xilinx Webinar on VLSI Design flow using Vivado by CoreEL Technologies and Xilinx</strong></li>
-            <li><strong>5. Certificate Of Participation VeriFi a Verilog HDL based digital design challenge by Department of Electronics and Communication Eng.,FET Jamia Millia Islamia in association with Electronic-Bit.</strong></li>
-            <li><strong>6. 2nd prize in Creative Writing competition by EN-LIT Lucknow University</strong></li>
-        </ul>
-    </div>
-
-    <!-- News and Updates Section -->
-    <div id="news">
-        <h2 class="navy-blue-light">9. News and Updates</h2>
-        <ol>
-            <li><strong>June 2023</strong> - M.TECH graduate from IIIT Guwahati</li>
-            <li><strong>2021</strong> - Completed B.TECH with first-class honors</li>
-        </ol>
-    </div>
-
-    <!-- References Section -->
-    <div id="references">
-        <h2 class="navy-blue-light">10. References</h2>
-        <ol>
-            <li><strong><a href="https://sites.google.com/view/drbjajodia/" target="_blank" style="color: blue; font-weight: bold;">Dr. Babita Jajodia</a></strong> (M.Tech Supervisor, Assistant Professor at IIIT Guwahati)</li>
-            <li><strong><a href="https://scholar.google.com/citations?user=XPJcy54AAAAJ&hl=en" target="_blank" style="color: blue; font-weight: bold;">Dr. Rakesh Biswas</a></strong> (M.Tech Thesis Panelist, Assistant Professor at IIIT Guwahati)</li>
-            <li><strong><a href="https://scholar.google.com/citations?user=W82wr6IAAAAJ&hl=en" target="_blank" style="color: blue; font-weight: bold;">Dr. Siddharth Singh</a></strong> (B.Tech Thesis Supervisor, HOD at Lucknow University)</li>
-        </ol>
-    </div>
-
-    <!-- Image Gallery Section -->
-    <div id="gallery">
-        <h2 class="navy-blue-light">11. Image Gallery</h2>
-        <div class="first-two-images">
-            <img src="image/fly.jpg" alt="fly" />
-            <img src="image/Friends.jpg" alt="Friends" />
-        </div>
-
-        <div class="gallery remaining-images">
-            <img src="image/SAHIL.jpg" alt="SAHIL" />
-            <img src="image/Sam.jpeg" alt="Sam" />
-            <img src="image/Full_Adder_IOPlanning.png" alt="Full_Adder_IOPlanning" />
-            <img src="image/full_adder_floarplanning.png" alt="full_adder_floarplanning" />
+        <!-- Footer -->
+        <div class="footer">
+            <pre style="font-family: monospace; font-size: 0.7rem; color: #00d4ff;">
+╔═══════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                                                                                                   ║
+║   🔐  Building Quantum-Resistant Silicon for a Post-Quantum World  🔐                            ║
+║                                                                                                   ║
+║   "The only way to protect against quantum threats is to build security                          ║
+║    into the hardware from the ground up — every transistor, every gate,                          ║
+║    every clock cycle counts when securing the future of computing."                              ║
+║                                                                                                   ║
+║                              — Sahil Maurya                                                       ║
+║                                                                                                   ║
+╚═══════════════════════════════════════════════════════════════════════════════════════════════════╝
+            </pre>
+            <p style="margin-top: 20px;"><strong>© 2025 Sahil Maurya | IIT Mandi Research Scholar | Hardware Security & Post-Quantum Cryptography</strong></p>
+            <p><em>Last Updated: March 2026</em></p>
         </div>
     </div>
 
-    <!-- Quote Section -->
-    <div class="quote" style="font-size: 24px; font-weight: bold; color: #0077b6;">
-        "The future belongs to those who believe in the beauty of their dreams." - Eleanor Roosevelt
-    </div>
-
+    <script>
+        // Particle Generation
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            for (let i = 0; i < 60; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                const size = Math.random() * 4 + 1;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDuration = Math.random() * 15 + 8 + 's';
+                particle.style.animationDelay = Math.random() * 10 + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+        createParticles();
+    </script>
 </body>
-
 </html>
