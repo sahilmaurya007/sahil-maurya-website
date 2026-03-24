@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=rect&color=0:0d1117,100:00d4ff&height=240&section=header&text=Sahil%20Maurya&fontSize=65&fontColor=ffffff&fontAlignY=35&desc=VLSI%20&%20HARDWARE%20SECURITY%20RESEARCHER&descSize=20&descColor=e1e1e1&descAlignY=55&animation=twinkling" width="100%"/>
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:0d1117,100:00d4ff&height=240&section=header&text=Sahil%20Maurya&fontSize=65&fontColor=ffffff&fontAlignY=35&desc=VLSI%20&%20HARDWARE%20SECURITY%20RESEARCHER&descSize=20&descColor=e1e1e1&descAlignY=55&animation=fadeIn&customSVG=https://raw.githubusercontent.com/sahilmaurya007/sahil-maurya-website/main/image/chip-forge.svg" width="100%"/>
 
 <p align="right">
   <img src="https://komarev.com/ghpvc/?username=sahilmaurya007&label=STREAMS%20ACCESSED&color=00d4ff&style=flat-square" alt="Visitor Counter" />
@@ -27,7 +27,7 @@
 <table align="center">
   <tr>
     <td align="center" width="300">
-      <img src="image/SAHIL.jpg" width="220" style="border-radius:20px; border: 3px solid #00d4ff; box-shadow: 0px 0px 15px #00d4ff;" />
+      <img src="https://raw.githubusercontent.com/sahilmaurya007/sahil-maurya-website/main/image/SAHIL.jpg" width="220" style="border-radius:20px; border: 3px solid #00d4ff; box-shadow: 0px 0px 15px #00d4ff;" />
       <br><b>Sahil Maurya</b>
     </td>
     <td>
@@ -44,20 +44,20 @@
 
 ---
 
-## 🔬 Silicon Gallery & ASIC Layouts
-*Physical design snapshots from recent fabrications.*
+## 🔬 GDSII Forge Viewer & ASIC Layouts
+*Continuous re-synthesis of physical design snapshots.*
 
 <p align="center">
-  <img src="image/Gemini_Generated_Image_ru8yh6ru8yh6ru8y.png" width="100%" style="border-radius:15px; border: 1px solid #30363d;" />
+  <img src="https://capsule-render.vercel.app/api?type=forge&color=0:0d1117,100:00d4ff&height=240&customSVG=https://raw.githubusercontent.com/sahilmaurya007/sahil-maurya-website/main/image/gdsii-viewer.svg" width="100%" style="border-radius:15px; border: 1px solid #30363d;" />
 </p>
 
 | Technology | Project Highlights | GDSII / Layout |
 | :--- | :--- | :---: |
-| **GF180nm** | Open-source Mixed Signal ASIC | [<img src="image/Chip2GF180nm.png" width="160">](image/Chip2GF180nm.png) |
-| **SkyWater 130nm** | Secure RISC-V SoC Integration | [<img src="image/chip1skywater130nm.png" width="160">](image/chip1skywater130nm.png) |
-| **ASAP 7nm** | High-density PQC Accelerator | [<img src="image/chip3ASAPnm.png" width="160">](image/chip3ASAPnm.png) |
-| **Nangate 45nm** | Automated Cell-based Synthesis | [<img src="image/chip4nangate45nm.png" width="160">](image/chip4nangate45nm.png) |
-| **RISC-V Core** | Complete Floorplan & Routing | [<img src="image/Complete%20soc.jpeg" width="160">](image/Complete%20soc.jpeg) |
+| **GF180nm** | Open-source Mixed Signal ASIC | [<img src="https://raw.githubusercontent.com/sahilmaurya007/sahil-maurya-website/main/image/Chip2GF180nm.png" width="160">](image/Chip2GF180nm.png) |
+| **SkyWater 130nm** | Secure RISC-V SoC Integration | [<img src="https://raw.githubusercontent.com/sahilmaurya007/sahil-maurya-website/main/image/chip1skywater130nm.png" width="160">](image/chip1skywater130nm.png) |
+| **ASAP 7nm** | High-density PQC Accelerator | [<img src="https://raw.githubusercontent.com/sahilmaurya007/sahil-maurya-website/main/image/chip3ASAPnm.png" width="160">](image/chip3ASAPnm.png) |
+| **Nangate 45nm** | Automated Cell-based Synthesis | [<img src="https://raw.githubusercontent.com/sahilmaurya007/sahil-maurya-website/main/image/chip4nangate45nm.png" width="160">](image/chip4nangate45nm.png) |
+| **RISC-V Core** | Complete Floorplan & Routing | [<img src="https://raw.githubusercontent.com/sahilmaurya007/sahil-maurya-website/main/image/Complete%20soc.jpeg" width="160">](image/Complete%20soc.jpeg) |
 
 ---
 
@@ -77,13 +77,13 @@
 ## 📸 Moments & Academic Milestones
 
 <p align="center">
-  <img src="image/IIITGConvocation.JPG" width="32%" style="border-radius:12px; border: 2px solid #30363d;" />
-  <img src="image/Convocation.jpg" width="32%" style="border-radius:12px; border: 2px solid #30363d;" />
-  <img src="image/sahil.jpeg" width="32%" style="border-radius:12px; border: 2px solid #30363d;" />
+  <img src="https://raw.githubusercontent.com/sahilmaurya007/sahil-maurya-website/main/image/IIITGConvocation.JPG" width="32%" style="border-radius:12px; border: 2px solid #30363d;" />
+  <img src="https://raw.githubusercontent.com/sahilmaurya007/sahil-maurya-website/main/image/Convocation.jpg" width="32%" style="border-radius:12px; border: 2px solid #30363d;" />
+  <img src="https://raw.githubusercontent.com/sahilmaurya007/sahil-maurya-website/main/image/sahil.jpeg" width="32%" style="border-radius:12px; border: 2px solid #30363d;" />
 </p>
 <p align="center">
-  <img src="image/Poster%20Landscape.png" width="48%" style="border-radius:12px; border: 2px solid #30363d;" />
-  <img src="image/iiitg.jpg" width="48%" style="border-radius:12px; border: 2px solid #30363d;" />
+  <img src="https://raw.githubusercontent.com/sahilmaurya007/sahil-maurya-website/main/image/Poster%20Landscape.png" width="48%" style="border-radius:12px; border: 2px solid #30363d;" />
+  <img src="https://raw.githubusercontent.com/sahilmaurya007/sahil-maurya-website/main/image/iiitg.jpg" width="48%" style="border-radius:12px; border: 2px solid #30363d;" />
 </p>
 
 ---
@@ -104,6 +104,6 @@
 
 *"The future of security is written in silicon."*
 
-<img src="https://capsule-render.vercel.app/api?type=rect&color=0:00d4ff,100:0d1117&height=80&section=footer" width="100%"/>
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:00d4ff,100:0d1117&height=80&section=footer" width="100%"/>
 
 </div>
