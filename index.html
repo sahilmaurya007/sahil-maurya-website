@@ -47,15 +47,15 @@
             animation: slideAnimation 30s infinite;
         }
 
-        /* Images from your repository for the slider */
-        .slide1 { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('Best Imageee.png'); animation-delay: 0s; }
-        .slide2 { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('Chip2GF180nm.png'); animation-delay: 3.75s; }
-        .slide3 { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('chip1skywater130nm.png'); animation-delay: 7.5s; }
-        .slide4 { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('chip3ASAPnm.png'); animation-delay: 11.25s; }
-        .slide5 { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('chip4nangate45nm.png'); animation-delay: 15s; }
-        .slide6 { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('Complete soc.jpeg'); animation-delay: 18.75s; }
-        .slide7 { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('Poster Landscape.png'); animation-delay: 22.5s; }
-        .slide8 { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('semi.jpg'); animation-delay: 26.25s; }
+        /* Corrected Paths for the slider */
+        .slide1 { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('image/Best%20Imageee.png'); animation-delay: 0s; }
+        .slide2 { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('image/Chip2GF180nm.png'); animation-delay: 3.75s; }
+        .slide3 { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('image/chip1skywater130nm.png'); animation-delay: 7.5s; }
+        .slide4 { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('image/chip3ASAPnm.png'); animation-delay: 11.25s; }
+        .slide5 { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('image/chip4nangate45nm.png'); animation-delay: 15s; }
+        .slide6 { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('image/Complete%20soc.jpeg'); animation-delay: 18.75s; }
+        .slide7 { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('image/Poster%20Landscape.png'); animation-delay: 22.5s; }
+        .slide8 { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('image/semi.jpg'); animation-delay: 26.25s; }
 
         @keyframes slideAnimation {
             0% { opacity: 0; }
@@ -342,7 +342,6 @@
 </head>
 
 <body>
-    <!-- Hero Section with Background Image Slider using your images -->
     <div class="hero">
         <div class="slider">
             <div class="slide slide1"></div>
@@ -361,15 +360,12 @@
         </div>
     </div>
 
-    <!-- Main Content -->
     <div class="main-content">
-        <!-- Profile and LinkedIn Buttons -->
         <div style="text-align: center; margin-bottom: 20px;">
             <a href="https://www.linkedin.com/in/sahilmaurya007/" class="linkedin-profile" target="_blank">🔗 Visit my LinkedIn Profile</a>
             <a href="ChipDesign.html" class="linkedin-profile">💻 ChipDesign With OpenSource By Sahil</a>
         </div>
 
-        <!-- Navigation Links -->
         <ul class="nav-links">
             <li><a href="#about">About</a></li>
             <li><a href="#contact">Contact</a></li>
@@ -385,9 +381,8 @@
             <li><a href="#references">References</a></li>
         </ul>
 
-        <!-- Profile Section with Your Photo -->
         <div class="profile-section" id="about">
-            <img src="SAHIL.jpg" alt="Sahil Maurya" class="profile-img" onerror="this.src='sahil.jpeg'">
+            <img src="image/SAHIL.jpg" alt="Sahil Maurya" class="profile-img" onerror="this.src='image/sahil.jpeg'">
             <div class="profile-info">
                 <h2 class="navy-blue-light">1. About Me</h2>
                 <p style="text-align: justify;">
@@ -399,7 +394,6 @@
             </div>
         </div>
 
-        <!-- Contact Information -->
         <div id="contact">
             <h2 class="navy-blue-light">2. Contact Information</h2>
             <p>📞 +91-7270020537</p>
@@ -409,7 +403,6 @@
             <p>🏛️ Current: IIT Mandi, Kamand Campus, Mandi, Himachal Pradesh - 175075</p>
         </div>
 
-        <!-- Education Section -->
         <div id="education">
             <h2 class="navy-blue-light">3. Education</h2>
             <ul>
@@ -420,7 +413,6 @@
             </ul>
         </div>
 
-        <!-- Publications Section -->
         <div id="publications">
             <h2 class="navy-blue-light">4. Publications</h2>
             
@@ -443,7 +435,6 @@
             </div>
         </div>
 
-        <!-- Projects Section -->
         <div id="projects">
             <h2 class="navy-blue-light">5. Research Projects</h2>
             <ul>
@@ -454,7 +445,6 @@
             </ul>
         </div>
 
-        <!-- Skills Section -->
         <div id="skills">
             <h2 class="navy-blue-light">6. Technical Skills</h2>
             <p><strong>Languages:</strong> Verilog HDL, SystemVerilog, VHDL, Python, C, RISC-V Assembly, TCL</p>
@@ -462,7 +452,6 @@
             <p><strong>Research Domains:</strong> Post-Quantum Cryptography (Kyber/Dilithium), RISC-V SoC, Digital VLSI, Side-Channel Analysis, Hardware Security</p>
         </div>
 
-        <!-- Coursework Section -->
         <div id="coursework">
             <h2 class="navy-blue-light">7. Relevant Coursework</h2>
             <div class="coursework-column">
@@ -481,7 +470,6 @@
             </div>
         </div>
 
-        <!-- Certifications -->
         <div id="certifications">
             <h2 class="navy-blue-light">8. Certifications</h2>
             <ul>
@@ -493,7 +481,6 @@
             </ul>
         </div>
 
-        <!-- Achievements -->
         <div id="achievements">
             <h2 class="navy-blue-light">9. Achievements & Awards</h2>
             <ul>
@@ -505,41 +492,38 @@
             </ul>
         </div>
 
-        <!-- Chip Gallery - Your ASIC/FPGA Designs -->
         <div id="chips">
             <h2 class="navy-blue-light">🔬 Chip Design Gallery (ASIC/FPGA)</h2>
             <div class="chip-gallery">
-                <div class="chip-card"><img src="Chip2GF180nm.png" alt="GF180nm Chip"><p>GF180nm Technology</p></div>
-                <div class="chip-card"><img src="chip1skywater130nm.png" alt="SkyWater 130nm"><p>SkyWater 130nm</p></div>
-                <div class="chip-card"><img src="chip3ASAPnm.png" alt="ASAP 7nm"><p>ASAP 7nm Technology</p></div>
-                <div class="chip-card"><img src="chip4nangate45nm.png" alt="Nangate 45nm"><p>Nangate 45nm</p></div>
-                <div class="chip-card"><img src="Complete soc.jpeg" alt="Complete SoC"><p>Complete RISC-V SoC</p></div>
-                <div class="chip-card"><img src="Full_Adder_IOPlanning.png" alt="Full Adder IO Planning"><p>Full Adder I/O Planning</p></div>
-                <div class="chip-card"><img src="full_adder_floarplanning.png" alt="Full Adder Floorplan"><p>Full Adder Floorplan</p></div>
-                <div class="chip-card"><img src="Gemini_Generated_Image_ru8yh6ru8yh6ru8y.png" alt="Chip Visualization"><p>Chip Visualization</p></div>
+                <div class="chip-card"><img src="image/Chip2GF180nm.png" alt="GF180nm Chip"><p>GF180nm Technology</p></div>
+                <div class="chip-card"><img src="image/chip1skywater130nm.png" alt="SkyWater 130nm"><p>SkyWater 130nm</p></div>
+                <div class="chip-card"><img src="image/chip3ASAPnm.png" alt="ASAP 7nm"><p>ASAP 7nm Technology</p></div>
+                <div class="chip-card"><img src="image/chip4nangate45nm.png" alt="Nangate 45nm"><p>Nangate 45nm</p></div>
+                <div class="chip-card"><img src="image/Complete%20soc.jpeg" alt="Complete SoC"><p>Complete RISC-V SoC</p></div>
+                <div class="chip-card"><img src="image/Full_Adder_IOPlanning.png" alt="Full Adder IO Planning"><p>Full Adder I/O Planning</p></div>
+                <div class="chip-card"><img src="image/full_adder_floarplanning.png" alt="Full Adder Floorplan"><p>Full Adder Floorplan</p></div>
+                <div class="chip-card"><img src="image/Gemini_Generated_Image_ru8yh6ru8yh6ru8y.png" alt="Chip Visualization"><p>Chip Visualization</p></div>
             </div>
         </div>
 
-        <!-- Image Gallery - Personal and Academic Photos -->
         <div id="gallery">
             <h2 class="navy-blue-light">📸 Image Gallery</h2>
             <div class="gallery-grid">
-                <div class="gallery-item"><img src="SAHIL.jpg" alt="Sahil"><div class="gallery-caption">Sahil Maurya</div></div>
-                <div class="gallery-item"><img src="sahil.jpeg" alt="Sahil"><div class="gallery-caption">Professional Photo</div></div>
-                <div class="gallery-item"><img src="Sam.jpeg" alt="Sam"><div class="gallery-caption">With Friend Sam</div></div>
-                <div class="gallery-item"><img src="Friends.jpg" alt="Friends"><div class="gallery-caption">Friends Group</div></div>
-                <div class="gallery-item"><img src="fly.JPG" alt="Fly"><div class="gallery-caption">Aviation Dream</div></div>
-                <div class="gallery-item"><img src="arpit3.jpg" alt="Arpit"><div class="gallery-caption">With Arpit</div></div>
-                <div class="gallery-item"><img src="Convocation.jpg" alt="Convocation"><div class="gallery-caption">Convocation Day</div></div>
-                <div class="gallery-item"><img src="IIITGConvocation.JPG" alt="IIITG Convocation"><div class="gallery-caption">IIIT Guwahati Convocation</div></div>
-                <div class="gallery-item"><img src="iiitg.jpg" alt="IIITG"><div class="gallery-caption">IIIT Guwahati Campus</div></div>
-                <div class="gallery-item"><img src="Poster Landscape.png" alt="Poster"><div class="gallery-caption">Research Poster</div></div>
-                <div class="gallery-item"><img src="Poster contact.png" alt="Poster Contact"><div class="gallery-caption">Conference Poster</div></div>
-                <div class="gallery-item"><img src="WhatsApp Image 2026-03-05 at 2.58.51 PM.jpeg" alt="Recent"><div class="gallery-caption">Recent Moment</div></div>
+                <div class="gallery-item"><img src="image/SAHIL.jpg" alt="Sahil"><div class="gallery-caption">Sahil Maurya</div></div>
+                <div class="gallery-item"><img src="image/sahil.jpeg" alt="Sahil"><div class="gallery-caption">Professional Photo</div></div>
+                <div class="gallery-item"><img src="image/Sam.jpeg" alt="Sam"><div class="gallery-caption">With Friend Sam</div></div>
+                <div class="gallery-item"><img src="image/Friends.jpg" alt="Friends"><div class="gallery-caption">Friends Group</div></div>
+                <div class="gallery-item"><img src="image/fly.JPG" alt="Fly"><div class="gallery-caption">Aviation Dream</div></div>
+                <div class="gallery-item"><img src="image/arpit3.jpg" alt="Arpit"><div class="gallery-caption">With Arpit</div></div>
+                <div class="gallery-item"><img src="image/Convocation.jpg" alt="Convocation"><div class="gallery-caption">Convocation Day</div></div>
+                <div class="gallery-item"><img src="image/IIITGConvocation.JPG" alt="IIITG Convocation"><div class="gallery-caption">IIIT Guwahati Convocation</div></div>
+                <div class="gallery-item"><img src="image/iiitg.jpg" alt="IIITG"><div class="gallery-caption">IIIT Guwahati Campus</div></div>
+                <div class="gallery-item"><img src="image/Poster%20Landscape.png" alt="Poster"><div class="gallery-caption">Research Poster</div></div>
+                <div class="gallery-item"><img src="image/Poster%20contact.png" alt="Poster Contact"><div class="gallery-caption">Conference Poster</div></div>
+                <div class="gallery-item"><img src="image/WhatsApp%20Image%202026-03-05%20at%202.58.51%20PM.jpeg" alt="Recent"><div class="gallery-caption">Recent Moment</div></div>
             </div>
         </div>
 
-        <!-- References Section -->
         <div id="references">
             <h2 class="navy-blue-light">📌 References</h2>
             <ul>
@@ -549,12 +533,10 @@
             </ul>
         </div>
 
-        <!-- Quote Section -->
         <div class="quote">
             "The future belongs to those who believe in the beauty of their dreams." - Eleanor Roosevelt
         </div>
 
-        <!-- Footer -->
         <div style="text-align: center; padding: 25px; border-top: 1px solid #eee; margin-top: 20px;">
             <p style="color:#666;">© 2025 Sahil Maurya | IIT Mandi Research Scholar | Hardware Security & Post-Quantum Cryptography</p>
             <p style="color:#888; font-size:0.85rem;">Last Updated: March 2026</p>
