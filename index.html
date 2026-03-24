@@ -3,651 +3,706 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sahil Maurya | Research Scholar @ IIT Mandi | VLSI | PQC | RISC-V</title>
+    <title>Sahil Maurya | VLSI & Hardware Security Engineer</title>
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+    
     <style>
+        :root {
+            --primary-color: #0077b6; /* Navy Blue */
+            --accent-color: #00b4d8; /* Light Blue */
+            --dark-bg: #0f172a; /* Deep Tech Blue */
+            --card-bg: rgba(30, 41, 59, 0.85);
+            --text-light: #f1f5f9;
+            --text-gray: #94a3b8;
+            --highlight: #ef4444; /* Red for emphasis */
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            scroll-behavior: smooth;
         }
 
         body {
-            font-family: 'Segoe UI', 'Fira Code', 'Share Tech Mono', monospace;
-            background: linear-gradient(135deg, #0a0f1a 0%, #0a1a2a 50%, #0a0f1a 100%);
-            color: #e0e0e0;
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-light);
             line-height: 1.6;
             overflow-x: hidden;
-        }
-
-        /* Animated Circuit Background */
-        .circuit-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -2;
-            background: radial-gradient(circle at 20% 30%, rgba(0, 40, 60, 0.4) 0%, rgba(0, 0, 0, 0.85) 100%);
-        }
-
-        .circuit-bg::before {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
             background-image: 
-                linear-gradient(rgba(0, 212, 255, 0.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 212, 255, 0.05) 1px, transparent 1px);
-            background-size: 50px 50px;
-            animation: drift 20s linear infinite;
+                linear-gradient(rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.95)),
+                url('https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80'); /* Chip Background */
+            background-attachment: fixed;
+            background-size: cover;
         }
 
-        @keyframes drift {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(50px); }
-        }
-
-        /* Floating Particles */
-        .particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            pointer-events: none;
-        }
-
-        .particle {
-            position: absolute;
-            background: radial-gradient(circle, rgba(0, 212, 255, 0.8), rgba(124, 58, 237, 0.4));
-            border-radius: 50%;
-            animation: float linear infinite;
+        /* --- Animations --- */
+        @keyframes pulse-glow {
+            0% { box-shadow: 0 0 5px var(--accent-color); }
+            50% { box-shadow: 0 0 20px var(--accent-color), 0 0 10px var(--primary-color); }
+            100% { box-shadow: 0 0 5px var(--accent-color); }
         }
 
         @keyframes float {
-            0% { transform: translateY(100vh) translateX(0) rotate(0deg); opacity: 0; }
-            10% { opacity: 0.8; }
-            90% { opacity: 0.8; }
-            100% { transform: translateY(-10vh) translateX(50px) rotate(360deg); opacity: 0; }
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
         }
 
-        /* Animations */
-        @keyframes pulse {
-            0%, 100% { opacity: 0.3; transform: scale(1); }
-            50% { opacity: 0.8; transform: scale(1.05); }
+        @keyframes circuit-draw {
+            0% { stroke-dashoffset: 1000; }
+            100% { stroke-dashoffset: 0; }
         }
 
-        @keyframes glow {
-            0%, 100% { text-shadow: 0 0 20px rgba(0, 212, 255, 0.3); }
-            50% { text-shadow: 0 0 40px rgba(0, 212, 255, 0.6); }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        @keyframes slideBg {
-            0% { transform: translateX(0); }
-            20% { transform: translateX(0); }
-            25% { transform: translateX(-100%); }
-            45% { transform: translateX(-100%); }
-            50% { transform: translateX(-200%); }
-            70% { transform: translateX(-200%); }
-            75% { transform: translateX(-300%); }
-            95% { transform: translateX(-300%); }
-            100% { transform: translateX(-400%); }
-        }
-
-        /* Container */
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 20px;
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Glass Card Effect */
-        .glass-card {
-            background: rgba(10, 20, 30, 0.6);
-            backdrop-filter: blur(12px);
-            border-radius: 20px;
-            padding: 25px;
-            margin-bottom: 25px;
-            border: 1px solid rgba(0, 212, 255, 0.25);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .glass-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(0, 212, 255, 0.2);
-            border-color: rgba(0, 212, 255, 0.5);
-        }
-
-        /* Header */
-        .header {
-            text-align: center;
-            padding: 40px 20px;
-            background: linear-gradient(135deg, rgba(0, 0, 0, 0.7), rgba(0, 40, 60, 0.5));
-            border-radius: 30px;
-            margin-bottom: 40px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(0, 212, 255, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .header::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(0, 212, 255, 0.05), transparent);
-            transform: rotate(45deg);
-            animation: shimmer 8s infinite;
-        }
-
-        @keyframes shimmer {
-            0% { transform: translateX(-100%) rotate(45deg); }
-            100% { transform: translateX(100%) rotate(45deg); }
-        }
-
-        .header h1 {
-            font-size: 3.5rem;
-            background: linear-gradient(135deg, #00d4ff, #7c3aed, #00ffaa);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            animation: glow 3s infinite;
-        }
-
-        .header .title {
-            font-size: 1.2rem;
-            color: #00d4ff;
-            letter-spacing: 2px;
-            margin: 10px 0;
-        }
-
-        /* Auto-Sliding Banner */
-        .slider-container {
+        /* --- Header & Nav --- */
+        header {
+            position: fixed;
+            top: 0;
             width: 100%;
-            height: 180px;
-            overflow: hidden;
-            margin: 20px 0;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--primary-color);
+            padding: 15px 0;
         }
 
-        .slider-track {
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
             display: flex;
-            width: 500%;
-            height: 100%;
-            animation: slideBg 25s infinite linear;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
         }
 
-        .slide {
-            width: 20%;
-            height: 100%;
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            text-decoration: none;
+            letter-spacing: 2px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+
+        nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            font-size: 0.9rem;
+        }
+
+        nav a:hover {
+            color: var(--accent-color);
+            text-shadow: 0 0 8px var(--accent-color);
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            flex-direction: column;
-            gap: 10px;
-            font-size: 1.2rem;
-            font-weight: bold;
-        }
-
-        .slide-1 { background: linear-gradient(135deg, #0a0f2a, #1a2a4a); }
-        .slide-2 { background: linear-gradient(135deg, #1a2a4a, #0a2f3a); }
-        .slide-3 { background: linear-gradient(135deg, #0a2f3a, #1a4a2a); }
-        .slide-4 { background: linear-gradient(135deg, #1a4a2a, #2a0a4a); }
-        .slide-5 { background: linear-gradient(135deg, #2a0a4a, #0a0f2a); }
-
-        /* Section Title */
-        .section-title {
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-            border-left: 4px solid #00d4ff;
-            padding-left: 15px;
-            color: #00d4ff;
-        }
-
-        /* Badges */
-        .badge-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 12px;
-            margin: 20px 0;
-        }
-
-        .badge {
-            padding: 8px 16px;
-            background: rgba(0, 212, 255, 0.15);
-            border-radius: 25px;
-            border: 1px solid rgba(0, 212, 255, 0.3);
-            font-size: 0.85rem;
-            transition: all 0.3s;
-        }
-
-        .badge:hover {
-            background: rgba(0, 212, 255, 0.3);
-            transform: scale(1.05);
-        }
-
-        /* Stats Grid */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 20px;
-            margin: 30px 0;
-        }
-
-        .stat-card {
-            background: rgba(0, 212, 255, 0.1);
-            border-radius: 15px;
-            padding: 20px;
             text-align: center;
-            border: 1px solid rgba(0, 212, 255, 0.3);
+            padding: 0 20px;
+            position: relative;
         }
 
-        .stat-number {
-            font-size: 2rem;
+        .hero-content {
+            max-width: 800px;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        .hero h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, #fff, var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero h2 {
+            font-size: 1.5rem;
+            color: var(--text-gray);
+            margin-bottom: 20px;
+        }
+
+        .hero-tags {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+
+        .tag {
+            background: rgba(0, 119, 182, 0.2);
+            border: 1px solid var(--primary-color);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: var(--accent-color);
+        }
+
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border-radius: 5px;
+            text-decoration: none;
             font-weight: bold;
-            color: #00d4ff;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        /* Tables */
-        .research-table {
-            width: 100%;
-            border-collapse: collapse;
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+            box-shadow: 0 0 15px rgba(0, 119, 182, 0.5);
         }
 
-        .research-table th, .research-table td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid rgba(0, 212, 255, 0.2);
+        .btn-primary:hover {
+            background: var(--accent-color);
+            transform: translateY(-3px);
+            box-shadow: 0 0 25px rgba(0, 180, 216, 0.7);
         }
 
-        .research-table th {
-            background: rgba(0, 212, 255, 0.15);
-            color: #00d4ff;
+        .btn-secondary {
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
         }
 
-        /* Code Block */
-        .code-block {
-            background: #0a0f1a;
-            border-radius: 12px;
-            padding: 20px;
-            overflow-x: auto;
-            font-family: 'Fira Code', monospace;
-            font-size: 0.8rem;
-            border: 1px solid rgba(0, 212, 255, 0.3);
+        .btn-secondary:hover {
+            background: var(--primary-color);
+            color: white;
         }
 
-        /* Progress Bar */
-        .progress-bar {
-            width: 100%;
-            height: 8px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 4px;
+        /* --- Sections General --- */
+        section {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            color: var(--accent-color);
+            margin-bottom: 40px;
+            text-align: center;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60%;
+            height: 3px;
+            background: var(--highlight);
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+
+        /* --- About --- */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 40px;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 15px;
+            border: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(5px);
+        }
+
+        .profile-img-container {
+            text-align: center;
+        }
+
+        .profile-img {
+            width: 250px;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 4px solid var(--primary-color);
+            box-shadow: 0 0 20px rgba(0, 119, 182, 0.4);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .about-text p {
+            margin-bottom: 15px;
+            color: var(--text-gray);
+            text-align: justify;
+        }
+
+        .highlight-red {
+            color: var(--highlight);
+            font-weight: bold;
+        }
+
+        /* --- Skills & Domains (Animated Cards) --- */
+        .domains-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .domain-card {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            border-top: 3px solid var(--primary-color);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
             overflow: hidden;
-            margin-top: 8px;
         }
 
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #00d4ff, #7c3aed);
-            border-radius: 4px;
-            transition: width 1s ease;
+        .domain-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 119, 182, 0.3);
+            border-top-color: var(--highlight);
         }
 
-        /* Skills Grid */
-        .skills-grid {
+        .domain-icon {
+            font-size: 3rem;
+            color: var(--accent-color);
+            margin-bottom: 20px;
+        }
+
+        .domain-card h3 {
+            margin-bottom: 10px;
+            color: white;
+        }
+
+        /* --- Education & Projects --- */
+        .timeline-item {
+            background: var(--card-bg);
+            padding: 25px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            border-left: 4px solid var(--accent-color);
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -12px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            background: var(--dark-bg);
+            border: 2px solid var(--accent-color);
+            border-radius: 50%;
+        }
+
+        .project-tech-stack {
+            margin-top: 10px;
+            font-size: 0.85rem;
+            color: var(--accent-color);
+        }
+
+        /* --- Gallery --- */
+        .gallery-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 20px;
         }
 
-        .skill-card {
-            background: rgba(0, 212, 255, 0.05);
-            border-radius: 15px;
-            padding: 20px;
-            border: 1px solid rgba(0, 212, 255, 0.2);
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            height: 250px;
+            border: 2px solid var(--primary-color);
         }
 
-        .skill-card h3 {
-            color: #00d4ff;
-            margin-bottom: 15px;
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
         }
 
-        /* Footer */
-        .footer {
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 10px;
             text-align: center;
-            padding: 40px;
-            background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(0, 40, 60, 0.6));
-            border-radius: 30px;
-            margin-top: 40px;
+            transform: translateY(100%);
+            transition: transform 0.3s;
         }
 
-        /* Navigation */
-        .nav {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin: 30px 0;
+        .gallery-item:hover .gallery-caption {
+            transform: translateY(0);
         }
 
-        .nav a {
-            color: #e0e0e0;
-            text-decoration: none;
-            padding: 10px 20px;
-            background: rgba(0, 212, 255, 0.1);
-            border-radius: 30px;
-            transition: all 0.3s;
-            border: 1px solid rgba(0, 212, 255, 0.3);
+        /* --- Footer --- */
+        footer {
+            background: #020617;
+            padding: 40px 20px;
+            text-align: center;
+            border-top: 1px solid var(--primary-color);
+            margin-top: 50px;
         }
 
-        .nav a:hover {
-            background: rgba(0, 212, 255, 0.3);
-            transform: translateY(-2px);
+        .social-links {
+            margin-bottom: 20px;
         }
 
-        /* Links */
-        a {
-            color: #00d4ff;
-            text-decoration: none;
+        .social-links a {
+            color: var(--text-light);
+            font-size: 1.5rem;
+            margin: 0 15px;
+            transition: color 0.3s;
         }
 
-        a:hover {
-            text-decoration: underline;
+        .social-links a:hover {
+            color: var(--accent-color);
         }
 
         /* Responsive */
         @media (max-width: 768px) {
-            .header h1 { font-size: 2rem; }
-            .section-title { font-size: 1.3rem; }
-            .stats-grid { grid-template-columns: repeat(2, 1fr); }
-            .skills-grid { grid-template-columns: 1fr; }
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            nav ul {
+                display: none; /* Simple hide for mobile, ideally replace with hamburger */
+            }
+        }
+        
+        /* Circuit Background Animation Overlay */
+        .circuit-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.1;
+            background-image: 
+                linear-gradient(var(--primary-color) 1px, transparent 1px),
+                linear-gradient(90deg, var(--primary-color) 1px, transparent 1px);
+            background-size: 50px 50px;
         }
     </style>
 </head>
 <body>
-    <div class="circuit-bg"></div>
-    <div class="particles" id="particles"></div>
 
-    <div class="container">
-        <!-- Auto-Sliding Banner -->
-        <div class="slider-container">
-            <div class="slider-track">
-                <div class="slide slide-1">
-                    <span style="font-size: 3rem;">🔐</span>
-                    <span>POST-QUANTUM CRYPTOGRAPHY</span>
-                    <span style="font-size: 0.8rem;">CRYSTALS-Kyber | Dilithium | NTT Accelerators</span>
-                </div>
-                <div class="slide slide-2">
-                    <span style="font-size: 3rem;">⚙️</span>
-                    <span>RISC-V SoC ARCHITECTURE</span>
-                    <span style="font-size: 0.8rem;">Custom ISA | AXI/APB | Secure Processors</span>
-                </div>
-                <div class="slide slide-3">
-                    <span style="font-size: 3rem;">💾</span>
-                    <span>DIGITAL VLSI DESIGN</span>
-                    <span style="font-size: 0.8rem;">RTL-to-GDSII | PPA Optimization | Low Power</span>
-                </div>
-                <div class="slide slide-4">
-                    <span style="font-size: 3rem;">🔒</span>
-                    <span>HARDWARE SECURITY</span>
-                    <span style="font-size: 0.8rem;">Side-Channel Resistance | PUF | TRNG</span>
-                </div>
-                <div class="slide slide-5">
-                    <span style="font-size: 3rem;">🏭</span>
-                    <span>FPGA & ASIC IMPLEMENTATION</span>
-                    <span style="font-size: 0.8rem;">Vivado | Cadence | OpenLane | 45nm-7nm</span>
-                </div>
-            </div>
+    <!-- Circuit Background Pattern -->
+    <div class="circuit-overlay"></div>
+
+    <!-- Navigation -->
+    <header>
+        <div class="nav-container">
+            <a href="#" class="logo">SAHIL<span style="color:white">MAURYA</span></a>
+            <nav>
+                <ul>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#skills">Domains</a></li>
+                    <li><a href="#education">Education</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#gallery">Gallery</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
         </div>
+    </header>
 
-        <!-- Header -->
-        <div class="header">
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
             <h1>Sahil Maurya</h1>
-            <div class="title">🔬 Research Scholar @ IIT Mandi | SCEE Department</div>
-            <p>Digital VLSI | Post-Quantum Cryptography Hardware | Secure RISC-V SoC Architect</p>
-            <div class="badge-container">
-                <span class="badge">🏅 Gold Medalist M.Tech VLSI</span>
-                <span class="badge">🔐 PQC Hardware Expert</span>
-                <span class="badge">⚡ RISC-V Developer</span>
-                <span class="badge">📊 CGPA 9.11/10.0</span>
-                <span class="badge">📚 IEEE HiPC 2025 | IEEE SILCON 2024</span>
+            <h2>M.Tech VLSI & Embedded Systems | Hardware Security Enthusiast</h2>
+            
+            <div class="hero-tags">
+                <span class="tag">Digital VLSI</span>
+                <span class="tag">FPGA</span>
+                <span class="tag">ASIC Design</span>
+                <span class="tag">PQC</span>
+                <span class="tag">In-Memory Computing</span>
+                <span class="tag">Hardware Architecture</span>
+            </div>
+
+            <div class="btn-group">
+                <a href="https://www.linkedin.com/in/sahilmaurya007/" target="_blank" class="btn btn-primary">
+                    <i class="fab fa-linkedin"></i> LinkedIn Profile
+                </a>
+                <a href="ChipDesign.html" class="btn btn-secondary">
+                    <i class="fas fa-microchip"></i> ChipDesign Portfolio
+                </a>
             </div>
         </div>
+    </section>
 
-        <!-- Navigation -->
-        <div class="nav">
-            <a href="#about">About</a>
-            <a href="#education">Education</a>
-            <a href="#skills">Skills</a>
-            <a href="#projects">Projects</a>
-            <a href="#publications">Publications</a>
-            <a href="#certifications">Certifications</a>
-            <a href="#achievements">Achievements</a>
-            <a href="#contact">Contact</a>
-        </div>
-
-        <!-- About Me Section -->
-        <div id="about" class="glass-card">
-            <h2 class="section-title">🔬 About Me</h2>
-            <p style="text-align: justify; line-height: 1.8;">
-                I am a <strong style="color: #00d4ff;">Research Scholar at IIT Mandi (SCEE Department)</strong> specializing in 
-                <strong>Post-Quantum Cryptography Hardware Acceleration</strong>, <strong>Secure RISC-V SoC Architectures</strong>, and 
-                <strong>Digital VLSI Design</strong>. My research focuses on developing quantum-resistant cryptographic accelerators 
-                for NIST-standardized algorithms (CRYSTALS-Kyber, Dilithium) with optimized Power, Performance, and Area (PPA).
-            </p>
-            <br>
-            <p style="text-align: justify; line-height: 1.8;">
-                With a <strong style="color: #FFD700;">Gold Medalist M.Tech in VLSI</strong> from IIIT Guwahati 
-                <strong>(CGPA: 9.11/10.0)</strong>, I have published research at top-tier venues including 
-                <strong>IEEE HiPC 2025</strong> and <strong>IEEE SILCON 2024</strong>. My journey from overcoming academic setbacks 
-                to achieving excellence has shaped my perseverance and dedication to research.
-            </p>
-            <br>
-            <div style="background: rgba(0,212,255,0.1); border-radius: 15px; padding: 15px; border-left: 3px solid #00d4ff;">
-                <p style="margin: 0; font-style: italic;">💡 Research Vision: "Building the hardware foundation for a post-quantum secure world — one transistor, one instruction, one algorithm at a time."</p>
+    <!-- About Section -->
+    <section id="about">
+        <h2 class="section-title">About Me</h2>
+        <div class="about-grid">
+            <div class="profile-img-container">
+                <!-- REPLACE SRC WITH YOUR IMAGE: image/SAHIL.jpg -->
+                <img src="https://via.placeholder.com/250x250.png?text=Sahil+Maurya" alt="Sahil Maurya" class="profile-img">
             </div>
-        </div>
-
-        <!-- Stats Section -->
-        <div class="stats-grid">
-            <div class="stat-card"><div class="stat-number">34%</div><div>Area Reduction</div><small>Approximate Modular Multiplier</small></div>
-            <div class="stat-card"><div class="stat-number">33%</div><div>Power Savings</div><small>R-LWE Cryptosystems</small></div>
-            <div class="stat-card"><div class="stat-number">245MHz</div><div>Max Frequency</div><small>Kyber NTT Accelerator</small></div>
-            <div class="stat-card"><div class="stat-number">1.28Gbps</div><div>Throughput</div><small>NTT Architecture</small></div>
-            <div class="stat-card"><div class="stat-number">2</div><div>IEEE Publications</div><small>HiPC 2025 | SILCON 2024</small></div>
-            <div class="stat-card"><div class="stat-number">9.11</div><div>M.Tech CGPA</div><small>Gold Medalist</small></div>
-        </div>
-
-        <!-- Education Section -->
-        <div id="education" class="glass-card">
-            <h2 class="section-title">🎓 Education</h2>
-            <table class="research-table">
-                <thead>
-                    <tr><th>Degree</th><th>Institution</th><th>Year</th><th>Performance</th></tr>
-                </thead>
-                <tbody>
-                    <tr><td><strong>Ph.D. Research Scholar</strong></td><td>IIT Mandi</td><td>2025 - Present</td><td>CGPA: 8.33/10.0</td></tr>
-                    <tr><td><strong>M.Tech (VLSI & Embedded)</strong></td><td>IIIT Guwahati</td><td>2021 - 2023</td><td><strong style="color:#FFD700;">CGPA: 9.11/10.0 🏅 Gold Medalist</strong></td></tr>
-                    <tr><td><strong>B.Tech (Electronics & Comm)</strong></td><td>University of Lucknow</td><td>2017 - 2021</td><td>66.1%</td></tr>
-                    <tr><td><strong>Higher Secondary (Intermediate)</strong></td><td>UP Board</td><td>2016</td><td>85%</td></tr>
-                    <tr><td><strong>Secondary School (High School)</strong></td><td>UP Board</td><td>2014</td><td>85%</td></tr>
-                </tbody>
-            </table>
-        </div>
-
-        <!-- Skills Section -->
-        <div id="skills" class="glass-card">
-            <h2 class="section-title">🛠️ Technical Skills</h2>
-            <div class="skills-grid">
-                <div class="skill-card">
-                    <h3>🔧 Hardware Description Languages</h3>
-                    <div>Verilog <span style="float:right;">Expert</span><div class="progress-bar"><div class="progress-fill" style="width:95%"></div></div></div>
-                    <div>SystemVerilog <span style="float:right;">Advanced</span><div class="progress-bar"><div class="progress-fill" style="width:85%"></div></div></div>
-                    <div>VHDL <span style="float:right;">Intermediate</span><div class="progress-bar"><div class="progress-fill" style="width:70%"></div></div></div>
-                </div>
-                <div class="skill-card">
-                    <h3>📀 EDA Tools & FPGA</h3>
-                    <div>Xilinx Vivado <span style="float:right;">Expert</span><div class="progress-bar"><div class="progress-fill" style="width:95%"></div></div></div>
-                    <div>Cadence Genus/Innovus <span style="float:right;">Advanced</span><div class="progress-bar"><div class="progress-fill" style="width:85%"></div></div></div>
-                    <div>OpenLane/OpenROAD <span style="float:right;">Advanced</span><div class="progress-bar"><div class="progress-fill" style="width:85%"></div></div></div>
-                    <div>ModelSim/Questasim <span style="float:right;">Expert</span><div class="progress-bar"><div class="progress-fill" style="width:90%"></div></div></div>
-                </div>
-                <div class="skill-card">
-                    <h3>🔐 Hardware Security</h3>
-                    <div>Post-Quantum Cryptography <span style="float:right;">Expert</span><div class="progress-bar"><div class="progress-fill" style="width:95%"></div></div></div>
-                    <div>Side-Channel Analysis <span style="float:right;">Advanced</span><div class="progress-bar"><div class="progress-fill" style="width:85%"></div></div></div>
-                    <div>RISC-V Security <span style="float:right;">Advanced</span><div class="progress-bar"><div class="progress-fill" style="width:85%"></div></div></div>
-                </div>
-                <div class="skill-card">
-                    <h3>💻 Programming</h3>
-                    <div>Python <span style="float:right;">Expert</span><div class="progress-bar"><div class="progress-fill" style="width:90%"></div></div></div>
-                    <div>C/C++ <span style="float:right;">Advanced</span><div class="progress-bar"><div class="progress-fill" style="width:85%"></div></div></div>
-                    <div>RISC-V Assembly <span style="float:right;">Advanced</span><div class="progress-bar"><div class="progress-fill" style="width:80%"></div></div></div>
-                    <div>MATLAB <span style="float:right;">Intermediate</span><div class="progress-bar"><div class="progress-fill" style="width:70%"></div></div></div>
+            <div class="about-text">
+                <p>
+                    Hello! I'm <strong>Sahil Maurya</strong>, a recent <span class="highlight-red">M.Tech graduate (1st Rank)</span> from the prestigious <a href="https://www.iiitg.ac.in/" target="_blank" style="color:var(--accent-color)">Indian Institute of Information Technology, Guwahati</a>. 
+                </p>
+                <p>
+                    My journey is defined by resilience and passion. Hailing from a small village in Uttar Pradesh, I overcame significant academic setbacks to secure First Class Honors in my B.Tech and eventually topped my Master's batch. My research focuses on <span class="highlight-red">Digital Design Architecture</span>, <span class="highlight-red">Hardware Security</span>, and <span class="highlight-red">Post-Quantum Cryptography (PQC)</span>.
+                </p>
+                <p>
+                    Under the transformative guidance of <a href="https://sites.google.com/view/drbjajodia/" target="_blank" style="color:var(--accent-color)">Dr. Babita Jajodia</a>, I specialized in optimizing hardware for cryptosystems and exploring In-Memory Computing architectures. Beyond the lab, I am an avid cricket player, storyteller, and explorer of new cultures.
+                </p>
+                <div style="margin-top: 20px; font-style: italic; color: var(--accent-color); border-left: 3px solid var(--highlight); padding-left: 15px;">
+                    "The future belongs to those who believe in the beauty of their dreams." - Eleanor Roosevelt
                 </div>
             </div>
         </div>
+    </section>
 
-        <!-- Research Projects Section -->
-        <div id="projects" class="glass-card">
-            <h2 class="section-title">💻 Research Projects</h2>
-            
-            <h3 style="color:#00d4ff; margin-top:15px;">🔐 Project 1: CRYSTALS-Kyber NTT Hardware Accelerator</h3>
-            <p><strong>Problem:</strong> CRYSTALS-Kyber requires high-performance NTT operations computationally intensive on general-purpose processors.</p>
-            <p><strong>Solution:</strong> 4-parallel NTT architecture with banked memory and pipelined Barrett reduction.</p>
-            <p><strong>Results:</strong> 245 MHz | 1.28 Gbps | 2,845 LUTs | 12.4 μs Key Generation</p>
-            
-            <h3 style="color:#00d4ff; margin-top:20px;">📊 Project 2: Approximate Modular Multiplier for R-LWE Cryptosystems</h3>
-            <p><strong>Published at IEEE SILCON 2024</strong></p>
-            <p><strong>Innovation:</strong> 34% area reduction, 33% power savings with &lt;1% accuracy loss for Kyber.</p>
-            <div class="code-block">
-                <pre style="margin:0; color:#00d4ff;">
-// Approximate Modular Multiplier for CRYSTALS-Kyber
-module kyber_approx_modular_multiplier #(parameter Q=3329)(
-    input logic [16:0] a, b,
-    output logic [16:0] result
-);
-    // 34% area reduction | 33% power savings | 99.2% accuracy
-endmodule</pre>
+    <!-- Technical Domains (Animated) -->
+    <section id="skills">
+        <h2 class="section-title">Technical Domains</h2>
+        <div class="domains-grid">
+            <!-- Digital VLSI -->
+            <div class="domain-card">
+                <i class="fas fa-microchip domain-icon"></i>
+                <h3>Digital VLSI Design</h3>
+                <p>RTL Design, Synthesis, Place & Route using Cadence Genus/Innovus and Xilinx Vivado.</p>
             </div>
-            
-            <h3 style="color:#00d4ff; margin-top:20px;">🧠 Project 3: Neuromorphic Adaptive Precision RISC-V Processor</h3>
-            <p><strong>Accepted at IEEE HiPC 2025</strong></p>
-            <p><strong>Innovation:</strong> First RISC-V processor with real-time precision scaling (8-bit to 32-bit) based on neuronal activity.</p>
-            <p><strong>Results:</strong> 45% energy reduction for Image Recognition | 52% for Spiking Neural Networks</p>
-            
-            <h3 style="color:#00d4ff; margin-top:20px;">🔢 Project 4: Study of Large Integer Multiplication for Cryptosystem</h3>
-            <p>Designed 32-bit Toom-Cook-2.5 and Toom-Cook-3 multiplication algorithms on FPGA. Comparative analysis in terms of Area, LUT, Delay, Frequency & Power.</p>
-        </div>
-
-        <!-- Publications Section -->
-        <div id="publications" class="glass-card">
-            <h2 class="section-title">📚 Publications</h2>
-            <table class="research-table">
-                <thead><tr><th>#</th><th>Title</th><th>Venue</th><th>Year</th><th>Status</th></tr></thead>
-                <tbody>
-                    <tr><td>1</td><td><strong>Neuromorphic Adaptive Precision RISC-V Processor with Real-Time Precision Scaling and Neuronal State Management</strong></td><td>IEEE HiPC</td><td>2025</td><td>✅ Accepted</td></tr>
-                    <tr><td>2</td><td><strong>Approximate Modular Multipliers for R-LWE Cryptosystems on FPGAs and ASICs</strong></td><td>IEEE SILCON</td><td>2024</td><td>✅ Published</td></tr>
-                </tbody>
-            </table>
-        </div>
-
-        <!-- Certifications Section -->
-        <div id="certifications" class="glass-card">
-            <h2 class="section-title">🏅 Certifications</h2>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px;">
-                <div class="badge" style="text-align:center;">System Design Using Verilog HDL (Udemy, 2022)</div>
-                <div class="badge" style="text-align:center;">VSD Static Timing Analysis (Udemy, 2025)</div>
-                <div class="badge" style="text-align:center;">Python for Data Science, AI & Development (Coursera, 2023)</div>
-                <div class="badge" style="text-align:center;">Cadence RTL to GDS Flow (Entuple Technology, 2024)</div>
-                <div class="badge" style="text-align:center;">VLSI Design Flow using Vivado (CoreEL/Xilinx, 2024)</div>
+            <!-- FPGA -->
+            <div class="domain-card">
+                <i class="fas fa-network-wired domain-icon"></i>
+                <h3>FPGA Prototyping</h3>
+                <p>Hardware implementation of algorithms on Xilinx FPGA boards using Verilog HDL.</p>
+            </div>
+            <!-- ASIC -->
+            <div class="domain-card">
+                <i class="fas fa-layer-group domain-icon"></i>
+                <h3>ASIC Flow</h3>
+                <p>Experience with RTL-to-GDSII flow, timing analysis, and power optimization at 45nm node.</p>
+            </div>
+            <!-- PQC & Security -->
+            <div class="domain-card">
+                <i class="fas fa-shield-alt domain-icon"></i>
+                <h3>PQC & Hardware Security</h3>
+                <p>Designing efficient multipliers for R-LWE Cryptosystems and secure hardware architectures.</p>
+            </div>
+            <!-- In-Memory Computing -->
+            <div class="domain-card">
+                <i class="fas fa-brain domain-icon"></i>
+                <h3>In-Memory Computing</h3>
+                <p>Researching neuromorphic computing and memory-centric architectures for AI acceleration.</p>
+            </div>
+            <!-- Tools -->
+            <div class="domain-card">
+                <i class="fas fa-tools domain-icon"></i>
+                <h3>EDA Tools</h3>
+                <p>Cadence Virtuoso, Genus, Innovus, Xcelium, MATLAB, LTSpice, TINA-TI.</p>
             </div>
         </div>
+    </section>
 
-        <!-- Achievements Section -->
-        <div id="achievements" class="glass-card">
-            <h2 class="section-title">🏆 Achievements & Awards</h2>
-            <ul style="margin-left: 20px;">
-                <li>🏅 <strong>Gold Medalist</strong> — Highest CGPA (9.11) in M.Tech ECE 2021-2023 batch from IIIT Guwahati</li>
-                <li>🎯 <strong>IIT Mandi Research Scholar</strong> — Top 15% of Department</li>
-                <li>🔬 <strong>Two International Conference Publications</strong> during M.Tech (IEEE HiPC 2025, IEEE SILCON 2024)</li>
-                <li>🔐 <strong>Best Paper Nominee</strong> — IEEE SILCON 2024</li>
-                <li>💡 <strong>Patent Filed</strong> — Approximate Computing for Post-Quantum Cryptography</li>
-                <li>📜 Certificate of Participation: Hands-on Training by Entuple Technology on Cadence RTL to GDS Flow</li>
-                <li>📜 Certificate of Participation: Xilinx Webinar on VLSI Design Flow using Vivado by CoreEL Technologies</li>
-                <li>📜 Certificate of Participation: VeriFi - Verilog HDL based digital design challenge</li>
-                <li>✍️ 2nd Prize in Creative Writing competition by EN-LIT Lucknow University</li>
-            </ul>
+    <!-- Education -->
+    <section id="education">
+        <h2 class="section-title">Education</h2>
+        <div class="timeline-item">
+            <h3>M.Tech in VLSI & Embedded Systems</h3>
+            <p style="color: var(--accent-color);"><strong>IIIT Guwahati</strong> | May 2023</p>
+            <p>CGPA: <strong>9.11/10.0</strong> <span class="highlight-red">(1st Rank in Batch)</span></p>
+            <p>Thesis: Area and Power Efficient Approximate Modular Multiplier for R-LWE Cryptosystem.</p>
+        </div>
+        <div class="timeline-item">
+            <h3>B.Tech in Electronics & Communication Engineering</h3>
+            <p style="color: var(--accent-color);"><strong>University of Lucknow</strong> | 2021</p>
+            <p>Percentage: 66.1% (First Class Honors)</p>
+            <p><em>Note: Overcame 12 backlogs to graduate with honors, demonstrating extreme perseverance.</em></p>
+        </div>
+        <div class="timeline-item">
+            <h3>Higher Secondary (Science)</h3>
+            <p style="color: var(--accent-color);"><strong>UP Board</strong> | 2016</p>
+            <p>Percentage: 85% (1st Honours)</p>
+        </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects">
+        <h2 class="section-title">Key Projects</h2>
+        
+        <div class="timeline-item">
+            <h3>Study Of Large Integer Multiplication For Cryptosystem</h3>
+            <p class="project-tech-stack">Verilog HDL | FPGA | Toom-Cook Algorithm | Xilinx Vivado</p>
+            <p>Designed 32-bit Toom-Cook-2.5 and Toom-Cook-3 multiplication algorithms for cryptosystems. Implemented on FPGA and performed comparative analysis on Area, LUT, Delay, Frequency, and Power consumption.</p>
         </div>
 
-        <!-- Contact Section -->
-        <div id="contact" class="glass-card">
-            <h2 class="section-title">📫 Connect With Me</h2>
-            <div style="text-align: center;">
-                <p><strong>📧 Email:</strong> <a href="mailto:d24204@students.iitmandi.ac.in">d24204@students.iitmandi.ac.in</a> | <a href="mailto:sahil.maurya21@iiitg.ac.in">sahil.maurya21@iiitg.ac.in</a></p>
-                <p><strong>📞 Phone:</strong> +91-7270020537</p>
-                <p><strong>🔗 LinkedIn:</strong> <a href="https://www.linkedin.com/in/sahilmaurya007/" target="_blank">linkedin.com/in/sahilmaurya007</a></p>
-                <p><strong>🐙 GitHub:</strong> <a href="https://github.com/sahilmaurya007" target="_blank">github.com/sahilmaurya007</a></p>
-                <p><strong>🏠 Permanent Address:</strong> Janki Vihar Colony, Jankipuram, Lucknow, Uttar Pradesh - 226021</p>
-                <p><strong>🏛️ Current Address:</strong> IIT Mandi, Kamand Campus, Mandi, Himachal Pradesh - 175075</p>
+        <div class="timeline-item">
+            <h3>Area & Power Efficient Approximate Modular Multiplier (R-LWE)</h3>
+            <p class="project-tech-stack">ASIC Design | 45nm Library | Cadence Genus | Post-Quantum Crypto</p>
+            <p>Designed a modular multiplier for medium & high security levels of R-LWE Cryptosystem on 45nm ASIC library. Achieved <strong>36% area reduction</strong> and <strong>23% power reduction</strong> compared to state-of-the-art exact multipliers.</p>
+        </div>
+
+        <div class="timeline-item">
+            <h3>IoT Based Weather Monitoring System</h3>
+            <p class="project-tech-stack">Arduino UNO | Sensors | Cloud Integration</p>
+            <p>Developed an electronic device to capture Temperature & Humidity data and transmit it to the cloud for real-time analysis.</p>
+        </div>
+    </section>
+
+    <!-- Achievements -->
+    <section id="achievements">
+        <h2 class="section-title">Achievements & Certifications</h2>
+        <ul style="list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+            <li class="timeline-item" style="border-left-color: var(--highlight);">
+                <i class="fas fa-trophy" style="color: gold; margin-right: 10px;"></i>
+                <strong>Highest CGPA (9.11)</strong> in M.Tech ECE 2021-2023 batch at IIIT Guwahati.
+            </li>
+            <li class="timeline-item" style="border-left-color: var(--highlight);">
+                <i class="fas fa-certificate" style="color: var(--accent-color); margin-right: 10px;"></i>
+                <strong>Cadence RTL to GDS Flow</strong> Hands-on Training by Entuple Technology.
+            </li>
+            <li class="timeline-item" style="border-left-color: var(--highlight);">
+                <i class="fas fa-certificate" style="color: var(--accent-color); margin-right: 10px;"></i>
+                <strong>System Design using Verilog</strong> Certification by Udemy.
+            </li>
+            <li class="timeline-item" style="border-left-color: var(--highlight);">
+                <i class="fas fa-award" style="color: var(--accent-color); margin-right: 10px;"></i>
+                <strong>2nd Prize</strong> in Creative Writing competition by EN-LIT Lucknow University.
+            </li>
+        </ul>
+    </section>
+
+    <!-- Image Gallery -->
+    <section id="gallery">
+        <h2 class="section-title">Image Gallery</h2>
+        <div class="gallery-grid">
+            <!-- REPLACE SRC WITH YOUR ACTUAL IMAGES -->
+            
+            <div class="gallery-item">
+                <!-- Replace with: image/iiitg.jpg -->
+                <img src="https://via.placeholder.com/400x300.png?text=IIIT+Guwahati+Campus" alt="IIIT Guwahati">
+                <div class="gallery-caption">My Alma Mater: IIIT Guwahati</div>
+            </div>
+
+            <div class="gallery-item">
+                <!-- Replace with: image/fly.jpg -->
+                <img src="https://via.placeholder.com/400x300.png?text=Dream+of+Flying" alt="Flying Dream">
+                <div class="gallery-caption">The Dream That Started It All</div>
+            </div>
+
+            <div class="gallery-item">
+                <!-- Replace with: image/Friends.jpg -->
+                <img src="https://via.placeholder.com/400x300.png?text=With+Friends" alt="Friends">
+                <div class="gallery-caption">Memories with Friends</div>
+            </div>
+
+            <div class="gallery-item">
+                <!-- Replace with: image/Full_Adder_IOPlanning.png -->
+                <img src="https://via.placeholder.com/400x300.png?text=FPGA+IO+Planning" alt="IO Planning">
+                <div class="gallery-caption">FPGA IO Planning Visualization</div>
+            </div>
+
+            <div class="gallery-item">
+                <!-- Replace with: image/full_adder_floarplanning.png -->
+                <img src="https://via.placeholder.com/400x300.png?text=Floorplanning" alt="Floorplanning">
+                <div class="gallery-caption">ASIC Floorplanning Design</div>
+            </div>
+
+            <div class="gallery-item">
+                <!-- Replace with: image/Sam.jpeg -->
+                <img src="https://via.placeholder.com/400x300.png?text=Personal+Moment" alt="Sam">
+                <div class="gallery-caption">Personal Moments</div>
             </div>
         </div>
+    </section>
 
-        <!-- References Section -->
-        <div class="glass-card">
-            <h2 class="section-title">📌 References</h2>
-            <ul style="margin-left: 20px;">
-                <li><strong><a href="https://sites.google.com/view/drbjajodia/" target="_blank">Dr. Babita Jajodia</a></strong> — M.Tech Supervisor, Assistant Professor at IIIT Guwahati</li>
-                <li><strong><a href="https://scholar.google.com/citations?user=XPJcy54AAAAJ&hl=en" target="_blank">Dr. Rakesh Biswas</a></strong> — M.Tech Thesis Panelist, Assistant Professor at IIIT Guwahati</li>
-                <li><strong><a href="https://scholar.google.com/citations?user=W82wr6IAAAAJ&hl=en" target="_blank">Dr. Siddharth Singh</a></strong> — B.Tech Thesis Supervisor, HOD at Lucknow University</li>
-            </ul>
+    <!-- Contact & References -->
+    <section id="contact">
+        <h2 class="section-title">Contact & References</h2>
+        <div style="display: flex; flex-wrap: wrap; gap: 40px; justify-content: center;">
+            
+            <!-- Contact Info -->
+            <div style="flex: 1; min-width: 300px; background: var(--card-bg); padding: 30px; border-radius: 10px;">
+                <h3 style="color: var(--accent-color); margin-bottom: 20px;">Get In Touch</h3>
+                <p><i class="fas fa-phone" style="color: var(--primary-color); width: 25px;"></i> +91-7270020537</p>
+                <p><i class="fas fa-envelope" style="color: var(--primary-color); width: 25px;"></i> sahil.maurya21@iiitg.ac.in</p>
+                <p><i class="fas fa-envelope" style="color: var(--primary-color); width: 25px;"></i> shivam.maurya0077@gmail.com</p>
+                <p><i class="fas fa-map-marker-alt" style="color: var(--primary-color); width: 25px;"></i> Janki Vihar Colony, Lucknow, UP - 226021</p>
+                
+                <div style="margin-top: 20px;">
+                    <a href="https://www.linkedin.com/in/sahilmaurya007/" class="btn btn-primary" style="font-size: 0.9rem;">Connect on LinkedIn</a>
+                </div>
+            </div>
+
+            <!-- References -->
+            <div style="flex: 1; min-width: 300px; background: var(--card-bg); padding: 30px; border-radius: 10px;">
+                <h3 style="color: var(--accent-color); margin-bottom: 20px;">Professional References</h3>
+                <ul style="list-style: none;">
+                    <li style="margin-bottom: 15px;">
+                        <strong style="color: white;">Dr. Babita Jajodia</strong><br>
+                        <span style="color: var(--text-gray); font-size: 0.9rem;">M.Tech Supervisor, Asst. Prof, IIIT Guwahati</span><br>
+                        <a href="https://sites.google.com/view/drbjajodia/" target="_blank" style="color: var(--accent-color); font-size: 0.8rem;">View Profile</a>
+                    </li>
+                    <li style="margin-bottom: 15px;">
+                        <strong style="color: white;">Dr. Rakesh Biswas</strong><br>
+                        <span style="color: var(--text-gray); font-size: 0.9rem;">Thesis Panelist, Asst. Prof, IIIT Guwahati</span>
+                    </li>
+                    <li>
+                        <strong style="color: white;">Dr. Siddharth Singh</strong><br>
+                        <span style="color: var(--text-gray); font-size: 0.9rem;">B.Tech Supervisor, HOD, Lucknow University</span>
+                    </li>
+                </ul>
+            </div>
         </div>
+    </section>
 
-        <!-- Footer -->
-        <div class="footer">
-            <pre style="font-family: monospace; font-size: 0.7rem; color: #00d4ff;">
-╔═══════════════════════════════════════════════════════════════════════════════════════════════════╗
-║                                                                                                   ║
-║   🔐  Building Quantum-Resistant Silicon for a Post-Quantum World  🔐                            ║
-║                                                                                                   ║
-║   "The only way to protect against quantum threats is to build security                          ║
-║    into the hardware from the ground up — every transistor, every gate,                          ║
-║    every clock cycle counts when securing the future of computing."                              ║
-║                                                                                                   ║
-║                              — Sahil Maurya                                                       ║
-║                                                                                                   ║
-╚═══════════════════════════════════════════════════════════════════════════════════════════════════╝
-            </pre>
-            <p style="margin-top: 20px;"><strong>© 2025 Sahil Maurya | IIT Mandi Research Scholar | Hardware Security & Post-Quantum Cryptography</strong></p>
-            <p><em>Last Updated: March 2026</em></p>
+    <!-- Footer -->
+    <footer>
+        <div class="social-links">
+            <a href="https://www.linkedin.com/in/sahilmaurya007/" target="_blank"><i class="fab fa-linkedin"></i></a>
+            <a href="mailto:sahil.maurya21@iiitg.ac.in"><i class="fas fa-envelope"></i></a>
+            <a href="#"><i class="fab fa-github"></i></a>
         </div>
-    </div>
+        <p>&copy; 2026 Sahil Maurya. All Rights Reserved.</p>
+        <p style="font-size: 0.8rem; color: var(--text-gray); margin-top: 10px;">Designed with <i class="fas fa-heart" style="color: var(--highlight);"></i> for VLSI Community</p>
+    </footer>
 
-    <script>
-        // Particle Generation
-        function createParticles() {
-            const particlesContainer = document.getElementById('particles');
-            for (let i = 0; i < 60; i++) {
-                const particle = document.createElement('div');
-                particle.classList.add('particle');
-                const size = Math.random() * 4 + 1;
-                particle.style.width = size + 'px';
-                particle.style.height = size + 'px';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.animationDuration = Math.random() * 15 + 8 + 's';
-                particle.style.animationDelay = Math.random() * 10 + 's';
-                particlesContainer.appendChild(particle);
-            }
-        }
-        createParticles();
-    </script>
 </body>
 </html>
