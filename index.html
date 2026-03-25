@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Sahil Maurya - Research Scholar @ IIT Mandi | VLSI | PQC | RISC-V</title>
+
     <style>
         * {
             margin: 0;
@@ -17,6 +18,81 @@
             color: #1e2a3e;
             line-height: 1.6;
         }
+
+        /* 🔥 HERO SECTION */
+        .hero {
+            position: relative;
+            width: 100%;
+            height: 550px;
+            overflow: hidden;
+        }
+
+        .slider {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+
+            /* 🔥 better visibility */
+            filter: brightness(0.7);
+
+            opacity: 0;
+            animation: slideAnimation 30s infinite;
+        }
+
+        /* 🔥 HERO TEXT (NO BOX) */
+        .hero-content {
+            position: absolute;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+
+            background: none;
+            border: none;
+            box-shadow: none;
+            padding: 0;
+        }
+
+        /* 🔥 NAME (COLORFUL + VISIBLE) */
+        .hero-content h1 {
+            font-size: 3rem;
+            font-weight: 700;
+
+            background: linear-gradient(90deg, #00bfff, #22c55e, #facc15);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+
+            text-shadow: 0 3px 10px rgba(0,0,0,0.8);
+            letter-spacing: 1px;
+        }
+
+        /* 🔥 SUBTEXT */
+        .hero-content p {
+            font-size: 1.1rem;
+            color: #ffffff;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.8);
+        }
+
+        /* 🔥 SLIDE ANIMATION */
+        @keyframes slideAnimation {
+            0% { opacity: 0; }
+            10% { opacity: 1; }
+            25% { opacity: 1; }
+            35% { opacity: 0; }
+            100% { opacity: 0; }
+        }
+
+    </style>
+</head>
 
         /* Hero section with full width slider */
         .hero {
