@@ -684,216 +684,184 @@ footer {
     </div>
 
 
-    
-  <div id="chips">
-
-<h2 class="title">🔬 Silicon Visualization Grid</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Sahil Maurya | Silicon Lab</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
 body {
-    background: radial-gradient(circle at top, #050505, #000);
-    font-family: 'Orbitron', sans-serif;
+    margin:0;
+    background:black;
+    color:white;
+    font-family:Arial;
 }
 
-/* TITLE */
-.title {
-    text-align: center;
-    font-size: 2.2em;
-    color: #00f5ff;
-    margin-bottom: 30px;
-    text-shadow: 0 0 20px #00f5ff;
+/* HEADER */
+h1 {
+    text-align:center;
+    color:#00f5ff;
 }
 
 /* GRID */
-.chip-gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 25px;
+.grid {
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
+    padding:20px;
 }
 
 /* CARD */
-.chip-card {
-    position: relative;
-    border-radius: 20px;
-    overflow: hidden;
-    backdrop-filter: blur(15px);
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(0,255,255,0.2);
-    transition: all 0.3s ease;
-    transform-style: preserve-3d;
+.card {
+    background:#0a0a0a;
+    border-radius:15px;
+    padding:10px;
+    cursor:pointer;
+    border:1px solid #00f5ff33;
+    transition:0.3s;
+}
+.card:hover {
+    transform:scale(1.05);
+    box-shadow:0 0 20px #00f5ff;
 }
 
-.chip-card:hover {
-    box-shadow: 0 0 30px rgba(0,255,255,0.5);
+.card img {
+    width:100%;
+    height:180px;
+    object-fit:contain;
 }
 
-/* IMAGE */
-.chip-card img, .chip-card video {
-    width: 100%;
-    height: 220px;
-    object-fit: contain;
-    background: black;
-}
-
-/* CAPTION */
-.chip-overlay {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    padding: 12px;
-    background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
-}
-
-.chip-caption {
-    color: #00f5ff;
-    text-align: center;
-    font-size: 14px;
-    opacity: 0;
-    transform: translateY(10px);
-    transition: 0.3s;
-}
-
-.chip-card:hover .chip-caption {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* MODAL */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 9999;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.95);
-}
-
-.modal img {
-    display: block;
-    margin: auto;
-    max-width: 85%;
-    max-height: 80vh;
-    margin-top: 5%;
-    border-radius: 20px;
-}
-
-/* PARTICLES */
-canvas {
-    position: fixed;
+/* AI PANEL */
+#ai-panel {
+    position:fixed;
+    right:0;
     top:0;
-    left:0;
-    z-index:-1;
+    width:300px;
+    height:100%;
+    background:#111;
+    padding:20px;
+    border-left:2px solid #00f5ff;
+}
+
+/* DASHBOARD */
+.dashboard {
+    display:flex;
+    gap:20px;
+    justify-content:center;
+    margin:20px;
+}
+
+.metric {
+    padding:10px 20px;
+    background:#111;
+    border-radius:10px;
+}
+
+/* CANVAS */
+canvas {
+    display:block;
+    margin:auto;
+    background:#000;
+    border:1px solid #00f5ff;
 }
 </style>
+</head>
 
-<canvas id="bg"></canvas>
+<body>
 
-<div class="chip-gallery">
+<h1>⚡ Silicon Research Interface</h1>
 
-<div class="chip-card">
+<!-- DASHBOARD -->
+<div class="dashboard">
+<div class="metric">⚡ Power: <span id="power">0</span> mW</div>
+<div class="metric">⏱ Delay: <span id="delay">0</span> ns</div>
+<div class="metric">🔧 LUT: <span id="lut">0</span></div>
+</div>
+
+<!-- GRID -->
+<div class="grid">
+
+<div class="card" data-info="GF180nm ASIC Design with mixed-signal blocks">
 <img src="image/Chip2GF180nm.png">
-<div class="chip-overlay"><div class="chip-caption">GF180nm ASIC</div></div>
 </div>
 
-<div class="chip-card">
+<div class="card" data-info="Sky130 RISC-V SoC with PQC extension">
 <img src="image/chip1skywater130nm.png">
-<div class="chip-overlay"><div class="chip-caption">Sky130 RISC-V</div></div>
 </div>
 
-<div class="chip-card">
+<div class="card" data-info="ASAP 7nm High-speed NTT Accelerator">
 <img src="image/chip3ASAPnm.png">
-<div class="chip-overlay"><div class="chip-caption">ASAP 7nm PQC</div></div>
-</div>
-
-<div class="chip-card">
-<img src="image/chip4nangate45nm.png">
-<div class="chip-overlay"><div class="chip-caption">45nm Design</div></div>
-</div>
-
-<div class="chip-card">
-<video src="video/ntt_demo.mp4" muted loop></video>
-<div class="chip-overlay"><div class="chip-caption">NTT Accelerator Demo</div></div>
 </div>
 
 </div>
 
-<div id="modal" class="modal">
-<img id="modalImg">
+<!-- AI PANEL -->
+<div id="ai-panel">
+<h3>🧠 AI Chip Explainer</h3>
+<p id="ai-text">Click any chip to analyze...</p>
 </div>
+
+<!-- WAVEFORM -->
+<canvas id="wave" width="800" height="200"></canvas>
+
+<!-- 3D CHIP -->
+<canvas id="chip3d" width="400" height="400"></canvas>
 
 <script>
-// MODAL
-const modal = document.getElementById("modal");
-const modalImg = document.getElementById("modalImg");
-
-document.querySelectorAll('.chip-card img').forEach(img=>{
-    img.onclick = ()=>{
-        modal.style.display="block";
-        modalImg.src = img.src;
+// AI PANEL
+document.querySelectorAll('.card').forEach(card=>{
+    card.onclick = ()=>{
+        document.getElementById("ai-text").innerText = card.dataset.info;
     }
 });
 
-modal.onclick=()=>modal.style.display="none";
+// DASHBOARD SIMULATION
+setInterval(()=>{
+    document.getElementById("power").innerText = (Math.random()*100).toFixed(2);
+    document.getElementById("delay").innerText = (Math.random()*10).toFixed(2);
+    document.getElementById("lut").innerText = Math.floor(Math.random()*5000);
+},1000);
 
-// VIDEO HOVER PLAY
-document.querySelectorAll('video').forEach(v=>{
-    v.addEventListener('mouseover', ()=>v.play());
-    v.addEventListener('mouseout', ()=>v.pause());
-});
+// WAVEFORM
+const ctx = document.getElementById("wave").getContext("2d");
+let t=0;
 
-// PARTICLE BACKGROUND
-const canvas = document.getElementById("bg");
-const ctx = canvas.getContext("2d");
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
-let particles = [];
-
-for(let i=0;i<80;i++){
-    particles.push({
-        x:Math.random()*canvas.width,
-        y:Math.random()*canvas.height,
-        r:Math.random()*2,
-        dx:Math.random()-0.5,
-        dy:Math.random()-0.5
-    });
+function drawWave(){
+    ctx.clearRect(0,0,800,200);
+    ctx.beginPath();
+    for(let x=0;x<800;x++){
+        let y = 100 + Math.sin((x+t)/20)*40;
+        ctx.lineTo(x,y);
+    }
+    ctx.strokeStyle="#00f5ff";
+    ctx.stroke();
+    t+=2;
+    requestAnimationFrame(drawWave);
 }
+drawWave();
 
-function animate(){
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    ctx.fillStyle="#00f5ff";
-    particles.forEach(p=>{
-        ctx.beginPath();
-        ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-        ctx.fill();
+// 3D CHIP (fake rotation)
+const ctx3d = document.getElementById("chip3d").getContext("2d");
+let angle=0;
 
-        p.x+=p.dx;
-        p.y+=p.dy;
-
-        if(p.x<0||p.x>canvas.width) p.dx*=-1;
-        if(p.y<0||p.y>canvas.height) p.dy*=-1;
-    });
-    requestAnimationFrame(animate);
+function draw3D(){
+    ctx3d.clearRect(0,0,400,400);
+    ctx3d.fillStyle="#00f5ff";
+    ctx3d.save();
+    ctx3d.translate(200,200);
+    ctx3d.rotate(angle);
+    ctx3d.fillRect(-80,-80,160,160);
+    ctx3d.restore();
+    angle+=0.01;
+    requestAnimationFrame(draw3D);
 }
-animate();
-
-// 3D TILT
-document.querySelectorAll('.chip-card').forEach(card=>{
-    card.addEventListener('mousemove',(e)=>{
-        const r = card.getBoundingClientRect();
-        const x = e.clientX - r.left;
-        const y = e.clientY - r.top;
-
-        card.style.transform = `rotateX(${-(y/20)}deg) rotateY(${x/20}deg)`;
-    });
-
-    card.addEventListener('mouseleave',()=>{
-        card.style.transform = "rotateX(0) rotateY(0)";
-    });
-});
+draw3D();
 </script>
 
-</div>
+</body>
+</html>
 
 
 
