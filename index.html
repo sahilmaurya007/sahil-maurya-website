@@ -887,12 +887,13 @@ footer {
 
 
 
-<!DOCTYPE html>
+
+ <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Image Gallery | Filter & Hover Effects</title>
+    <title>Image Gallery | Borderless | Blue Captions | Close Button</title>
     <style>
         * {
             margin: 0;
@@ -901,7 +902,7 @@ footer {
         }
 
         body {
-            background: #0a0a0a;
+            background: radial-gradient(circle at top, #0a0a0a, #000000);
             font-family: 'Segoe UI', 'Poppins', system-ui, -apple-system, sans-serif;
             min-height: 100vh;
             padding: 30px 20px;
@@ -913,143 +914,242 @@ footer {
             margin: 0 auto;
         }
 
-        /* TITLE STYLES - Navy Blue Light */
+        /* TITLE STYLES - clean blue glow */
         .navy-blue-light {
             text-align: center;
-            font-size: 36px;
+            font-size: 38px;
             font-weight: 700;
             letter-spacing: 1px;
-            color: #00bfff;
-            text-shadow: 0 0 10px rgba(0,191,255,0.4);
-            margin-bottom: 30px;
-            background: linear-gradient(135deg, #00bfff, #3a86ff);
+            color: #00b4ff;
+            text-shadow: 0 0 12px rgba(0,180,255,0.5);
+            margin-bottom: 35px;
+            background: linear-gradient(135deg, #00b4ff, #3a86ff);
             background-clip: text;
             -webkit-background-clip: text;
             color: transparent;
             text-shadow: none;
         }
 
-        /* FILTER BUTTONS SECTION */
+        /* FILTER BUTTONS SECTION - NO BORDERS, clean */
         .filter-btns {
             text-align: center;
-            margin-bottom: 35px;
+            margin-bottom: 40px;
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 12px;
+            gap: 14px;
         }
 
         .filter-btns button {
             margin: 0;
-            padding: 10px 24px;
-            border: 1.5px solid rgba(0,191,255,0.4);
-            border-radius: 40px;
-            background: rgba(10,10,20,0.8);
-            color: #00bfff;
-            font-size: 15px;
+            padding: 10px 28px;
+            border: none;
+            border-radius: 50px;
+            background: rgba(20, 20, 35, 0.7);
+            backdrop-filter: blur(8px);
+            color: #88ddff;
+            font-size: 16px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            backdrop-filter: blur(4px);
             letter-spacing: 0.5px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
         }
 
         .filter-btns button:hover {
-            background: #00bfff;
+            background: #00b4ff;
             color: #0a0a0a;
-            border-color: #00bfff;
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,191,255,0.3);
+            box-shadow: 0 8px 20px rgba(0,180,255,0.4);
         }
 
         /* GRID LAYOUT */
         .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 28px;
         }
 
-        /* GALLERY ITEM CARD */
+        /* GALLERY ITEM CARD - COMPLETELY BORDERLESS */
         .gallery-item {
             position: relative;
             overflow: hidden;
-            border-radius: 20px;
+            border-radius: 24px;
             cursor: pointer;
-            background: rgba(20,20,30,0.4);
-            backdrop-filter: blur(2px);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: 0 10px 25px -8px rgba(0,0,0,0.5);
-            /* NO BORDER ANYWHERE - removed all borders */
+            background: rgba(15, 15, 25, 0.3);
+            transition: transform 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.1), box-shadow 0.3s ease;
+            box-shadow: 0 12px 28px -10px rgba(0,0,0,0.6);
+            /* NO BORDER ANYWHERE */
             border: none;
             outline: none;
         }
 
         .gallery-item:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 20px 35px -10px rgba(0,191,255,0.2);
+            transform: translateY(-8px);
+            box-shadow: 0 22px 40px -12px rgba(0,180,255,0.25);
         }
 
-        /* IMAGE STYLES */
+        /* IMAGE STYLES - FULL FIT, NO BORDERS */
         .gallery-item img {
             width: 100%;
-            height: 260px;
-            object-fit: contain;
-            background: #050505;
-            filter: grayscale(100%) brightness(0.7);
-            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            height: 270px;
+            object-fit: cover;
+            filter: grayscale(70%) brightness(0.75);
+            transition: all 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             display: block;
-            /* no border on images */
             border: none;
+            outline: none;
         }
 
-        /* HOVER EFFECT - ZOOM OUT + COLOR RESTORE */
+        /* HOVER EFFECT - ZOOM SLIGHT + COLOR RESTORE */
         .gallery-item:hover img {
             filter: grayscale(0%) brightness(1.05);
-            transform: scale(0.96);
+            transform: scale(1.03);
         }
 
-        /* OVERLAY / CAPTION BACKGROUND */
+        /* OVERLAY / CAPTION BACKGROUND - TRANSPARENT GRADIENT, NO BORDER */
         .gallery-overlay {
             position: absolute;
             bottom: 0;
             left: 0;
             width: 100%;
-            padding: 14px 16px;
-            background: linear-gradient(to top, rgba(0,0,0,0.92), rgba(0,0,0,0.5), transparent);
+            padding: 16px 18px;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.5), transparent);
             backdrop-filter: blur(3px);
             transition: all 0.3s;
-            /* NO BORDER on overlay */
             border: none;
             outline: none;
         }
 
-        /* CAPTION TEXT - BLUE COLOR (main requirement) */
+        /* CAPTION TEXT - BLUE COLOR (vivid blue, no yellow) */
         .gallery-caption {
-            color: #3b82f6;      /* vibrant blue */
-            font-size: 15px;
+            color: #3a86ff;
+            font-size: 16px;
             font-weight: 600;
-            letter-spacing: 0.4px;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+            letter-spacing: 0.3px;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.5);
             transition: color 0.2s ease;
-            /* no border or outline */
             border: none;
         }
 
-        /* On hover, caption gets lighter blue */
         .gallery-item:hover .gallery-caption {
-            color: #60a5fa;      /* softer bright blue */
+            color: #6ea8fe;
         }
 
-        /* Responsive adjustments */
+        /* MODAL / LIGHTBOX STYLES - FOR NEW TAB ALTERNATIVE (custom modal with close) */
+        /* we will use a custom modal instead of target=_blank to have X close button */
+        .image-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.96);
+            backdrop-filter: blur(12px);
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            opacity: 0;
+            transition: opacity 0.25s ease;
+        }
+        
+        .image-modal.show {
+            display: flex;
+            opacity: 1;
+        }
+        
+        .modal-content {
+            position: relative;
+            max-width: 90vw;
+            max-height: 85vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content img {
+            max-width: 100%;
+            max-height: 85vh;
+            object-fit: contain;
+            border-radius: 16px;
+            box-shadow: 0 20px 45px rgba(0,0,0,0.6);
+            border: 1px solid rgba(0,180,255,0.2);
+        }
+        
+        /* CLOSE BUTTON - X mark */
+        .modal-close {
+            position: absolute;
+            top: -50px;
+            right: -20px;
+            background: rgba(30,30,50,0.9);
+            backdrop-filter: blur(10px);
+            color: white;
+            font-size: 32px;
+            font-weight: 300;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: 0.2s;
+            z-index: 2001;
+            border: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+        }
+        
+        .modal-close:hover {
+            background: #ff4d4d;
+            transform: scale(1.05);
+            color: white;
+        }
+        
+        /* optional nav arrows for modal */
+        .modal-prev, .modal-next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(8px);
+            color: white;
+            font-size: 38px;
+            width: 52px;
+            height: 52px;
+            border-radius: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: 0.2s;
+            border: none;
+            z-index: 2001;
+        }
+        
+        .modal-prev {
+            left: 20px;
+        }
+        
+        .modal-next {
+            right: 20px;
+        }
+        
+        .modal-prev:hover, .modal-next:hover {
+            background: #00b4ff;
+            color: #000;
+        }
+        
         @media (max-width: 680px) {
             .gallery-grid {
-                gap: 18px;
+                gap: 20px;
             }
             .gallery-item img {
-                height: 220px;
+                height: 230px;
             }
             .filter-btns button {
-                padding: 7px 18px;
+                padding: 7px 20px;
                 font-size: 13px;
             }
             .navy-blue-light {
@@ -1058,34 +1158,31 @@ footer {
             .gallery-caption {
                 font-size: 13px;
             }
-            .gallery-overlay {
-                padding: 10px 12px;
+            .modal-close {
+                top: -45px;
+                right: 0px;
+                width: 42px;
+                height: 42px;
+                font-size: 28px;
+            }
+            .modal-prev, .modal-next {
+                width: 42px;
+                height: 42px;
+                font-size: 28px;
             }
         }
-
-        @media (max-width: 480px) {
-            body {
-                padding: 20px 12px;
-            }
-            .gallery-item img {
-                height: 190px;
-            }
-        }
-
-        /* ensure no border on any child links or anchors */
-        a {
-            text-decoration: none;
-            display: block;
+        
+        /* ensure no borders anywhere */
+        a, button, div, img, span, .gallery-item, .gallery-overlay {
             border: none;
             outline: none;
         }
-
-        /* remove any possible focus outline */
-        .gallery-item:focus, .gallery-item img:focus, .gallery-item a:focus {
+        
+        /* remove any focus ring */
+        .gallery-item:focus, .gallery-item img:focus, button:focus {
             outline: none;
         }
-
-        /* additional fix: remove any border from images inside grid */
+        
         img {
             border: none;
         }
@@ -1095,7 +1192,7 @@ footer {
 <div id="gallery">
     <h2 class="navy-blue-light">📸 Image Gallery</h2>
 
-    <!-- FILTER BUTTONS -->
+    <!-- FILTER BUTTONS - no borders, clean design -->
     <div class="filter-btns">
         <button onclick="filterSelection('all')">✨ All</button>
         <button onclick="filterSelection('research')">🔬 Research</button>
@@ -1104,196 +1201,326 @@ footer {
     </div>
 
     <!-- GALLERY GRID -->
-    <div class="gallery-grid">
-
-        <!-- Item 1: IIITG Convocation (Research) -->
-        <div class="gallery-item research">
-            <a href="image/IIITGConvocation.JPG" target="_blank" rel="noopener noreferrer">
-                <img src="image/IIITGConvocation.JPG" alt="IIITG Convocation">
-            </a>
+    <div class="gallery-grid" id="galleryGrid">
+        <!-- All images with categories - BLUE CAPTIONS, NO BORDERS, custom modal opens instead of new tab -->
+        
+        <div class="gallery-item research" data-img="image/IIITGConvocation.JPG" data-caption="IIITG Convocation">
+            <img src="image/IIITGConvocation.JPG" alt="IIITG Convocation">
             <div class="gallery-overlay">
                 <div class="gallery-caption">IIITG Convocation</div>
             </div>
         </div>
 
-        <!-- Item 2: Convocation (Life) -->
-        <div class="gallery-item life">
-            <a href="image/sahil.jpeg" target="_blank" rel="noopener noreferrer">
-                <img src="image/sahil.jpeg" alt="Convocation">
-            </a>
+        <div class="gallery-item life" data-img="image/sahil.jpeg" data-caption="Convocation">
+            <img src="image/sahil.jpeg" alt="Convocation">
             <div class="gallery-overlay">
                 <div class="gallery-caption">Convocation</div>
             </div>
         </div>
 
-        <!-- Item 3: Lake View (Life) -->
-        <div class="gallery-item life">
-            <a href="image/Sam.jpeg" target="_blank" rel="noopener noreferrer">
-                <img src="image/Sam.jpeg" alt="Lake View">
-            </a>
+        <div class="gallery-item life" data-img="image/Sam.jpeg" data-caption="Lake View">
+            <img src="image/Sam.jpeg" alt="Lake View">
             <div class="gallery-overlay">
                 <div class="gallery-caption">Lake View</div>
             </div>
         </div>
 
-        <!-- Item 4: Friends (Friends) -->
-        <div class="gallery-item friends">
-            <a href="image/Friends.jpg" target="_blank" rel="noopener noreferrer">
-                <img src="image/Friends.jpg" alt="Friends">
-            </a>
+        <div class="gallery-item friends" data-img="image/Friends.jpg" data-caption="Friends">
+            <img src="image/Friends.jpg" alt="Friends">
             <div class="gallery-overlay">
                 <div class="gallery-caption">Friends</div>
             </div>
         </div>
 
-        <!-- Item 5: Aviation Dream (Life) -->
-        <div class="gallery-item life">
-            <a href="image/fly.JPG" target="_blank" rel="noopener noreferrer">
-                <img src="image/fly.JPG" alt="Aviation Dream">
-            </a>
+        <div class="gallery-item life" data-img="image/fly.JPG" data-caption="Aviation Dream">
+            <img src="image/fly.JPG" alt="Aviation Dream">
             <div class="gallery-overlay">
                 <div class="gallery-caption">Aviation Dream</div>
             </div>
         </div>
 
-        <!-- Item 6: With Arpit (Friends) -->
-        <div class="gallery-item friends">
-            <a href="image/arpit3.jpg" target="_blank" rel="noopener noreferrer">
-                <img src="image/arpit3.jpg" alt="With Arpit">
-            </a>
+        <div class="gallery-item friends" data-img="image/arpit3.jpg" data-caption="With Arpit">
+            <img src="image/arpit3.jpg" alt="With Arpit">
             <div class="gallery-overlay">
                 <div class="gallery-caption">With Arpit</div>
             </div>
         </div>
 
-        <!-- Item 7: Convocation Day (Life) -->
-        <div class="gallery-item life">
-            <a href="image/Convocation.jpg" target="_blank" rel="noopener noreferrer">
-                <img src="image/Convocation.jpg" alt="Convocation Day">
-            </a>
+        <div class="gallery-item life" data-img="image/Convocation.jpg" data-caption="Convocation Day">
+            <img src="image/Convocation.jpg" alt="Convocation Day">
             <div class="gallery-overlay">
                 <div class="gallery-caption">Convocation Day</div>
             </div>
         </div>
 
-        <!-- Item 8: IIIT Guwahati (Research) -->
-        <div class="gallery-item research">
-            <a href="image/iiitg.jpg" target="_blank" rel="noopener noreferrer">
-                <img src="image/iiitg.jpg" alt="IIIT Guwahati">
-            </a>
+        <div class="gallery-item research" data-img="image/iiitg.jpg" data-caption="IIIT Guwahati">
+            <img src="image/iiitg.jpg" alt="IIIT Guwahati">
             <div class="gallery-overlay">
                 <div class="gallery-caption">IIIT Guwahati</div>
             </div>
         </div>
 
-        <!-- Item 9: Research Poster (Research) -->
-        <div class="gallery-item research">
-            <a href="image/Poster%20Landscape.png" target="_blank" rel="noopener noreferrer">
-                <img src="image/Poster%20Landscape.png" alt="Research Poster">
-            </a>
+        <div class="gallery-item research" data-img="image/Poster%20Landscape.png" data-caption="Research Poster">
+            <img src="image/Poster%20Landscape.png" alt="Research Poster">
             <div class="gallery-overlay">
                 <div class="gallery-caption">Research Poster</div>
             </div>
         </div>
 
-        <!-- Item 10: Conference Poster (Research) -->
-        <div class="gallery-item research">
-            <a href="image/Poster%20contact.png" target="_blank" rel="noopener noreferrer">
-                <img src="image/Poster%20contact.png" alt="Conference Poster">
-            </a>
+        <div class="gallery-item research" data-img="image/Poster%20contact.png" data-caption="Conference Poster">
+            <img src="image/Poster%20contact.png" alt="Conference Poster">
             <div class="gallery-overlay">
                 <div class="gallery-caption">Conference Poster</div>
             </div>
         </div>
 
-        <!-- Item 11: Recent Moment (Life) -->
-        <div class="gallery-item life">
-            <a href="image/WhatsApp%20Image%202026-03-05%20at%202.58.51%20PM.jpeg" target="_blank" rel="noopener noreferrer">
-                <img src="image/WhatsApp%20Image%202026-03-05%20at%202.58.51%20PM.jpeg" alt="Recent Moment">
-            </a>
+        <div class="gallery-item life" data-img="image/WhatsApp%20Image%202026-03-05%20at%202.58.51%20PM.jpeg" data-caption="Recent Moment">
+            <img src="image/WhatsApp%20Image%202026-03-05%20at%202.58.51%20PM.jpeg" alt="Recent Moment">
             <div class="gallery-overlay">
                 <div class="gallery-caption">Recent Moment</div>
             </div>
         </div>
+    </div>
+</div>
 
+<!-- CUSTOM MODAL WITH CLOSE BUTTON (X) - opens full image, has X to close -->
+<div id="imageModal" class="image-modal">
+    <div class="modal-content">
+        <img id="modalImg" src="" alt="Full view">
+        <div class="modal-close" id="modalCloseBtn">✕</div>
+        <div class="modal-prev" id="modalPrev">❮</div>
+        <div class="modal-next" id="modalNext">❯</div>
     </div>
 </div>
 
 <script>
-    // FILTER FUNCTIONALITY (without any borders, smooth display toggle)
+    // IMAGE ARRAY FOR MODAL NAVIGATION (based on visible filtered items)
+    let currentImageList = [];
+    let currentModalIndex = 0;
+    
+    // Get all gallery items (original order, but we use dynamic filtering)
+    const allGalleryItems = Array.from(document.querySelectorAll('.gallery-item'));
+    
+    // Build full image data from all items
+    function getAllImageData() {
+        return allGalleryItems.map(item => ({
+            src: item.getAttribute('data-img'),
+            caption: item.querySelector('.gallery-caption')?.innerText || 'Image'
+        }));
+    }
+    
+    let fullImageData = getAllImageData();
+    
+    // Function to update visible image list based on current filter
+    function getVisibleImageData() {
+        const visibleItems = Array.from(document.querySelectorAll('.gallery-item')).filter(item => item.style.display !== 'none');
+        return visibleItems.map(item => ({
+            src: item.getAttribute('data-img'),
+            caption: item.querySelector('.gallery-caption')?.innerText || 'Image',
+            element: item
+        }));
+    }
+    
+    // Open modal with specific image index (from visible filtered set)
+    function openModalByIndex(index) {
+        const visibleImages = getVisibleImageData();
+        if (visibleImages.length === 0) return;
+        if (index < 0) index = 0;
+        if (index >= visibleImages.length) index = visibleImages.length - 1;
+        
+        currentModalIndex = index;
+        const imgData = visibleImages[currentModalIndex];
+        const modalImg = document.getElementById('modalImg');
+        if (modalImg && imgData) {
+            modalImg.src = imgData.src;
+            modalImg.alt = imgData.caption;
+        }
+        const modal = document.getElementById('imageModal');
+        modal.classList.add('show');
+        document.body.style.overflow = 'hidden';
+    }
+    
+    // Close modal function
+    function closeModal() {
+        const modal = document.getElementById('imageModal');
+        modal.classList.remove('show');
+        document.body.style.overflow = '';
+        // reset img src to avoid flicker
+        setTimeout(() => {
+            if (document.getElementById('modalImg')) {
+                // keep but fine
+            }
+        }, 200);
+    }
+    
+    // Next image in modal (based on visible filtered images)
+    function nextImage() {
+        const visibleImages = getVisibleImageData();
+        if (visibleImages.length === 0) return;
+        currentModalIndex = (currentModalIndex + 1) % visibleImages.length;
+        const newImgData = visibleImages[currentModalIndex];
+        const modalImg = document.getElementById('modalImg');
+        if (modalImg && newImgData) {
+            modalImg.src = newImgData.src;
+            modalImg.alt = newImgData.caption;
+        }
+    }
+    
+    // Previous image
+    function prevImage() {
+        const visibleImages = getVisibleImageData();
+        if (visibleImages.length === 0) return;
+        currentModalIndex = (currentModalIndex - 1 + visibleImages.length) % visibleImages.length;
+        const newImgData = visibleImages[currentModalIndex];
+        const modalImg = document.getElementById('modalImg');
+        if (modalImg && newImgData) {
+            modalImg.src = newImgData.src;
+            modalImg.alt = newImgData.caption;
+        }
+    }
+    
+    // Attach click events to each gallery item (instead of target=_blank) -> open modal with X close
+    function attachModalEvents() {
+        const items = document.querySelectorAll('.gallery-item');
+        items.forEach((item, idx) => {
+            // remove existing listener to avoid duplicates
+            item.removeEventListener('click', item._modalClickHandler);
+            const handler = function(e) {
+                // get current visible filtered list and find index of this item
+                const visibleItems = getVisibleImageData();
+                const clickedSrc = item.getAttribute('data-img');
+                const foundIndex = visibleItems.findIndex(v => v.src === clickedSrc);
+                if (foundIndex !== -1) {
+                    openModalByIndex(foundIndex);
+                } else {
+                    // fallback: open with first
+                    openModalByIndex(0);
+                }
+                e.stopPropagation();
+            };
+            item._modalClickHandler = handler;
+            item.addEventListener('click', handler);
+        });
+    }
+    
+    // FILTER FUNCTIONALITY (borderless, smooth)
     function filterSelection(category) {
         let items = document.getElementsByClassName("gallery-item");
-        
         for (let i = 0; i < items.length; i++) {
             let item = items[i];
-            // Check if item contains the selected category class OR category is 'all'
             if (category === "all" || item.classList.contains(category)) {
                 item.style.display = "block";
-                // Optional: subtle fade-in effect
+                // optional fade effect
                 item.style.opacity = "0";
-                item.style.transform = "scale(0.98)";
                 setTimeout(() => {
                     if (item.style.display === "block") {
                         item.style.opacity = "1";
-                        item.style.transform = "scale(1)";
                     }
-                }, 10);
+                }, 20);
             } else {
                 item.style.display = "none";
             }
         }
+        // after filter, modal index reset and update events remain attached
+        attachModalEvents();
+        // reset any open modal if open? not needed
     }
-
-    // Ensure on page load, all items are visible
-    document.addEventListener("DOMContentLoaded", function() {
-        filterSelection('all');
-        
-        // Optional: add a tiny active style for filter buttons (visual feedback)
+    
+    // Setup filter button active styles
+    function setupFilterButtons() {
         const buttons = document.querySelectorAll('.filter-btns button');
         buttons.forEach(btn => {
             btn.addEventListener('click', function() {
-                buttons.forEach(b => b.style.background = 'rgba(10,10,20,0.8)');
-                this.style.background = '#00bfff';
-                this.style.color = '#0a0a0a';
-                // reset other buttons color
                 buttons.forEach(b => {
-                    if (b !== this) {
-                        b.style.color = '#00bfff';
-                        b.style.background = 'rgba(10,10,20,0.8)';
-                    }
+                    b.style.background = 'rgba(20, 20, 35, 0.7)';
+                    b.style.color = '#88ddff';
                 });
+                this.style.background = '#00b4ff';
+                this.style.color = '#0a0a0a';
             });
         });
-        
-        // Preload images to avoid any flickering (optional)
-        console.log("Gallery ready — Captions: Blue color, No borders anywhere.");
+    }
+    
+    // Keyboard controls for modal: Escape, Left, Right
+    document.addEventListener('keydown', function(e) {
+        const modal = document.getElementById('imageModal');
+        if (modal.classList.contains('show')) {
+            if (e.key === 'Escape') {
+                closeModal();
+                e.preventDefault();
+            } else if (e.key === 'ArrowRight') {
+                nextImage();
+                e.preventDefault();
+            } else if (e.key === 'ArrowLeft') {
+                prevImage();
+                e.preventDefault();
+            }
+        }
     });
     
-    // additional safeguard to remove any border that might appear dynamically
-    window.addEventListener('load', function() {
-        const allImages = document.querySelectorAll('.gallery-item img');
-        const allOverlays = document.querySelectorAll('.gallery-overlay');
-        const allCaptions = document.querySelectorAll('.gallery-caption');
-        
-        // enforce border removal on all elements
-        allImages.forEach(img => img.style.border = 'none');
-        allOverlays.forEach(ov => ov.style.border = 'none');
-        allCaptions.forEach(cap => cap.style.border = 'none');
-        
-        const galleryItems = document.querySelectorAll('.gallery-item');
-        galleryItems.forEach(item => {
-            item.style.border = 'none';
-            item.style.outline = 'none';
-        });
+    // Initialize modal close and nav buttons
+    document.getElementById('modalCloseBtn').addEventListener('click', closeModal);
+    document.getElementById('modalPrev').addEventListener('click', prevImage);
+    document.getElementById('modalNext').addEventListener('click', nextImage);
+    
+    // close modal when clicking on background (modal content area)
+    const modalElement = document.getElementById('imageModal');
+    modalElement.addEventListener('click', function(e) {
+        if (e.target === modalElement) {
+            closeModal();
+        }
     });
+    
+    // initial filter all, attach events, remove any borders from all elements
+    window.addEventListener('DOMContentLoaded', function() {
+        filterSelection('all');
+        attachModalEvents();
+        setupFilterButtons();
+        
+        // enforce no borders globally (extra safety)
+        const allElements = document.querySelectorAll('.gallery-item, .gallery-item img, .gallery-overlay, .gallery-caption, .filter-btns button');
+        allElements.forEach(el => {
+            if (el) {
+                el.style.border = 'none';
+                el.style.outline = 'none';
+            }
+        });
+        
+        // remove any default white border that might appear due to browser
+        const style = document.createElement('style');
+        style.textContent = `
+            .gallery-item, .gallery-item img, .gallery-overlay, .gallery-caption, .filter-btns button, .modal-close, .modal-prev, .modal-next {
+                border: none !important;
+                outline: none !important;
+                box-shadow: none;
+            }
+            .gallery-item {
+                box-shadow: 0 12px 28px -10px rgba(0,0,0,0.6);
+            }
+            .gallery-item:hover {
+                box-shadow: 0 22px 40px -12px rgba(0,180,255,0.25);
+            }
+            img {
+                border: none !important;
+            }
+        `;
+        document.head.appendChild(style);
+        
+        console.log('Gallery ready: Borderless design, Blue captions, X close button on full image');
+    });
+    
+    // Optional: preload images for better performance
+    function preloadImages() {
+        const allSrcs = allGalleryItems.map(item => item.getAttribute('data-img'));
+        allSrcs.forEach(src => {
+            const img = new Image();
+            img.src = src;
+        });
+    }
+    preloadImages();
 </script>
 </body>
-</html>
-
-
-    
-
-    
+</html>   
 
 
 
