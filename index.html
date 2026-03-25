@@ -887,195 +887,413 @@ footer {
 
 
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Image Gallery | Filter & Hover Effects</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    
+        body {
+            background: #0a0a0a;
+            font-family: 'Segoe UI', 'Poppins', system-ui, -apple-system, sans-serif;
+            min-height: 100vh;
+            padding: 30px 20px;
+        }
 
- <div id="gallery">
-<h2 class="navy-blue-light">📸 Image Gallery</h2>
+        /* MAIN CONTAINER */
+        #gallery {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
 
-<style>
-body { background: #0a0a0a; font-family: 'Segoe UI', sans-serif; }
+        /* TITLE STYLES - Navy Blue Light */
+        .navy-blue-light {
+            text-align: center;
+            font-size: 36px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: #00bfff;
+            text-shadow: 0 0 10px rgba(0,191,255,0.4);
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, #00bfff, #3a86ff);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            text-shadow: none;
+        }
 
-.navy-blue-light {
-    text-align: center;
-    font-size: 32px;
-    color: #00bfff;
-    margin-bottom: 25px;
-}
+        /* FILTER BUTTONS SECTION */
+        .filter-btns {
+            text-align: center;
+            margin-bottom: 35px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+        }
 
-/* FILTER BUTTONS */
-.filter-btns {
-    text-align: center;
-    margin-bottom: 25px;
-}
+        .filter-btns button {
+            margin: 0;
+            padding: 10px 24px;
+            border: 1.5px solid rgba(0,191,255,0.4);
+            border-radius: 40px;
+            background: rgba(10,10,20,0.8);
+            color: #00bfff;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(4px);
+            letter-spacing: 0.5px;
+        }
 
-.filter-btns button {
-    margin: 5px;
-    padding: 8px 18px;
-    border: none;
-    border-radius: 20px;
-    background: #111;
-    color: #00bfff;
-    cursor: pointer;
-    transition: 0.3s;
-}
+        .filter-btns button:hover {
+            background: #00bfff;
+            color: #0a0a0a;
+            border-color: #00bfff;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,191,255,0.3);
+        }
 
-.filter-btns button:hover {
-    background: #00bfff;
-    color: black;
-}
+        /* GRID LAYOUT */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 28px;
+        }
 
-/* GRID */
-.gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 25px;
-}
+        /* GALLERY ITEM CARD */
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 20px;
+            cursor: pointer;
+            background: rgba(20,20,30,0.4);
+            backdrop-filter: blur(2px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 10px 25px -8px rgba(0,0,0,0.5);
+            /* NO BORDER ANYWHERE - removed all borders */
+            border: none;
+            outline: none;
+        }
 
-/* ITEM */
-.gallery-item {
-    position: relative;
-    overflow: hidden;
-    border-radius: 18px;
-    cursor: pointer;
-}
+        .gallery-item:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 35px -10px rgba(0,191,255,0.2);
+        }
 
-/* IMAGE */
-.gallery-item img {
-    width: 100%;
-    height: 260px;
-    object-fit: contain;
-    background: black;
-    filter: grayscale(100%) brightness(0.7);
-    transition: all 0.5s ease;
-}
+        /* IMAGE STYLES */
+        .gallery-item img {
+            width: 100%;
+            height: 260px;
+            object-fit: contain;
+            background: #050505;
+            filter: grayscale(100%) brightness(0.7);
+            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            display: block;
+            /* no border on images */
+            border: none;
+        }
 
-/* HOVER EFFECT */
-.gallery-item:hover img {
-    filter: grayscale(0%) brightness(1);
-    transform: scale(0.95);
-}
+        /* HOVER EFFECT - ZOOM OUT + COLOR RESTORE */
+        .gallery-item:hover img {
+            filter: grayscale(0%) brightness(1.05);
+            transform: scale(0.96);
+        }
 
-/* OVERLAY (clean, no border feel) */
-.gallery-overlay {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    padding: 10px;
-    background: rgba(0,0,0,0.6); /* 🔥 simple clean background */
-}
+        /* OVERLAY / CAPTION BACKGROUND */
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 14px 16px;
+            background: linear-gradient(to top, rgba(0,0,0,0.92), rgba(0,0,0,0.5), transparent);
+            backdrop-filter: blur(3px);
+            transition: all 0.3s;
+            /* NO BORDER on overlay */
+            border: none;
+            outline: none;
+        }
 
-/* CAPTION */
-.gallery-caption {
-    color: #00bfff; /* 🔵 BLUE TEXT */
-    font-size: 14px;
-    font-weight: 500;
-}
+        /* CAPTION TEXT - BLUE COLOR (main requirement) */
+        .gallery-caption {
+            color: #3b82f6;      /* vibrant blue */
+            font-size: 15px;
+            font-weight: 600;
+            letter-spacing: 0.4px;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+            transition: color 0.2s ease;
+            /* no border or outline */
+            border: none;
+        }
 
-</style>
+        /* On hover, caption gets lighter blue */
+        .gallery-item:hover .gallery-caption {
+            color: #60a5fa;      /* softer bright blue */
+        }
 
-<!-- FILTER -->
-<div class="filter-btns">
-    <button onclick="filterSelection('all')">All</button>
-    <button onclick="filterSelection('research')">Research</button>
-    <button onclick="filterSelection('life')">Life</button>
-    <button onclick="filterSelection('friends')">Friends</button>
-</div>
+        /* Responsive adjustments */
+        @media (max-width: 680px) {
+            .gallery-grid {
+                gap: 18px;
+            }
+            .gallery-item img {
+                height: 220px;
+            }
+            .filter-btns button {
+                padding: 7px 18px;
+                font-size: 13px;
+            }
+            .navy-blue-light {
+                font-size: 28px;
+            }
+            .gallery-caption {
+                font-size: 13px;
+            }
+            .gallery-overlay {
+                padding: 10px 12px;
+            }
+        }
 
-<!-- GRID -->
-<div class="gallery-grid">
+        @media (max-width: 480px) {
+            body {
+                padding: 20px 12px;
+            }
+            .gallery-item img {
+                height: 190px;
+            }
+        }
 
-    <div class="gallery-item research">
-        <a href="image/IIITGConvocation.JPG" target="_blank">
-            <img src="image/IIITGConvocation.JPG">
-        </a>
-        <div class="gallery-overlay"><div class="gallery-caption">IIITG Convocation</div></div>
+        /* ensure no border on any child links or anchors */
+        a {
+            text-decoration: none;
+            display: block;
+            border: none;
+            outline: none;
+        }
+
+        /* remove any possible focus outline */
+        .gallery-item:focus, .gallery-item img:focus, .gallery-item a:focus {
+            outline: none;
+        }
+
+        /* additional fix: remove any border from images inside grid */
+        img {
+            border: none;
+        }
+    </style>
+</head>
+<body>
+<div id="gallery">
+    <h2 class="navy-blue-light">📸 Image Gallery</h2>
+
+    <!-- FILTER BUTTONS -->
+    <div class="filter-btns">
+        <button onclick="filterSelection('all')">✨ All</button>
+        <button onclick="filterSelection('research')">🔬 Research</button>
+        <button onclick="filterSelection('life')">🌿 Life</button>
+        <button onclick="filterSelection('friends')">👥 Friends</button>
     </div>
 
-    <div class="gallery-item life">
-        <a href="image/sahil.jpeg" target="_blank">
-            <img src="image/sahil.jpeg">
-        </a>
-        <div class="gallery-overlay"><div class="gallery-caption">Convocation</div></div>
-    </div>
+    <!-- GALLERY GRID -->
+    <div class="gallery-grid">
 
-    <div class="gallery-item life">
-        <a href="image/Sam.jpeg" target="_blank">
-            <img src="image/Sam.jpeg">
-        </a>
-        <div class="gallery-overlay"><div class="gallery-caption">Lake View</div></div>
-    </div>
+        <!-- Item 1: IIITG Convocation (Research) -->
+        <div class="gallery-item research">
+            <a href="image/IIITGConvocation.JPG" target="_blank" rel="noopener noreferrer">
+                <img src="image/IIITGConvocation.JPG" alt="IIITG Convocation">
+            </a>
+            <div class="gallery-overlay">
+                <div class="gallery-caption">IIITG Convocation</div>
+            </div>
+        </div>
 
-    <div class="gallery-item friends">
-        <a href="image/Friends.jpg" target="_blank">
-            <img src="image/Friends.jpg">
-        </a>
-        <div class="gallery-overlay"><div class="gallery-caption">Friends</div></div>
-    </div>
+        <!-- Item 2: Convocation (Life) -->
+        <div class="gallery-item life">
+            <a href="image/sahil.jpeg" target="_blank" rel="noopener noreferrer">
+                <img src="image/sahil.jpeg" alt="Convocation">
+            </a>
+            <div class="gallery-overlay">
+                <div class="gallery-caption">Convocation</div>
+            </div>
+        </div>
 
-    <div class="gallery-item life">
-        <a href="image/fly.JPG" target="_blank">
-            <img src="image/fly.JPG">
-        </a>
-        <div class="gallery-overlay"><div class="gallery-caption">Aviation Dream</div></div>
-    </div>
+        <!-- Item 3: Lake View (Life) -->
+        <div class="gallery-item life">
+            <a href="image/Sam.jpeg" target="_blank" rel="noopener noreferrer">
+                <img src="image/Sam.jpeg" alt="Lake View">
+            </a>
+            <div class="gallery-overlay">
+                <div class="gallery-caption">Lake View</div>
+            </div>
+        </div>
 
-    <div class="gallery-item friends">
-        <a href="image/arpit3.jpg" target="_blank">
-            <img src="image/arpit3.jpg">
-        </a>
-        <div class="gallery-overlay"><div class="gallery-caption">With Arpit</div></div>
-    </div>
+        <!-- Item 4: Friends (Friends) -->
+        <div class="gallery-item friends">
+            <a href="image/Friends.jpg" target="_blank" rel="noopener noreferrer">
+                <img src="image/Friends.jpg" alt="Friends">
+            </a>
+            <div class="gallery-overlay">
+                <div class="gallery-caption">Friends</div>
+            </div>
+        </div>
 
-    <div class="gallery-item life">
-        <a href="image/Convocation.jpg" target="_blank">
-            <img src="image/Convocation.jpg">
-        </a>
-        <div class="gallery-overlay"><div class="gallery-caption">Convocation Day</div></div>
-    </div>
+        <!-- Item 5: Aviation Dream (Life) -->
+        <div class="gallery-item life">
+            <a href="image/fly.JPG" target="_blank" rel="noopener noreferrer">
+                <img src="image/fly.JPG" alt="Aviation Dream">
+            </a>
+            <div class="gallery-overlay">
+                <div class="gallery-caption">Aviation Dream</div>
+            </div>
+        </div>
 
-    <div class="gallery-item research">
-        <a href="image/iiitg.jpg" target="_blank">
-            <img src="image/iiitg.jpg">
-        </a>
-        <div class="gallery-overlay"><div class="gallery-caption">IIIT Guwahati</div></div>
-    </div>
+        <!-- Item 6: With Arpit (Friends) -->
+        <div class="gallery-item friends">
+            <a href="image/arpit3.jpg" target="_blank" rel="noopener noreferrer">
+                <img src="image/arpit3.jpg" alt="With Arpit">
+            </a>
+            <div class="gallery-overlay">
+                <div class="gallery-caption">With Arpit</div>
+            </div>
+        </div>
 
-    <div class="gallery-item research">
-        <a href="image/Poster%20Landscape.png" target="_blank">
-            <img src="image/Poster%20Landscape.png">
-        </a>
-        <div class="gallery-overlay"><div class="gallery-caption">Research Poster</div></div>
-    </div>
+        <!-- Item 7: Convocation Day (Life) -->
+        <div class="gallery-item life">
+            <a href="image/Convocation.jpg" target="_blank" rel="noopener noreferrer">
+                <img src="image/Convocation.jpg" alt="Convocation Day">
+            </a>
+            <div class="gallery-overlay">
+                <div class="gallery-caption">Convocation Day</div>
+            </div>
+        </div>
 
-    <div class="gallery-item research">
-        <a href="image/Poster%20contact.png" target="_blank">
-            <img src="image/Poster%20contact.png">
-        </a>
-        <div class="gallery-overlay"><div class="gallery-caption">Conference Poster</div></div>
-    </div>
+        <!-- Item 8: IIIT Guwahati (Research) -->
+        <div class="gallery-item research">
+            <a href="image/iiitg.jpg" target="_blank" rel="noopener noreferrer">
+                <img src="image/iiitg.jpg" alt="IIIT Guwahati">
+            </a>
+            <div class="gallery-overlay">
+                <div class="gallery-caption">IIIT Guwahati</div>
+            </div>
+        </div>
 
-    <div class="gallery-item life">
-        <a href="image/WhatsApp%20Image%202026-03-05%20at%202.58.51%20PM.jpeg" target="_blank">
-            <img src="image/WhatsApp%20Image%202026-03-05%20at%202.58.51%20PM.jpeg">
-        </a>
-        <div class="gallery-overlay"><div class="gallery-caption">Recent Moment</div></div>
-    </div>
+        <!-- Item 9: Research Poster (Research) -->
+        <div class="gallery-item research">
+            <a href="image/Poster%20Landscape.png" target="_blank" rel="noopener noreferrer">
+                <img src="image/Poster%20Landscape.png" alt="Research Poster">
+            </a>
+            <div class="gallery-overlay">
+                <div class="gallery-caption">Research Poster</div>
+            </div>
+        </div>
 
+        <!-- Item 10: Conference Poster (Research) -->
+        <div class="gallery-item research">
+            <a href="image/Poster%20contact.png" target="_blank" rel="noopener noreferrer">
+                <img src="image/Poster%20contact.png" alt="Conference Poster">
+            </a>
+            <div class="gallery-overlay">
+                <div class="gallery-caption">Conference Poster</div>
+            </div>
+        </div>
+
+        <!-- Item 11: Recent Moment (Life) -->
+        <div class="gallery-item life">
+            <a href="image/WhatsApp%20Image%202026-03-05%20at%202.58.51%20PM.jpeg" target="_blank" rel="noopener noreferrer">
+                <img src="image/WhatsApp%20Image%202026-03-05%20at%202.58.51%20PM.jpeg" alt="Recent Moment">
+            </a>
+            <div class="gallery-overlay">
+                <div class="gallery-caption">Recent Moment</div>
+            </div>
+        </div>
+
+    </div>
 </div>
 
 <script>
-function filterSelection(category) {
-    let items = document.getElementsByClassName("gallery-item");
-    for (let i = 0; i < items.length; i++) {
-        items[i].style.display =
-            (category === "all" || items[i].classList.contains(category))
-            ? "block" : "none";
+    // FILTER FUNCTIONALITY (without any borders, smooth display toggle)
+    function filterSelection(category) {
+        let items = document.getElementsByClassName("gallery-item");
+        
+        for (let i = 0; i < items.length; i++) {
+            let item = items[i];
+            // Check if item contains the selected category class OR category is 'all'
+            if (category === "all" || item.classList.contains(category)) {
+                item.style.display = "block";
+                // Optional: subtle fade-in effect
+                item.style.opacity = "0";
+                item.style.transform = "scale(0.98)";
+                setTimeout(() => {
+                    if (item.style.display === "block") {
+                        item.style.opacity = "1";
+                        item.style.transform = "scale(1)";
+                    }
+                }, 10);
+            } else {
+                item.style.display = "none";
+            }
+        }
     }
-}
-</script>
 
-</div>   
+    // Ensure on page load, all items are visible
+    document.addEventListener("DOMContentLoaded", function() {
+        filterSelection('all');
+        
+        // Optional: add a tiny active style for filter buttons (visual feedback)
+        const buttons = document.querySelectorAll('.filter-btns button');
+        buttons.forEach(btn => {
+            btn.addEventListener('click', function() {
+                buttons.forEach(b => b.style.background = 'rgba(10,10,20,0.8)');
+                this.style.background = '#00bfff';
+                this.style.color = '#0a0a0a';
+                // reset other buttons color
+                buttons.forEach(b => {
+                    if (b !== this) {
+                        b.style.color = '#00bfff';
+                        b.style.background = 'rgba(10,10,20,0.8)';
+                    }
+                });
+            });
+        });
+        
+        // Preload images to avoid any flickering (optional)
+        console.log("Gallery ready — Captions: Blue color, No borders anywhere.");
+    });
+    
+    // additional safeguard to remove any border that might appear dynamically
+    window.addEventListener('load', function() {
+        const allImages = document.querySelectorAll('.gallery-item img');
+        const allOverlays = document.querySelectorAll('.gallery-overlay');
+        const allCaptions = document.querySelectorAll('.gallery-caption');
+        
+        // enforce border removal on all elements
+        allImages.forEach(img => img.style.border = 'none');
+        allOverlays.forEach(ov => ov.style.border = 'none');
+        allCaptions.forEach(cap => cap.style.border = 'none');
+        
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        galleryItems.forEach(item => {
+            item.style.border = 'none';
+            item.style.outline = 'none';
+        });
+    });
+</script>
+</body>
+</html>
+
+
+    
+
+    
 
 
 
