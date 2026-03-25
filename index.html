@@ -40,13 +40,15 @@
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-
-            /* 🔥 better visibility */
             filter: brightness(0.7);
-
             opacity: 0;
-            animation: slideAnimation 30s infinite;
+            animation: slideAnimation 24s infinite;
         }
+
+        /* 🔥 Fix animation delays so slides transition properly */
+        .slide:nth-child(1) { animation-delay: 0s; }
+        .slide:nth-child(2) { animation-delay: 8s; }
+        .slide:nth-child(3) { animation-delay: 16s; }
 
         /* 🔥 HERO TEXT (NO BOX) */
         .hero-content {
@@ -55,24 +57,26 @@
             left: 50%;
             transform: translateX(-50%);
             text-align: center;
-
             background: none;
             border: none;
             box-shadow: none;
             padding: 0;
+            z-index: 10;
+            width: 90%;
+            max-width: 800px;
         }
 
         /* 🔥 NAME (COLORFUL + VISIBLE) */
         .hero-content h1 {
             font-size: 3rem;
             font-weight: 700;
-
             background: linear-gradient(90deg, #00bfff, #22c55e, #facc15);
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
-
             text-shadow: 0 3px 10px rgba(0,0,0,0.8);
             letter-spacing: 1px;
+            margin-bottom: 12px;
         }
 
         /* 🔥 SUBTEXT */
@@ -80,18 +84,51 @@
             font-size: 1.1rem;
             color: #ffffff;
             text-shadow: 0 2px 8px rgba(0,0,0,0.8);
+            font-weight: 500;
         }
 
-        /* 🔥 SLIDE ANIMATION */
+        /* 🔥 SLIDE ANIMATION - smoother crossfade */
         @keyframes slideAnimation {
             0% { opacity: 0; }
-            10% { opacity: 1; }
-            25% { opacity: 1; }
-            35% { opacity: 0; }
+            8% { opacity: 1; }
+            30% { opacity: 1; }
+            38% { opacity: 0; }
             100% { opacity: 0; }
         }
 
+        /* Responsive fix */
+        @media (max-width: 768px) {
+            .hero {
+                height: 450px;
+            }
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+            .hero-content p {
+                font-size: 0.9rem;
+            }
+        }
     </style>
+</head>
+<body>
+
+    <!-- Hero section with slider background -->
+    <section class="hero">
+        <div class="slider">
+            <!-- Three slides with modern tech/research themed images -->
+            <div class="slide" style="background-image: url('https://picsum.photos/id/104/1920/1080?grayscale&seed=iitmandi1'); background-size: cover;"></div>
+            <div class="slide" style="background-image: url('https://picsum.photos/id/107/1920/1080?grayscale&seed=vlsi2'); background-size: cover;"></div>
+            <div class="slide" style="background-image: url('https://picsum.photos/id/96/1920/1080?grayscale&seed=riscv3'); background-size: cover;"></div>
+        </div>
+        <div class="hero-content">
+            <h1>Sahil Maurya</h1>
+            <p>Research Scholar @ IIT Mandi | VLSI | PQC | RISC-V</p>
+        </div>
+    </section>
+
+    <!-- The rest of your page will continue here -->
+</body>
+
 </head>
 
         /* Hero section with full width slider */
