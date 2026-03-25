@@ -888,405 +888,194 @@ footer {
 
 
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Ultra Gallery | 3D Hover & Lightbox</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    
 
-        body {
-            background: radial-gradient(circle at top, #0a0a0a, #000);
-            font-family: 'Segoe UI', system-ui, -apple-system, 'Poppins', sans-serif;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 40px 20px;
-        }
+ <div id="gallery">
+<h2 class="navy-blue-light">📸 Image Gallery</h2>
 
-        /* MAIN GALLERY CONTAINER */
-        #gallery {
-            max-width: 1400px;
-            width: 100%;
-            margin: 0 auto;
-        }
+<style>
+body { background: #0a0a0a; font-family: 'Segoe UI', sans-serif; }
 
-        /* TITLE */
-        .title {
-            text-align: center;
-            font-size: 34px;
-            font-weight: 700;
-            letter-spacing: 1px;
-            color: #00eaff;
-            text-shadow: 0 0 8px rgba(0,234,255,0.6);
-            margin-bottom: 40px;
-            background: linear-gradient(135deg, #00eaff, #aaffff);
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
-            text-shadow: none;
-        }
+.navy-blue-light {
+    text-align: center;
+    font-size: 32px;
+    color: #00bfff;
+    margin-bottom: 25px;
+}
 
-        /* GRID SYSTEM */
-        .gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 32px;
-            perspective: 1200px;
-        }
+/* FILTER BUTTONS */
+.filter-btns {
+    text-align: center;
+    margin-bottom: 25px;
+}
 
-        /* CARD 3D CONTAINER */
-        .card {
-            position: relative;
-            border-radius: 24px;
-            overflow: hidden;
-            transform-style: preserve-3d;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            cursor: pointer;
-            backdrop-filter: blur(2px);
-            background: rgba(10, 10, 20, 0.25);
-            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.6);
-        }
+.filter-btns button {
+    margin: 5px;
+    padding: 8px 18px;
+    border: none;
+    border-radius: 20px;
+    background: #111;
+    color: #00bfff;
+    cursor: pointer;
+    transition: 0.3s;
+}
 
-        /* IMAGE STYLES */
-        .card img {
-            width: 100%;
-            height: 280px;
-            object-fit: cover;
-            filter: grayscale(70%) brightness(0.75);
-            transition: filter 0.5s cubic-bezier(0.2, 0.9, 0.4, 1.1), transform 0.6s ease;
-            display: block;
-        }
+.filter-btns button:hover {
+    background: #00bfff;
+    color: black;
+}
 
-        /* HOVER EFFECT - COLORFUL & ZOOM */
-        .card:hover img {
-            filter: grayscale(0%) brightness(1.05);
-            transform: scale(1.08);
-        }
+/* GRID */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 25px;
+}
 
-        /* GLOW BORDER - REMOVED from caption area, only around card */
-        .card::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            border-radius: 24px;
-            padding: 2px;
-            background: linear-gradient(125deg, #00eaff, #ff00ff, #00ffaa);
-            -webkit-mask: 
-                linear-gradient(#000 0 0) content-box,
-                linear-gradient(#000 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            pointer-events: none;
-            z-index: 2;
-        }
+/* ITEM */
+.gallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 18px;
+    cursor: pointer;
+}
 
-        .card:hover::before {
-            opacity: 1;
-        }
+/* IMAGE */
+.gallery-item img {
+    width: 100%;
+    height: 260px;
+    object-fit: contain;
+    background: black;
+    filter: grayscale(100%) brightness(0.7);
+    transition: all 0.5s ease;
+}
 
-        /* CAPTION / IMAGE NAME - BLUE TEXT, NO BORDER */
-        .caption {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            padding: 14px 16px;
-            color: #3b82f6;          /* Vivid Blue color */
-            font-weight: 600;
-            font-size: 1.1rem;
-            letter-spacing: 0.5px;
-            background: linear-gradient(to top, rgba(0,0,0,0.85), rgba(0,0,0,0.4), transparent);
-            backdrop-filter: blur(2px);
-            border: none;              /* No border anywhere */
-            outline: none;
-            box-shadow: none;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
-            transition: all 0.3s;
-            z-index: 3;
-        }
+/* HOVER EFFECT */
+.gallery-item:hover img {
+    filter: grayscale(0%) brightness(1);
+    transform: scale(0.95);
+}
 
-        /* Optional: Slight brightness on hover for caption */
-        .card:hover .caption {
-            color: #60a5fa;          /* lighter blue on hover */
-            background: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.5));
-        }
+/* OVERLAY (clean, no border feel) */
+.gallery-overlay {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 10px;
+    background: rgba(0,0,0,0.6); /* 🔥 simple clean background */
+}
 
-        /* LIGHTBOX (fullscreen modal) */
-        .lightbox {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.97);
-            backdrop-filter: blur(12px);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-            flex-direction: column;
-        }
+/* CAPTION */
+.gallery-caption {
+    color: #00bfff; /* 🔵 BLUE TEXT */
+    font-size: 14px;
+    font-weight: 500;
+}
 
-        .lightbox img {
-            max-width: 90vw;
-            max-height: 85vh;
-            object-fit: contain;
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.6), 0 0 0 3px rgba(0,234,255,0.3);
-            animation: zoom 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-        }
+</style>
 
-        @keyframes zoom {
-            from {
-                transform: scale(0.75);
-                opacity: 0;
-            }
-            to {
-                transform: scale(1);
-                opacity: 1;
-            }
-        }
+<!-- FILTER -->
+<div class="filter-btns">
+    <button onclick="filterSelection('all')">All</button>
+    <button onclick="filterSelection('research')">Research</button>
+    <button onclick="filterSelection('life')">Life</button>
+    <button onclick="filterSelection('friends')">Friends</button>
+</div>
 
-        /* LIGHTBOX CONTROLS */
-        .close, .prev, .next {
-            position: absolute;
-            color: white;
-            font-size: 42px;
-            font-weight: 300;
-            cursor: pointer;
-            background: rgba(0,0,0,0.5);
-            backdrop-filter: blur(8px);
-            width: 54px;
-            height: 54px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 60px;
-            transition: 0.2s;
-            user-select: none;
-            z-index: 1001;
-        }
+<!-- GRID -->
+<div class="gallery-grid">
 
-        .close {
-            top: 30px;
-            right: 40px;
-            font-size: 48px;
-        }
-
-        .prev {
-            left: 30px;
-            top: 50%;
-            transform: translateY(-50%);
-        }
-
-        .next {
-            right: 30px;
-            top: 50%;
-            transform: translateY(-50%);
-        }
-
-        .close:hover, .prev:hover, .next:hover {
-            background: #00eaff;
-            color: #000;
-            transform: scale(1.05);
-        }
-        .prev:hover, .next:hover {
-            transform: translateY(-50%) scale(1.05);
-        }
-
-        /* responsive */
-        @media (max-width: 680px) {
-            .gallery {
-                gap: 20px;
-            }
-            .title {
-                font-size: 28px;
-            }
-            .card img {
-                height: 240px;
-            }
-            .caption {
-                font-size: 0.9rem;
-                padding: 10px 12px;
-            }
-            .prev, .next {
-                width: 44px;
-                height: 44px;
-                font-size: 32px;
-            }
-            .close {
-                top: 20px;
-                right: 20px;
-                font-size: 40px;
-            }
-        }
-    </style>
-</head>
-<body>
-<div id="gallery">
-    <h2 class="title">🚀 Ultra Gallery</h2>
-
-    <div class="gallery">
-        <!-- CARD 0 -->
-        <div class="card" onclick="openBox(0)">
-            <img src="image/IIITGConvocation.JPG" alt="IIITG Convocation">
-            <div class="caption">IIITG Convocation</div>
-        </div>
-        <!-- CARD 1 -->
-        <div class="card" onclick="openBox(1)">
-            <img src="image/sahil.jpeg" alt="Convocation">
-            <div class="caption">Convocation</div>
-        </div>
-        <!-- CARD 2 -->
-        <div class="card" onclick="openBox(2)">
-            <img src="image/Sam.jpeg" alt="Lake View">
-            <div class="caption">Lake View</div>
-        </div>
-        <!-- CARD 3 -->
-        <div class="card" onclick="openBox(3)">
-            <img src="image/Friends.jpg" alt="Friends">
-            <div class="caption">Friends</div>
-        </div>
-        <!-- CARD 4 -->
-        <div class="card" onclick="openBox(4)">
-            <img src="image/fly.JPG" alt="Aviation Dream">
-            <div class="caption">Aviation Dream</div>
-        </div>
-        <!-- CARD 5 -->
-        <div class="card" onclick="openBox(5)">
-            <img src="image/arpit3.jpg" alt="With Arpit">
-            <div class="caption">With Arpit</div>
-        </div>
+    <div class="gallery-item research">
+        <a href="image/IIITGConvocation.JPG" target="_blank">
+            <img src="image/IIITGConvocation.JPG">
+        </a>
+        <div class="gallery-overlay"><div class="gallery-caption">IIITG Convocation</div></div>
     </div>
 
-    <!-- LIGHTBOX MODAL -->
-    <div id="lightbox" class="lightbox">
-        <span class="close" onclick="closeBox()">&times;</span>
-        <span class="prev" onclick="change(-1)">&#10094;</span>
-        <img id="bigImg" alt="Enlarged view">
-        <span class="next" onclick="change(1)">&#10095;</span>
+    <div class="gallery-item life">
+        <a href="image/sahil.jpeg" target="_blank">
+            <img src="image/sahil.jpeg">
+        </a>
+        <div class="gallery-overlay"><div class="gallery-caption">Convocation</div></div>
     </div>
+
+    <div class="gallery-item life">
+        <a href="image/Sam.jpeg" target="_blank">
+            <img src="image/Sam.jpeg">
+        </a>
+        <div class="gallery-overlay"><div class="gallery-caption">Lake View</div></div>
+    </div>
+
+    <div class="gallery-item friends">
+        <a href="image/Friends.jpg" target="_blank">
+            <img src="image/Friends.jpg">
+        </a>
+        <div class="gallery-overlay"><div class="gallery-caption">Friends</div></div>
+    </div>
+
+    <div class="gallery-item life">
+        <a href="image/fly.JPG" target="_blank">
+            <img src="image/fly.JPG">
+        </a>
+        <div class="gallery-overlay"><div class="gallery-caption">Aviation Dream</div></div>
+    </div>
+
+    <div class="gallery-item friends">
+        <a href="image/arpit3.jpg" target="_blank">
+            <img src="image/arpit3.jpg">
+        </a>
+        <div class="gallery-overlay"><div class="gallery-caption">With Arpit</div></div>
+    </div>
+
+    <div class="gallery-item life">
+        <a href="image/Convocation.jpg" target="_blank">
+            <img src="image/Convocation.jpg">
+        </a>
+        <div class="gallery-overlay"><div class="gallery-caption">Convocation Day</div></div>
+    </div>
+
+    <div class="gallery-item research">
+        <a href="image/iiitg.jpg" target="_blank">
+            <img src="image/iiitg.jpg">
+        </a>
+        <div class="gallery-overlay"><div class="gallery-caption">IIIT Guwahati</div></div>
+    </div>
+
+    <div class="gallery-item research">
+        <a href="image/Poster%20Landscape.png" target="_blank">
+            <img src="image/Poster%20Landscape.png">
+        </a>
+        <div class="gallery-overlay"><div class="gallery-caption">Research Poster</div></div>
+    </div>
+
+    <div class="gallery-item research">
+        <a href="image/Poster%20contact.png" target="_blank">
+            <img src="image/Poster%20contact.png">
+        </a>
+        <div class="gallery-overlay"><div class="gallery-caption">Conference Poster</div></div>
+    </div>
+
+    <div class="gallery-item life">
+        <a href="image/WhatsApp%20Image%202026-03-05%20at%202.58.51%20PM.jpeg" target="_blank">
+            <img src="image/WhatsApp%20Image%202026-03-05%20at%202.58.51%20PM.jpeg">
+        </a>
+        <div class="gallery-overlay"><div class="gallery-caption">Recent Moment</div></div>
+    </div>
+
 </div>
 
 <script>
-    // Image array (matching all 6 cards)
-    const imgs = [
-        "image/IIITGConvocation.JPG",
-        "image/sahil.jpeg",
-        "image/Sam.jpeg",
-        "image/Friends.jpg",
-        "image/fly.JPG",
-        "image/arpit3.jpg"
-    ];
-
-    let currentIndex = 0;
-
-    // Open lightbox with given index
-    function openBox(index) {
-        if (index >= 0 && index < imgs.length) {
-            currentIndex = index;
-            const lightbox = document.getElementById("lightbox");
-            lightbox.style.display = "flex";
-            showImage();
-        }
+function filterSelection(category) {
+    let items = document.getElementsByClassName("gallery-item");
+    for (let i = 0; i < items.length; i++) {
+        items[i].style.display =
+            (category === "all" || items[i].classList.contains(category))
+            ? "block" : "none";
     }
-
-    // Close lightbox
-    function closeBox() {
-        document.getElementById("lightbox").style.display = "none";
-    }
-
-    // Update lightbox image src based on currentIndex
-    function showImage() {
-        const bigImg = document.getElementById("bigImg");
-        if (bigImg) {
-            bigImg.src = imgs[currentIndex];
-            bigImg.alt = `Gallery image ${currentIndex + 1}`;
-        }
-    }
-
-    // Navigate (delta: -1 prev, +1 next)
-    function change(delta) {
-        currentIndex = (currentIndex + delta + imgs.length) % imgs.length;
-        showImage();
-    }
-
-    // Keyboard controls: Escape, ArrowLeft, ArrowRight
-    document.addEventListener("keydown", function(e) {
-        const lightbox = document.getElementById("lightbox");
-        const isLightboxVisible = lightbox.style.display === "flex";
-        
-        if (e.key === "Escape" && isLightboxVisible) {
-            closeBox();
-        }
-        if (e.key === "ArrowRight" && isLightboxVisible) {
-            change(1);
-            e.preventDefault();
-        }
-        if (e.key === "ArrowLeft" && isLightboxVisible) {
-            change(-1);
-            e.preventDefault();
-        }
-    });
-
-    // 3D TILT EFFECT for all cards (smooth realistic rotation)
-    const cards = document.querySelectorAll(".card");
-    cards.forEach(card => {
-        card.addEventListener("mousemove", (e) => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;      // x pos within card
-            const y = e.clientY - rect.top;       // y pos within card
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-            
-            // Calculate rotation values (max ±12deg for dramatic but clean effect)
-            let rotateY = ((x - centerX) / centerX) * 12;
-            let rotateX = ((centerY - y) / centerY) * 12;
-            
-            // apply 3D rotation
-            card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(5px)`;
-            card.style.transition = "transform 0.08s linear";
-        });
-        
-        card.addEventListener("mouseleave", () => {
-            // smooth reset to flat
-            card.style.transform = "perspective(800px) rotateX(0deg) rotateY(0deg) translateZ(0px)";
-            card.style.transition = "transform 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.1)";
-        });
-    });
-
-    // Optional: preload images for better experience (small optimization)
-    // Not required but ensures smooth lightbox
-    function preloadImages() {
-        imgs.forEach(src => {
-            const img = new Image();
-            img.src = src;
-        });
-    }
-    preloadImages();
-
-    // ensure if any card gets clicked without lightbox issues
-    window.addEventListener('load', () => {
-        // reset any stray transforms
-        cards.forEach(c => {
-            c.style.transform = "";
-        });
-        console.log("Gallery ready — Blue captions, no borders, 3D tilt active");
-    });
+}
 </script>
-</body>
-</html>
 
-    
-
-    
+</div>   
 
 
 
