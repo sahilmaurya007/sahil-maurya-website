@@ -683,34 +683,35 @@ footer {
         </ul>
     </div>
 
+
+    
   <div id="chips">
     <h2 class="navy-blue-light">🔬 Chip Design Gallery (ASIC / FPGA)</h2>
 
     <style>
         #chips {
-            margin-top: 40px;
+            margin-top: 50px;
         }
 
         .chip-gallery {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 24px;
-            margin-top: 25px;
+            gap: 25px;
+            margin-top: 30px;
         }
 
         .chip-card {
             position: relative;
+            border-radius: 18px;
             overflow: hidden;
-            border-radius: 16px;
-            cursor: pointer;
             background: #0a0a0a;
-            border: 1px solid #222;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            transform-style: preserve-3d;
+            transition: transform 0.2s ease, box-shadow 0.3s ease;
         }
 
         .chip-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.2);
+            box-shadow: 0 20px 40px rgba(0,212,255,0.25);
         }
 
         .chip-card img {
@@ -718,14 +719,9 @@ footer {
             height: 220px;
             object-fit: contain;
             background: #000;
-            transition: transform 0.4s ease;
+            transition: transform 0.3s ease;
         }
 
-        .chip-card:hover img {
-            transform: scale(1.06);
-        }
-
-        /* Overlay */
         .chip-overlay {
             position: absolute;
             bottom: 0;
@@ -736,82 +732,157 @@ footer {
 
         .chip-caption {
             color: #ffcc00;
-            font-size: 14px;
             text-align: center;
+            font-size: 14px;
             font-weight: 600;
-            letter-spacing: 0.5px;
         }
 
-        /* Responsive text */
-        @media (max-width: 600px) {
-            .chip-caption {
-                font-size: 13px;
-            }
+        /* 🔥 MODAL */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            padding-top: 40px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            backdrop-filter: blur(8px);
         }
+
+        .modal-content {
+            display: block;
+            margin: auto;
+            max-width: 85%;
+            max-height: 80vh;
+            border-radius: 20px;
+            box-shadow: 0 0 40px rgba(0,212,255,0.4);
+            animation: zoom 0.4s ease;
+        }
+
+        @keyframes zoom {
+            from {transform: scale(0.8);}
+            to {transform: scale(1);}
+        }
+
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            color: #fff;
+            font-size: 40px;
+            cursor: pointer;
+        }
+
+        .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 40px;
+            color: white;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        .prev { left: 20px; }
+        .next { right: 20px; }
     </style>
 
     <div class="chip-gallery">
 
-        <div class="chip-card">
-            <img src="image/Chip2GF180nm.png" alt="GF180nm Chip Design">
-            <div class="chip-overlay">
-                <div class="chip-caption">GF180nm Technology</div>
-            </div>
-        </div>
-
-        <div class="chip-card">
-            <img src="image/chip1skywater130nm.png" alt="SkyWater 130nm Chip">
-            <div class="chip-overlay">
-                <div class="chip-caption">SkyWater 130nm</div>
-            </div>
-        </div>
-
-        <div class="chip-card">
-            <img src="image/chip3ASAPnm.png" alt="ASAP 7nm Chip">
-            <div class="chip-overlay">
-                <div class="chip-caption">ASAP 7nm Technology</div>
-            </div>
-        </div>
-
-        <div class="chip-card">
-            <img src="image/chip4nangate45nm.png" alt="Nangate 45nm Chip">
-            <div class="chip-overlay">
-                <div class="chip-caption">Nangate 45nm</div>
-            </div>
-        </div>
-
-        <div class="chip-card">
-            <img src="image/Complete soc.jpeg" alt="RISC-V SoC Design">
-            <div class="chip-overlay">
-                <div class="chip-caption">Complete RISC-V SoC</div>
-            </div>
-        </div>
-
-        <div class="chip-card">
-            <img src="image/Full_Adder_IOPlanning.png" alt="IO Planning">
-            <div class="chip-overlay">
-                <div class="chip-caption">Chip I/O Planning (Vivado)</div>
-            </div>
-        </div>
-
-        <div class="chip-card">
-            <img src="image/full_adder_floarplanning.png" alt="Floorplan">
-            <div class="chip-overlay">
-                <div class="chip-caption">Chip Floorplan (Vivado)</div>
-            </div>
-        </div>
-
-        <div class="chip-card">
-            <img src="image/Gemini_Generated_Image_ru8yh6ru8yh6ru8y.png" alt="Parashar View Himachal">
-            <div class="chip-overlay">
-                <div class="chip-caption">Parashar View Himachal</div>
-            </div>
-        </div>
+        <div class="chip-card"><img src="image/Chip2GF180nm.png"><div class="chip-overlay"><div class="chip-caption">GF180nm Technology</div></div></div>
+        <div class="chip-card"><img src="image/chip1skywater130nm.png"><div class="chip-overlay"><div class="chip-caption">SkyWater 130nm</div></div></div>
+        <div class="chip-card"><img src="image/chip3ASAPnm.png"><div class="chip-overlay"><div class="chip-caption">ASAP 7nm</div></div></div>
+        <div class="chip-card"><img src="image/chip4nangate45nm.png"><div class="chip-overlay"><div class="chip-caption">Nangate 45nm</div></div></div>
+        <div class="chip-card"><img src="image/Complete soc.jpeg"><div class="chip-overlay"><div class="chip-caption">RISC-V SoC</div></div></div>
+        <div class="chip-card"><img src="image/Full_Adder_IOPlanning.png"><div class="chip-overlay"><div class="chip-caption">I/O Planning</div></div></div>
+        <div class="chip-card"><img src="image/full_adder_floarplanning.png"><div class="chip-overlay"><div class="chip-caption">Floorplan</div></div></div>
+        <div class="chip-card"><img src="image/Gemini_Generated_Image_ru8yh6ru8yh6ru8y.png"><div class="chip-overlay"><div class="chip-caption">Parashar View</div></div></div>
 
     </div>
+
+    <!-- 🔥 MODAL -->
+    <div id="imgModal" class="modal">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="modalImg">
+        <div class="nav-btn prev">&#10094;</div>
+        <div class="nav-btn next">&#10095;</div>
+    </div>
+
+    <script>
+        const cards = document.querySelectorAll('.chip-card img');
+        const modal = document.getElementById('imgModal');
+        const modalImg = document.getElementById('modalImg');
+        const closeBtn = document.querySelector('.close');
+        const nextBtn = document.querySelector('.next');
+        const prevBtn = document.querySelector('.prev');
+
+        let currentIndex = 0;
+
+        const images = Array.from(cards);
+
+        cards.forEach((img, index) => {
+            img.addEventListener('click', () => {
+                modal.style.display = "block";
+                modalImg.src = img.src;
+                currentIndex = index;
+            });
+        });
+
+        function showImage(index) {
+            modalImg.src = images[index].src;
+        }
+
+        nextBtn.onclick = () => {
+            currentIndex = (currentIndex + 1) % images.length;
+            showImage(currentIndex);
+        };
+
+        prevBtn.onclick = () => {
+            currentIndex = (currentIndex - 1 + images.length) % images.length;
+            showImage(currentIndex);
+        };
+
+        closeBtn.onclick = () => modal.style.display = "none";
+
+        window.onclick = (e) => {
+            if (e.target == modal) modal.style.display = "none";
+        };
+
+        // 🔥 Keyboard control
+        document.addEventListener('keydown', (e) => {
+            if (modal.style.display === "block") {
+                if (e.key === "ArrowRight") nextBtn.onclick();
+                if (e.key === "ArrowLeft") prevBtn.onclick();
+                if (e.key === "Escape") modal.style.display = "none";
+            }
+        });
+
+        // 🔥 3D Tilt Effect
+        document.querySelectorAll('.chip-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                const rotateX = -(y / rect.height - 0.5) * 10;
+                const rotateY = (x / rect.width - 0.5) * 10;
+
+                card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = `rotateX(0) rotateY(0)`;
+            });
+        });
+    </script>
 </div>
 
 
+
+
+    
     
     <div id="gallery">
     <h2 class="navy-blue-light">📸 Image Gallery</h2>
