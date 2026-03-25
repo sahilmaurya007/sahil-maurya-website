@@ -880,35 +880,34 @@ footer {
 
 
 
-    
-   <div id="gallery">
+  <div id="gallery">
 <h2 class="navy-blue-light">📸 Image Gallery</h2>
 
 <style>
-body { background: #0a0a0a; }
+body { background: #0a0a0a; font-family: 'Segoe UI', sans-serif; }
 
-/* TITLE */
 .navy-blue-light {
     text-align: center;
-    font-size: 30px;
+    font-size: 32px;
     color: #00bfff;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 }
 
-/* FILTER */
+/* FILTER BUTTONS */
 .filter-btns {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 }
 
 .filter-btns button {
     margin: 5px;
-    padding: 8px 15px;
+    padding: 8px 18px;
     border: none;
     border-radius: 20px;
     background: #111;
     color: #00bfff;
     cursor: pointer;
+    transition: 0.3s;
 }
 
 .filter-btns button:hover {
@@ -923,35 +922,28 @@ body { background: #0a0a0a; }
     gap: 25px;
 }
 
-/* CARD */
+/* ITEM */
 .gallery-item {
     position: relative;
     overflow: hidden;
-    border-radius: 15px;
+    border-radius: 18px;
     cursor: pointer;
     background: rgba(255,255,255,0.05);
 }
 
-/* IMAGE DEFAULT (BLACK & WHITE) */
+/* IMAGE EFFECT (MAIN PART 🔥) */
 .gallery-item img {
     width: 100%;
     height: 260px;
-    object-fit: contain;
-    filter: grayscale(100%);
-    transition: all 0.4s ease;
-    background: #000;
+    object-fit: cover;
+    filter: grayscale(100%) brightness(0.7);
+    transition: all 0.6s ease;
 }
 
-/* DESKTOP HOVER EFFECT */
+/* HOVER = COLOR + ZOOM */
 .gallery-item:hover img {
-    filter: grayscale(0%);
-    transform: scale(1.1);
-}
-
-/* MOBILE TOUCH EFFECT (IMPORTANT) */
-.gallery-item.active img {
-    filter: grayscale(0%);
-    transform: scale(1.1);
+    filter: grayscale(0%) brightness(1);
+    transform: scale(1.12);
 }
 
 /* OVERLAY */
@@ -959,13 +951,21 @@ body { background: #0a0a0a; }
     position: absolute;
     bottom: 0;
     width: 100%;
-    padding: 10px;
-    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+    padding: 12px;
+    background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+    transform: translateY(100%);
+    transition: 0.4s;
 }
 
+.gallery-item:hover .gallery-overlay {
+    transform: translateY(0);
+}
+
+/* CAPTION */
 .gallery-caption {
     color: #ffcc00;
     font-size: 14px;
+    letter-spacing: 0.5px;
 }
 
 /* MODAL */
@@ -973,11 +973,10 @@ body { background: #0a0a0a; }
     display: none;
     position: fixed;
     z-index: 999;
-    top: 0;
-    left: 0;
+    top: 0; left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.95);
+    background: rgba(0,0,0,0.96);
     text-align: center;
 }
 
@@ -987,24 +986,29 @@ body { background: #0a0a0a; }
     max-width: 90%;
     max-height: 80%;
     margin-top: 40px;
+    border-radius: 10px;
     animation: zoomIn 0.4s ease;
 }
 
+/* MODAL ANIMATION */
 @keyframes zoomIn {
-    from { transform: scale(0.7); opacity: 0; }
+    from { transform: scale(0.8); opacity: 0; }
     to { transform: scale(1); opacity: 1; }
 }
 
+/* BUTTONS */
 .close, .prev, .next {
     position: absolute;
     color: white;
-    font-size: 30px;
+    font-size: 32px;
     cursor: pointer;
+    user-select: none;
 }
 
 .close { top: 20px; right: 40px; }
-.prev { top: 50%; left: 20px; }
-.next { top: 50%; right: 20px; }
+.prev { top: 50%; left: 20px; transform: translateY(-50%); }
+.next { top: 50%; right: 20px; transform: translateY(-50%); }
+
 </style>
 
 <!-- FILTER -->
@@ -1018,60 +1022,60 @@ body { background: #0a0a0a; }
 <!-- GRID -->
 <div class="gallery-grid">
 
-<div class="gallery-item research" onclick="handleTouch(this,0)">
-    <img src="image/IIITGConvocation.JPG">
-    <div class="gallery-overlay"><div class="gallery-caption">IIITG Convocation</div></div>
-</div>
+    <div class="gallery-item research" onclick="openModal(0)">
+        <img src="image/IIITGConvocation.JPG">
+        <div class="gallery-overlay"><div class="gallery-caption">IIITG Convocation</div></div>
+    </div>
 
-<div class="gallery-item life" onclick="handleTouch(this,1)">
-    <img src="image/sahil.jpeg">
-    <div class="gallery-overlay"><div class="gallery-caption">Convocation</div></div>
-</div>
+    <div class="gallery-item life" onclick="openModal(1)">
+        <img src="image/sahil.jpeg">
+        <div class="gallery-overlay"><div class="gallery-caption">Convocation</div></div>
+    </div>
 
-<div class="gallery-item life" onclick="handleTouch(this,2)">
-    <img src="image/Sam.jpeg">
-    <div class="gallery-overlay"><div class="gallery-caption">Lake View</div></div>
-</div>
+    <div class="gallery-item life" onclick="openModal(2)">
+        <img src="image/Sam.jpeg">
+        <div class="gallery-overlay"><div class="gallery-caption">Lake View</div></div>
+    </div>
 
-<div class="gallery-item friends" onclick="handleTouch(this,3)">
-    <img src="image/Friends.jpg">
-    <div class="gallery-overlay"><div class="gallery-caption">Friends</div></div>
-</div>
+    <div class="gallery-item friends" onclick="openModal(3)">
+        <img src="image/Friends.jpg">
+        <div class="gallery-overlay"><div class="gallery-caption">Friends</div></div>
+    </div>
 
-<div class="gallery-item life" onclick="handleTouch(this,4)">
-    <img src="image/fly.JPG">
-    <div class="gallery-overlay"><div class="gallery-caption">Aviation Dream</div></div>
-</div>
+    <div class="gallery-item life" onclick="openModal(4)">
+        <img src="image/fly.JPG">
+        <div class="gallery-overlay"><div class="gallery-caption">Aviation Dream</div></div>
+    </div>
 
-<div class="gallery-item friends" onclick="handleTouch(this,5)">
-    <img src="image/arpit3.jpg">
-    <div class="gallery-overlay"><div class="gallery-caption">With Arpit</div></div>
-</div>
+    <div class="gallery-item friends" onclick="openModal(5)">
+        <img src="image/arpit3.jpg">
+        <div class="gallery-overlay"><div class="gallery-caption">With Arpit</div></div>
+    </div>
 
-<div class="gallery-item life" onclick="handleTouch(this,6)">
-    <img src="image/Convocation.jpg">
-    <div class="gallery-overlay"><div class="gallery-caption">Convocation Day</div></div>
-</div>
+    <div class="gallery-item life" onclick="openModal(6)">
+        <img src="image/Convocation.jpg">
+        <div class="gallery-overlay"><div class="gallery-caption">Convocation Day</div></div>
+    </div>
 
-<div class="gallery-item research" onclick="handleTouch(this,7)">
-    <img src="image/iiitg.jpg">
-    <div class="gallery-overlay"><div class="gallery-caption">IIIT Guwahati</div></div>
-</div>
+    <div class="gallery-item research" onclick="openModal(7)">
+        <img src="image/iiitg.jpg">
+        <div class="gallery-overlay"><div class="gallery-caption">IIIT Guwahati</div></div>
+    </div>
 
-<div class="gallery-item research" onclick="handleTouch(this,8)">
-    <img src="image/Poster Landscape.png">
-    <div class="gallery-overlay"><div class="gallery-caption">Research Poster</div></div>
-</div>
+    <div class="gallery-item research" onclick="openModal(8)">
+        <img src="image/Poster%20Landscape.png">
+        <div class="gallery-overlay"><div class="gallery-caption">Research Poster</div></div>
+    </div>
 
-<div class="gallery-item research" onclick="handleTouch(this,9)">
-    <img src="image/Poster contact.png">
-    <div class="gallery-overlay"><div class="gallery-caption">Conference Poster</div></div>
-</div>
+    <div class="gallery-item research" onclick="openModal(9)">
+        <img src="image/Poster%20contact.png">
+        <div class="gallery-overlay"><div class="gallery-caption">Conference Poster</div></div>
+    </div>
 
-<div class="gallery-item life" onclick="handleTouch(this,10)">
-    <img src="image/WhatsApp Image.jpeg">
-    <div class="gallery-overlay"><div class="gallery-caption">Recent Moment</div></div>
-</div>
+    <div class="gallery-item life" onclick="openModal(10)">
+        <img src="image/WhatsApp%20Image%202026-03-05%20at%202.58.51%20PM.jpeg">
+        <div class="gallery-overlay"><div class="gallery-caption">Recent Moment</div></div>
+    </div>
 
 </div>
 
@@ -1085,42 +1089,32 @@ body { background: #0a0a0a; }
 
 <script>
 const images = [
-"image/IIITGConvocation.JPG",
-"image/sahil.jpeg",
-"image/Sam.jpeg",
-"image/Friends.jpg",
-"image/fly.JPG",
-"image/arpit3.jpg",
-"image/Convocation.jpg",
-"image/iiitg.jpg",
-"image/Poster Landscape.png",
-"image/Poster contact.png",
-"image/WhatsApp Image.jpeg"
+    "image/IIITGConvocation.JPG",
+    "image/sahil.jpeg",
+    "image/Sam.jpeg",
+    "image/Friends.jpg",
+    "image/fly.JPG",
+    "image/arpit3.jpg",
+    "image/Convocation.jpg",
+    "image/iiitg.jpg",
+    "image/Poster%20Landscape.png",
+    "image/Poster%20contact.png",
+    "image/WhatsApp%20Image%202026-03-05%20at%202.58.51%20PM.jpeg"
 ];
 
 let currentIndex = 0;
+let autoSlide;
 
-/* TOUCH + CLICK LOGIC */
-function handleTouch(element, index) {
-    // remove active from all
-    document.querySelectorAll('.gallery-item').forEach(el => el.classList.remove('active'));
-
-    // add active to clicked
-    element.classList.add('active');
-
-    // open modal
-    openModal(index);
-}
-
-/* MODAL */
 function openModal(index) {
     currentIndex = index;
     document.getElementById("modal").classList.add("active");
     showImage();
+    autoSlide = setInterval(() => changeSlide(1), 3000);
 }
 
 function closeModal() {
     document.getElementById("modal").classList.remove("active");
+    clearInterval(autoSlide);
 }
 
 function showImage() {
@@ -1132,13 +1126,12 @@ function changeSlide(n) {
     showImage();
 }
 
-/* FILTER */
 function filterSelection(category) {
     let items = document.getElementsByClassName("gallery-item");
     for (let i = 0; i < items.length; i++) {
         items[i].style.display =
-        (category === "all" || items[i].classList.contains(category))
-        ? "block" : "none";
+            (category === "all" || items[i].classList.contains(category))
+            ? "block" : "none";
     }
 }
 </script>
