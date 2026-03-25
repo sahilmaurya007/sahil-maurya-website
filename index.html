@@ -888,285 +888,717 @@ footer {
 
 
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Image Gallery | Yellow Captions | Zoom with Prev/Next</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: radial-gradient(circle at top, #0a0a0a, #000000);
+            font-family: 'Segoe UI', 'Poppins', system-ui, sans-serif;
+            min-height: 100vh;
+            padding: 30px 20px;
+        }
+
+        /* MAIN CONTAINER */
+        #gallery {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* TITLE STYLES */
+        .title {
+            text-align: center;
+            font-size: 36px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: #ffcc00;
+            text-shadow: 0 0 15px rgba(255,204,0,0.5);
+            margin-bottom: 35px;
+        }
+
+        /* FILTER BUTTONS SECTION - NO BORDERS */
+        .filter-btns {
+            text-align: center;
+            margin-bottom: 40px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .filter-btns button {
+            margin: 0;
+            padding: 10px 28px;
+            border: none;
+            border-radius: 40px;
+            background: rgba(20, 20, 35, 0.8);
+            color: #ffcc00;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+            backdrop-filter: blur(4px);
+        }
+
+        .filter-btns button:hover {
+            background: #ffcc00;
+            color: #0a0a0a;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255,204,0,0.3);
+        }
+
+        /* GRID LAYOUT */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 28px;
+        }
+
+        /* GALLERY ITEM CARD - COMPLETELY BORDERLESS, NO WHITE BOX */
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 20px;
+            cursor: pointer;
+            background: transparent;
+            transition: transform 0.35s ease, box-shadow 0.3s ease;
+            /* NO BORDER ANYWHERE */
+            border: none;
+            outline: none;
+            box-shadow: 0 10px 25px -8px rgba(0,0,0,0.5);
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 35px -10px rgba(255,204,0,0.2);
+        }
+
+        /* IMAGE STYLES - NO BORDERS */
+        .gallery-item img {
+            width: 100%;
+            height: 270px;
+            object-fit: cover;
+            filter: grayscale(70%) brightness(0.75);
+            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            display: block;
+            border: none;
+            outline: none;
+        }
+
+        /* HOVER EFFECT - ZOOM SLIGHT + COLOR RESTORE */
+        .gallery-item:hover img {
+            filter: grayscale(0%) brightness(1.05);
+            transform: scale(1.03);
+        }
+
+        /* OVERLAY / CAPTION BACKGROUND - TRANSPARENT GRADIENT, NO WHITE BOX */
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 14px 16px;
+            background: linear-gradient(to top, rgba(0,0,0,0.85), rgba(0,0,0,0.4), transparent);
+            backdrop-filter: blur(2px);
+            transition: all 0.3s;
+            border: none;
+            outline: none;
+        }
+
+        /* CAPTION TEXT - YELLOW COLOR (like screenshot) */
+        .gallery-caption {
+            color: #ffcc00;
+            font-size: 15px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+            transition: color 0.2s ease;
+            border: none;
+        }
+
+        .gallery-item:hover .gallery-caption {
+            color: #ffdd44;
+        }
+
+        /* MODAL / LIGHTBOX STYLES - FOR ZOOM WITH PREV/NEXT ARROWS */
+        .image-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.96);
+            backdrop-filter: blur(15px);
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .image-modal.show {
+            display: flex;
+            opacity: 1;
+        }
+        
+        .modal-content {
+            position: relative;
+            max-width: 92vw;
+            max-height: 88vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content img {
+            max-width: 100%;
+            max-height: 85vh;
+            object-fit: contain;
+            border-radius: 12px;
+            box-shadow: 0 20px 45px rgba(0,0,0,0.7);
+            border: 2px solid rgba(255,204,0,0.3);
+        }
+        
+        /* CLOSE BUTTON - X mark */
+        .modal-close {
+            position: absolute;
+            top: -50px;
+            right: -20px;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(10px);
+            color: #ffcc00;
+            font-size: 32px;
+            font-weight: 300;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: 0.2s;
+            z-index: 2001;
+            border: 1px solid rgba(255,204,0,0.5);
+        }
+        
+        .modal-close:hover {
+            background: #ff4444;
+            color: white;
+            transform: scale(1.05);
+            border-color: white;
+        }
+        
+        /* PREV/NEXT ARROWS - < and > for navigation */
+        .modal-prev, .modal-next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(8px);
+            color: #ffcc00;
+            font-size: 48px;
+            font-weight: bold;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: 0.2s;
+            border: 1px solid rgba(255,204,0,0.4);
+            z-index: 2001;
+        }
+        
+        .modal-prev {
+            left: 25px;
+        }
+        
+        .modal-next {
+            right: 25px;
+        }
+        
+        .modal-prev:hover, .modal-next:hover {
+            background: #ffcc00;
+            color: #0a0a0a;
+            transform: translateY(-50%) scale(1.1);
+            border-color: #ffcc00;
+        }
+        
+        /* Caption in modal */
+        .modal-caption {
+            position: absolute;
+            bottom: -45px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            color: #ffcc00;
+            font-size: 18px;
+            font-weight: 600;
+            padding: 10px;
+            background: rgba(0,0,0,0.6);
+            border-radius: 30px;
+            width: auto;
+            margin: 0 auto;
+            backdrop-filter: blur(5px);
+        }
+        
+        @media (max-width: 768px) {
+            .gallery-grid {
+                gap: 20px;
+            }
+            .gallery-item img {
+                height: 230px;
+            }
+            .filter-btns button {
+                padding: 7px 20px;
+                font-size: 13px;
+            }
+            .title {
+                font-size: 28px;
+            }
+            .gallery-caption {
+                font-size: 13px;
+            }
+            .modal-close {
+                top: -45px;
+                right: 0px;
+                width: 42px;
+                height: 42px;
+                font-size: 28px;
+            }
+            .modal-prev, .modal-next {
+                width: 45px;
+                height: 45px;
+                font-size: 32px;
+            }
+            .modal-prev {
+                left: 10px;
+            }
+            .modal-next {
+                right: 10px;
+            }
+            .modal-caption {
+                font-size: 14px;
+                bottom: -40px;
+            }
+        }
+        
+        /* ensure no borders anywhere */
+        a, button, div, img, span, .gallery-item, .gallery-overlay {
+            border: none;
+            outline: none;
+        }
+        
+        img {
+            border: none;
+        }
+        
+        /* Remove any white background from captions */
+        .gallery-overlay {
+            background: linear-gradient(to top, rgba(0,0,0,0.85), rgba(0,0,0,0.4), transparent);
+        }
+    </style>
+</head>
+<body>
 <div id="gallery">
-<h2 class="navy-blue-light">📸 Image Gallery</h2>
+    <h2 class="title">📸 Image Gallery</h2>
 
-<style>
-body { 
-    background: #0a0a0a; 
-    font-family: 'Segoe UI', sans-serif; 
-}
+    <!-- FILTER BUTTONS -->
+    <div class="filter-btns">
+        <button onclick="filterSelection('all')">✨ All</button>
+        <button onclick="filterSelection('research')">🔬 Research</button>
+        <button onclick="filterSelection('life')">🌿 Life</button>
+        <button onclick="filterSelection('friends')">👥 Friends</button>
+    </div>
 
-.navy-blue-light {
-    text-align: center;
-    font-size: 32px;
-    color: #00bfff;
-    margin-bottom: 25px;
-}
+    <!-- GALLERY GRID -->
+    <div class="gallery-grid" id="galleryGrid">
+        <!-- All images with categories - YELLOW CAPTIONS, NO BORDERS, custom modal with prev/next -->
+        
+        <div class="gallery-item research" data-img="image/IIITGConvocation.JPG" data-caption="IIITG Convocation">
+            <img src="image/IIITGConvocation.JPG" alt="IIITG Convocation">
+            <div class="gallery-overlay">
+                <div class="gallery-caption">IIITG Convocation</div>
+            </div>
+        </div>
 
-/* FILTER BUTTONS */
-.filter-btns {
-    text-align: center;
-    margin-bottom: 25px;
-}
+        <div class="gallery-item life" data-img="image/sahil.jpeg" data-caption="Convocation">
+            <img src="image/sahil.jpeg" alt="Convocation">
+            <div class="gallery-overlay">
+                <div class="gallery-caption">Convocation</div>
+            </div>
+        </div>
 
-.filter-btns button {
-    margin: 5px;
-    padding: 8px 18px;
-    border: none;
-    border-radius: 20px;
-    background: #111;
-    color: #00bfff;
-    cursor: pointer;
-    transition: 0.3s;
-}
+        <div class="gallery-item life" data-img="image/Sam.jpeg" data-caption="Lake View">
+            <img src="image/Sam.jpeg" alt="Lake View">
+            <div class="gallery-overlay">
+                <div class="gallery-caption">Lake View</div>
+            </div>
+        </div>
 
-.filter-btns button:hover {
-    background: #00bfff;
-    color: black;
-}
+        <div class="gallery-item friends" data-img="image/Friends.jpg" data-caption="Friends">
+            <img src="image/Friends.jpg" alt="Friends">
+            <div class="gallery-overlay">
+                <div class="gallery-caption">Friends</div>
+            </div>
+        </div>
 
-/* GRID */
-.gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 25px;
-}
+        <div class="gallery-item life" data-img="image/fly.JPG" data-caption="Aviation Dream">
+            <img src="image/fly.JPG" alt="Aviation Dream">
+            <div class="gallery-overlay">
+                <div class="gallery-caption">Aviation Dream</div>
+            </div>
+        </div>
 
-/* ITEM - NO BORDER */
-.gallery-item {
-    position: relative;
-    overflow: hidden;
-    border-radius: 18px;
-    cursor: pointer;
-    border: none;
-    outline: none;
-}
+        <div class="gallery-item friends" data-img="image/arpit3.jpg" data-caption="With Arpit">
+            <img src="image/arpit3.jpg" alt="With Arpit">
+            <div class="gallery-overlay">
+                <div class="gallery-caption">With Arpit</div>
+            </div>
+        </div>
 
-/* IMAGE - NO BORDER */
-.gallery-item img {
-    width: 100%;
-    height: 260px;
-    object-fit: cover;
-    background: black;
-    filter: grayscale(100%) brightness(0.7);
-    transition: all 0.5s ease;
-    border: none;
-    outline: none;
-}
+        <div class="gallery-item life" data-img="image/Convocation.jpg" data-caption="Convocation Day">
+            <img src="image/Convocation.jpg" alt="Convocation Day">
+            <div class="gallery-overlay">
+                <div class="gallery-caption">Convocation Day</div>
+            </div>
+        </div>
 
-/* HOVER EFFECT */
-.gallery-item:hover img {
-    filter: grayscale(0%) brightness(1);
-    transform: scale(0.95);
-}
+        <div class="gallery-item research" data-img="image/iiitg.jpg" data-caption="IIIT Guwahati">
+            <img src="image/iiitg.jpg" alt="IIIT Guwahati">
+            <div class="gallery-overlay">
+                <div class="gallery-caption">IIIT Guwahati</div>
+            </div>
+        </div>
 
-/* OVERLAY - NO BORDER */
-.gallery-overlay {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    padding: 12px;
-    background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
-    border: none;
-}
+        <div class="gallery-item research" data-img="image/Poster%20Landscape.png" data-caption="Research Poster">
+            <img src="image/Poster%20Landscape.png" alt="Research Poster">
+            <div class="gallery-overlay">
+                <div class="gallery-caption">Research Poster</div>
+            </div>
+        </div>
 
-/* CAPTION - BLUE COLOR (NO YELLOW) */
-.gallery-caption {
-    color: #3b82f6;
-    font-size: 14px;
-    font-weight: 500;
-    border: none;
-}
+        <div class="gallery-item research" data-img="image/Poster%20contact.png" data-caption="Conference Poster">
+            <img src="image/Poster%20contact.png" alt="Conference Poster">
+            <div class="gallery-overlay">
+                <div class="gallery-caption">Conference Poster</div>
+            </div>
+        </div>
 
-/* Style for the close button on new tab page - this will work when image opens in new tab */
-</style>
+        <div class="gallery-item life" data-img="image/WhatsApp%20Image%202026-03-05%20at%202.58.51%20PM.jpeg" data-caption="Recent Moment">
+            <img src="image/WhatsApp%20Image%202026-03-05%20at%202.58.51%20PM.jpeg" alt="Recent Moment">
+            <div class="gallery-overlay">
+                <div class="gallery-caption">Recent Moment</div>
+            </div>
+        </div>
+        
+        <!-- Additional Research Items for better filtering -->
+        <div class="gallery-item research" data-img="image/GF180nm_Technology.jpg" data-caption="GF180nm Technology">
+            <img src="image/GF180nm_Technology.jpg" alt="GF180nm Technology" onerror="this.src='https://placehold.co/400x300/1a1a2e/ffcc00?text=GF180nm+Technology'">
+            <div class="gallery-overlay">
+                <div class="gallery-caption">GF180nm Technology</div>
+            </div>
+        </div>
 
-<!-- FILTER -->
-<div class="filter-btns">
-    <button onclick="filterSelection('all')">All</button>
-    <button onclick="filterSelection('research')">Research</button>
-    <button onclick="filterSelection('life')">Life</button>
-    <button onclick="filterSelection('friends')">Friends</button>
+        <div class="gallery-item research" data-img="image/SkyWater_130nm.jpg" data-caption="SkyWater 130nm">
+            <img src="image/SkyWater_130nm.jpg" alt="SkyWater 130nm" onerror="this.src='https://placehold.co/400x300/1a1a2e/ffcc00?text=SkyWater+130nm'">
+            <div class="gallery-overlay">
+                <div class="gallery-caption">SkyWater 130nm</div>
+            </div>
+        </div>
+
+        <div class="gallery-item research" data-img="image/ASAP_7nm.jpg" data-caption="ASAP 7nm">
+            <img src="image/ASAP_7nm.jpg" alt="ASAP 7nm" onerror="this.src='https://placehold.co/400x300/1a1a2e/ffcc00?text=ASAP+7nm'">
+            <div class="gallery-overlay">
+                <div class="gallery-caption">ASAP 7nm</div>
+            </div>
+        </div>
+
+        <div class="gallery-item research" data-img="image/Nangate_45nm.jpg" data-caption="Nangate 45nm">
+            <img src="image/Nangate_45nm.jpg" alt="Nangate 45nm" onerror="this.src='https://placehold.co/400x300/1a1a2e/ffcc00?text=Nangate+45nm'">
+            <div class="gallery-overlay">
+                <div class="gallery-caption">Nangate 45nm</div>
+            </div>
+        </div>
+
+        <div class="gallery-item research" data-img="image/RISC_V_SoC.jpg" data-caption="RISC-V SoC">
+            <img src="image/RISC_V_SoC.jpg" alt="RISC-V SoC" onerror="this.src='https://placehold.co/400x300/1a1a2e/ffcc00?text=RISC-V+SoC'">
+            <div class="gallery-overlay">
+                <div class="gallery-caption">RISC-V SoC</div>
+            </div>
+        </div>
+
+        <div class="gallery-item research" data-img="image/IO_Planning.jpg" data-caption="I/O Planning">
+            <img src="image/IO_Planning.jpg" alt="I/O Planning" onerror="this.src='https://placehold.co/400x300/1a1a2e/ffcc00?text=I%2FO+Planning'">
+            <div class="gallery-overlay">
+                <div class="gallery-caption">I/O Planning</div>
+            </div>
+        </div>
+
+        <div class="gallery-item research" data-img="image/Floorplan.jpg" data-caption="Floorplan">
+            <img src="image/Floorplan.jpg" alt="Floorplan" onerror="this.src='https://placehold.co/400x300/1a1a2e/ffcc00?text=Floorplan'">
+            <div class="gallery-overlay">
+                <div class="gallery-caption">Floorplan</div>
+            </div>
+        </div>
+
+        <div class="gallery-item research" data-img="image/Parashar_View.jpg" data-caption="Parashar View">
+            <img src="image/Parashar_View.jpg" alt="Parashar View" onerror="this.src='https://placehold.co/400x300/1a1a2e/ffcc00?text=Parashar+View'">
+            <div class="gallery-overlay">
+                <div class="gallery-caption">Parashar View</div>
+            </div>
+        </div>
+    </div>
 </div>
 
-<!-- GRID -->
-<div class="gallery-grid">
-
-    <div class="gallery-item research">
-        <a href="image/IIITGConvocation.JPG" target="_blank">
-            <img src="image/IIITGConvocation.JPG">
-        </a>
-        <div class="gallery-overlay"><div class="gallery-caption">IIITG Convocation</div></div>
+<!-- CUSTOM MODAL WITH ZOOM AND PREV/NEXT ARROWS -->
+<div id="imageModal" class="image-modal">
+    <div class="modal-content">
+        <img id="modalImg" src="" alt="Full view">
+        <div class="modal-close" id="modalCloseBtn">✕</div>
+        <div class="modal-prev" id="modalPrev">❮</div>
+        <div class="modal-next" id="modalNext">❯</div>
+        <div class="modal-caption" id="modalCaption"></div>
     </div>
-
-    <div class="gallery-item life">
-        <a href="image/sahil.jpeg" target="_blank">
-            <img src="image/sahil.jpeg">
-        </a>
-        <div class="gallery-overlay"><div class="gallery-caption">Convocation</div></div>
-    </div>
-
-    <div class="gallery-item life">
-        <a href="image/Sam.jpeg" target="_blank">
-            <img src="image/Sam.jpeg">
-        </a>
-        <div class="gallery-overlay"><div class="gallery-caption">Lake View</div></div>
-    </div>
-
-    <div class="gallery-item friends">
-        <a href="image/Friends.jpg" target="_blank">
-            <img src="image/Friends.jpg">
-        </a>
-        <div class="gallery-overlay"><div class="gallery-caption">Friends</div></div>
-    </div>
-
-    <div class="gallery-item life">
-        <a href="image/fly.JPG" target="_blank">
-            <img src="image/fly.JPG">
-        </a>
-        <div class="gallery-overlay"><div class="gallery-caption">Aviation Dream</div></div>
-    </div>
-
-    <div class="gallery-item friends">
-        <a href="image/arpit3.jpg" target="_blank">
-            <img src="image/arpit3.jpg">
-        </a>
-        <div class="gallery-overlay"><div class="gallery-caption">With Arpit</div></div>
-    </div>
-
-    <div class="gallery-item life">
-        <a href="image/Convocation.jpg" target="_blank">
-            <img src="image/Convocation.jpg">
-        </a>
-        <div class="gallery-overlay"><div class="gallery-caption">Convocation Day</div></div>
-    </div>
-
-    <div class="gallery-item research">
-        <a href="image/iiitg.jpg" target="_blank">
-            <img src="image/iiitg.jpg">
-        </a>
-        <div class="gallery-overlay"><div class="gallery-caption">IIIT Guwahati</div></div>
-    </div>
-
-    <div class="gallery-item research">
-        <a href="image/Poster%20Landscape.png" target="_blank">
-            <img src="image/Poster%20Landscape.png">
-        </a>
-        <div class="gallery-overlay"><div class="gallery-caption">Research Poster</div></div>
-    </div>
-
-    <div class="gallery-item research">
-        <a href="image/Poster%20contact.png" target="_blank">
-            <img src="image/Poster%20contact.png">
-        </a>
-        <div class="gallery-overlay"><div class="gallery-caption">Conference Poster</div></div>
-    </div>
-
-    <div class="gallery-item life">
-        <a href="image/WhatsApp%20Image%202026-03-05%20at%202.58.51%20PM.jpeg" target="_blank">
-            <img src="image/WhatsApp%20Image%202026-03-05%20at%202.58.51%20PM.jpeg">
-        </a>
-        <div class="gallery-overlay"><div class="gallery-caption">Recent Moment</div></div>
-    </div>
-
 </div>
 
 <script>
-function filterSelection(category) {
-    let items = document.getElementsByClassName("gallery-item");
-    for (let i = 0; i < items.length; i++) {
-        items[i].style.display =
-            (category === "all" || items[i].classList.contains(category))
-            ? "block" : "none";
+    // Get all gallery items
+    const allGalleryItems = Array.from(document.querySelectorAll('.gallery-item'));
+    
+    // Function to get visible image data based on current filter
+    function getVisibleImageData() {
+        const visibleItems = Array.from(document.querySelectorAll('.gallery-item')).filter(item => item.style.display !== 'none');
+        return visibleItems.map(item => ({
+            src: item.getAttribute('data-img'),
+            caption: item.querySelector('.gallery-caption')?.innerText || 'Image',
+            element: item
+        }));
     }
-}
-
-// Add this script to handle closing the new tab when image is opened
-// This creates a simple HTML page that opens with a close button when image is clicked
-// But since you want X option on the image tab, we need to modify the links
-document.addEventListener('DOMContentLoaded', function() {
-    // Remove default link behavior and open custom window with close button
-    const links = document.querySelectorAll('.gallery-item a');
-    links.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const imgSrc = this.getAttribute('href');
-            // Open a new window with image and close button
-            const newWindow = window.open('', '_blank');
-            newWindow.document.write(`
-                <!DOCTYPE html>
-                <html>
-                <head>
-                    <title>Image View</title>
-                    <style>
-                        body {
-                            margin: 0;
-                            padding: 0;
-                            background: black;
-                            display: flex;
-                            justify-content: center;
-                            align-items: center;
-                            min-height: 100vh;
-                            font-family: Arial, sans-serif;
-                        }
-                        .container {
-                            position: relative;
-                            display: inline-block;
-                        }
-                        img {
-                            max-width: 90vw;
-                            max-height: 90vh;
-                            object-fit: contain;
-                            box-shadow: 0 0 20px rgba(0,0,0,0.5);
-                        }
-                        .close-btn {
-                            position: fixed;
-                            top: 20px;
-                            right: 30px;
-                            background: rgba(255,255,255,0.2);
-                            color: white;
-                            font-size: 30px;
-                            font-weight: bold;
-                            width: 50px;
-                            height: 50px;
-                            border-radius: 50%;
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-                            cursor: pointer;
-                            transition: 0.3s;
-                            z-index: 1000;
-                            border: 2px solid white;
-                            backdrop-filter: blur(5px);
-                        }
-                        .close-btn:hover {
-                            background: red;
-                            transform: scale(1.1);
-                        }
-                    </style>
-                </head>
-                <body>
-                    <div class="close-btn" onclick="window.close()">✕</div>
-                    <div class="container">
-                        <img src="${imgSrc}" alt="Image">
-                    </div>
-                    <script>
-                        // Close on Escape key
-                        document.addEventListener('keydown', function(e) {
-                            if(e.key === 'Escape') window.close();
-                        });
-                    <\/script>
-                </body>
-                </html>
-            `);
-            newWindow.document.close();
+    
+    let currentModalIndex = 0;
+    
+    // Open modal with specific image index
+    function openModalByIndex(index) {
+        const visibleImages = getVisibleImageData();
+        if (visibleImages.length === 0) return;
+        if (index < 0) index = 0;
+        if (index >= visibleImages.length) index = visibleImages.length - 1;
+        
+        currentModalIndex = index;
+        const imgData = visibleImages[currentModalIndex];
+        const modalImg = document.getElementById('modalImg');
+        const modalCaption = document.getElementById('modalCaption');
+        
+        if (modalImg && imgData) {
+            modalImg.src = imgData.src;
+            modalImg.alt = imgData.caption;
+            if (modalCaption) modalCaption.textContent = imgData.caption;
+        }
+        
+        const modal = document.getElementById('imageModal');
+        modal.classList.add('show');
+        document.body.style.overflow = 'hidden';
+    }
+    
+    // Close modal function
+    function closeModal() {
+        const modal = document.getElementById('imageModal');
+        modal.classList.remove('show');
+        document.body.style.overflow = '';
+    }
+    
+    // Next image with arrow >
+    function nextImage() {
+        const visibleImages = getVisibleImageData();
+        if (visibleImages.length === 0) return;
+        currentModalIndex = (currentModalIndex + 1) % visibleImages.length;
+        const newImgData = visibleImages[currentModalIndex];
+        const modalImg = document.getElementById('modalImg');
+        const modalCaption = document.getElementById('modalCaption');
+        
+        if (modalImg && newImgData) {
+            modalImg.src = newImgData.src;
+            modalImg.alt = newImgData.caption;
+            if (modalCaption) modalCaption.textContent = newImgData.caption;
+        }
+    }
+    
+    // Previous image with arrow <
+    function prevImage() {
+        const visibleImages = getVisibleImageData();
+        if (visibleImages.length === 0) return;
+        currentModalIndex = (currentModalIndex - 1 + visibleImages.length) % visibleImages.length;
+        const newImgData = visibleImages[currentModalIndex];
+        const modalImg = document.getElementById('modalImg');
+        const modalCaption = document.getElementById('modalCaption');
+        
+        if (modalImg && newImgData) {
+            modalImg.src = newImgData.src;
+            modalImg.alt = newImgData.caption;
+            if (modalCaption) modalCaption.textContent = newImgData.caption;
+        }
+    }
+    
+    // Attach click events to gallery items
+    function attachModalEvents() {
+        const items = document.querySelectorAll('.gallery-item');
+        items.forEach(item => {
+            // Remove existing listener to avoid duplicates
+            if (item._modalClickHandler) {
+                item.removeEventListener('click', item._modalClickHandler);
+            }
+            
+            const handler = function(e) {
+                const visibleItems = getVisibleImageData();
+                const clickedSrc = item.getAttribute('data-img');
+                const foundIndex = visibleItems.findIndex(v => v.src === clickedSrc);
+                if (foundIndex !== -1) {
+                    openModalByIndex(foundIndex);
+                } else {
+                    openModalByIndex(0);
+                }
+                e.stopPropagation();
+            };
+            
+            item._modalClickHandler = handler;
+            item.addEventListener('click', handler);
         });
+    }
+    
+    // FILTER FUNCTIONALITY
+    function filterSelection(category) {
+        let items = document.getElementsByClassName("gallery-item");
+        for (let i = 0; i < items.length; i++) {
+            let item = items[i];
+            if (category === "all" || item.classList.contains(category)) {
+                item.style.display = "block";
+                item.style.opacity = "0";
+                setTimeout(() => {
+                    if (item.style.display === "block") {
+                        item.style.opacity = "1";
+                    }
+                }, 20);
+            } else {
+                item.style.display = "none";
+            }
+        }
+        // Re-attach events after filter
+        attachModalEvents();
+    }
+    
+    // Setup filter button active styles
+    function setupFilterButtons() {
+        const buttons = document.querySelectorAll('.filter-btns button');
+        buttons.forEach(btn => {
+            btn.addEventListener('click', function() {
+                buttons.forEach(b => {
+                    b.style.background = 'rgba(20, 20, 35, 0.8)';
+                    b.style.color = '#ffcc00';
+                });
+                this.style.background = '#ffcc00';
+                this.style.color = '#0a0a0a';
+            });
+        });
+    }
+    
+    // Keyboard controls for modal
+    document.addEventListener('keydown', function(e) {
+        const modal = document.getElementById('imageModal');
+        if (modal.classList.contains('show')) {
+            if (e.key === 'Escape') {
+                closeModal();
+                e.preventDefault();
+            } else if (e.key === 'ArrowRight') {
+                nextImage();
+                e.preventDefault();
+            } else if (e.key === 'ArrowLeft') {
+                prevImage();
+                e.preventDefault();
+            }
+        }
     });
-});
+    
+    // Initialize modal controls
+    document.getElementById('modalCloseBtn').addEventListener('click', closeModal);
+    document.getElementById('modalPrev').addEventListener('click', prevImage);
+    document.getElementById('modalNext').addEventListener('click', nextImage);
+    
+    // Close modal when clicking on background
+    const modalElement = document.getElementById('imageModal');
+    modalElement.addEventListener('click', function(e) {
+        if (e.target === modalElement) {
+            closeModal();
+        }
+    });
+    
+    // Initialize everything
+    window.addEventListener('DOMContentLoaded', function() {
+        filterSelection('all');
+        attachModalEvents();
+        setupFilterButtons();
+        
+        // Remove any white borders globally
+        const allElements = document.querySelectorAll('.gallery-item, .gallery-item img, .gallery-overlay, .gallery-caption, .filter-btns button');
+        allElements.forEach(el => {
+            if (el) {
+                el.style.border = 'none';
+                el.style.outline = 'none';
+            }
+        });
+        
+        // Force no white background on captions
+        const style = document.createElement('style');
+        style.textContent = `
+            .gallery-item, .gallery-item img, .gallery-overlay, .gallery-caption {
+                border: none !important;
+                outline: none !important;
+            }
+            .gallery-overlay {
+                background: linear-gradient(to top, rgba(0,0,0,0.85), rgba(0,0,0,0.4), transparent) !important;
+            }
+            img {
+                border: none !important;
+            }
+        `;
+        document.head.appendChild(style);
+        
+        console.log('Gallery ready: Yellow captions, no white boxes, zoom with < and > arrows');
+    });
+    
+    // Preload images for better performance
+    function preloadImages() {
+        const allSrcs = allGalleryItems.map(item => item.getAttribute('data-img'));
+        allSrcs.forEach(src => {
+            if (src && !src.includes('placehold')) {
+                const img = new Image();
+                img.src = src;
+            }
+        });
+    }
+    preloadImages();
 </script>
 
-</div>
+</body>
+</html>
+
+
+
+
+    
 
 
 
