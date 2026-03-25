@@ -504,17 +504,11 @@
 
         
 
-
-
-
 <div id="gallery">
     <h2 class="navy-blue-light">📸 Image Gallery</h2>
 
     <style>
-        body {
-            background: #0a0a0a;
-            color: white;
-        }
+        body { background: #0a0a0a; }
 
         .navy-blue-light {
             text-align: center;
@@ -523,7 +517,6 @@
             margin-bottom: 20px;
         }
 
-        /* FILTER BUTTONS */
         .filter-btns {
             text-align: center;
             margin-bottom: 20px;
@@ -537,7 +530,6 @@
             background: #111;
             color: #00bfff;
             cursor: pointer;
-            transition: 0.3s;
         }
 
         .filter-btns button:hover {
@@ -545,29 +537,20 @@
             color: black;
         }
 
-        /* GRID */
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
             gap: 25px;
         }
 
-        /* CARD */
         .gallery-item {
             position: relative;
             overflow: hidden;
             border-radius: 15px;
             cursor: pointer;
-            backdrop-filter: blur(10px);
             background: rgba(255,255,255,0.05);
-            transition: 0.3s;
         }
 
-        .gallery-item:hover {
-            transform: translateY(-5px);
-        }
-
-        /* IMAGE */
         .gallery-item img {
             width: 100%;
             height: 260px;
@@ -582,12 +565,11 @@
             transform: scale(1.05);
         }
 
-        /* CAPTION */
         .gallery-overlay {
             position: absolute;
             bottom: 0;
             width: 100%;
-            padding: 12px;
+            padding: 10px;
             background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
         }
 
@@ -596,7 +578,6 @@
             font-size: 14px;
         }
 
-        /* MODAL */
         .modal {
             display: none;
             position: fixed;
@@ -609,14 +590,12 @@
             text-align: center;
         }
 
+        .modal.active { display: block; }
+
         .modal img {
             max-width: 90%;
             max-height: 80%;
             margin-top: 40px;
-        }
-
-        .modal.active {
-            display: block;
         }
 
         .close, .prev, .next {
@@ -640,11 +619,13 @@
     </div>
 
     <!-- GRID -->
-    <div class="gallery-grid" id="galleryGrid">
+    <div class="gallery-grid">
+
+        <!-- ALL IMAGES INCLUDED -->
 
         <div class="gallery-item research" onclick="openModal(0)">
-            <img src="image/Poster%20Landscape.png" loading="lazy">
-            <div class="gallery-overlay"><div class="gallery-caption">Research Poster</div></div>
+            <img src="image/IIITGConvocation.JPG" loading="lazy">
+            <div class="gallery-overlay"><div class="gallery-caption">IIITG Convocation</div></div>
         </div>
 
         <div class="gallery-item life" onclick="openModal(1)">
@@ -652,14 +633,49 @@
             <div class="gallery-overlay"><div class="gallery-caption">Convocation</div></div>
         </div>
 
-        <div class="gallery-item friends" onclick="openModal(2)">
-            <img src="image/Friends.jpg" loading="lazy">
-            <div class="gallery-overlay"><div class="gallery-caption">Friends Group</div></div>
-        </div>
-
-        <div class="gallery-item life" onclick="openModal(3)">
+        <div class="gallery-item life" onclick="openModal(2)">
             <img src="image/Sam.jpeg" loading="lazy">
             <div class="gallery-overlay"><div class="gallery-caption">Lake View</div></div>
+        </div>
+
+        <div class="gallery-item friends" onclick="openModal(3)">
+            <img src="image/Friends.jpg" loading="lazy">
+            <div class="gallery-overlay"><div class="gallery-caption">Friends</div></div>
+        </div>
+
+        <div class="gallery-item life" onclick="openModal(4)">
+            <img src="image/fly.JPG" loading="lazy">
+            <div class="gallery-overlay"><div class="gallery-caption">Aviation Dream</div></div>
+        </div>
+
+        <div class="gallery-item friends" onclick="openModal(5)">
+            <img src="image/arpit3.jpg" loading="lazy">
+            <div class="gallery-overlay"><div class="gallery-caption">With Arpit</div></div>
+        </div>
+
+        <div class="gallery-item life" onclick="openModal(6)">
+            <img src="image/Convocation.jpg" loading="lazy">
+            <div class="gallery-overlay"><div class="gallery-caption">Convocation Day</div></div>
+        </div>
+
+        <div class="gallery-item research" onclick="openModal(7)">
+            <img src="image/iiitg.jpg" loading="lazy">
+            <div class="gallery-overlay"><div class="gallery-caption">IIIT Guwahati</div></div>
+        </div>
+
+        <div class="gallery-item research" onclick="openModal(8)">
+            <img src="image/Poster%20Landscape.png" loading="lazy">
+            <div class="gallery-overlay"><div class="gallery-caption">Research Poster</div></div>
+        </div>
+
+        <div class="gallery-item research" onclick="openModal(9)">
+            <img src="image/Poster%20contact.png" loading="lazy">
+            <div class="gallery-overlay"><div class="gallery-caption">Conference Poster</div></div>
+        </div>
+
+        <div class="gallery-item life" onclick="openModal(10)">
+            <img src="image/WhatsApp%20Image%202026-03-05%20at%202.58.51%20PM.jpeg" loading="lazy">
+            <div class="gallery-overlay"><div class="gallery-caption">Recent Moment</div></div>
         </div>
 
     </div>
@@ -674,10 +690,17 @@
 
     <script>
         const images = [
-            "image/Poster Landscape.png",
+            "image/IIITGConvocation.JPG",
             "image/sahil.jpeg",
+            "image/Sam.jpeg",
             "image/Friends.jpg",
-            "image/Sam.jpeg"
+            "image/fly.JPG",
+            "image/arpit3.jpg",
+            "image/Convocation.jpg",
+            "image/iiitg.jpg",
+            "image/Poster%20Landscape.png",
+            "image/Poster%20contact.png",
+            "image/WhatsApp%20Image%202026-03-05%20at%202.58.51%20PM.jpeg"
         ];
 
         let currentIndex = 0;
@@ -687,7 +710,7 @@
             currentIndex = index;
             document.getElementById("modal").classList.add("active");
             showImage();
-            startAutoSlide();
+            autoSlide = setInterval(() => changeSlide(1), 3000);
         }
 
         function closeModal() {
@@ -704,11 +727,6 @@
             showImage();
         }
 
-        function startAutoSlide() {
-            autoSlide = setInterval(() => changeSlide(1), 3000);
-        }
-
-        /* FILTER */
         function filterSelection(category) {
             let items = document.getElementsByClassName("gallery-item");
             for (let i = 0; i < items.length; i++) {
@@ -720,6 +738,7 @@
     </script>
 
 </div>
+
 
 
 
