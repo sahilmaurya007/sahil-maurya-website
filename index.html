@@ -1,132 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Sahil Maurya - Research Scholar @ IIT Mandi | VLSI | PQC | RISC-V</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Sahil Maurya - Research Scholar @ IIT Mandi | VLSI | PQC | RISC-V</title>
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-        body {
-            font-family: 'Segoe UI', 'Roboto', 'Arial', sans-serif;
-            background-color: #eef2f5;
-            color: #1e2a3e;
-            line-height: 1.6;
-        }
+body {
+    font-family: 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+    background-color: #eef2f5;
+    color: #1e2a3e;
+    line-height: 1.6;
+}
 
-        /* 🔥 HERO SECTION */
-        .hero {
-            position: relative;
-            width: 100%;
-            height: 550px;
-            overflow: hidden;
-        }
+/* 🔥 HERO SECTION */
+.hero {
+    position: relative;
+    width: 100%;
+    height: 550px;
+    overflow: hidden;
+}
 
-        .slider {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-        }
+.slider {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
 
-        .slide {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            filter: brightness(0.7);
-            opacity: 0;
-            animation: slideAnimation 24s infinite;
-        }
+/* 🔥 SLIDES */
+.slide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 
-        /* 🔥 Fix animation delays so slides transition properly */
-        .slide:nth-child(1) { animation-delay: 0s; }
-        .slide:nth-child(2) { animation-delay: 8s; }
-        .slide:nth-child(3) { animation-delay: 16s; }
+    filter: brightness(0.7);
 
-        /* 🔥 HERO TEXT (NO BOX) */
-        .hero-content {
-            position: absolute;
-            bottom: 80px;
-            left: 50%;
-            transform: translateX(-50%);
-            text-align: center;
-            background: none;
-            border: none;
-            box-shadow: none;
-            padding: 0;
-            z-index: 10;
-            width: 90%;
-            max-width: 800px;
-        }
+    opacity: 0;
+    animation: slideAnimation 40s infinite;
+}
 
-        /* 🔥 NAME (COLORFUL + VISIBLE) */
-        .hero-content h1 {
-            font-size: 3rem;
-            font-weight: 700;
-            background: linear-gradient(90deg, #00bfff, #22c55e, #facc15);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 3px 10px rgba(0,0,0,0.8);
-            letter-spacing: 1px;
-            margin-bottom: 12px;
-        }
+/* 🔥 IMAGES */
+.slide1 { background-image: url('image/Best%20Imageee.png'); animation-delay: 0s; }
+.slide2 { background-image: url('image/Chip2GF180nm.png'); animation-delay: 5s; }
+.slide3 { background-image: url('image/chip1skywater130nm.png'); animation-delay: 10s; }
+.slide4 { background-image: url('image/chip3ASAPnm.png'); animation-delay: 15s; }
+.slide5 { background-image: url('image/chip4nangate45nm.png'); animation-delay: 20s; }
+.slide6 { background-image: url('image/Complete%20soc.jpeg'); animation-delay: 25s; }
+.slide7 { background-image: url('image/Poster%20Landscape.png'); animation-delay: 30s; }
+.slide8 { background-image: url('image/semi.jpg'); animation-delay: 35s; }
 
-        /* 🔥 SUBTEXT */
-        .hero-content p {
-            font-size: 1.1rem;
-            color: #ffffff;
-            text-shadow: 0 2px 8px rgba(0,0,0,0.8);
-            font-weight: 500;
-        }
+/* 🔥 HERO TEXT */
+.hero-content {
+    position: absolute;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
 
-        /* 🔥 SLIDE ANIMATION - smoother crossfade */
-        @keyframes slideAnimation {
-            0% { opacity: 0; }
-            8% { opacity: 1; }
-            30% { opacity: 1; }
-            38% { opacity: 0; }
-            100% { opacity: 0; }
-        }
+    background: none;
+    border: none;
+    box-shadow: none;
+}
 
-        /* Responsive fix */
-        @media (max-width: 768px) {
-            .hero {
-                height: 450px;
-            }
-            .hero-content h1 {
-                font-size: 2rem;
-            }
-            .hero-content p {
-                font-size: 0.9rem;
-            }
-        }
-    </style>
+/* 🔥 COLORFUL NAME */
+.hero-content h1 {
+    font-size: 3rem;
+    font-weight: 700;
+
+    background: linear-gradient(90deg, #00bfff, #22c55e, #facc15);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    text-shadow: 0 3px 10px rgba(0,0,0,0.8);
+}
+
+/* 🔥 SUBTEXT */
+.hero-content p {
+    font-size: 1.2rem;
+    color: white;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.8);
+}
+
+/* 🔥 ANIMATION */
+@keyframes slideAnimation {
+    0% { opacity: 0; }
+    5% { opacity: 1; }
+    20% { opacity: 1; }
+    25% { opacity: 0; }
+    100% { opacity: 0; }
+}
+</style>
 </head>
+
 <body>
 
-    <!-- Hero section with slider background -->
-    <section class="hero">
-        <div class="slider">
-            <!-- Three slides with modern tech/research themed images -->
-            <div class="slide" style="background-image: url('https://picsum.photos/id/104/1920/1080?grayscale&seed=iitmandi1'); background-size: cover;"></div>
-            <div class="slide" style="background-image: url('https://picsum.photos/id/107/1920/1080?grayscale&seed=vlsi2'); background-size: cover;"></div>
-            <div class="slide" style="background-image: url('https://picsum.photos/id/96/1920/1080?grayscale&seed=riscv3'); background-size: cover;"></div>
-        </div>
-        <div class="hero-content">
-            <h1>Sahil Maurya</h1>
-            <p>Research Scholar @ IIT Mandi | VLSI | PQC | RISC-V</p>
-        </div>
-    </section>
+<!-- HERO -->
+<div class="hero">
+    <div class="slider">
+        <div class="slide slide1"></div>
+        <div class="slide slide2"></div>
+        <div class="slide slide3"></div>
+        <div class="slide slide4"></div>
+        <div class="slide slide5"></div>
+        <div class="slide slide6"></div>
+        <div class="slide slide7"></div>
+        <div class="slide slide8"></div>
+    </div>
 
-    <!-- The rest of your page will continue here -->
+    <div class="hero-content">
+        <h1>Sahil Maurya</h1>
+        <p>Research Scholar @ IIT Mandi</p>
+        <p>VLSI | Post-Quantum Cryptography | RISC-V | ASIC & FPGA</p>
+    </div>
+</div>
+
+
+    
 </body>
 
 </head>
