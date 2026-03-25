@@ -50,16 +50,73 @@
             animation: slideAnimation 30s infinite;
         }
 
-        /* Corrected Paths for the slider */
-        .slide1 { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('image/Best%20Imageee.png'); animation-delay: 0s; }
-        .slide2 { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('image/Chip2GF180nm.png'); animation-delay: 3.75s; }
-        .slide3 { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('image/chip1skywater130nm.png'); animation-delay: 7.5s; }
-        .slide4 { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('image/chip3ASAPnm.png'); animation-delay: 11.25s; }
-        .slide5 { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('image/chip4nangate45nm.png'); animation-delay: 15s; }
-        .slide6 { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('image/Complete%20soc.jpeg'); animation-delay: 18.75s; }
-        .slide7 { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('image/Poster%20Landscape.png'); animation-delay: 22.5s; }
-        .slide8 { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('image/semi.jpg'); animation-delay: 26.25s; }
 
+ <div style="position: relative; width: 100%; max-width: 1200px; height: 580px; overflow: hidden; border-radius: 20px; margin: 0 auto;">
+
+<style>
+.slider {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.slide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0;
+    animation: slideAnimation 60s infinite;
+    transition: opacity 1s ease-in-out;
+}
+
+/* 🔥 IIT MANDI IMAGES */
+.slide1  { background-image: url('https://raw.githubusercontent.com/sahilmaurya007/sahil-maurya-website/main/IIT%20Mandi%20Image%20Campus%20Gallery/Image1.jpeg'); animation-delay: 0s; }
+.slide2  { background-image: url('https://raw.githubusercontent.com/sahilmaurya007/sahil-maurya-website/main/IIT%20Mandi%20Image%20Campus%20Gallery/Image2.jpeg'); animation-delay: 5s; }
+.slide3  { background-image: url('https://raw.githubusercontent.com/sahilmaurya007/sahil-maurya-website/main/IIT%20Mandi%20Image%20Campus%20Gallery/Image3.jpeg'); animation-delay: 10s; }
+.slide4  { background-image: url('https://raw.githubusercontent.com/sahilmaurya007/sahil-maurya-website/main/IIT%20Mandi%20Image%20Campus%20Gallery/Image4.jpeg'); animation-delay: 15s; }
+.slide5  { background-image: url('https://raw.githubusercontent.com/sahilmaurya007/sahil-maurya-website/main/IIT%20Mandi%20Image%20Campus%20Gallery/Image5.jpeg'); animation-delay: 20s; }
+.slide6  { background-image: url('https://raw.githubusercontent.com/sahilmaurya007/sahil-maurya-website/main/IIT%20Mandi%20Image%20Campus%20Gallery/Image6.jpeg'); animation-delay: 25s; }
+.slide7  { background-image: url('https://raw.githubusercontent.com/sahilmaurya007/sahil-maurya-website/main/IIT%20Mandi%20Image%20Campus%20Gallery/Image7.jpeg'); animation-delay: 30s; }
+
+/* 🔥 YOUR LOCAL CHIP / PERSONAL IMAGES */
+.slide8  { background-image: url('image/Best%20Imageee.png'); animation-delay: 35s; }
+.slide9  { background-image: url('image/Chip2GF180nm.png'); animation-delay: 40s; }
+.slide10 { background-image: url('image/chip1skywater130nm.png'); animation-delay: 45s; }
+.slide11 { background-image: url('image/chip3ASAPnm.png'); animation-delay: 50s; }
+.slide12 { background-image: url('image/chip4nangate45nm.png'); animation-delay: 55s; }
+
+/* 🔥 ANIMATION */
+@keyframes slideAnimation {
+    0% { opacity: 0; }
+    3% { opacity: 1; }
+    12% { opacity: 1; }
+    15% { opacity: 0; }
+    100% { opacity: 0; }
+}
+</style>
+
+<div class="slider">
+    <!-- IIT MANDI -->
+    <div class="slide slide1"></div>
+    <div class="slide slide2"></div>
+    <div class="slide slide3"></div>
+    <div class="slide slide4"></div>
+    <div class="slide slide5"></div>
+    <div class="slide slide6"></div>
+    <div class="slide slide7"></div>
+
+    <!-- LOCAL -->
+    <div class="slide slide8"></div>
+    <div class="slide slide9"></div>
+    <div class="slide slide10"></div>
+    <div class="slide slide11"></div>
+    <div class="slide slide12"></div>
+</div>
+
+</div>
         @keyframes slideAnimation {
             0% { opacity: 0; }
             8% { opacity: 1; }
