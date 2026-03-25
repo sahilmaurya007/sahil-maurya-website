@@ -683,11 +683,15 @@ footer {
         </ul>
     </div>
 
+
+
+    
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Quantum Lab | NTT Visualizer</title>
+<title>Quantum Silicon Lab | Sahil Maurya</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
@@ -695,140 +699,173 @@ body {
     margin:0;
     background:#000;
     color:#00f5ff;
-    font-family: monospace;
+    font-family: 'Courier New', monospace;
 }
 
 /* HEADER */
-h1 {
+.header {
     text-align:center;
-    margin:10px;
+    padding:15px;
+    font-size:24px;
+    border-bottom:1px solid #00f5ff;
 }
 
-/* CONTROL PANEL */
+/* LAYOUT */
+.container {
+    display:grid;
+    grid-template-columns: 3fr 1fr;
+}
+
+/* LEFT PANEL */
+.left {
+    padding:10px;
+}
+
+/* RIGHT PANEL */
+.right {
+    border-left:1px solid #00f5ff;
+    padding:10px;
+}
+
+/* CONTROLS */
 .controls {
     display:flex;
-    justify-content:center;
-    gap:20px;
-    margin:10px;
+    gap:10px;
+    margin-bottom:10px;
 }
 
 button, select {
-    padding:10px;
+    padding:8px;
     background:#111;
-    border:1px solid #00f5ff;
     color:#00f5ff;
+    border:1px solid #00f5ff;
     cursor:pointer;
-}
-
-/* GRID */
-.grid {
-    display:flex;
-    justify-content:center;
 }
 
 /* CANVAS */
 canvas {
-    border:1px solid #00f5ff;
     background:#000;
+    border:1px solid #00f5ff;
+    margin-top:10px;
 }
 
-/* INFO PANEL */
-#info {
-    text-align:center;
-    margin-top:10px;
+/* METRICS */
+.metric {
+    margin:10px 0;
+}
+
+/* AI PANEL */
+#ai {
+    background:#111;
+    padding:10px;
+    margin-top:20px;
+    border:1px solid #00f5ff;
 }
 </style>
 </head>
 
 <body>
 
-<h1>🧬 NTT Butterfly Visualizer</h1>
+<div class="header">⚡ Quantum Silicon Lab | NTT + Hardware Visualization</div>
+
+<div class="container">
+
+<!-- LEFT -->
+<div class="left">
 
 <div class="controls">
 <select id="size">
-<option value="8">N = 8</option>
-<option value="16">N = 16</option>
+<option value="8">N=8</option>
+<option value="16">N=16</option>
 </select>
 
-<button onclick="step()">▶ Step</button>
-<button onclick="play()">⏯ Play</button>
-<button onclick="pause()">⏸ Pause</button>
-<button onclick="reset()">🔄 Reset</button>
+<button onclick="step()">Step</button>
+<button onclick="play()">Play</button>
+<button onclick="pause()">Pause</button>
+<button onclick="reset()">Reset</button>
 </div>
 
-<div class="grid">
-<canvas id="ntt" width="800" height="400"></canvas>
+<canvas id="ntt" width="800" height="300"></canvas>
+<canvas id="wave" width="800" height="150"></canvas>
+
 </div>
 
-<div id="info">Stage: 0 | Butterfly Operation</div>
+<!-- RIGHT -->
+<div class="right">
+
+<h3>📡 Hardware Metrics</h3>
+<div class="metric">Power: <span id="p">0</span> mW</div>
+<div class="metric">Delay: <span id="d">0</span> ns</div>
+<div class="metric">LUT: <span id="l">0</span></div>
+
+<div id="ai">
+<h3>🧠 AI Chip Explainer</h3>
+<p id="aiText">Click simulation to analyze stage...</p>
+</div>
+
+</div>
+
+</div>
 
 <script>
 const canvas = document.getElementById("ntt");
 const ctx = canvas.getContext("2d");
 
-let N = 8;
-let stage = 0;
-let running = false;
+const wave = document.getElementById("wave");
+const wctx = wave.getContext("2d");
+
+let N = 8, stage = 0, running=false;
 let data = [];
 
 function init(){
     N = parseInt(document.getElementById("size").value);
-    data = [];
-    for(let i=0;i<N;i++) data.push(Math.floor(Math.random()*100));
-    stage = 0;
+    data = Array.from({length:N}, ()=>Math.floor(Math.random()*50));
+    stage=0;
     draw();
 }
 init();
 
+/* DRAW NTT */
 function draw(){
-    ctx.clearRect(0,0,800,400);
-
+    ctx.clearRect(0,0,800,300);
     let spacing = 700/N;
 
     for(let i=0;i<N;i++){
-        let x = 50 + i*spacing;
-        let y = 200;
-
+        let x=50+i*spacing;
         ctx.beginPath();
-        ctx.arc(x,y,15,0,Math.PI*2);
-        ctx.strokeStyle="#00f5ff";
+        ctx.arc(x,150,12,0,Math.PI*2);
         ctx.stroke();
-
-        ctx.fillText(data[i], x-10, y+40);
+        ctx.fillText(data[i],x-5,180);
     }
 
-    // Butterfly connections
-    let stepSize = Math.pow(2, stage+1);
+    let stepSize=Math.pow(2,stage+1);
     for(let i=0;i<N;i+=stepSize){
         for(let j=0;j<stepSize/2;j++){
-            let x1 = 50 + (i+j)*spacing;
-            let x2 = 50 + (i+j+stepSize/2)*spacing;
-
+            let x1=50+(i+j)*spacing;
+            let x2=50+(i+j+stepSize/2)*spacing;
             ctx.beginPath();
-            ctx.moveTo(x1,200);
-            ctx.lineTo(x2,200);
+            ctx.moveTo(x1,150);
+            ctx.lineTo(x2,150);
             ctx.strokeStyle="yellow";
             ctx.stroke();
         }
     }
 
-    document.getElementById("info").innerText = 
-        "Stage: " + stage + " | Butterfly Width: " + Math.pow(2, stage+1);
+    document.getElementById("aiText").innerText =
+    "Stage "+stage+": Performing butterfly computation across "+(stepSize/2)+" pairs.";
 }
 
+/* STEP */
 function step(){
-    if(stage >= Math.log2(N)) return;
+    if(stage>=Math.log2(N)) return;
 
-    let stepSize = Math.pow(2, stage+1);
-
+    let stepSize=Math.pow(2,stage+1);
     for(let i=0;i<N;i+=stepSize){
         for(let j=0;j<stepSize/2;j++){
-            let a = data[i+j];
-            let b = data[i+j+stepSize/2];
-
-            // Simple butterfly (demo)
-            data[i+j] = a + b;
-            data[i+j+stepSize/2] = a - b;
+            let a=data[i+j];
+            let b=data[i+j+stepSize/2];
+            data[i+j]=a+b;
+            data[i+j+stepSize/2]=a-b;
         }
     }
 
@@ -836,31 +873,45 @@ function step(){
     draw();
 }
 
-function play(){
-    running = true;
-    loop();
-}
-
-function pause(){
-    running = false;
-}
+/* PLAY */
+function play(){ running=true; loop(); }
+function pause(){ running=false; }
 
 function loop(){
     if(!running) return;
     step();
-    if(stage < Math.log2(N)){
-        setTimeout(loop,1000);
-    }
+    if(stage<Math.log2(N)) setTimeout(loop,800);
 }
 
-function reset(){
-    init();
+/* RESET */
+function reset(){ init(); }
+
+/* WAVEFORM */
+let t=0;
+function waveDraw(){
+    wctx.clearRect(0,0,800,150);
+    wctx.beginPath();
+    for(let x=0;x<800;x++){
+        let y=75+Math.sin((x+t)/20)*30;
+        wctx.lineTo(x,y);
+    }
+    wctx.strokeStyle="#00f5ff";
+    wctx.stroke();
+    t+=2;
+    requestAnimationFrame(waveDraw);
 }
+waveDraw();
+
+/* METRICS */
+setInterval(()=>{
+    document.getElementById("p").innerText=(Math.random()*100).toFixed(1);
+    document.getElementById("d").innerText=(Math.random()*10).toFixed(2);
+    document.getElementById("l").innerText=Math.floor(Math.random()*5000);
+},1000);
 </script>
 
 </body>
 </html>
-
 
 
 
