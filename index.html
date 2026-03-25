@@ -683,20 +683,101 @@ footer {
         </ul>
     </div>
 
-    <div id="chips">
-        <h2 class="navy-blue-light">🔬 Chip Design Gallery (ASIC/FPGA)</h2>
-        <div class="chip-gallery">
-            <div class="chip-card"><img src="image/Chip2GF180nm.png" alt="GF180nm Chip"><p>GF180nm Technology</p></div>
-            <div class="chip-card"><img src="image/chip1skywater130nm.png" alt="SkyWater 130nm"><p>SkyWater 130nm</p></div>
-            <div class="chip-card"><img src="image/chip3ASAPnm.png" alt="ASAP 7nm"><p>ASAP 7nm Technology</p></div>
-            <div class="chip-card"><img src="image/chip4nangate45nm.png" alt="Nangate 45nm"><p>Nangate 45nm</p></div>
-            <div class="chip-card"><img src="image/Complete%20soc.jpeg" alt="Complete SoC"><p>Complete RISC-V SoC</p></div>
-            <div class="chip-card"><img src="image/Full_Adder_IOPlanning.png" alt="Full Adder IO Planning"><p>Chip I/O Planning Xilinx Vivado</p></div>
-            <div class="chip-card"><img src="image/full_adder_floarplanning.png" alt="Full Adder Floorplan"><p>Chip Floorplan Xilinx Vivado</p></div>
-            <div class="chip-card"><img src="image/Gemini_Generated_Image_ru8yh6ru8yh6ru8y.png" alt="Chip Visualization"><p>Parashar View Himachal</p></div>
+  <div id="chips">
+    <h2 class="navy-blue-light">🔬 Chip Design Gallery (ASIC/FPGA)</h2>
+
+    <style>
+        .chip-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .chip-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            cursor: pointer;
+            background: #111;
+        }
+
+        .chip-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: contain; /* full image visible */
+            background: #000;
+
+            /* ❌ NO grayscale */
+            transition: transform 0.4s ease;
+        }
+
+        .chip-card:hover img {
+            transform: scale(1.05);
+        }
+
+        /* 🔥 Overlay (same as gallery style) */
+        .chip-overlay {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            padding: 10px;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+        }
+
+        .chip-caption {
+            color: #ffcc00;
+            font-size: 14px;
+            text-align: center;
+        }
+    </style>
+
+    <div class="chip-gallery">
+
+        <div class="chip-card">
+            <img src="image/Chip2GF180nm.png">
+            <div class="chip-overlay"><div class="chip-caption">GF180nm Technology</div></div>
         </div>
+
+        <div class="chip-card">
+            <img src="image/chip1skywater130nm.png">
+            <div class="chip-overlay"><div class="chip-caption">SkyWater 130nm</div></div>
+        </div>
+
+        <div class="chip-card">
+            <img src="image/chip3ASAPnm.png">
+            <div class="chip-overlay"><div class="chip-caption">ASAP 7nm Technology</div></div>
+        </div>
+
+        <div class="chip-card">
+            <img src="image/chip4nangate45nm.png">
+            <div class="chip-overlay"><div class="chip-caption">Nangate 45nm</div></div>
+        </div>
+
+        <div class="chip-card">
+            <img src="image/Complete%20soc.jpeg">
+            <div class="chip-overlay"><div class="chip-caption">Complete RISC-V SoC</div></div>
+        </div>
+
+        <div class="chip-card">
+            <img src="image/Full_Adder_IOPlanning.png">
+            <div class="chip-overlay"><div class="chip-caption">Chip I/O Planning (Vivado)</div></div>
+        </div>
+
+        <div class="chip-card">
+            <img src="image/full_adder_floarplanning.png">
+            <div class="chip-overlay"><div class="chip-caption">Chip Floorplan (Vivado)</div></div>
+        </div>
+
+        <div class="chip-card">
+            <img src="image/Gemini_Generated_Image_ru8yh6ru8yh6ru8y.png">
+            <div class="chip-overlay"><div class="chip-caption">Parashar View Himachal</div></div>
+        </div>
+
     </div>
 
+
+    
     <div id="gallery">
     <h2 class="navy-blue-light">📸 Image Gallery</h2>
 
