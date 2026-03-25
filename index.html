@@ -683,181 +683,179 @@ footer {
         </ul>
     </div>
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Sahil Maurya | Silicon Lab</title>
+<title>Quantum Lab | NTT Visualizer</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
 body {
     margin:0;
-    background:black;
-    color:white;
-    font-family:Arial;
+    background:#000;
+    color:#00f5ff;
+    font-family: monospace;
 }
 
 /* HEADER */
 h1 {
     text-align:center;
+    margin:10px;
+}
+
+/* CONTROL PANEL */
+.controls {
+    display:flex;
+    justify-content:center;
+    gap:20px;
+    margin:10px;
+}
+
+button, select {
+    padding:10px;
+    background:#111;
+    border:1px solid #00f5ff;
     color:#00f5ff;
+    cursor:pointer;
 }
 
 /* GRID */
 .grid {
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:20px;
-    padding:20px;
-}
-
-/* CARD */
-.card {
-    background:#0a0a0a;
-    border-radius:15px;
-    padding:10px;
-    cursor:pointer;
-    border:1px solid #00f5ff33;
-    transition:0.3s;
-}
-.card:hover {
-    transform:scale(1.05);
-    box-shadow:0 0 20px #00f5ff;
-}
-
-.card img {
-    width:100%;
-    height:180px;
-    object-fit:contain;
-}
-
-/* AI PANEL */
-#ai-panel {
-    position:fixed;
-    right:0;
-    top:0;
-    width:300px;
-    height:100%;
-    background:#111;
-    padding:20px;
-    border-left:2px solid #00f5ff;
-}
-
-/* DASHBOARD */
-.dashboard {
     display:flex;
-    gap:20px;
     justify-content:center;
-    margin:20px;
-}
-
-.metric {
-    padding:10px 20px;
-    background:#111;
-    border-radius:10px;
 }
 
 /* CANVAS */
 canvas {
-    display:block;
-    margin:auto;
-    background:#000;
     border:1px solid #00f5ff;
+    background:#000;
+}
+
+/* INFO PANEL */
+#info {
+    text-align:center;
+    margin-top:10px;
 }
 </style>
 </head>
 
 <body>
 
-<h1>⚡ Silicon Research Interface</h1>
+<h1>🧬 NTT Butterfly Visualizer</h1>
 
-<!-- DASHBOARD -->
-<div class="dashboard">
-<div class="metric">⚡ Power: <span id="power">0</span> mW</div>
-<div class="metric">⏱ Delay: <span id="delay">0</span> ns</div>
-<div class="metric">🔧 LUT: <span id="lut">0</span></div>
+<div class="controls">
+<select id="size">
+<option value="8">N = 8</option>
+<option value="16">N = 16</option>
+</select>
+
+<button onclick="step()">▶ Step</button>
+<button onclick="play()">⏯ Play</button>
+<button onclick="pause()">⏸ Pause</button>
+<button onclick="reset()">🔄 Reset</button>
 </div>
 
-<!-- GRID -->
 <div class="grid">
-
-<div class="card" data-info="GF180nm ASIC Design with mixed-signal blocks">
-<img src="image/Chip2GF180nm.png">
+<canvas id="ntt" width="800" height="400"></canvas>
 </div>
 
-<div class="card" data-info="Sky130 RISC-V SoC with PQC extension">
-<img src="image/chip1skywater130nm.png">
-</div>
-
-<div class="card" data-info="ASAP 7nm High-speed NTT Accelerator">
-<img src="image/chip3ASAPnm.png">
-</div>
-
-</div>
-
-<!-- AI PANEL -->
-<div id="ai-panel">
-<h3>🧠 AI Chip Explainer</h3>
-<p id="ai-text">Click any chip to analyze...</p>
-</div>
-
-<!-- WAVEFORM -->
-<canvas id="wave" width="800" height="200"></canvas>
-
-<!-- 3D CHIP -->
-<canvas id="chip3d" width="400" height="400"></canvas>
+<div id="info">Stage: 0 | Butterfly Operation</div>
 
 <script>
-// AI PANEL
-document.querySelectorAll('.card').forEach(card=>{
-    card.onclick = ()=>{
-        document.getElementById("ai-text").innerText = card.dataset.info;
-    }
-});
+const canvas = document.getElementById("ntt");
+const ctx = canvas.getContext("2d");
 
-// DASHBOARD SIMULATION
-setInterval(()=>{
-    document.getElementById("power").innerText = (Math.random()*100).toFixed(2);
-    document.getElementById("delay").innerText = (Math.random()*10).toFixed(2);
-    document.getElementById("lut").innerText = Math.floor(Math.random()*5000);
-},1000);
+let N = 8;
+let stage = 0;
+let running = false;
+let data = [];
 
-// WAVEFORM
-const ctx = document.getElementById("wave").getContext("2d");
-let t=0;
-
-function drawWave(){
-    ctx.clearRect(0,0,800,200);
-    ctx.beginPath();
-    for(let x=0;x<800;x++){
-        let y = 100 + Math.sin((x+t)/20)*40;
-        ctx.lineTo(x,y);
-    }
-    ctx.strokeStyle="#00f5ff";
-    ctx.stroke();
-    t+=2;
-    requestAnimationFrame(drawWave);
+function init(){
+    N = parseInt(document.getElementById("size").value);
+    data = [];
+    for(let i=0;i<N;i++) data.push(Math.floor(Math.random()*100));
+    stage = 0;
+    draw();
 }
-drawWave();
+init();
 
-// 3D CHIP (fake rotation)
-const ctx3d = document.getElementById("chip3d").getContext("2d");
-let angle=0;
+function draw(){
+    ctx.clearRect(0,0,800,400);
 
-function draw3D(){
-    ctx3d.clearRect(0,0,400,400);
-    ctx3d.fillStyle="#00f5ff";
-    ctx3d.save();
-    ctx3d.translate(200,200);
-    ctx3d.rotate(angle);
-    ctx3d.fillRect(-80,-80,160,160);
-    ctx3d.restore();
-    angle+=0.01;
-    requestAnimationFrame(draw3D);
+    let spacing = 700/N;
+
+    for(let i=0;i<N;i++){
+        let x = 50 + i*spacing;
+        let y = 200;
+
+        ctx.beginPath();
+        ctx.arc(x,y,15,0,Math.PI*2);
+        ctx.strokeStyle="#00f5ff";
+        ctx.stroke();
+
+        ctx.fillText(data[i], x-10, y+40);
+    }
+
+    // Butterfly connections
+    let stepSize = Math.pow(2, stage+1);
+    for(let i=0;i<N;i+=stepSize){
+        for(let j=0;j<stepSize/2;j++){
+            let x1 = 50 + (i+j)*spacing;
+            let x2 = 50 + (i+j+stepSize/2)*spacing;
+
+            ctx.beginPath();
+            ctx.moveTo(x1,200);
+            ctx.lineTo(x2,200);
+            ctx.strokeStyle="yellow";
+            ctx.stroke();
+        }
+    }
+
+    document.getElementById("info").innerText = 
+        "Stage: " + stage + " | Butterfly Width: " + Math.pow(2, stage+1);
 }
-draw3D();
+
+function step(){
+    if(stage >= Math.log2(N)) return;
+
+    let stepSize = Math.pow(2, stage+1);
+
+    for(let i=0;i<N;i+=stepSize){
+        for(let j=0;j<stepSize/2;j++){
+            let a = data[i+j];
+            let b = data[i+j+stepSize/2];
+
+            // Simple butterfly (demo)
+            data[i+j] = a + b;
+            data[i+j+stepSize/2] = a - b;
+        }
+    }
+
+    stage++;
+    draw();
+}
+
+function play(){
+    running = true;
+    loop();
+}
+
+function pause(){
+    running = false;
+}
+
+function loop(){
+    if(!running) return;
+    step();
+    if(stage < Math.log2(N)){
+        setTimeout(loop,1000);
+    }
+}
+
+function reset(){
+    init();
+}
 </script>
 
 </body>
