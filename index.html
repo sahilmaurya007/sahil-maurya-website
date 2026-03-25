@@ -684,23 +684,28 @@ footer {
     </div>
 
 
-
 <div id="chips">
 
-<h2 class="title">🔬 Silicon Visualization + RTL → GDS Flow</h2>
+<h2 class="title">🧬 Hyper Real Chip Lab | RTL → FPGA → ASIC</h2>
 
 <style>
 body {
-    background: radial-gradient(circle at top, #050505, #000);
-    font-family: 'Orbitron', sans-serif;
+    background: #000;
     color:#00f5ff;
+    font-family: 'Orbitron', sans-serif;
 }
 
-/* GRID */
+/* TITLE */
+.title {
+    text-align:center;
+    margin-bottom:20px;
+}
+
+/* CHIP GRID */
 .chip-gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 20px;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
 }
 
 .chip-card {
@@ -708,6 +713,11 @@ body {
     border-radius:15px;
     overflow:hidden;
     border:1px solid #00f5ff33;
+    cursor:pointer;
+    transition:0.3s;
+}
+.chip-card:hover {
+    box-shadow:0 0 20px #00f5ff;
 }
 
 .chip-card img {
@@ -718,149 +728,172 @@ body {
 
 /* FLOW */
 .flow {
-    margin-top:50px;
+    margin-top:40px;
     text-align:center;
 }
 
-.flow-steps {
-    display:flex;
-    justify-content:space-around;
-    align-items:center;
-    flex-wrap:wrap;
-}
-
-.step {
-    padding:10px 15px;
-    border:1px solid #00f5ff;
-    border-radius:10px;
-    margin:10px;
-    background:#111;
-}
-
-/* CONNECTION LINE */
-.connection {
-    width:100%;
-    height:150px;
+.flow-line {
     position:relative;
+    height:80px;
 }
 
 .packet {
-    width:10px;
-    height:10px;
+    width:8px;
+    height:8px;
     background:#00f5ff;
     border-radius:50%;
     position:absolute;
-    animation: move 2s linear infinite;
+    animation: move 3s linear infinite;
 }
 
 @keyframes move {
     from { left:0; }
-    to { left:95%; }
+    to { left:100%; }
+}
+
+/* MULTI LINES */
+.line1 { top:10px; }
+.line2 { top:30px; animation-delay:1s; }
+.line3 { top:50px; animation-delay:2s; }
+
+/* PIPELINE */
+.pipeline {
+    display:flex;
+    justify-content:space-around;
+    margin-top:30px;
+}
+
+.stage {
+    padding:10px;
+    border:1px solid #00f5ff;
+    border-radius:10px;
+    background:#111;
+    transition:0.3s;
+}
+
+.active {
+    background:#00f5ff;
+    color:#000;
 }
 
 /* WAVEFORM */
-#waveCanvas {
+#wave {
     width:100%;
-    height:200px;
+    height:220px;
     background:#000;
     border:1px solid #00f5ff;
     margin-top:30px;
+}
+
+/* AI PANEL */
+#ai {
+    margin-top:20px;
+    padding:15px;
+    background:#111;
+    border:1px solid #00f5ff;
 }
 </style>
 
 <!-- 🔬 CHIP IMAGES -->
 <div class="chip-gallery">
 
-<div class="chip-card">
+<div class="chip-card" data-info="GF180nm Mixed Signal ASIC Design">
 <img src="image/Chip2GF180nm.png">
 <p align="center">GF180nm ASIC</p>
 </div>
 
-<div class="chip-card">
+<div class="chip-card" data-info="Sky130 Secure RISC-V SoC">
 <img src="image/chip1skywater130nm.png">
 <p align="center">Sky130 SoC</p>
 </div>
 
-<div class="chip-card">
+<div class="chip-card" data-info="ASAP 7nm NTT Accelerator">
 <img src="image/chip3ASAPnm.png">
 <p align="center">ASAP 7nm PQC</p>
 </div>
 
-<div class="chip-card">
+<div class="chip-card" data-info="45nm Standard Cell Design">
 <img src="image/chip4nangate45nm.png">
 <p align="center">45nm Design</p>
 </div>
 
 </div>
 
-<!-- 🔌 FPGA ↔ PC FLOW -->
+<!-- 🔌 DATA FLOW -->
 <div class="flow">
-<h3>🔌 FPGA ↔ COMPUTER DATA FLOW</h3>
+<h3>🔌 PC ↔ FPGA ↔ ASIC DATA FLOW</h3>
 
-<div class="flow-steps">
-<div class="step">💻 Host PC</div>
-<div class="step">📡 UART / AXI</div>
-<div class="step">⚙️ FPGA</div>
-<div class="step">🧬 NTT Engine</div>
+<div class="flow-line">
+<div class="packet line1"></div>
+<div class="packet line2"></div>
+<div class="packet line3"></div>
 </div>
 
-<div class="connection">
-<div class="packet"></div>
-</div>
+<p>💻 Host → 📡 UART/AXI → ⚙️ FPGA → 🧬 NTT → 🧠 ASIC</p>
 </div>
 
-<!-- ⚙️ RTL → GDS FLOW -->
-<div class="flow">
-<h3>⚙️ RTL → GDS FLOW</h3>
-
-<div class="flow-steps">
-<div class="step">RTL</div>
-<div class="step">Synthesis</div>
-<div class="step">Floorplan</div>
-<div class="step">Placement</div>
-<div class="step">Routing</div>
-<div class="step">GDSII</div>
-</div>
+<!-- ⚙️ PIPELINE -->
+<div class="pipeline" id="pipeline">
+<div class="stage">RTL</div>
+<div class="stage">SYN</div>
+<div class="stage">FLOORPLAN</div>
+<div class="stage">PLACE</div>
+<div class="stage">ROUTE</div>
+<div class="stage">GDS</div>
 </div>
 
-<!-- 📊 DIGITAL WAVEFORM -->
-<canvas id="waveCanvas"></canvas>
+<!-- 📊 WAVEFORM -->
+<canvas id="wave"></canvas>
+
+<!-- 🧠 AI -->
+<div id="ai">Click chip to analyze design...</div>
 
 <script>
-// DIGITAL WAVEFORM
-const c = document.getElementById("waveCanvas");
-const ctx = c.getContext("2d");
 
-c.width = c.offsetWidth;
-c.height = 200;
-
-let t = 0;
-
-function drawWave(){
-    ctx.clearRect(0,0,c.width,c.height);
-
-    // CLK
-    ctx.beginPath();
-    for(let x=0; x<c.width; x++){
-        let y = (Math.floor((x+t)/30)%2)*50 + 30;
-        ctx.lineTo(x,y);
+// AI PANEL
+document.querySelectorAll('.chip-card').forEach(c=>{
+    c.onclick = ()=>{
+        document.getElementById("ai").innerText = c.dataset.info;
     }
-    ctx.strokeStyle="#00f5ff";
-    ctx.stroke();
+});
 
-    // DATA
-    ctx.beginPath();
-    for(let x=0; x<c.width; x++){
-        let y = (Math.floor((x+t)/80)%2)*50 + 100;
-        ctx.lineTo(x,y);
+// PIPELINE ANIMATION
+let stages = document.querySelectorAll(".stage");
+let i=0;
+
+setInterval(()=>{
+    stages.forEach(s=>s.classList.remove("active"));
+    stages[i].classList.add("active");
+    i = (i+1)%stages.length;
+},1000);
+
+// WAVEFORM
+const ctx = document.getElementById("wave").getContext("2d");
+let t=0;
+
+function draw(){
+    ctx.clearRect(0,0,1000,220);
+
+    function signal(offset, speed, color){
+        ctx.beginPath();
+        for(let x=0;x<1000;x++){
+            let y = (Math.floor((x+t)/speed)%2)*40 + offset;
+            ctx.lineTo(x,y);
+        }
+        ctx.strokeStyle=color;
+        ctx.stroke();
     }
-    ctx.strokeStyle="yellow";
-    ctx.stroke();
+
+    signal(20,30,"#00f5ff");   // CLK
+    signal(80,80,"yellow");    // DATA
+    signal(140,120,"red");     // VALID
+    signal(180,50,"lime");     // READY
 
     t+=3;
-    requestAnimationFrame(drawWave);
+    requestAnimationFrame(draw);
 }
-drawWave();
+draw();
+
 </script>
 
 </div>
