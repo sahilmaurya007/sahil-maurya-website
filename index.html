@@ -686,232 +686,215 @@ footer {
 
 
     
+<div id="chips">
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>Quantum Silicon Lab | Sahil Maurya</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<h2 class="title">🔬 Silicon Visualization Grid</h2>
 
 <style>
 body {
-    margin:0;
-    background:#000;
-    color:#00f5ff;
-    font-family: 'Courier New', monospace;
+    background: radial-gradient(circle at top, #050505, #000);
+    font-family: 'Orbitron', sans-serif;
 }
 
-/* HEADER */
-.header {
-    text-align:center;
-    padding:15px;
-    font-size:24px;
-    border-bottom:1px solid #00f5ff;
+/* TITLE */
+.title {
+    text-align: center;
+    font-size: 2.2em;
+    color: #00f5ff;
+    margin-bottom: 30px;
+    text-shadow: 0 0 20px #00f5ff;
 }
 
-/* LAYOUT */
-.container {
-    display:grid;
-    grid-template-columns: 3fr 1fr;
+/* GRID */
+.chip-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 25px;
 }
 
-/* LEFT PANEL */
-.left {
-    padding:10px;
+/* CARD */
+.chip-card {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    backdrop-filter: blur(15px);
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(0,255,255,0.2);
+    transition: all 0.3s ease;
+    transform-style: preserve-3d;
 }
 
-/* RIGHT PANEL */
-.right {
-    border-left:1px solid #00f5ff;
-    padding:10px;
+.chip-card:hover {
+    box-shadow: 0 0 30px rgba(0,255,255,0.5);
 }
 
-/* CONTROLS */
-.controls {
-    display:flex;
-    gap:10px;
-    margin-bottom:10px;
+/* IMAGE */
+.chip-card img, .chip-card video {
+    width: 100%;
+    height: 220px;
+    object-fit: contain;
+    background: black;
 }
 
-button, select {
-    padding:8px;
-    background:#111;
-    color:#00f5ff;
-    border:1px solid #00f5ff;
-    cursor:pointer;
+/* CAPTION */
+.chip-overlay {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
 }
 
-/* CANVAS */
+.chip-caption {
+    color: #00f5ff;
+    text-align: center;
+    font-size: 14px;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: 0.3s;
+}
+
+.chip-card:hover .chip-caption {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* MODAL */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.95);
+}
+
+.modal img {
+    display: block;
+    margin: auto;
+    max-width: 85%;
+    max-height: 80vh;
+    margin-top: 5%;
+    border-radius: 20px;
+}
+
+/* PARTICLES */
 canvas {
-    background:#000;
-    border:1px solid #00f5ff;
-    margin-top:10px;
-}
-
-/* METRICS */
-.metric {
-    margin:10px 0;
-}
-
-/* AI PANEL */
-#ai {
-    background:#111;
-    padding:10px;
-    margin-top:20px;
-    border:1px solid #00f5ff;
+    position: fixed;
+    top:0;
+    left:0;
+    z-index:-1;
 }
 </style>
-</head>
 
-<body>
+<canvas id="bg"></canvas>
 
-<div class="header">⚡ Quantum Silicon Lab | NTT + Hardware Visualization</div>
+<div class="chip-gallery">
 
-<div class="container">
-
-<!-- LEFT -->
-<div class="left">
-
-<div class="controls">
-<select id="size">
-<option value="8">N=8</option>
-<option value="16">N=16</option>
-</select>
-
-<button onclick="step()">Step</button>
-<button onclick="play()">Play</button>
-<button onclick="pause()">Pause</button>
-<button onclick="reset()">Reset</button>
+<div class="chip-card">
+<img src="image/Chip2GF180nm.png">
+<div class="chip-overlay"><div class="chip-caption">GF180nm ASIC</div></div>
 </div>
 
-<canvas id="ntt" width="800" height="300"></canvas>
-<canvas id="wave" width="800" height="150"></canvas>
-
+<div class="chip-card">
+<img src="image/chip1skywater130nm.png">
+<div class="chip-overlay"><div class="chip-caption">Sky130 RISC-V</div></div>
 </div>
 
-<!-- RIGHT -->
-<div class="right">
+<div class="chip-card">
+<img src="image/chip3ASAPnm.png">
+<div class="chip-overlay"><div class="chip-caption">ASAP 7nm PQC</div></div>
+</div>
 
-<h3>📡 Hardware Metrics</h3>
-<div class="metric">Power: <span id="p">0</span> mW</div>
-<div class="metric">Delay: <span id="d">0</span> ns</div>
-<div class="metric">LUT: <span id="l">0</span></div>
+<div class="chip-card">
+<img src="image/chip4nangate45nm.png">
+<div class="chip-overlay"><div class="chip-caption">45nm Design</div></div>
+</div>
 
-<div id="ai">
-<h3>🧠 AI Chip Explainer</h3>
-<p id="aiText">Click simulation to analyze stage...</p>
+<div class="chip-card">
+<video src="video/ntt_demo.mp4" muted loop></video>
+<div class="chip-overlay"><div class="chip-caption">NTT Accelerator Demo</div></div>
 </div>
 
 </div>
 
+<div id="modal" class="modal">
+<img id="modalImg">
 </div>
 
 <script>
-const canvas = document.getElementById("ntt");
+// MODAL
+const modal = document.getElementById("modal");
+const modalImg = document.getElementById("modalImg");
+
+document.querySelectorAll('.chip-card img').forEach(img=>{
+    img.onclick = ()=>{
+        modal.style.display="block";
+        modalImg.src = img.src;
+    }
+});
+
+modal.onclick=()=>modal.style.display="none";
+
+// VIDEO HOVER PLAY
+document.querySelectorAll('video').forEach(v=>{
+    v.addEventListener('mouseover', ()=>v.play());
+    v.addEventListener('mouseout', ()=>v.pause());
+});
+
+// PARTICLE BACKGROUND
+const canvas = document.getElementById("bg");
 const ctx = canvas.getContext("2d");
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 
-const wave = document.getElementById("wave");
-const wctx = wave.getContext("2d");
+let particles = [];
 
-let N = 8, stage = 0, running=false;
-let data = [];
-
-function init(){
-    N = parseInt(document.getElementById("size").value);
-    data = Array.from({length:N}, ()=>Math.floor(Math.random()*50));
-    stage=0;
-    draw();
+for(let i=0;i<80;i++){
+    particles.push({
+        x:Math.random()*canvas.width,
+        y:Math.random()*canvas.height,
+        r:Math.random()*2,
+        dx:Math.random()-0.5,
+        dy:Math.random()-0.5
+    });
 }
-init();
 
-/* DRAW NTT */
-function draw(){
-    ctx.clearRect(0,0,800,300);
-    let spacing = 700/N;
-
-    for(let i=0;i<N;i++){
-        let x=50+i*spacing;
+function animate(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    ctx.fillStyle="#00f5ff";
+    particles.forEach(p=>{
         ctx.beginPath();
-        ctx.arc(x,150,12,0,Math.PI*2);
-        ctx.stroke();
-        ctx.fillText(data[i],x-5,180);
-    }
+        ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+        ctx.fill();
 
-    let stepSize=Math.pow(2,stage+1);
-    for(let i=0;i<N;i+=stepSize){
-        for(let j=0;j<stepSize/2;j++){
-            let x1=50+(i+j)*spacing;
-            let x2=50+(i+j+stepSize/2)*spacing;
-            ctx.beginPath();
-            ctx.moveTo(x1,150);
-            ctx.lineTo(x2,150);
-            ctx.strokeStyle="yellow";
-            ctx.stroke();
-        }
-    }
+        p.x+=p.dx;
+        p.y+=p.dy;
 
-    document.getElementById("aiText").innerText =
-    "Stage "+stage+": Performing butterfly computation across "+(stepSize/2)+" pairs.";
+        if(p.x<0||p.x>canvas.width) p.dx*=-1;
+        if(p.y<0||p.y>canvas.height) p.dy*=-1;
+    });
+    requestAnimationFrame(animate);
 }
+animate();
 
-/* STEP */
-function step(){
-    if(stage>=Math.log2(N)) return;
+// 3D TILT
+document.querySelectorAll('.chip-card').forEach(card=>{
+    card.addEventListener('mousemove',(e)=>{
+        const r = card.getBoundingClientRect();
+        const x = e.clientX - r.left;
+        const y = e.clientY - r.top;
 
-    let stepSize=Math.pow(2,stage+1);
-    for(let i=0;i<N;i+=stepSize){
-        for(let j=0;j<stepSize/2;j++){
-            let a=data[i+j];
-            let b=data[i+j+stepSize/2];
-            data[i+j]=a+b;
-            data[i+j+stepSize/2]=a-b;
-        }
-    }
+        card.style.transform = `rotateX(${-(y/20)}deg) rotateY(${x/20}deg)`;
+    });
 
-    stage++;
-    draw();
-}
-
-/* PLAY */
-function play(){ running=true; loop(); }
-function pause(){ running=false; }
-
-function loop(){
-    if(!running) return;
-    step();
-    if(stage<Math.log2(N)) setTimeout(loop,800);
-}
-
-/* RESET */
-function reset(){ init(); }
-
-/* WAVEFORM */
-let t=0;
-function waveDraw(){
-    wctx.clearRect(0,0,800,150);
-    wctx.beginPath();
-    for(let x=0;x<800;x++){
-        let y=75+Math.sin((x+t)/20)*30;
-        wctx.lineTo(x,y);
-    }
-    wctx.strokeStyle="#00f5ff";
-    wctx.stroke();
-    t+=2;
-    requestAnimationFrame(waveDraw);
-}
-waveDraw();
-
-/* METRICS */
-setInterval(()=>{
-    document.getElementById("p").innerText=(Math.random()*100).toFixed(1);
-    document.getElementById("d").innerText=(Math.random()*10).toFixed(2);
-    document.getElementById("l").innerText=Math.floor(Math.random()*5000);
-},1000);
+    card.addEventListener('mouseleave',()=>{
+        card.style.transform = "rotateX(0) rotateY(0)";
+    });
+});
 </script>
 
-</body>
-</html>
+</div>
 
 
 
