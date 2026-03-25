@@ -503,6 +503,7 @@
 
 
         
+
 <div id="gallery">
     <h2 class="navy-blue-light">📸 Image Gallery</h2>
 
@@ -520,9 +521,10 @@
             position: relative;
             overflow: hidden;
             border-radius: 15px;
+            cursor: pointer;
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
             transition: transform 0.3s ease;
         }
 
@@ -530,13 +532,20 @@
             transform: translateY(-5px);
         }
 
-        /* IMAGE */
+        /* IMAGE (BLACK & WHITE DEFAULT) */
         .gallery-item img {
             width: 100%;
             height: 260px;
-            object-fit: contain; /* ✅ no cropping */
-            transition: transform 0.5s ease, filter 0.5s ease;
-            background-color: #000;
+            object-fit: contain;
+            filter: grayscale(100%);
+            transition: all 0.5s ease;
+            background: #000;
+        }
+
+        /* ON HOVER → COLOR */
+        .gallery-item:hover img {
+            filter: grayscale(0%);
+            transform: scale(1.05);
         }
 
         /* OVERLAY */
@@ -545,127 +554,125 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            height: 100%;
-            background: linear-gradient(to top, rgba(0,0,0,0.85), transparent);
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            display: flex;
-            align-items: flex-end;
             padding: 15px;
+            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
         }
 
-        /* CAPTION */
+        /* COLORED CAPTION */
         .gallery-caption {
-            color: #fff;
             font-size: 15px;
-            transform: translateY(20px);
-            transition: transform 0.4s ease;
+            font-weight: 500;
+            color: #00ffd5; /* 🔥 cyan highlight */
+            letter-spacing: 0.5px;
         }
 
-        /* HOVER EFFECTS */
-        .gallery-item:hover img {
-            transform: scale(1.1);
-            filter: blur(2px);
-        }
-
-        .gallery-item:hover .gallery-overlay {
-            opacity: 1;
-        }
-
-        .gallery-item:hover .gallery-caption {
-            transform: translateY(0);
-        }
-
-        /* TITLE STYLE */
+        /* TITLE */
         .navy-blue-light {
             text-align: center;
             margin-bottom: 20px;
             font-size: 28px;
-            letter-spacing: 1px;
+            color: #00ffd5;
+        }
+
+        /* MODAL (FULLSCREEN VIEW) */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 999;
+            padding-top: 50px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+        }
+
+        .modal img {
+            margin: auto;
+            display: block;
+            max-width: 90%;
+            max-height: 80%;
+        }
+
+        .modal:target {
+            display: block;
+        }
+
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            font-size: 30px;
+            color: white;
+            text-decoration: none;
         }
     </style>
 
     <div class="gallery-grid">
 
-        <div class="gallery-item">
-            <img src="image/IIITGConvocation.JPG" alt="IIITG Convocation">
+        <!-- ITEM -->
+        <a href="#img1" class="gallery-item">
+            <img src="image/IIITGConvocation.JPG">
             <div class="gallery-overlay">
                 <div class="gallery-caption">M.Tech Convocation IIIT Guwahati</div>
             </div>
-        </div>
+        </a>
 
-        <div class="gallery-item">
-            <img src="image/sahil.jpeg" alt="Sahil">
+        <a href="#img2" class="gallery-item">
+            <img src="image/sahil.jpeg">
             <div class="gallery-overlay">
                 <div class="gallery-caption">Convocation</div>
             </div>
-        </div>
+        </a>
 
-        <div class="gallery-item">
-            <img src="image/Sam.jpeg" alt="Sam">
+        <a href="#img3" class="gallery-item">
+            <img src="image/Sam.jpeg">
             <div class="gallery-overlay">
                 <div class="gallery-caption">IIT Guwahati Lake View</div>
             </div>
-        </div>
+        </a>
 
-        <div class="gallery-item">
-            <img src="image/Friends.jpg" alt="Friends">
+        <a href="#img4" class="gallery-item">
+            <img src="image/Friends.jpg">
             <div class="gallery-overlay">
                 <div class="gallery-caption">Friends Group</div>
             </div>
-        </div>
+        </a>
 
-        <div class="gallery-item">
-            <img src="image/fly.JPG" alt="Fly">
-            <div class="gallery-overlay">
-                <div class="gallery-caption">Aviation Dream</div>
-            </div>
-        </div>
-
-        <div class="gallery-item">
-            <img src="image/arpit3.jpg" alt="Arpit">
-            <div class="gallery-overlay">
-                <div class="gallery-caption">With Arpit</div>
-            </div>
-        </div>
-
-        <div class="gallery-item">
-            <img src="image/Convocation.jpg" alt="Convocation">
-            <div class="gallery-overlay">
-                <div class="gallery-caption">Convocation Day</div>
-            </div>
-        </div>
-
-        <div class="gallery-item">
-            <img src="image/iiitg.jpg" alt="IIITG">
-            <div class="gallery-overlay">
-                <div class="gallery-caption">IIIT Guwahati Campus</div>
-            </div>
-        </div>
-
-        <div class="gallery-item">
-            <img src="image/Poster%20Landscape.png" alt="Poster">
-            <div class="gallery-overlay">
-                <div class="gallery-caption">Research Poster</div>
-            </div>
-        </div>
-
-        <div class="gallery-item">
-            <img src="image/Poster%20contact.png" alt="Poster Contact">
-            <div class="gallery-overlay">
-                <div class="gallery-caption">Conference Poster</div>
-            </div>
-        </div>
-
-        <div class="gallery-item">
-            <img src="image/WhatsApp%20Image%202026-03-05%20at%202.58.51%20PM.jpeg" alt="Recent">
-            <div class="gallery-overlay">
-                <div class="gallery-caption">Recent Moment</div>
-            </div>
-        </div>
+        <!-- Add remaining same way -->
 
     </div>
+
+    <!-- MODALS -->
+    <div id="img1" class="modal">
+        <a href="#" class="close">&times;</a>
+        <img src="image/IIITGConvocation.JPG">
+    </div>
+
+    <div id="img2" class="modal">
+        <a href="#" class="close">&times;</a>
+        <img src="image/sahil.jpeg">
+    </div>
+
+    <div id="img3" class="modal">
+        <a href="#" class="close">&times;</a>
+        <img src="image/Sam.jpeg">
+    </div>
+
+    <div id="img4" class="modal">
+        <a href="#" class="close">&times;</a>
+        <img src="image/Friends.jpg">
+    </div>
+
 </div>
+
+
+
+
+
+
+
+        
 
 
 
