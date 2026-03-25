@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Sahil Maurya - Research Scholar @ IIT Mandi | VLSI | PQC | RISC-V</title>
     <style>
         * {
@@ -13,277 +12,318 @@
         }
 
         body {
-            font-family: 'Segoe UI', 'Arial', sans-serif;
-            background-color: #f4f4f4;
-            color: #333;
+            font-family: 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+            background-color: #eef2f5;
+            color: #1e2a3e;
             line-height: 1.6;
-        }   
+        }
 
-
-
-
-        /* Hero Section with Background Image Slider */
+        /* Hero section with full width slider */
         .hero {
             position: relative;
             width: 100%;
-            height: 550px;
+            height: 580px;
             overflow: hidden;
             margin-bottom: 30px;
+            background-color: #0a1a2a;
+        }
+
+        /* slider container */
+        .slider-container {
+            position: relative;
+            width: 100%;
+            max-width: 1400px;
+            height: 100%;
+            margin: 0 auto;
+            overflow: hidden;
         }
 
         .slider {
-            position: absolute;
+            position: relative;
             width: 100%;
             height: 100%;
-            top: 0;
-            left: 0;
         }
 
         .slide {
             position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
             background-size: cover;
-            background-position: center;
+            background-position: center center;
             background-repeat: no-repeat;
             opacity: 0;
-            animation: slideAnimation 30s infinite;
+            animation: kenBurnsSlide 72s infinite;
+            border-radius: 0;
+            transition: opacity 1s ease;
         }
 
+        /* IIT Mandi images (public github raw) */
+        .slide1 { background-image: url('https://raw.githubusercontent.com/sahilmaurya007/sahil-maurya-website/main/IIT%20Mandi%20Image%20Campus%20Gallery/Image1.jpeg'); animation-delay: 0s; }
+        .slide2 { background-image: url('https://raw.githubusercontent.com/sahilmaurya007/sahil-maurya-website/main/IIT%20Mandi%20Image%20Campus%20Gallery/Image2.jpeg'); animation-delay: 6s; }
+        .slide3 { background-image: url('https://raw.githubusercontent.com/sahilmaurya007/sahil-maurya-website/main/IIT%20Mandi%20Image%20Campus%20Gallery/Image3.jpeg'); animation-delay: 12s; }
+        .slide4 { background-image: url('https://raw.githubusercontent.com/sahilmaurya007/sahil-maurya-website/main/IIT%20Mandi%20Image%20Campus%20Gallery/Image4.jpeg'); animation-delay: 18s; }
+        .slide5 { background-image: url('https://raw.githubusercontent.com/sahilmaurya007/sahil-maurya-website/main/IIT%20Mandi%20Image%20Campus%20Gallery/Image5.jpeg'); animation-delay: 24s; }
+        .slide6 { background-image: url('https://raw.githubusercontent.com/sahilmaurya007/sahil-maurya-website/main/IIT%20Mandi%20Image%20Campus%20Gallery/Image6.jpeg'); animation-delay: 30s; }
+        .slide7 { background-image: url('https://raw.githubusercontent.com/sahilmaurya007/sahil-maurya-website/main/IIT%20Mandi%20Image%20Campus%20Gallery/Image7.jpeg'); animation-delay: 36s; }
+        /* Personal chip images (relative path — assuming images exist in "image/" folder) */
+        .slide8 { background-image: url('image/Best%20Imageee.png'); animation-delay: 42s; }
+        .slide9 { background-image: url('image/Chip2GF180nm.png'); animation-delay: 48s; }
+        .slide10 { background-image: url('image/chip1skywater130nm.png'); animation-delay: 54s; }
+        .slide11 { background-image: url('image/chip3ASAPnm.png'); animation-delay: 60s; }
+        .slide12 { background-image: url('image/chip4nangate45nm.png'); animation-delay: 66s; }
 
- <div style="position: relative; width: 100%; max-width: 1200px; height: 580px; overflow: hidden; border-radius: 20px; margin: 0 auto;">
-
-<style>
-.slider {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-}
-
-.slide {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    opacity: 0;
-    animation: slideAnimation 60s infinite;
-    transition: opacity 1s ease-in-out;
-}
-
-/* 🔥 IIT MANDI IMAGES */
-.slide1  { background-image: url('https://raw.githubusercontent.com/sahilmaurya007/sahil-maurya-website/main/IIT%20Mandi%20Image%20Campus%20Gallery/Image1.jpeg'); animation-delay: 0s; }
-.slide2  { background-image: url('https://raw.githubusercontent.com/sahilmaurya007/sahil-maurya-website/main/IIT%20Mandi%20Image%20Campus%20Gallery/Image2.jpeg'); animation-delay: 5s; }
-.slide3  { background-image: url('https://raw.githubusercontent.com/sahilmaurya007/sahil-maurya-website/main/IIT%20Mandi%20Image%20Campus%20Gallery/Image3.jpeg'); animation-delay: 10s; }
-.slide4  { background-image: url('https://raw.githubusercontent.com/sahilmaurya007/sahil-maurya-website/main/IIT%20Mandi%20Image%20Campus%20Gallery/Image4.jpeg'); animation-delay: 15s; }
-.slide5  { background-image: url('https://raw.githubusercontent.com/sahilmaurya007/sahil-maurya-website/main/IIT%20Mandi%20Image%20Campus%20Gallery/Image5.jpeg'); animation-delay: 20s; }
-.slide6  { background-image: url('https://raw.githubusercontent.com/sahilmaurya007/sahil-maurya-website/main/IIT%20Mandi%20Image%20Campus%20Gallery/Image6.jpeg'); animation-delay: 25s; }
-.slide7  { background-image: url('https://raw.githubusercontent.com/sahilmaurya007/sahil-maurya-website/main/IIT%20Mandi%20Image%20Campus%20Gallery/Image7.jpeg'); animation-delay: 30s; }
-
-/* 🔥 YOUR LOCAL CHIP / PERSONAL IMAGES */
-.slide8  { background-image: url('image/Best%20Imageee.png'); animation-delay: 35s; }
-.slide9  { background-image: url('image/Chip2GF180nm.png'); animation-delay: 40s; }
-.slide10 { background-image: url('image/chip1skywater130nm.png'); animation-delay: 45s; }
-.slide11 { background-image: url('image/chip3ASAPnm.png'); animation-delay: 50s; }
-.slide12 { background-image: url('image/chip4nangate45nm.png'); animation-delay: 55s; }
-
-/* 🔥 ANIMATION */
-@keyframes slideAnimation {
-    0% { opacity: 0; }
-    3% { opacity: 1; }
-    12% { opacity: 1; }
-    15% { opacity: 0; }
-    100% { opacity: 0; }
-}
-</style>
-
-<div class="slider">
-    <!-- IIT MANDI -->
-    <div class="slide slide1"></div>
-    <div class="slide slide2"></div>
-    <div class="slide slide3"></div>
-    <div class="slide slide4"></div>
-    <div class="slide slide5"></div>
-    <div class="slide slide6"></div>
-    <div class="slide slide7"></div>
-
-    <!-- LOCAL -->
-    <div class="slide slide8"></div>
-    <div class="slide slide9"></div>
-    <div class="slide slide10"></div>
-    <div class="slide slide11"></div>
-    <div class="slide slide12"></div>
-</div>
-
-</div>
-        @keyframes slideAnimation {
-            0% { opacity: 0; }
-            8% { opacity: 1; }
-            20% { opacity: 1; }
-            28% { opacity: 0; }
-            100% { opacity: 0; }
+        /* Smooth keyframes with longer visibility */
+        @keyframes kenBurnsSlide {
+            0% { opacity: 0; transform: scale(1); }
+            3% { opacity: 1; transform: scale(1.02); }
+            12% { opacity: 1; transform: scale(1.05); }
+            15% { opacity: 0; transform: scale(1.08); }
+            100% { opacity: 0; transform: scale(1); }
         }
 
+        /* Hero overlay content */
         .hero-content {
             position: absolute;
-            bottom: 20%;
-            left: 0;
-            right: 0;
-            text-align: center;
-            color: white;
-            z-index: 2;
-            background: rgba(0,0,0,0.65);
-            padding: 35px;
-            max-width: 85%;
-            margin: 0 auto;
-            border-radius: 15px;
+            bottom: 12%;
             left: 50%;
             transform: translateX(-50%);
-            bottom: 80px;
-            backdrop-filter: blur(5px);
+            text-align: center;
+            color: white;
+            z-index: 15;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            padding: 30px 40px;
+            border-radius: 24px;
+            max-width: 85%;
+            width: auto;
+            min-width: 280px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.2);
         }
 
         .hero-content h1 {
-            font-size: 3.2rem;
-            margin-bottom: 10px;
-            color: #fff;
+            font-size: 2.8rem;
+            margin-bottom: 12px;
+            color: white;
             border-bottom: none;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
+            font-weight: 700;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.5);
         }
 
         .hero-content p {
             font-size: 1.2rem;
-            color: #fff;
-            font-weight: normal;
+            font-weight: 500;
+            color: #f8f9fa;
         }
 
-        /* Main Content Container */
+        /* Main content card */
         .main-content {
             max-width: 1300px;
-            margin: 0 auto;
-            padding: 30px 50px;
+            margin: -40px auto 50px auto;
+            padding: 35px 55px;
             background: white;
-            border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            border-radius: 32px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
             position: relative;
-            z-index: 3;
-            margin-top: -50px;
+            z-index: 20;
         }
 
-        h1 {
-            color: #0077b6;
-            border-bottom: 2px solid #0077b6;
+        h1.section-title {
+            color: #0a5c7e;
+            border-left: 6px solid #d9534f;
+            padding-left: 18px;
+            margin: 30px 0 20px 0;
+            font-size: 1.9rem;
         }
 
         h2 {
-            color: #d9534f;
+            color: #c33c2e;
             border-bottom: 2px solid #d9534f;
-            font-weight: bold;
-            margin-top: 20px;
-        }
-
-        .navy-blue-light {
-            background-color: #e3f2fd;
-            padding: 8px 12px;
-            border-radius: 8px;
-            color: #0056b3;
+            padding-bottom: 6px;
+            margin: 25px 0 15px 0;
+            font-weight: 600;
         }
 
         .highlight-blue {
-            color: #0077b6;
-            font-weight: bold;
+            color: #1c6e8f;
+            font-weight: 600;
         }
 
         .area-of-interest {
             color: #0077b6;
-            font-weight: bold;
+            font-weight: 600;
+            background: #e7f3fa;
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 30px;
         }
 
-        .coursework-column {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
-
-        /* Profile Image Section */
+        /* Profile area */
         .profile-section {
             display: flex;
-            gap: 30px;
-            margin: 25px 0;
+            gap: 40px;
+            margin: 20px 0 30px;
             flex-wrap: wrap;
             align-items: center;
+            background: #f9fbfd;
+            padding: 20px;
+            border-radius: 28px;
         }
 
         .profile-img {
-            width: 180px;
-            height: 180px;
+            width: 170px;
+            height: 170px;
             border-radius: 50%;
             object-fit: cover;
-            border: 4px solid #0077b6;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            border: 4px solid #1c6e8f;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            background: #eef2fa;
         }
 
         .profile-info {
             flex: 1;
         }
 
-        /* Publication Cards */
+        .profile-info p {
+            margin: 8px 0;
+        }
+
+        .linkedin-profile {
+            display: inline-block;
+            background-color: #0a66c2;
+            color: white;
+            padding: 10px 28px;
+            border-radius: 40px;
+            margin: 12px 8px 0 0;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.2s;
+            border: none;
+            font-size: 0.9rem;
+        }
+
+        .linkedin-profile:hover {
+            background-color: #004182;
+            transform: translateY(-2px);
+            text-decoration: none;
+            color: white;
+        }
+
+        /* coursework grid */
+        .coursework-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+            background: #f8f9fc;
+            padding: 20px;
+            border-radius: 20px;
+            margin: 15px 0;
+        }
+
+        .course-item {
+            padding: 6px 0;
+            border-bottom: 1px dashed #ccc;
+        }
+
+        /* publication cards */
         .publication-item {
-            margin-bottom: 20px;
-            padding: 15px;
-            background: linear-gradient(135deg, #f8f9fa, #fff);
-            border-left: 4px solid #0077b6;
-            border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            transition: transform 0.2s;
+            margin-bottom: 22px;
+            padding: 18px 20px;
+            background: #ffffff;
+            border-left: 5px solid #1c6e8f;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            transition: all 0.2s;
         }
 
         .publication-item:hover {
-            transform: translateX(5px);
+            transform: translateX(6px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
         }
 
         .publication-title {
-            font-weight: bold;
-            color: #0077b6;
-            font-size: 1.1rem;
+            font-weight: 800;
+            color: #0a5c7e;
+            font-size: 1.05rem;
         }
 
         .publication-venue {
-            color: #d9534f;
-            font-weight: bold;
+            color: #b43b2e;
+            font-weight: 600;
+            font-size: 0.9rem;
         }
 
         .publication-status {
-            color: #5cb85c;
-            font-weight: bold;
+            color: #2c7a4d;
+            font-weight: 600;
         }
 
-        /* Gallery Grid */
+        /* chip gallery (ASIC designs) */
+        .chip-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .chip-card {
+            background: linear-gradient(145deg, #14232e, #0c1820);
+            border-radius: 24px;
+            padding: 18px 12px;
+            text-align: center;
+            transition: all 0.3s;
+            box-shadow: 0 10px 18px rgba(0,0,0,0.2);
+        }
+
+        .chip-card:hover {
+            transform: translateY(-8px);
+            background: #1f3543;
+        }
+
+        .chip-card img {
+            width: 100%;
+            height: 150px;
+            object-fit: contain;
+            border-radius: 14px;
+            background: #ffffff10;
+            padding: 8px;
+        }
+
+        .chip-card p {
+            margin-top: 14px;
+            color: #7acbe8;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        /* gallery grid for campus photos */
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
+            gap: 22px;
+            margin: 25px 0;
         }
 
         .gallery-item {
             background: #fff;
-            border-radius: 12px;
+            border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            transition: 0.25s ease;
             cursor: pointer;
         }
 
         .gallery-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            transform: translateY(-6px);
+            box-shadow: 0 18px 30px rgba(0,0,0,0.15);
         }
 
         .gallery-item img {
             width: 100%;
-            height: 200px;
+            height: 190px;
             object-fit: cover;
         }
 
@@ -291,118 +331,83 @@
             padding: 12px;
             text-align: center;
             font-size: 0.85rem;
-            background: #f8f9fa;
-            color: #555;
+            background: #fefefe;
+            font-weight: 500;
+            color: #2c5368;
         }
 
-        /* Chip Gallery for ASIC Designs */
-        .chip-gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 20px;
-            margin: 20px 0;
-        }
-
-        .chip-card {
-            background: linear-gradient(135deg, #1a2a3a, #0f1a24);
-            border-radius: 12px;
-            padding: 15px;
-            text-align: center;
-            color: white;
-            transition: transform 0.3s;
-        }
-
-        .chip-card:hover {
-            transform: scale(1.05);
-        }
-
-        .chip-card img {
-            width: 100%;
-            height: 150px;
-            object-fit: contain;
-            border-radius: 8px;
-        }
-
-        .chip-card p {
-            margin-top: 10px;
-            color: #00d4ff;
-            font-weight: bold;
-        }
-
-        /* Navigation */
         .nav-links {
             list-style: none;
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            gap: 12px;
-            padding: 20px 0;
-            margin: 0;
-            background: white;
-            border-bottom: 1px solid #eee;
+            gap: 15px;
+            padding: 20px 0 5px;
+            margin-bottom: 15px;
+            background: transparent;
         }
 
         .nav-links li a {
             display: inline-block;
-            padding: 8px 18px;
-            background: #f0f0f0;
-            border-radius: 30px;
-            color: #0077b6;
+            padding: 8px 22px;
+            background: #eef2f7;
+            border-radius: 40px;
+            color: #1e6f8f;
             text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s;
+            font-weight: 600;
+            transition: all 0.2s;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
         }
 
         .nav-links li a:hover {
-            background: #0077b6;
+            background: #1c6e8f;
             color: white;
             transform: translateY(-2px);
-        }
-
-        .linkedin-profile {
-            display: inline-block;
-            background-color: #0077b6;
-            color: white;
-            padding: 10px 25px;
-            border-radius: 30px;
-            margin: 10px 5px;
-            text-decoration: none;
-            transition: all 0.3s;
-        }
-
-        .linkedin-profile:hover {
-            background-color: #0056b3;
-            transform: translateY(-2px);
-            text-decoration: none;
-            color: white;
         }
 
         .quote {
             font-size: 1.4rem;
-            font-weight: bold;
-            color: #0077b6;
+            font-weight: 500;
+            color: #1c5c7a;
             text-align: center;
-            padding: 30px;
+            padding: 30px 20px;
             font-style: italic;
-            background: #e3f2fd;
-            border-radius: 15px;
-            margin: 30px 0;
+            background: #e3f0f9;
+            border-radius: 40px;
+            margin: 35px 0;
+            border-left: 8px solid #d9534f;
+            border-right: 8px solid #d9534f;
         }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hero { height: 400px; }
-            .hero-content h1 { font-size: 1.8rem; }
+        footer {
+            text-align: center;
+            padding: 25px;
+            background: #0a1e2c;
+            color: #ccc;
+            border-radius: 30px 30px 0 0;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 800px) {
+            .hero { height: 480px; }
+            .hero-content h1 { font-size: 1.8rem; padding: 0 10px; }
             .hero-content p { font-size: 0.9rem; }
-            .main-content { padding: 20px; margin-top: -30px; }
+            .main-content { padding: 20px 18px; margin-top: -30px; }
             .profile-section { flex-direction: column; text-align: center; }
             .coursework-column { grid-template-columns: 1fr; }
+            .hero-content { padding: 20px; bottom: 8%; width: 90%; }
+        }
+
+        @media (max-width: 480px) {
+            .hero { height: 400px; }
+            .hero-content h1 { font-size: 1.4rem; }
         }
     </style>
 </head>
-
 <body>
-    <div class="hero">
+
+<div class="hero">
+    <div class="slider-container">
         <div class="slider">
             <div class="slide slide1"></div>
             <div class="slide slide2"></div>
@@ -412,6 +417,11 @@
             <div class="slide slide6"></div>
             <div class="slide slide7"></div>
             <div class="slide slide8"></div>
+            <div class="slide slide9"></div>
+            <div class="slide slide10"></div>
+            <div class="slide slide11"></div>
+            <div class="slide slide12"></div>
+        
         </div>
         <div class="hero-content">
             <h1>Sahil Maurya</h1>
