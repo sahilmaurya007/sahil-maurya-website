@@ -686,197 +686,213 @@ footer {
 
     
   <div id="chips">
-    <h2 class="navy-blue-light">🔬 Chip Design Gallery (ASIC / FPGA)</h2>
 
-    <style>
-        #chips {
-            margin-top: 50px;
-        }
+<h2 class="title">🔬 Silicon Visualization Grid</h2>
 
-        .chip-gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 25px;
-            margin-top: 30px;
-        }
+<style>
+body {
+    background: radial-gradient(circle at top, #050505, #000);
+    font-family: 'Orbitron', sans-serif;
+}
 
-        .chip-card {
-            position: relative;
-            border-radius: 18px;
-            overflow: hidden;
-            background: #0a0a0a;
-            cursor: pointer;
-            transform-style: preserve-3d;
-            transition: transform 0.2s ease, box-shadow 0.3s ease;
-        }
+/* TITLE */
+.title {
+    text-align: center;
+    font-size: 2.2em;
+    color: #00f5ff;
+    margin-bottom: 30px;
+    text-shadow: 0 0 20px #00f5ff;
+}
 
-        .chip-card:hover {
-            box-shadow: 0 20px 40px rgba(0,212,255,0.25);
-        }
+/* GRID */
+.chip-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 25px;
+}
 
-        .chip-card img {
-            width: 100%;
-            height: 220px;
-            object-fit: contain;
-            background: #000;
-            transition: transform 0.3s ease;
-        }
+/* CARD */
+.chip-card {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    backdrop-filter: blur(15px);
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(0,255,255,0.2);
+    transition: all 0.3s ease;
+    transform-style: preserve-3d;
+}
 
-        .chip-overlay {
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            padding: 12px;
-            background: linear-gradient(to top, rgba(0,0,0,0.85), transparent);
-        }
+.chip-card:hover {
+    box-shadow: 0 0 30px rgba(0,255,255,0.5);
+}
 
-        .chip-caption {
-            color: #ffcc00;
-            text-align: center;
-            font-size: 14px;
-            font-weight: 600;
-        }
+/* IMAGE */
+.chip-card img, .chip-card video {
+    width: 100%;
+    height: 220px;
+    object-fit: contain;
+    background: black;
+}
 
-        /* 🔥 MODAL */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 9999;
-            padding-top: 40px;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.95);
-            backdrop-filter: blur(8px);
-        }
+/* CAPTION */
+.chip-overlay {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+}
 
-        .modal-content {
-            display: block;
-            margin: auto;
-            max-width: 85%;
-            max-height: 80vh;
-            border-radius: 20px;
-            box-shadow: 0 0 40px rgba(0,212,255,0.4);
-            animation: zoom 0.4s ease;
-        }
+.chip-caption {
+    color: #00f5ff;
+    text-align: center;
+    font-size: 14px;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: 0.3s;
+}
 
-        @keyframes zoom {
-            from {transform: scale(0.8);}
-            to {transform: scale(1);}
-        }
+.chip-card:hover .chip-caption {
+    opacity: 1;
+    transform: translateY(0);
+}
 
-        .close {
-            position: absolute;
-            top: 20px;
-            right: 40px;
-            color: #fff;
-            font-size: 40px;
-            cursor: pointer;
-        }
+/* MODAL */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.95);
+}
 
-        .nav-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 40px;
-            color: white;
-            cursor: pointer;
-            padding: 10px;
-        }
+.modal img {
+    display: block;
+    margin: auto;
+    max-width: 85%;
+    max-height: 80vh;
+    margin-top: 5%;
+    border-radius: 20px;
+}
 
-        .prev { left: 20px; }
-        .next { right: 20px; }
-    </style>
+/* PARTICLES */
+canvas {
+    position: fixed;
+    top:0;
+    left:0;
+    z-index:-1;
+}
+</style>
 
-    <div class="chip-gallery">
+<canvas id="bg"></canvas>
 
-        <div class="chip-card"><img src="image/Chip2GF180nm.png"><div class="chip-overlay"><div class="chip-caption">GF180nm Technology</div></div></div>
-        <div class="chip-card"><img src="image/chip1skywater130nm.png"><div class="chip-overlay"><div class="chip-caption">SkyWater 130nm</div></div></div>
-        <div class="chip-card"><img src="image/chip3ASAPnm.png"><div class="chip-overlay"><div class="chip-caption">ASAP 7nm</div></div></div>
-        <div class="chip-card"><img src="image/chip4nangate45nm.png"><div class="chip-overlay"><div class="chip-caption">Nangate 45nm</div></div></div>
-        <div class="chip-card"><img src="image/Complete soc.jpeg"><div class="chip-overlay"><div class="chip-caption">RISC-V SoC</div></div></div>
-        <div class="chip-card"><img src="image/Full_Adder_IOPlanning.png"><div class="chip-overlay"><div class="chip-caption">I/O Planning</div></div></div>
-        <div class="chip-card"><img src="image/full_adder_floarplanning.png"><div class="chip-overlay"><div class="chip-caption">Floorplan</div></div></div>
-        <div class="chip-card"><img src="image/Gemini_Generated_Image_ru8yh6ru8yh6ru8y.png"><div class="chip-overlay"><div class="chip-caption">Parashar View</div></div></div>
+<div class="chip-gallery">
 
-    </div>
+<div class="chip-card">
+<img src="image/Chip2GF180nm.png">
+<div class="chip-overlay"><div class="chip-caption">GF180nm ASIC</div></div>
+</div>
 
-    <!-- 🔥 MODAL -->
-    <div id="imgModal" class="modal">
-        <span class="close">&times;</span>
-        <img class="modal-content" id="modalImg">
-        <div class="nav-btn prev">&#10094;</div>
-        <div class="nav-btn next">&#10095;</div>
-    </div>
+<div class="chip-card">
+<img src="image/chip1skywater130nm.png">
+<div class="chip-overlay"><div class="chip-caption">Sky130 RISC-V</div></div>
+</div>
 
-    <script>
-        const cards = document.querySelectorAll('.chip-card img');
-        const modal = document.getElementById('imgModal');
-        const modalImg = document.getElementById('modalImg');
-        const closeBtn = document.querySelector('.close');
-        const nextBtn = document.querySelector('.next');
-        const prevBtn = document.querySelector('.prev');
+<div class="chip-card">
+<img src="image/chip3ASAPnm.png">
+<div class="chip-overlay"><div class="chip-caption">ASAP 7nm PQC</div></div>
+</div>
 
-        let currentIndex = 0;
+<div class="chip-card">
+<img src="image/chip4nangate45nm.png">
+<div class="chip-overlay"><div class="chip-caption">45nm Design</div></div>
+</div>
 
-        const images = Array.from(cards);
+<div class="chip-card">
+<video src="video/ntt_demo.mp4" muted loop></video>
+<div class="chip-overlay"><div class="chip-caption">NTT Accelerator Demo</div></div>
+</div>
 
-        cards.forEach((img, index) => {
-            img.addEventListener('click', () => {
-                modal.style.display = "block";
-                modalImg.src = img.src;
-                currentIndex = index;
-            });
-        });
+</div>
 
-        function showImage(index) {
-            modalImg.src = images[index].src;
-        }
+<div id="modal" class="modal">
+<img id="modalImg">
+</div>
 
-        nextBtn.onclick = () => {
-            currentIndex = (currentIndex + 1) % images.length;
-            showImage(currentIndex);
-        };
+<script>
+// MODAL
+const modal = document.getElementById("modal");
+const modalImg = document.getElementById("modalImg");
 
-        prevBtn.onclick = () => {
-            currentIndex = (currentIndex - 1 + images.length) % images.length;
-            showImage(currentIndex);
-        };
+document.querySelectorAll('.chip-card img').forEach(img=>{
+    img.onclick = ()=>{
+        modal.style.display="block";
+        modalImg.src = img.src;
+    }
+});
 
-        closeBtn.onclick = () => modal.style.display = "none";
+modal.onclick=()=>modal.style.display="none";
 
-        window.onclick = (e) => {
-            if (e.target == modal) modal.style.display = "none";
-        };
+// VIDEO HOVER PLAY
+document.querySelectorAll('video').forEach(v=>{
+    v.addEventListener('mouseover', ()=>v.play());
+    v.addEventListener('mouseout', ()=>v.pause());
+});
 
-        // 🔥 Keyboard control
-        document.addEventListener('keydown', (e) => {
-            if (modal.style.display === "block") {
-                if (e.key === "ArrowRight") nextBtn.onclick();
-                if (e.key === "ArrowLeft") prevBtn.onclick();
-                if (e.key === "Escape") modal.style.display = "none";
-            }
-        });
+// PARTICLE BACKGROUND
+const canvas = document.getElementById("bg");
+const ctx = canvas.getContext("2d");
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 
-        // 🔥 3D Tilt Effect
-        document.querySelectorAll('.chip-card').forEach(card => {
-            card.addEventListener('mousemove', (e) => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
+let particles = [];
 
-                const rotateX = -(y / rect.height - 0.5) * 10;
-                const rotateY = (x / rect.width - 0.5) * 10;
+for(let i=0;i<80;i++){
+    particles.push({
+        x:Math.random()*canvas.width,
+        y:Math.random()*canvas.height,
+        r:Math.random()*2,
+        dx:Math.random()-0.5,
+        dy:Math.random()-0.5
+    });
+}
 
-                card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-            });
+function animate(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    ctx.fillStyle="#00f5ff";
+    particles.forEach(p=>{
+        ctx.beginPath();
+        ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+        ctx.fill();
 
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = `rotateX(0) rotateY(0)`;
-            });
-        });
-    </script>
+        p.x+=p.dx;
+        p.y+=p.dy;
+
+        if(p.x<0||p.x>canvas.width) p.dx*=-1;
+        if(p.y<0||p.y>canvas.height) p.dy*=-1;
+    });
+    requestAnimationFrame(animate);
+}
+animate();
+
+// 3D TILT
+document.querySelectorAll('.chip-card').forEach(card=>{
+    card.addEventListener('mousemove',(e)=>{
+        const r = card.getBoundingClientRect();
+        const x = e.clientX - r.left;
+        const y = e.clientY - r.top;
+
+        card.style.transform = `rotateX(${-(y/20)}deg) rotateY(${x/20}deg)`;
+    });
+
+    card.addEventListener('mouseleave',()=>{
+        card.style.transform = "rotateX(0) rotateY(0)";
+    });
+});
+</script>
+
 </div>
 
 
