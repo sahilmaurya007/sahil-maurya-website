@@ -885,142 +885,199 @@ footer {
 
 
 
+
+
+
 <div id="gallery">
 <h2 class="navy-blue-light">📸 Image Gallery</h2>
 
 <style>
-/* MAIN GRID STYLING */
+body { background: #0a0a0a; font-family: 'Segoe UI', sans-serif; }
+
+.navy-blue-light {
+    text-align: center;
+    font-size: 32px;
+    color: #00bfff;
+    margin-bottom: 25px;
+}
+
+/* FILTER BUTTONS */
+.filter-btns {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.filter-btns button {
+    margin: 5px;
+    padding: 8px 18px;
+    border: none;
+    border-radius: 20px;
+    background: #111;
+    color: #00bfff;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.filter-btns button:hover {
+    background: #00bfff;
+    color: black;
+}
+
+/* GRID */
 .gallery-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 20px;
+    gap: 25px;
 }
 
+/* ITEM */
 .gallery-item {
     position: relative;
     overflow: hidden;
-    border-radius: 15px;
+    border-radius: 18px;
     cursor: pointer;
-    background: #000;
 }
 
+/* IMAGE */
 .gallery-item img {
     width: 100%;
     height: 260px;
-    object-fit: cover; /* Square crop for the grid look */
-    filter: grayscale(100%);
-    transition: 0.5s ease;
+    object-fit: contain; /* 🔥 FULL IMAGE FIT */
+    background: black;
+    filter: grayscale(100%) brightness(0.7);
+    transition: all 0.5s ease;
 }
 
+/* HOVER EFFECT */
 .gallery-item:hover img {
-    filter: grayscale(0%);
-    transform: scale(1.1);
+    filter: grayscale(0%) brightness(1);
+    transform: scale(0.95); /* 🔥 ZOOM OUT EFFECT */
 }
 
+/* OVERLAY */
 .gallery-overlay {
     position: absolute;
-    bottom: 0; width: 100%; padding: 10px;
-    background: linear-gradient(transparent, rgba(0,0,0,0.8));
-    text-align: center;
+    bottom: 0;
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
 }
 
-.gallery-caption { color: #ffcc00; font-size: 13px; font-weight: bold; }
-
-/* MODAL / ZOOM VIEW */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 9999;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: rgba(0,0,0,0.95);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+.gallery-caption {
+    color: #ffcc00;
+    font-size: 14px;
 }
 
-.modal.active { display: flex; }
-
-.modal img {
-    max-width: 95%;
-    max-height: 85vh;
-    object-fit: contain; /* ✅ SHOWS FULL IMAGE, NO CROPPING */
-    border-radius: 5px;
-    box-shadow: 0 0 20px rgba(255,255,255,0.1);
-}
-
-.view-full-btn {
-    margin-top: 15px;
-    padding: 8px 20px;
-    background: #00bfff;
-    color: black;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-    text-decoration: none;
-}
-
-.close-btn {
-    position: absolute;
-    top: 20px; right: 30px;
-    color: white; font-size: 40px; cursor: pointer;
-}
 </style>
 
+<!-- FILTER -->
+<div class="filter-btns">
+    <button onclick="filterSelection('all')">All</button>
+    <button onclick="filterSelection('research')">Research</button>
+    <button onclick="filterSelection('life')">Life</button>
+    <button onclick="filterSelection('friends')">Friends</button>
+</div>
+
+<!-- GRID -->
 <div class="gallery-grid">
-    <div class="gallery-item" onclick="openFullImage('image/IIITGConvocation.JPG')">
-        <img src="image/IIITGConvocation.JPG">
+
+    <!-- IMAGE TEMPLATE -->
+    <!-- 🔥 target="_blank" = new window open -->
+
+    <div class="gallery-item research">
+        <a href="image/IIITGConvocation.JPG" target="_blank">
+            <img src="image/IIITGConvocation.JPG">
+        </a>
         <div class="gallery-overlay"><div class="gallery-caption">IIITG Convocation</div></div>
     </div>
 
-    <div class="gallery-item" onclick="openFullImage('image/sahil.jpeg')">
-        <img src="image/sahil.jpeg">
+    <div class="gallery-item life">
+        <a href="image/sahil.jpeg" target="_blank">
+            <img src="image/sahil.jpeg">
+        </a>
         <div class="gallery-overlay"><div class="gallery-caption">Convocation</div></div>
     </div>
-    
-    <div class="gallery-item" onclick="openFullImage('image/Sam.jpeg')">
-        <img src="image/Sam.jpeg">
+
+    <div class="gallery-item life">
+        <a href="image/Sam.jpeg" target="_blank">
+            <img src="image/Sam.jpeg">
+        </a>
         <div class="gallery-overlay"><div class="gallery-caption">Lake View</div></div>
     </div>
-</div>
 
-<div id="fullImageModal" class="modal" style="display:none;">
-    <span class="close-btn" onclick="closeFullImage()">&times;</span>
-    <img id="modalContentImg" src="">
-    <a id="downloadLink" href="#" target="_blank" class="view-full-btn">Open in New Window ↗</a>
+    <div class="gallery-item friends">
+        <a href="image/Friends.jpg" target="_blank">
+            <img src="image/Friends.jpg">
+        </a>
+        <div class="gallery-overlay"><div class="gallery-caption">Friends</div></div>
+    </div>
+
+    <div class="gallery-item life">
+        <a href="image/fly.JPG" target="_blank">
+            <img src="image/fly.JPG">
+        </a>
+        <div class="gallery-overlay"><div class="gallery-caption">Aviation Dream</div></div>
+    </div>
+
+    <div class="gallery-item friends">
+        <a href="image/arpit3.jpg" target="_blank">
+            <img src="image/arpit3.jpg">
+        </a>
+        <div class="gallery-overlay"><div class="gallery-caption">With Arpit</div></div>
+    </div>
+
+    <div class="gallery-item life">
+        <a href="image/Convocation.jpg" target="_blank">
+            <img src="image/Convocation.jpg">
+        </a>
+        <div class="gallery-overlay"><div class="gallery-caption">Convocation Day</div></div>
+    </div>
+
+    <div class="gallery-item research">
+        <a href="image/iiitg.jpg" target="_blank">
+            <img src="image/iiitg.jpg">
+        </a>
+        <div class="gallery-overlay"><div class="gallery-caption">IIIT Guwahati</div></div>
+    </div>
+
+    <div class="gallery-item research">
+        <a href="image/Poster%20Landscape.png" target="_blank">
+            <img src="image/Poster%20Landscape.png">
+        </a>
+        <div class="gallery-overlay"><div class="gallery-caption">Research Poster</div></div>
+    </div>
+
+    <div class="gallery-item research">
+        <a href="image/Poster%20contact.png" target="_blank">
+            <img src="image/Poster%20contact.png">
+        </a>
+        <div class="gallery-overlay"><div class="gallery-caption">Conference Poster</div></div>
+    </div>
+
+    <div class="gallery-item life">
+        <a href="image/WhatsApp%20Image%202026-03-05%20at%202.58.51%20PM.jpeg" target="_blank">
+            <img src="image/WhatsApp%20Image%202026-03-05%20at%202.58.51%20PM.jpeg">
+        </a>
+        <div class="gallery-overlay"><div class="gallery-caption">Recent Moment</div></div>
+    </div>
+
 </div>
 
 <script>
-function openFullImage(src) {
-    const modal = document.getElementById("fullImageModal");
-    const modalImg = document.getElementById("modalContentImg");
-    const link = document.getElementById("downloadLink");
-    
-    modal.style.display = "flex";
-    modalImg.src = src;
-    link.href = src; // Sets the "Open in New Window" link to the image path
-}
-
-function closeFullImage() {
-    document.getElementById("fullImageModal").style.display = "none";
-}
-
-// Close modal if user clicks outside the image
-window.onclick = function(event) {
-    let modal = document.getElementById("fullImageModal");
-    if (event.target == modal) {
-        closeFullImage();
+function filterSelection(category) {
+    let items = document.getElementsByClassName("gallery-item");
+    for (let i = 0; i < items.length; i++) {
+        items[i].style.display =
+            (category === "all" || items[i].classList.contains(category))
+            ? "block" : "none";
     }
 }
 </script>
+
 </div>
 
 
-
-
-
+    
 
     
 
