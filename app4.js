@@ -1,14 +1,14 @@
 /* ============================================================
    app4.js — 2 SYMBOLS: 🎨 modes picker (Day/Night + colours),
    🖼 background picker, PENCIL editor (owner login,
-   draft-approval flow), photo lightbox, Elsewhere rename.
-   EDIT MAT KARO.
+   draft-approval flow), photo lightbox, Elsewhere rename,
+   Tier 1 bold highlight. EDIT MAT KARO.
    ============================================================ */
 (function () {
   "use strict";
   const $ = (id) => document.getElementById(id);
 
-  /* ============ 1) MODES PICKER: Day / Night + 7 colours ============ */
+  /* ============ 1) MODES PICKER: Day / Night + colours ============ */
   const MODES = [
     { id: "light", label: "Day", dot: "linear-gradient(135deg,#ffffff,#6366f1)" },
     { id: "dark", label: "Night", dot: "linear-gradient(135deg,#101019,#4c4c77)" },
@@ -46,7 +46,7 @@
     const refresh = () => document.querySelectorAll("[data-theme]").forEach(b =>
       b.classList.toggle("active", b.dataset.theme === doc.getAttribute("data-theme")));
     refresh();
-    modeBtn.addEventListener("click", (e) => { e.stopPropagation(); panel.classList.toggle("open"); });
+    modeBtn.addEventListener("click", (e) => { e.stopPropagation(); bgPanel && bgPanel.classList.remove("open"); panel.classList.toggle("open"); });
     document.querySelectorAll("[data-theme]").forEach(b =>
       b.addEventListener("click", () => { applyMode(b.dataset.theme); refresh(); panel.classList.remove("open"); }));
     document.addEventListener("click", (e) => { if (!panel.contains(e.target) && e.target !== modeBtn) panel.classList.remove("open"); });
@@ -72,8 +72,9 @@
     bgBtn.setAttribute("aria-label", "Website background");
     bgBtn.textContent = "🖼️";
     modeBtn.after(bgBtn);
-    const bgPanel = document.createElement("div");
+    var bgPanel = document.createElement("div");
     bgPanel.className = "theme-panel bg-panel";
+    bgPanel.style.right = "46px";
     bgPanel.innerHTML = `<h4>🖼️ Website Background</h4>
       <div class="theme-grid">
         ${BG.map(b => `<button class="theme-opt" data-bg="${b.id}"><span class="swatch" style="background:${b.dot}"></span>${b.label}</button>`).join("")}
@@ -92,7 +93,7 @@
     document.addEventListener("click", (e) => { if (!bgPanel.contains(e.target) && e.target !== bgBtn) bgPanel.classList.remove("open"); });
   }
 
-  /* ============ 3) PHOTO LIGHTBOX — click karke full open ============ */
+  /* ============ 3) PHOTO LIGHTBOX ============ */
   const lightbox = document.createElement("div");
   lightbox.className = "lightbox";
   lightbox.innerHTML = `
@@ -123,18 +124,18 @@
     if (e.key === "ArrowLeft") showLb(lbIdx - 1);
     if (e.key === "ArrowRight") showLb(lbIdx + 1);
   });
-  /* gallery + news photos par click → lightbox */
   const wireLightbox = () => {
-    document.querySelectorAll("#catGal .gal-item img, #photoGal .gal-item img, .tl-photo img").forEach(img => {
+    document.querySelectorAll(".gal-item img, .tl-photo img, .news-media img").forEach(img => {
       if (img.dataset.lbwired) return;
       img.dataset.lbwired = "1";
       img.style.cursor = "zoom-in";
       img.addEventListener("click", (e) => {
         e.stopPropagation();
-        lbList = Array.from(document.querySelectorAll("#catGal .gal-item img, .tl-photo img"))
-          .filter(i => i.src).map(i => ({ src: i.src, cap: i.alt || i.title || "" }));
+        lbList = Array.from(document.querySelectorAll(".gal-item img, .tl-photo img"))
+          .filter(i => i.src).map(i => ({ src: i.src, cap: i.alt || "" }));
         if (!lbList.length) lbList = [{ src: img.src, cap: img.alt }];
-        showLb(lbList.findIndex(x => x.src === img.src));
+        const pos = lbList.findIndex(x => x.src === img.src);
+        showLb(pos < 0 ? 0 : pos);
       });
     });
   };
@@ -142,14 +143,31 @@
   const lbObs = new MutationObserver(() => wireLightbox());
   lbObs.observe(document.body, { childList: true, subtree: true });
 
-  /* ============ 4) PENCIL EDITOR (owner-only, draft-approval) ============ */
+  /* ============ 4) TIER 1 — bold highlight badge ============ */
+  const highlightTier = () => {
+    const walk = (node) => {
+      node.childNodes.forEach(ch => {
+        if (ch.nodeType === 3 && ch.textContent && ch.textContent.indexOf("Tier 1") !== -1) {
+          const span = document.createElement("span");
+          span.innerHTML = ch.textContent.split("Tier 1").join('<strong class="tier1">Tier 1</strong>');
+          ch.replaceWith(span);
+        } else if (ch.nodeType === 1 && !ch.classList.contains("tier1")) walk(ch);
+      });
+    };
+    document.querySelectorAll(".pub-meta, .card, .tl-card, .nl-text, .yearly-row").forEach(walk);
+  };
+  highlightTier();
+  const tierObs = new MutationObserver(() => highlightTier());
+  tierObs.observe(document.body, { childList: true, subtree: true });
+
+  /* ============ 5) PENCIL EDITOR (owner-only, draft-approval) ============ */
   const USER_ID = "sahil.maurya21@iiitg.ac.in";
-  const PASS_HASH = 46190; /* '200707@' ka hash */
+  const PASS_HASH = 46190;
   const hp = (s) => { let h = 7; for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) % 100003; return h; };
   const REPO = "https://github.com/sahilmaurya007/sahil-maurya-website";
   const BR = "draft";
   const LINKS = [
-    { ic: "🖼️", label: "Profile photo update", sub: "image/SAHIL.jpg upload", url: REPO + "/upload/" + BR + "/image" },
+    { ic: "🖼️", label: "Profile photo update", sub: "image/ folder — SAHIL.jpg", url: REPO + "/upload/" + BR + "/image" },
     { ic: "📰", label: "News / Conference", sub: "data3.js — NEWS list", url: REPO + "/edit/" + BR + "/data3.js" },
     { ic: "🖼", label: "Gallery photo + description", sub: "data3.js — GALLERY_CATEGORIES", url: REPO + "/edit/" + BR + "/data3.js" },
     { ic: "🧭", label: "Journey / Timeline", sub: "data3.js — JOURNEY list", url: REPO + "/edit/" + BR + "/data3.js" },
@@ -212,8 +230,13 @@
     }
   });
 
-  /* ============ 5) ELSEWHERE → "CONNECT" rename ============ */
-  document.querySelectorAll(".foot h4, .lab-k, .contact-item .lab").forEach(el => {
-    if (el.textContent.trim() === "Elsewhere") el.textContent = "Connect";
-  });
+  /* ============ 6) ELSEWHERE → CONNECT rename ============ */
+  const renameElsewhere = () => {
+    document.querySelectorAll(".foot h4, .lab-k, .contact-item .lab").forEach(el => {
+      if (el.textContent.trim() === "Elsewhere") el.textContent = "Connect";
+    });
+  };
+  renameElsewhere();
+  const reObs = new MutationObserver(() => renameElsewhere());
+  reObs.observe(document.body, { childList: true, subtree: true });
 })();
