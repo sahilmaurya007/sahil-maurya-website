@@ -93,21 +93,32 @@
   document.querySelectorAll(".tl-card").forEach(card =>
     card.addEventListener("click", () => scrollTo(card.dataset.section)));
 
-  /* ---------- pie chart (SVG donut, no library) ---------- */
+  /* ---------- pie chart — TRUE CIRCLE (arc paths, koi gap nahi) ---------- */
   const palette = ["#6366f1", "#a855f7", "#199baf", "#f59e0b", "#ef4444", "#10b981", "#8b5cf6", "#f472b6"];
   const counts = {};
   sorted.forEach(j => { counts[j.category || "Milestone"] = (counts[j.category || "Milestone"] || 0) + 1; });
   const cats = Object.keys(counts);
   const total = sorted.length;
-  const R = 80, C = 2 * Math.PI * R;
-  let offset = 0, arcs = "";
+  const CX = 100, CY = 100, R = 92;
+
+  // ek slice ka path — startAngle/endAngle radians me
+  const slicePath = (start, end) => {
+    const x1 = CX + R * Math.cos(start), y1 = CY + R * Math.sin(start);
+    const x2 = CX + R * Math.cos(end),   y2 = CY + R * Math.sin(end);
+    const large = (end - start) > Math.PI ? 1 : 0;
+    return `M ${CX} ${CY} L ${x1.toFixed(2)} ${y1.toFixed(2)} A ${R} ${R} 0 ${large} 1 ${x2.toFixed(2)} ${y2.toFixed(2)} Z`;
+  };
+
+  let angle = -Math.PI / 2; // top se start
+  let slices = "";
   cats.forEach((c, i) => {
-    const frac = counts[c] / total;
-    const dash = `${(frac * C).toFixed(2)} ${(C - frac * C).toFixed(2)}`;
-    arcs += `<circle r="${R}" cx="100" cy="100" fill="none" stroke="${palette[i % palette.length]}" stroke-width="26" stroke-dasharray="${dash}" stroke-dashoffset="${(-offset).toFixed(2)}" data-cat="${esc(c)}" style="cursor:pointer"></circle>`;
-    offset += frac * C;
+    const sweep = (counts[c] / total) * 2 * Math.PI;
+    const start = angle, end = angle + sweep;
+    slices += `<path class="pie-arc" d="${slicePath(start, end)}" fill="${palette[i % palette.length]}" data-cat="${esc(c)}"></path>`;
+    angle = end;
   });
-  $("pieSvg").innerHTML = arcs;
+  // poora circle fill — background ring (agar kuch bhi na ho)
+  $("pieSvg").innerHTML = slices;
   $("pieTotal").textContent = total;
   $("pieLegend").innerHTML = cats.map((c, i) => `
     <div class="leg" data-cat="${esc(c)}">
@@ -115,18 +126,23 @@
       <span>${esc(c)}</span><span class="cnt">${counts[c]}</span>
     </div>`).join("");
   const focusCat = (cat) => {
-    document.querySelectorAll("#pieSvg circle").forEach(c => { c.style.opacity = (c.dataset.cat === cat) ? "1" : ".18"; });
+    document.querySelectorAll("#pieSvg .pie-arc").forEach(p => { p.style.opacity = (p.dataset.cat === cat) ? "1" : ".18"; });
     document.querySelectorAll(".pie-legend .leg").forEach(l => { l.style.fontWeight = (l.dataset.cat === cat) ? "600" : "400"; });
     document.querySelectorAll(".tl-item").forEach(it => { it.style.opacity = (it.querySelector(".tl-cat").textContent === cat) ? "1" : ".25"; });
   };
   const resetCat = () => {
-    document.querySelectorAll("#pieSvg circle").forEach(c => c.style.opacity = "1");
+    document.querySelectorAll("#pieSvg .pie-arc").forEach(p => p.style.opacity = "1");
     document.querySelectorAll(".pie-legend .leg").forEach(l => l.style.fontWeight = "400");
     document.querySelectorAll(".tl-item").forEach(it => it.style.opacity = "1");
   };
-  document.querySelectorAll(".pie-legend .leg").forEach(l => l.addEventListener("mouseenter", () => focusCat(l.dataset.cat)));
-  const pieWrap = document.querySelector(".pie-wrap");
-  if (pieWrap) pieWrap.addEventListener("mouseleave", resetCat);
+  document.querySelectorAll(".pie-legend .leg").forEach(l => {
+    l.addEventListener("mouseenter", () => focusCat(l.dataset.cat));
+    l.addEventListener("mouseleave", resetCat);
+  });
+  document.querySelectorAll("#pieSvg .pie-arc").forEach(p => {
+    p.addEventListener("mouseenter", () => focusCat(p.dataset.cat));
+    p.addEventListener("mouseleave", resetCat);
+  });
 
   /* ---------- year-wise bars ---------- */
   const byYear = {};
