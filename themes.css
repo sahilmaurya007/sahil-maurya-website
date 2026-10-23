@@ -1,9 +1,9 @@
 /* ============================================================
-   THEMES — 8 eye-friendly color modes. IS FILE KO EDIT MAT KARO.
-   Modes: light · dark (night) · sepia · forest · ocean · sunset · midnight · high-contrast
+   THEMES — 9 colour modes, 6 backgrounds, lightbox, pencil
+   editor (owner login), Tier 1 badge, Connect boxes.
+   IS FILE KO EDIT MAT KARO.
    ============================================================ */
 
-/* Light (default) */
 html[data-theme="light"]{
 --bg:#f7f7fc;--bg2:#ffffff;--card:#ffffff;--soft:#f1f0fb;
 --text:#1c1a2e;--muted:#5f5c78;--border:#e6e4f3;
@@ -12,7 +12,6 @@ html[data-theme="light"]{
 --grad-btn:linear-gradient(115deg,#5d60e3 0%,#944bda 50%,#158191 100%);
 --shadow:0 10px 30px rgba(99,102,241,.10)}
 
-/* Dark (night) */
 html[data-theme="dark"]{
 --bg:#101019;--bg2:#151526;--card:#181829;--soft:#1f1f33;
 --text:#ecebf6;--muted:#a5a2c0;--border:#2b2b45;
@@ -21,7 +20,6 @@ html[data-theme="dark"]{
 --grad-btn:linear-gradient(115deg,#5d60e3 0%,#944bda 50%,#158191 100%);
 --shadow:0 12px 34px rgba(0,0,0,.45)}
 
-/* Sepia — eyes-friendly reading mode */
 html[data-theme="sepia"]{
 --bg:#f4ecd8;--bg2:#faf4e6;--card:#fbf5e8;--soft:#efe5cd;
 --text:#43351f;--muted:#7a6a4d;--border:#e0d3b4;
@@ -30,7 +28,6 @@ html[data-theme="sepia"]{
 --grad-btn:linear-gradient(115deg,#a05a1e 0%,#c4853a 50%,#6f7d3a 100%);
 --shadow:0 10px 30px rgba(160,90,30,.12)}
 
-/* Forest — green eyes-friendly */
 html[data-theme="forest"]{
 --bg:#eff5ee;--bg2:#ffffff;--card:#ffffff;--soft:#e2ede0;
 --text:#1d2b1f;--muted:#54685a;--border:#d3e2d0;
@@ -39,7 +36,6 @@ html[data-theme="forest"]{
 --grad-btn:linear-gradient(115deg,#2e7d4f 0%,#3aa06b 50%,#7cb342 100%);
 --shadow:0 10px 30px rgba(46,125,79,.12)}
 
-/* Ocean — blue calm */
 html[data-theme="ocean"]{
 --bg:#e9f2f7;--bg2:#ffffff;--card:#ffffff;--soft:#d8e9f3;
 --text:#14202b;--muted:#4a6478;--border:#c2dbe9;
@@ -48,7 +44,14 @@ html[data-theme="ocean"]{
 --grad-btn:linear-gradient(115deg,#1976a5 0%,#2196c9 50%,#26a69a 100%);
 --shadow:0 10px 30px rgba(25,118,165,.12)}
 
-/* Sunset — warm cozy */
+html[data-theme="lavender"]{
+--bg:#f3eff8;--bg2:#faf7fd;--card:#ffffff;--soft:#ece5f4;
+--text:#30263b;--muted:#70627d;--border:#dfd3eb;
+--accent:#8157a8;
+--grad-ink:linear-gradient(115deg,#8157a8 0%,#a578bf 50%,#558b94 100%);
+--grad-btn:linear-gradient(115deg,#704990 0%,#9365ae 50%,#477b84 100%);
+--shadow:0 9px 26px rgba(95,64,126,.10)}
+
 html[data-theme="sunset"]{
 --bg:#fdf0ec;--bg2:#fffaf8;--card:#ffffff;--soft:#f9e3dc;
 --text:#2d1a14;--muted:#70544a;--border:#edd2c8;
@@ -57,7 +60,6 @@ html[data-theme="sunset"]{
 --grad-btn:linear-gradient(115deg,#d35400 0%,#e67e22 50%,#f0a02e 100%);
 --shadow:0 10px 30px rgba(211,84,0,.12)}
 
-/* Midnight — deep blue night */
 html[data-theme="midnight"]{
 --bg:#0a1024;--bg2:#0e1630;--card:#121d3d;--soft:#1a274c;
 --text:#e4e9f7;--muted:#9caac8;--border:#253258;
@@ -66,7 +68,6 @@ html[data-theme="midnight"]{
 --grad-btn:linear-gradient(115deg,#4d6fe0 0%,#7c5cd6 50%,#15918a 100%);
 --shadow:0 12px 34px rgba(0,0,10,.55)}
 
-/* High contrast — accessibility, max readability */
 html[data-theme="contrast"]{
 --bg:#ffffff;--bg2:#ffffff;--card:#ffffff;--soft:#f0f0f0;
 --text:#000000;--muted:#333333;--border:#000000;
@@ -75,26 +76,44 @@ html[data-theme="contrast"]{
 --grad-btn:linear-gradient(115deg,#0a4fd3 0%,#0a4fd3 50%,#0a4fd3 100%);
 --shadow:none}
 
-/* ---------- theme picker (header me) ---------- */
-.theme-btn{position:relative}
-.theme-panel{position:absolute;top:calc(100% + 10px);right:0;background:var(--card);border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow);padding:14px;z-index:100;min-width:210px;display:none}
+/* ---------- backgrounds (🖼 symbol) ---------- */
+html[data-bg="plain"] body{background-image:none}
+html[data-bg="aurora"] body{background-image:radial-gradient(620px 400px at 12% -5%,rgba(99,102,241,.16),transparent 60%),radial-gradient(520px 380px at 88% 85%,rgba(25,155,175,.14),transparent 60%);background-attachment:fixed}
+html[data-bg="grid"] body{background-image:linear-gradient(rgba(99,102,241,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(99,102,241,.07) 1px,transparent 1px);background-size:42px 42px;background-attachment:fixed}
+html[data-bg="mesh"] body{background-image:radial-gradient(540px 380px at 85% 12%,rgba(168,85,247,.12),transparent 60%),radial-gradient(540px 380px at 12% 85%,rgba(244,236,216,.30),transparent 60%);background-attachment:fixed}
+html[data-bg="dots"] body{background-image:radial-gradient(rgba(99,102,241,.14) 1.5px,transparent 1.5px);background-size:26px 26px;background-attachment:fixed}
+html[data-bg="wave"] body{background-image:radial-gradient(700px 300px at 20% 110%,rgba(23,125,160,.12),transparent 55%),radial-gradient(600px 260px at 90% -10%,rgba(34,142,131,.10),transparent 55%);background-attachment:fixed}
+
+/* ---------- theme + background panels ---------- */
+.theme-panel{position:absolute;top:calc(100% + 10px);right:0;background:var(--card);border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow);padding:14px;z-index:1000;min-width:230px;display:none}
 .theme-panel.open{display:block}
 .theme-panel h4{font-size:.75rem;font-family:'JetBrains Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
-.theme-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
-.theme-opt{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:10px;border:1px solid var(--border);background:var(--bg2);color:var(--text);font-size:.82rem;cursor:pointer;transition:all .2s ease}
+.theme-grid{display:grid;grid-template-columns:1fr;gap:8px}
+.theme-opt{display:flex;align-items:center;gap:10px;width:100%;padding:8px 12px;border-radius:10px;border:1px solid var(--border);background:var(--bg2);color:var(--text);font-size:.84rem;cursor:pointer;transition:all .2s ease;text-align:left}
 .theme-opt:hover{border-color:var(--accent)}
 .theme-opt.active{border-color:var(--accent);box-shadow:0 0 0 2px rgba(99,102,241,.25)}
-.theme-opt .swatch{width:16px;height:16px;border-radius:50%;flex:none;border:1px solid rgba(0,0,0,.15)}
+.theme-opt .swatch{width:18px;height:18px;border-radius:50%;flex:none;border:1px solid rgba(0,0,0,.15)}
+.nav{position:relative}
 
-/* ---------- floating GUI edit button ---------- */
-.edit-fab{position:fixed;bottom:22px;right:22px;z-index:90;display:flex;align-items:center;gap:9px;padding:12px 18px;border-radius:999px;border:none;cursor:pointer;background:var(--grad-btn);color:#fff;font-weight:600;font-size:.9rem;font-family:'IBM Plex Sans',sans-serif;box-shadow:0 10px 28px rgba(0,0,0,.28);transition:transform .2s ease,filter .2s ease;text-decoration:none}
-.edit-fab:hover{transform:translateY(-2px);filter:brightness(1.08)}
-.edit-fab .ic{font-size:1.05rem}
-.edit-fab-menu{position:fixed;bottom:84px;right:22px;z-index:90;background:var(--card);border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow);padding:10px;display:none;flex-direction:column;gap:2px;min-width:250px}
-.edit-fab-menu.open{display:flex}
-.edit-fab-menu a{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;color:var(--text);text-decoration:none;font-size:.88rem;transition:background .15s ease}
-.edit-fab-menu a:hover{background:var(--soft)}
-.edit-fab-menu .sub{font-size:.7rem;color:var(--muted)}
-.edit-fab-menu .ic{width:22px;text-align:center}
+/* ---------- photo lightbox ---------- */
+.lightbox{position:fixed;inset:0;z-index:1500;background:rgba(5,3,15,.88);display:none;place-items:center;padding:20px}
+.lightbox.open{display:grid}
+.lightbox img{max-width:min(92vw,1200px);max-height:78vh;border-radius:12px;box-shadow:0 20px 70px rgba(0,0,0,.6);object-fit:contain}
+.lb-cap{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);color:#fff;font-size:.9rem;background:rgba(0,0,0,.45);padding:6px 16px;border-radius:999px}
+.lb-close{position:absolute;top:18px;right:22px;background:rgba(255,255,255,.14);border:none;color:#fff;width:42px;height:42px;border-radius:50%;font-size:1.2rem;cursor:pointer}
+.lb-close:hover{background:rgba(255,255,255,.28)}
+.lb-prev,.lb-next{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.14);border:none;color:#fff;width:46px;height:46px;border-radius:50%;font-size:1.5rem;cursor:pointer}
+.lb-prev{left:18px}
+.lb-next{right:18px}
+.lb-prev:hover,.lb-next:hover{background:rgba(255,255,255,.28)}
 
-@media(max-width:480px){.edit-fab{padding:10px 14px;font-size:.8rem;bottom:16px;right:16px}.edit-fab-menu{right:16px;bottom:74px;min-width:230px}}
+/* ---------- Tier 1 bold badge ---------- */
+strong.tier1{font-weight:700;color:var(--accent);background:color-mix(in srgb,var(--accent) 12%,transparent);padding:2px 8px;border-radius:6px;display:inline-block;margin-left:6px;font-size:.78em;letter-spacing:.04em}
+
+/* ---------- Connect links boxes ---------- */
+.foot ul{display:flex;flex-direction:column;gap:8px}
+.foot ul li{margin:0}
+.foot ul li a{display:inline-block;padding:8px 14px;border:1px solid var(--border);border-radius:10px;background:var(--card);font-size:.85rem;transition:all .2s ease}
+.foot ul li a:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-1px)}
+
+@media(max-width:480px){.theme-panel{right:10px;min-width:200px}.lightbox img{max-width:94vw;max-height:70vh}}

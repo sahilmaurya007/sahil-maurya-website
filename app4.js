@@ -1,4 +1,4 @@
-/* app4.js — loader (DO NOT EDIT). Injects styles + loads app5.js (themes) and app6.js (pencil editor). */
+/* app4.js — loader (DO NOT EDIT). Injects login/pencil/background styles + loads app5.js (modes+bg) and app6.js (editor+lightbox). */
 (function () {
   "use strict";
   var css = "";
@@ -22,6 +22,8 @@
   css += "html[data-bg=aurora] body::before{content:'';position:fixed;inset:0;z-index:-1;background:radial-gradient(600px 400px at 15% 10%,rgba(99,102,241,.18),transparent 60%),radial-gradient(500px 380px at 85% 80%,rgba(25,155,175,.15),transparent 60%)}";
   css += "html[data-bg=grid] body::before{content:'';position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(99,102,241,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(99,102,241,.08) 1px,transparent 1px);background-size:44px 44px}";
   css += "html[data-bg=mesh] body::before{content:'';position:fixed;inset:0;z-index:-1;background:radial-gradient(520px 360px at 80% 15%,rgba(168,85,247,.13),transparent 60%),radial-gradient(520px 360px at 15% 85%,rgba(244,236,216,.22),transparent 60%)}";
+  css += "html[data-bg=dots] body::before{content:'';position:fixed;inset:0;z-index:-1;background-image:radial-gradient(rgba(99,102,241,.14) 1.5px,transparent 1.5px);background-size:26px 26px}";
+  css += "html[data-bg=wave] body::before{content:'';position:fixed;inset:0;z-index:-1;background:radial-gradient(700px 300px at 20% 110%,rgba(23,125,160,.12),transparent 55%),radial-gradient(600px 260px at 90% -10%,rgba(34,142,131,.10),transparent 55%)}";
   css += ".bg-h{margin-top:14px}";
   var st = document.createElement("style");
   st.textContent = css;
