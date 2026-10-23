@@ -4,22 +4,23 @@
    ============================================================ */
 
 /* ---------- news section (photo left + news box right) ---------- */
-.news-sec{padding:64px 0;border-bottom:1px solid var(--border)}
-.news-layout{display:grid;grid-template-columns:1.5fr 1fr;gap:22px;align-items:stretch}
-.news-media{position:relative;border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);box-shadow:var(--shadow);min-height:340px;background:var(--soft)}
-.news-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .4s ease}
+.news-sec{padding:clamp(44px,6vw,64px) 0;border-bottom:1px solid var(--border)}
+.news-layout{display:grid;grid-template-columns:1.5fr 1fr;gap:clamp(14px,2.5vw,22px);align-items:stretch}
+.news-media{position:relative;border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);box-shadow:var(--shadow);min-height:clamp(240px,36vw,340px);background:var(--soft)}
+/* PHOTO FULL DIKHE — sir nahi kate: object-fit cover + position top */
+.news-media img{position:absolute;inset:0;width:100%;height:100%;max-height:100%;object-fit:cover;object-position:top center;transition:opacity .4s ease}
 .news-media.noimg img{display:none}
 .news-grad{position:absolute;inset:0;background:var(--grad-btn);display:grid;place-items:center}
-.ng-txt{font-family:'JetBrains Mono',monospace;font-size:1.4rem;font-weight:700;color:rgba(255,255,255,.85);text-transform:uppercase;letter-spacing:.2em}
-.news-media-cap{position:absolute;left:0;right:0;bottom:0;padding:40px 18px 14px;background:linear-gradient(transparent,rgba(10,8,30,.85));display:flex;align-items:center;gap:10px;z-index:2}
+.ng-txt{font-family:'JetBrains Mono',monospace;font-size:clamp(.9rem,2vw,1.4rem);font-weight:700;color:rgba(255,255,255,.85);text-transform:uppercase;letter-spacing:.2em}
+.news-media-cap{position:absolute;left:0;right:0;bottom:0;padding:40px 18px 14px;background:linear-gradient(transparent,rgba(10,8,30,.85));display:flex;align-items:center;gap:10px;z-index:2;flex-wrap:wrap}
 .news-media-cap .ntype{font-family:'JetBrains Mono',monospace;font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.1em;padding:4px 13px;border-radius:999px;background:rgba(255,255,255,.92);color:#5d60e3}
 .news-media-cap .ndate{font-family:'JetBrains Mono',monospace;font-size:.74rem;color:rgba(255,255,255,.85)}
-.news-box{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);display:flex;flex-direction:column;overflow:hidden}
+.news-box{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);display:flex;flex-direction:column;overflow:hidden;min-height:0}
 .news-box-head{display:flex;align-items:center;gap:9px;padding:14px 18px;font-family:'JetBrains Mono',monospace;font-size:.78rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);border-bottom:1px solid var(--border);background:var(--soft)}
-.nb-dot-blink{width:8px;height:8px;border-radius:50%;background:var(--accent);animation:blink 1.2s infinite}
+.nb-dot-blink{width:8px;height:8px;border-radius:50%;background:var(--accent);animation:blink 1.2s infinite;flex:none}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
-.news-list{list-style:none;margin:0;padding:8px;overflow-y:auto;flex:1;max-height:380px}
-.nl-item{display:flex;flex-direction:column;gap:3px;padding:10px 10px;border-radius:10px;cursor:pointer;transition:background .2s ease;border-left:3px solid transparent}
+.news-list{list-style:none;margin:0;padding:8px;overflow-y:auto;flex:1;max-height:clamp(300px,50vw,420px)}
+.nl-item{display:flex;flex-direction:column;gap:3px;padding:10px;border-radius:10px;cursor:pointer;transition:background .2s ease;border-left:3px solid transparent}
 .nl-item:hover{background:var(--soft)}
 .nl-item.active{background:var(--soft);border-left-color:var(--accent)}
 .nl-item.active .nl-text{color:var(--accent);font-weight:600}
@@ -28,10 +29,9 @@
 .nl-text a{color:var(--accent);text-decoration:none}
 .nl-text a:hover{text-decoration:underline}
 .nl-date{font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--muted)}
-@media(max-width:960px){.news-layout{grid-template-columns:1fr}.news-media{min-height:240px}}
 
 /* ---------- journey timeline ---------- */
-.journey-layout{display:grid;grid-template-columns:1fr 340px;gap:32px;align-items:start}
+.journey-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,340px);gap:clamp(18px,3vw,32px);align-items:start}
 .tl{position:relative;padding-left:26px}
 .tl::before{content:"";position:absolute;left:7px;top:6px;bottom:6px;width:2px;background:var(--grad-ink);border-radius:2px;opacity:.55}
 .tl-item{position:relative;padding:0 0 26px 8px;transition:opacity .25s ease}
@@ -42,8 +42,9 @@
 .tl-card:hover{transform:translateY(-2px);border-color:var(--accent)}
 .tl-card h3{font-size:1rem;margin-bottom:4px}
 .tl-card p{font-size:.86rem;color:var(--muted)}
-.tl-photo{margin-top:10px;border-radius:10px;overflow:hidden;border:1px solid var(--border);aspect-ratio:16/9}
-.tl-photo img{width:100%;height:100%;object-fit:cover}
+/* milestone photo me bhi sir na kate */
+.tl-photo{margin-top:10px;border-radius:10px;overflow:hidden;border:1px solid var(--border);aspect-ratio:16/10}
+.tl-photo img{width:100%;height:100%;object-fit:cover;object-position:top center}
 .tl-cat{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:.68rem;padding:2px 10px;border-radius:999px;background:var(--soft);border:1px solid var(--border);color:var(--muted);margin-bottom:6px}
 
 /* ---------- pie chart panel ---------- */
@@ -51,7 +52,7 @@
 .pie-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow)}
 .pie-card h3{font-size:.95rem;margin-bottom:12px}
 .pie-wrap{position:relative;width:200px;height:200px;margin:8px auto 4px;flex:none}
-.pie-wrap svg{display:block}
+.pie-wrap svg{display:block;width:200px;height:200px}
 .pie-arc{cursor:pointer;transition:opacity .2s ease}
 .pie-center{position:absolute;inset:0;display:grid;place-items:center;text-align:center;pointer-events:none}
 .pie-center .big{font-size:1.6rem;font-weight:700;background:var(--grad-ink);-webkit-background-clip:text;background-clip:text;color:transparent}
@@ -76,5 +77,7 @@
 .cat-tab.active{background:var(--grad-btn);color:#fff;border-color:transparent}
 .gal-item.clickable{cursor:pointer}
 
-/* ---------- responsive ---------- */
-@media(max-width:960px){.journey-layout{grid-template-columns:1fr}}
+/* ---------- responsive (news + journey auto-fit) ---------- */
+@media(max-width:1024px){.journey-layout{grid-template-columns:1fr}.pie-card{position:static}}
+@media(max-width:960px){.news-layout{grid-template-columns:1fr}.news-media{min-height:260px}.news-list{max-height:300px}}
+@media(max-width:480px){.news-media{min-height:220px}.pie-wrap{width:170px;height:170px}.pie-wrap svg{width:170px;height:170px}}
