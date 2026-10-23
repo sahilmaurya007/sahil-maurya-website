@@ -1,11 +1,9 @@
 /* Seven selectable, eye-friendly website themes. Theme choice is saved per visitor. */
 :root{
   --font-site:'IBM Plex Sans',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
-  --font-display:'IBM Plex Sans',system-ui,sans-serif;
   --page-glow:radial-gradient(ellipse at 8% 0%,rgba(99,102,241,.08),transparent 48%),radial-gradient(ellipse at 100% 30%,rgba(25,155,175,.06),transparent 42%);
 }
 body{font-family:var(--font-site);background-image:var(--page-glow)}
-.hero-title,.section-head h2,.card h3{font-family:var(--font-display)}
 html[data-theme="daylight"]{--bg:#f7f7fc;--bg2:#fff;--card:#fff;--soft:#f1f0fb;--text:#1c1a2e;--muted:#5f5c78;--border:#e6e4f3;--accent:#6366f1;--accent2:#a855f7;--accent3:#199baf;--grad-ink:linear-gradient(115deg,#6366f1,#a855f7 50%,#199baf);--grad-btn:linear-gradient(115deg,#5d60e3,#944bda 50%,#158191);--shadow:0 10px 30px rgba(99,102,241,.10);--page-glow:radial-gradient(ellipse at 8% 0%,rgba(99,102,241,.08),transparent 48%),radial-gradient(ellipse at 100% 30%,rgba(25,155,175,.06),transparent 42%)}
 html[data-theme="night"]{--bg:#101019;--bg2:#151526;--card:#181829;--soft:#1f1f33;--text:#ecebf6;--muted:#a5a2c0;--border:#2b2b45;--accent:#a5a7ff;--accent2:#d3a5ff;--accent3:#65d8e6;--grad-ink:linear-gradient(115deg,#a5a7ff,#d3a5ff 50%,#65d8e6);--grad-btn:linear-gradient(115deg,#6264ca,#8142a8 50%,#12616e);--shadow:0 12px 34px rgba(0,0,0,.38);--page-glow:none}
 html[data-theme="sepia"]{--bg:#f4eddf;--bg2:#fbf5e9;--card:#fff9ed;--soft:#eee3d0;--text:#3d3327;--muted:#786b59;--border:#dfd1ba;--accent:#9b6339;--accent2:#b58155;--accent3:#68806a;--grad-ink:linear-gradient(115deg,#9b6339,#b58155 52%,#68806a);--grad-btn:linear-gradient(115deg,#88552f,#a56e43 52%,#55705c);--shadow:0 9px 26px rgba(89,64,36,.10);--page-glow:none}
@@ -14,7 +12,7 @@ html[data-theme="ocean"]{--bg:#edf5f8;--bg2:#f6fbfc;--card:#fff;--soft:#e1eef3;-
 html[data-theme="lavender"]{--bg:#f3eff8;--bg2:#faf7fd;--card:#fff;--soft:#ece5f4;--text:#30263b;--muted:#70627d;--border:#dfd3eb;--accent:#8157a8;--accent2:#a578bf;--accent3:#558b94;--grad-ink:linear-gradient(115deg,#8157a8,#a578bf 50%,#558b94);--grad-btn:linear-gradient(115deg,#704990,#9365ae 50%,#477b84);--shadow:0 9px 26px rgba(95,64,126,.10);--page-glow:radial-gradient(ellipse at 8% 0%,rgba(159,117,195,.10),transparent 48%)}
 html[data-theme="contrast"]{--bg:#fff;--bg2:#f5f5f5;--card:#fff;--soft:#ededed;--text:#101010;--muted:#3d3d3d;--border:#777;--accent:#123ec4;--accent2:#64228b;--accent3:#006b50;--grad-ink:linear-gradient(115deg,#123ec4,#64228b 50%,#006b50);--grad-btn:linear-gradient(115deg,#123ec4,#64228b 50%,#006b50);--shadow:0 4px 14px rgba(0,0,0,.13);--page-glow:none}
 
-/* Compact theme chooser, opened from the existing palette button. */
+/* ---------- theme chooser ---------- */
 .theme-picker{position:absolute;right:20px;top:calc(100% + 9px);z-index:1000;width:min(320px,calc(100vw - 28px));padding:15px;background:var(--card);border:1px solid var(--border);border-radius:16px;box-shadow:0 16px 40px rgba(0,0,0,.18);display:none}
 .theme-picker.open{display:block}
 .theme-picker-title{font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:0 0 10px}
@@ -25,3 +23,27 @@ html[data-theme="contrast"]{--bg:#fff;--bg2:#f5f5f5;--card:#fff;--soft:#ededed;-
 .theme-picker-hint{margin-top:10px;font-size:.72rem;color:var(--muted)}
 .nav{position:relative}
 @media(max-width:480px){.theme-picker{right:10px}.theme-options{grid-template-columns:1fr 1fr}}
+
+/* ---------- pencil FAB (owner-only edit) ---------- */
+.edit-fab{position:fixed;bottom:22px;right:22px;z-index:950;width:56px;height:56px;border-radius:50%;border:none;cursor:pointer;background:var(--grad-btn);color:#fff;font-size:1.5rem;display:grid;place-items:center;box-shadow:0 12px 30px rgba(0,0,0,.30);transition:transform .2s ease}
+.edit-fab:hover{transform:translateY(-2px) scale(1.04)}
+.edit-menu{position:fixed;bottom:88px;right:22px;z-index:949;min-width:260px;max-width:320px;background:var(--card);border:1px solid var(--border);border-radius:16px;box-shadow:0 16px 40px rgba(0,0,0,.22);padding:8px;display:none;flex-direction:column;gap:2px}
+.edit-menu.open{display:flex}
+.edit-menu a{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border-radius:11px;color:var(--text);text-decoration:none;font-size:.88rem}
+.edit-menu a:hover{background:var(--soft)}
+.edit-menu .sub{font-size:.7rem;color:var(--muted)}
+.edit-menu a span:first-child{font-size:1.05rem}
+
+/* ---------- owner login mask ---------- */
+.login-mask{position:fixed;inset:0;z-index:1200;background:rgba(8,6,22,.55);backdrop-filter:blur(4px);display:none;place-items:center;padding:20px}
+.login-mask.open{display:grid}
+.login-card{width:min(380px,100%);background:var(--card);border:1px solid var(--border);border-radius:18px;padding:26px;box-shadow:0 20px 60px rgba(0,0,0,.35)}
+.login-card h3{margin:0 0 6px;font-size:1.1rem}
+.login-card p{margin:0 0 16px;font-size:.82rem;color:var(--muted)}
+.login-card label{display:block;font-size:.74rem;font-weight:600;color:var(--muted);margin:12px 0 5px;text-transform:uppercase;letter-spacing:.06em}
+.login-card input{width:100%;padding:11px 13px;border-radius:11px;border:1px solid var(--border);background:var(--bg);color:var(--text);font:400 .92rem var(--font-site);outline:none}
+.login-card input:focus{border-color:var(--accent)}
+.login-card button{width:100%;margin-top:16px;padding:12px;border:none;border-radius:12px;background:var(--grad-btn);color:#fff;font:600 .95rem var(--font-site);cursor:pointer}
+.login-card button:hover{filter:brightness(1.06)}
+.login-err{min-height:18px;margin-top:10px;font-size:.78rem;color:#e5484d}
+@media(max-width:480px){.edit-fab{bottom:16px;right:16px}.edit-menu{right:16px;bottom:80px}}
