@@ -1,6 +1,6 @@
 /* ============================================================
-   RENDERER (app3.js) — NEWS BANNER (A²DSL style), journey
-   timeline + pie chart (right side top card), categorized
+   RENDERER (app3.js) — NEWS BANNER (full photo left + news
+   box right), journey timeline + pie chart, categorized
    gallery. IS FILE KO EDIT MAT KARO. Content data3.js se aata hai.
    ============================================================ */
 (function () {
@@ -14,40 +14,55 @@
     if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
-  /* ================= NEWS BANNER (A²DSL style — 11 sec auto slide) ================= */
+  /* ================= NEWS SECTION =================
+     Left: badi rotating photo (11 sec). Right: news list box —
+     saare news dikhte hain, current highlighted, click karke slide badlo. */
   let newsIdx = 0;
-  const banner = document.createElement("section");
-  banner.id = "news";
-  banner.className = "news-banner";
-  banner.setAttribute("aria-label", "Latest updates");
+  const news = document.createElement("section");
+  news.id = "news";
+  news.className = "news-sec";
+  news.setAttribute("aria-label", "Latest updates");
   const hero = document.querySelector("section.hero");
-  if (hero) hero.before(banner);
+  if (hero) hero.before(news);
 
-  const renderBanner = () => {
+  const renderNews = () => {
     const n = NEWS[newsIdx];
     const label = n.link
       ? `<a href="${esc(n.link)}" target="_blank" rel="noopener">${esc(n.text)}</a>`
       : esc(n.text);
-    banner.innerHTML = `
-      <div class="nb-media">${n.photo
-        ? `<img src="${esc(n.photo)}" alt="${esc(n.text)}" onerror="this.style.display='none'">`
-        : ""}</div>
-      <div class="nb-overlay"></div>
-      <div class="wrap nb-content">
-        <div>
+    news.innerHTML = `
+    <div class="wrap news-layout">
+      <div class="news-media">
+        ${n.photo
+          ? `<img src="${esc(n.photo)}" alt="${esc(n.text)}" onerror="this.parentElement.classList.add('noimg')">`
+          : `<div class="news-grad"><span class="ng-txt">${esc(n.type)}</span></div>`}
+        <div class="news-media-cap">
           <span class="ntype">${esc(n.type)}</span>
           <span class="ndate">${esc(n.date || "")}</span>
         </div>
-        <p class="nb-text">${label}</p>
-        <div class="nb-dots">${NEWS.map((_, i) =>
-          `<button class="nb-dot${i === newsIdx ? " active" : ""}" data-i="${i}" aria-label="News ${i + 1}"></button>`).join("")}</div>
-      </div>`;
-    document.querySelectorAll(".nb-dot").forEach(d =>
-      d.addEventListener("click", () => { newsIdx = +d.dataset.i; renderBanner(); }));
+      </div>
+      <div class="news-box">
+        <div class="news-box-head">
+          <span class="nb-dot-blink"></span> Latest Updates
+        </div>
+        <ul class="news-list">
+          ${NEWS.map((it, i) => `
+            <li class="nl-item${i === newsIdx ? " active" : ""}" data-i="${i}">
+              <span class="nl-type">${esc(it.type)}</span>
+              <span class="nl-text">${it.link
+                ? `<a href="${esc(it.link)}" target="_blank" rel="noopener">${esc(it.text)}</a>`
+                : esc(it.text)}</span>
+              <span class="nl-date">${esc(it.date || "")}</span>
+            </li>`).join("")}
+        </ul>
+      </div>
+    </div>`;
+    document.querySelectorAll(".nl-item").forEach(li =>
+      li.addEventListener("click", () => { newsIdx = +li.dataset.i; renderNews(); }));
   };
   if (NEWS.length) {
-    renderBanner();
-    setInterval(() => { newsIdx = (newsIdx + 1) % NEWS.length; renderBanner(); }, 11000); // 11 seconds
+    renderNews();
+    setInterval(() => { newsIdx = (newsIdx + 1) % NEWS.length; renderNews(); }, 11000);
   }
 
   /* ================= NAV LINKS UPDATE ================= */
@@ -63,10 +78,10 @@
     if (galLink) galLink.before(jLink); else navLinks.appendChild(jLink);
   }
 
-  /* ================= JOURNEY SECTION (timeline + pie) ================= */
+  /* ================= JOURNEY SECTION ================= */
   const journey = document.createElement("section");
   journey.id = "journey";
-  journey.className = "alt reveal";
+  journey.className = "alt";
   journey.innerHTML = `
   <div class="wrap">
     <div class="section-head"><p class="kicker">10 · Milestones</p><h2>My Journey — year by year</h2><div class="rule"></div>
@@ -76,7 +91,7 @@
       <aside class="journey-side">
         <div class="pie-card">
           <h3>Milestone analysis</h3>
-          <div class="pie-wrap"><svg id="pieSvg" viewBox="0 0 200 200" aria-label="Milestone categories pie chart"></svg>
+          <div class="pie-wrap"><svg id="pieSvg" viewBox="0 0 200 200" width="200" height="200" aria-label="Milestone categories pie chart"></svg>
             <div class="pie-center"><div><div class="big" id="pieTotal"></div><div class="small">milestones</div></div></div>
           </div>
           <div class="pie-legend" id="pieLegend"></div>
@@ -109,7 +124,7 @@
   document.querySelectorAll(".tl-card").forEach(card =>
     card.addEventListener("click", () => scrollTo(card.dataset.section)));
 
-  /* ---------- pie chart — TRUE CIRCLE (arc paths, koi gap nahi) ---------- */
+  /* ---------- pie chart — TRUE CIRCLE ---------- */
   const palette = ["#6366f1", "#a855f7", "#199baf", "#f59e0b", "#ef4444", "#10b981", "#8b5cf6", "#f472b6"];
   const counts = {};
   sorted.forEach(j => { counts[j.category || "Milestone"] = (counts[j.category || "Milestone"] || 0) + 1; });
