@@ -1,6 +1,7 @@
 /* ============================================================
    RENDERER (app.js) — IS FILE KO EDIT KARNE KI ZAROORAT NAHI.
    Saara content data.js aur data2.js se aata hai.
+   Theme switching ab app4.js me hai (7 modes).
    ============================================================ */
 (function () {
   "use strict";
@@ -8,24 +9,6 @@
   const esc = (s) => String(s == null ? "" : s)
     .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
-
-  try {
-    const saved = localStorage.getItem("sm-theme");
-    if (saved) document.documentElement.setAttribute("data-theme", saved);
-    else if (window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches)
-      document.documentElement.setAttribute("data-theme", "dark");
-  } catch (e) {}
-  const setThemeIcon = () =>
-    ($("themeBtn").textContent =
-      document.documentElement.getAttribute("data-theme") === "dark" ? "☀" : "🌙");
-  setThemeIcon();
-  $("themeBtn").addEventListener("click", () => {
-    const h = document.documentElement;
-    h.setAttribute("data-theme",
-      h.getAttribute("data-theme") === "dark" ? "light" : "dark");
-    try { localStorage.setItem("sm-theme", h.getAttribute("data-theme")); } catch (e) {}
-    setThemeIcon();
-  });
 
   $("menuBtn").addEventListener("click", () => $("navLinks").classList.toggle("open"));
   document.querySelectorAll("#navLinks a").forEach(a =>
