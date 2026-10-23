@@ -1,6 +1,6 @@
 /* ============================================================
-   THEMES — 9 colour modes, 6 backgrounds, lightbox, pencil
-   editor (owner login), Tier 1 badge, Connect boxes.
+   THEMES — colour modes + 6 STYLE SKINS (poora UI change),
+   horizontal mode bar, in-website editor, lightbox, Tier 1.
    IS FILE KO EDIT MAT KARO.
    ============================================================ */
 
@@ -76,44 +76,136 @@ html[data-theme="contrast"]{
 --grad-btn:linear-gradient(115deg,#0a4fd3 0%,#0a4fd3 50%,#0a4fd3 100%);
 --shadow:none}
 
-/* ---------- backgrounds (🖼 symbol) ---------- */
-html[data-bg="plain"] body{background-image:none}
-html[data-bg="aurora"] body{background-image:radial-gradient(620px 400px at 12% -5%,rgba(99,102,241,.16),transparent 60%),radial-gradient(520px 380px at 88% 85%,rgba(25,155,175,.14),transparent 60%);background-attachment:fixed}
-html[data-bg="grid"] body{background-image:linear-gradient(rgba(99,102,241,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(99,102,241,.07) 1px,transparent 1px);background-size:42px 42px;background-attachment:fixed}
-html[data-bg="mesh"] body{background-image:radial-gradient(540px 380px at 85% 12%,rgba(168,85,247,.12),transparent 60%),radial-gradient(540px 380px at 12% 85%,rgba(244,236,216,.30),transparent 60%);background-attachment:fixed}
-html[data-bg="dots"] body{background-image:radial-gradient(rgba(99,102,241,.14) 1.5px,transparent 1.5px);background-size:26px 26px;background-attachment:fixed}
-html[data-bg="wave"] body{background-image:radial-gradient(700px 300px at 20% 110%,rgba(23,125,160,.12),transparent 55%),radial-gradient(600px 260px at 90% -10%,rgba(34,142,131,.10),transparent 55%);background-attachment:fixed}
+/* ============================================================
+   STYLE SKINS (🖼️) — poora UI badal jata hai, jaise alag
+   website ho. Har skin radius, borders, fonts, shadows,
+   background pattern sab change karta hai.
+   ============================================================ */
 
-/* ---------- theme + background panels ---------- */
-.theme-panel{position:absolute;top:calc(100% + 10px);right:0;background:var(--card);border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow);padding:14px;z-index:1000;min-width:230px;display:none}
-.theme-panel.open{display:block}
-.theme-panel h4{font-size:.75rem;font-family:'JetBrains Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
-.theme-grid{display:grid;grid-template-columns:1fr;gap:8px}
-.theme-opt{display:flex;align-items:center;gap:10px;width:100%;padding:8px 12px;border-radius:10px;border:1px solid var(--border);background:var(--bg2);color:var(--text);font-size:.84rem;cursor:pointer;transition:all .2s ease;text-align:left}
-.theme-opt:hover{border-color:var(--accent)}
-.theme-opt.active{border-color:var(--accent);box-shadow:0 0 0 2px rgba(99,102,241,.25)}
-.theme-opt .swatch{width:18px;height:18px;border-radius:50%;flex:none;border:1px solid rgba(0,0,0,.15)}
-.nav{position:relative}
+/* Glass — frosted glass cards */
+html[data-skin="glass"]{
+--radius:22px}
+html[data-skin="glass"] body{font-family:'Segoe UI',system-ui,sans-serif}
+html[data-skin="glass"] .card,html[data-skin="glass"] .about-card,html[data-skin="glass"] .news-box,html[data-skin="glass"] .tl-card,html[data-skin="glass"] .pie-card{background:color-mix(in srgb,var(--card) 62%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid color-mix(in srgb,#ffffff 35%,transparent)}
+html[data-skin="glass"] .btn{border-radius:14px}
+html[data-skin="glass"] header{background:color-mix(in srgb,var(--bg2) 55%,transparent);backdrop-filter:blur(18px)}
+html[data-skin="glass"] body::before{content:'';position:fixed;inset:0;z-index:-1;background:radial-gradient(560px 400px at 12% 8%,rgba(99,102,241,.20),transparent 60%),radial-gradient(520px 380px at 88% 82%,rgba(25,155,175,.18),transparent 60%)}
 
-/* ---------- photo lightbox ---------- */
+/* Neon Dark — cyberpunk neon */
+html[data-skin="neon"]{
+--radius:4px;--border:#3d1f6e;--bg:#0d0221;--bg2:#12042e;--card:#160737;--soft:#1d0a4a;
+--text:#e8e6f8;--muted:#9d8fd4;--accent:#ff2a6d;--accent2:#05d9e8;
+--grad-ink:linear-gradient(115deg,#05d9e8 0%,#ff2a6d 50%,#d1f7ff 100%);
+--grad-btn:linear-gradient(115deg,#05d9e8 0%,#ff2a6d 50%,#d1f7ff 100%);
+--shadow:0 0 24px rgba(255,42,109,.28)}
+html[data-skin="neon"] body{font-family:'Consolas','Courier New',monospace}
+html[data-skin="neon"] .card,html[data-skin="neon"] .about-card,html[data-skin="neon"] .tl-card{border:1px solid #3d1f6e;box-shadow:0 0 18px rgba(5,217,232,.14),inset 0 0 22px rgba(5,217,232,.05)}
+html[data-skin="neon"] .hero-title,html[data-skin="neon"] .section-head h2{text-shadow:0 0 14px rgba(5,217,232,.55)}
+html[data-skin="neon"] .btn{border-radius:3px;letter-spacing:.06em;text-transform:uppercase}
+html[data-skin="neon"] body::before{content:'';position:fixed;inset:0;z-index:-1;background:repeating-linear-gradient(0deg,transparent 0 2px,rgba(5,217,232,.03) 2px 4px)}
+
+/* Paper — notebook / editorial */
+html[data-skin="paper"]{
+--radius:2px;--border:#d8cbb8;--bg:#faf4e6;--bg2:#fffdf6;--card:#fffdf6;--soft:#f2ead9;
+--text:#2f2a24;--muted:#6e665a;--accent:#8a5a24;
+--grad-ink:linear-gradient(115deg,#8a5a24 0%,#a4763c 50%,#6f7d3a 100%);
+--grad-btn:linear-gradient(115deg,#8a5a24 0%,#a4763c 50%,#6f7d3a 100%);
+--shadow:0 2px 10px rgba(63,52,38,.10)}
+html[data-skin="paper"] body{font-family:Georgia,'Times New Roman',serif}
+html[data-skin="paper"] .card{border:1px solid #d8cbb8;border-left:4px solid #8a5a24}
+html[data-skin="paper"] .hero-title,html[data-skin="paper"] .section-head h2{font-family:Georgia,serif;letter-spacing:.01em}
+html[data-skin="paper"] body::before{content:'';position:fixed;inset:0;z-index:-1;background-image:repeating-linear-gradient(transparent 0 27px,rgba(138,90,36,.07) 27px 28px)}
+
+/* Minimal Mono — clean B&W */
+html[data-skin="mono"]{
+--radius:0px;--border:#c9c9c9;--bg:#ffffff;--bg2:#ffffff;--card:#ffffff;--soft:#f4f4f4;
+--text:#111111;--muted:#5c5c5c;--accent:#111111;--accent2:#111111;--accent3:#111111;
+--grad-ink:none;--grad-btn:none;
+--shadow:0 1px 4px rgba(0,0,0,.08)}
+html[data-skin="mono"] .hero-title{background:none;color:#111}
+html[data-skin="mono"] body{font-family:'Helvetica Neue',Arial,sans-serif}
+html[data-skin="mono"] .card{border:1px solid #c9c9c9;box-shadow:none}
+html[data-skin="mono"] .btn{border-radius:0;border:1px solid #111;background:#111;color:#fff}
+html[data-skin="mono"] .btn-ghost{background:#fff;color:#111}
+html[data-skin="mono"] .brand-badge{background:#111;border-radius:0}
+html[data-skin="mono"] .kicker{color:#111;letter-spacing:.2em}
+
+/* Retro 80s — synthwave */
+html[data-skin="retro"]{
+--radius:10px;--border:#ffb3d9;--bg:#1a0b2e;--bg2:#241242;--card:#2d1852;--soft:#38206b;
+--text:#fff4f8;--muted:#d8a8c8;--accent:#ff6ec7;--accent2:#ffd8a8;--accent3:#31d0ff;
+--grad-ink:linear-gradient(115deg,#ff6ec7 0%,#ffd8a8 50%,#31d0ff 100%);
+--grad-btn:linear-gradient(115deg,#ff6ec7 0%,#ffd8a8 50%,#31d0ff 100%);
+--shadow:0 8px 26px rgba(255,110,199,.30)}
+html[data-skin="retro"] body{font-family:'Trebuchet MS',Verdana,sans-serif}
+html[data-skin="retro"] .hero-title,html[data-skin="retro"] .section-head h2{text-shadow:3px 3px 0 #31d0ff}
+html[data-skin="retro"] .card{border:2px solid #ffb3d9}
+html[data-skin="retro"] body::before{content:'';position:fixed;inset:0;z-index:-1;background:linear-gradient(180deg,#1a0b2e 0%,#3b1258 55%,#ff6ec7 130%)}
+
+/* ============================================================
+   HORIZONTAL MODE BAR (news par overlap NAHI — sticky header
+   ke neeche chipti hai, horizontal chips me, space bachati hai)
+   ============================================================ */
+.mode-bar{position:fixed;top:56px;right:12px;z-index:1100;max-width:min(660px,94vw);background:var(--card);border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow);padding:10px 12px;display:none}
+.mode-bar.open{display:block}
+.mode-bar-title{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.mode-chips{display:flex;flex-wrap:wrap;gap:6px;flex-direction:row}
+.mode-chip{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;border:1px solid var(--border);background:var(--bg2);color:var(--text);font-size:.78rem;cursor:pointer;transition:all .15s ease;white-space:nowrap}
+.mode-chip:hover{border-color:var(--accent)}
+.mode-chip.active{border-color:var(--accent);box-shadow:0 0 0 2px color-mix(in srgb,var(--accent) 20%,transparent);font-weight:600}
+.mode-chip .swatch{width:14px;height:14px;border-radius:50%;flex:none;border:1px solid rgba(0,0,0,.15)}
+@media(max-width:640px){.mode-bar{left:12px;right:12px;max-width:none;top:52px}}
+
+/* ---------- in-website editor modal ---------- */
+.ed-modal{position:fixed;inset:0;z-index:1300;background:rgba(8,6,22,.55);backdrop-filter:blur(3px);display:none;place-items:center;padding:16px}
+.ed-modal.open{display:grid}
+.ed-card{width:min(760px,100%);max-height:88vh;background:var(--card);border:1px solid var(--border);border-radius:16px;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 24px 70px rgba(0,0,0,.4)}
+.ed-head{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid var(--border);background:var(--soft)}
+.ed-head strong{font-size:.95rem}
+.ed-close{background:var(--bg2);border:1px solid var(--border);color:var(--text);width:30px;height:30px;border-radius:8px;cursor:pointer;font-size:.9rem}
+.ed-body{padding:14px 16px;display:flex;flex-direction:column;gap:10px;overflow-y:auto}
+.ed-tabs{display:flex;flex-wrap:wrap;gap:6px}
+.ed-tab{display:inline-flex;align-items:center;gap:6px;padding:7px 12px;border-radius:999px;border:1px solid var(--border);background:var(--bg2);color:var(--text);font-size:.8rem;cursor:pointer;white-space:nowrap}
+.ed-tab.active{border-color:var(--accent);box-shadow:0 0 0 2px color-mix(in srgb,var(--accent) 18%,transparent);font-weight:600}
+.ed-text{width:100%;min-height:240px;padding:12px;border-radius:10px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-family:'JetBrains Mono',monospace;font-size:.8rem;line-height:1.6;resize:vertical;box-sizing:border-box}
+.ed-text:focus{outline:none;border-color:var(--accent)}
+.ed-note{font-size:.76rem;color:var(--muted);line-height:1.5}
+.ed-note a{color:var(--accent)}
+.ed-actions{display:flex;gap:10px;flex-wrap:wrap}
+.ed-actions button{padding:10px 18px;border-radius:10px;border:none;cursor:pointer;font-size:.85rem;font-weight:600}
+.ed-preview{background:var(--bg2);color:var(--text);border:1px solid var(--border)!important}
+.ed-save{background:linear-gradient(115deg,#5d60e3,#944bda 50%,#158191);color:#fff}
+
+/* ---------- pencil FAB ---------- */
+.edit-fab{position:fixed;bottom:22px;right:22px;z-index:950;width:54px;height:54px;border-radius:50%;border:none;cursor:pointer;background:var(--grad-btn);color:#fff;font-size:1.35rem;display:grid;place-items:center;box-shadow:0 12px 30px rgba(0,0,0,.3);padding:0}
+
+/* ---------- owner login ---------- */
+.login-mask{position:fixed;inset:0;z-index:1200;background:rgba(8,6,22,.55);display:none;place-items:center;padding:20px}
+.login-mask.open{display:grid}
+.login-card{width:min(380px,100%);background:var(--card);border:1px solid var(--border);border-radius:18px;padding:26px;box-shadow:0 20px 60px rgba(0,0,0,.35)}
+.login-card h3{margin:0 0 6px;font-size:1.1rem}
+.login-card p{margin:0 0 16px;font-size:.82rem;color:var(--muted)}
+.login-card label{display:block;font-size:.74rem;font-weight:600;color:var(--muted);margin:12px 0 5px;text-transform:uppercase;letter-spacing:.06em}
+.login-card input{width:100%;padding:11px 13px;border-radius:11px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:.92rem;outline:none;box-sizing:border-box}
+.login-card input:focus{border-color:var(--accent)}
+.login-card button{width:100%;margin-top:16px;padding:12px;border:none;border-radius:12px;background:linear-gradient(115deg,#5d60e3,#944bda 50%,#158191);color:#fff;font-size:.95rem;font-weight:600;cursor:pointer}
+.login-err{min-height:18px;margin-top:10px;font-size:.78rem;color:#e5484d}
+
+/* ---------- lightbox ---------- */
 .lightbox{position:fixed;inset:0;z-index:1500;background:rgba(5,3,15,.88);display:none;place-items:center;padding:20px}
 .lightbox.open{display:grid}
 .lightbox img{max-width:min(92vw,1200px);max-height:78vh;border-radius:12px;box-shadow:0 20px 70px rgba(0,0,0,.6);object-fit:contain}
 .lb-cap{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);color:#fff;font-size:.9rem;background:rgba(0,0,0,.45);padding:6px 16px;border-radius:999px}
 .lb-close{position:absolute;top:18px;right:22px;background:rgba(255,255,255,.14);border:none;color:#fff;width:42px;height:42px;border-radius:50%;font-size:1.2rem;cursor:pointer}
-.lb-close:hover{background:rgba(255,255,255,.28)}
 .lb-prev,.lb-next{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.14);border:none;color:#fff;width:46px;height:46px;border-radius:50%;font-size:1.5rem;cursor:pointer}
 .lb-prev{left:18px}
 .lb-next{right:18px}
-.lb-prev:hover,.lb-next:hover{background:rgba(255,255,255,.28)}
 
-/* ---------- Tier 1 bold badge ---------- */
+/* ---------- Tier 1 badge + Connect boxes ---------- */
 strong.tier1{font-weight:700;color:var(--accent);background:color-mix(in srgb,var(--accent) 12%,transparent);padding:2px 8px;border-radius:6px;display:inline-block;margin-left:6px;font-size:.78em;letter-spacing:.04em}
-
-/* ---------- Connect links boxes ---------- */
 .foot ul{display:flex;flex-direction:column;gap:8px}
 .foot ul li{margin:0}
 .foot ul li a{display:inline-block;padding:8px 14px;border:1px solid var(--border);border-radius:10px;background:var(--card);font-size:.85rem;transition:all .2s ease}
-.foot ul li a:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-1px)}
+.foot ul li a:hover{border-color:var(--accent);color:var(--accent)}
 
-@media(max-width:480px){.theme-panel{right:10px;min-width:200px}.lightbox img{max-width:94vw;max-height:70vh}}
+@media(max-width:480px){.edit-fab{bottom:16px;right:16px}.lightbox img{max-width:94vw;max-height:70vh}}
