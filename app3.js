@@ -1,8 +1,7 @@
 /* ============================================================
-   RENDERER (app3.js) — news ticker, journey timeline + pie
-   chart, categorized gallery. IS FILE KO EDIT MAT KARO.
-   Ye sections khud page me inject karta hai — index.html me
-   sirf ye script load hoti hai. Content data3.js se aata hai.
+   RENDERER (app3.js) — NEWS BANNER (A²DSL style), journey
+   timeline + pie chart (right side top card), categorized
+   gallery. IS FILE KO EDIT MAT KARO. Content data3.js se aata hai.
    ============================================================ */
 (function () {
   "use strict";
@@ -15,24 +14,41 @@
     if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
-  /* ================= NEWS TICKER (header ke turant neeche) ================= */
-  const ticker = document.createElement("div");
-  ticker.className = "ticker";
-  ticker.id = "news";
-  ticker.setAttribute("aria-label", "Latest updates");
-  const newsItem = (n) => {
+  /* ================= NEWS BANNER (A²DSL style — 11 sec auto slide) ================= */
+  let newsIdx = 0;
+  const banner = document.createElement("section");
+  banner.id = "news";
+  banner.className = "news-banner";
+  banner.setAttribute("aria-label", "Latest updates");
+  const hero = document.querySelector("section.hero");
+  if (hero) hero.before(banner);
+
+  const renderBanner = () => {
+    const n = NEWS[newsIdx];
     const label = n.link
       ? `<a href="${esc(n.link)}" target="_blank" rel="noopener">${esc(n.text)}</a>`
       : esc(n.text);
-    return `<span class="ticker-item"><span class="ntype">${esc(n.type)}</span>${label}` +
-      (n.date ? ` <span class="ndate">· ${esc(n.date)}</span>` : "") + `</span>`;
+    banner.innerHTML = `
+      <div class="nb-media">${n.photo
+        ? `<img src="${esc(n.photo)}" alt="${esc(n.text)}" onerror="this.style.display='none'">`
+        : ""}</div>
+      <div class="nb-overlay"></div>
+      <div class="wrap nb-content">
+        <div>
+          <span class="ntype">${esc(n.type)}</span>
+          <span class="ndate">${esc(n.date || "")}</span>
+        </div>
+        <p class="nb-text">${label}</p>
+        <div class="nb-dots">${NEWS.map((_, i) =>
+          `<button class="nb-dot${i === newsIdx ? " active" : ""}" data-i="${i}" aria-label="News ${i + 1}"></button>`).join("")}</div>
+      </div>`;
+    document.querySelectorAll(".nb-dot").forEach(d =>
+      d.addEventListener("click", () => { newsIdx = +d.dataset.i; renderBanner(); }));
   };
-  const track = NEWS.map(newsItem).join(`<span class="ndate">✦</span>`);
-  ticker.innerHTML =
-    `<div class="ticker-label"><span class="dot"></span><span class="txt">Latest</span></div>` +
-    `<div class="ticker-viewport"><div class="ticker-track">${track}<span class="ndate">✦</span>${track}</div></div>`;
-  const header = document.querySelector("header");
-  if (header) header.after(ticker);
+  if (NEWS.length) {
+    renderBanner();
+    setInterval(() => { newsIdx = (newsIdx + 1) % NEWS.length; renderBanner(); }, 11000); // 11 seconds
+  }
 
   /* ================= NAV LINKS UPDATE ================= */
   document.querySelectorAll("#navLinks a").forEach(a => { if (a.getAttribute("href") === "#chip") a.remove(); });
@@ -47,10 +63,10 @@
     if (galLink) galLink.before(jLink); else navLinks.appendChild(jLink);
   }
 
-  /* ================= JOURNEY SECTION (timeline + pie chart) ================= */
+  /* ================= JOURNEY SECTION (timeline + pie) ================= */
   const journey = document.createElement("section");
   journey.id = "journey";
-  journey.className = "reveal";
+  journey.className = "alt reveal";
   journey.innerHTML = `
   <div class="wrap">
     <div class="section-head"><p class="kicker">10 · Milestones</p><h2>My Journey — year by year</h2><div class="rule"></div>
@@ -60,7 +76,7 @@
       <aside class="journey-side">
         <div class="pie-card">
           <h3>Milestone analysis</h3>
-          <div class="pie-wrap"><svg id="pieSvg" viewBox="0 0 200 200"></svg>
+          <div class="pie-wrap"><svg id="pieSvg" viewBox="0 0 200 200" aria-label="Milestone categories pie chart"></svg>
             <div class="pie-center"><div><div class="big" id="pieTotal"></div><div class="small">milestones</div></div></div>
           </div>
           <div class="pie-legend" id="pieLegend"></div>
@@ -100,24 +116,19 @@
   const cats = Object.keys(counts);
   const total = sorted.length;
   const CX = 100, CY = 100, R = 92;
-
-  // ek slice ka path — startAngle/endAngle radians me
   const slicePath = (start, end) => {
     const x1 = CX + R * Math.cos(start), y1 = CY + R * Math.sin(start);
     const x2 = CX + R * Math.cos(end),   y2 = CY + R * Math.sin(end);
     const large = (end - start) > Math.PI ? 1 : 0;
     return `M ${CX} ${CY} L ${x1.toFixed(2)} ${y1.toFixed(2)} A ${R} ${R} 0 ${large} 1 ${x2.toFixed(2)} ${y2.toFixed(2)} Z`;
   };
-
-  let angle = -Math.PI / 2; // top se start
-  let slices = "";
+  let angle = -Math.PI / 2, slices = "";
   cats.forEach((c, i) => {
     const sweep = (counts[c] / total) * 2 * Math.PI;
     const start = angle, end = angle + sweep;
-    slices += `<path class="pie-arc" d="${slicePath(start, end)}" fill="${palette[i % palette.length]}" data-cat="${esc(c)}"></path>`;
+    slices += `<path class="pie-arc" d="${slicePath(start, end)}" fill="${palette[i % palette.length]}" stroke="var(--card)" stroke-width="1.5" data-cat="${esc(c)}"><title>${esc(c)}: ${counts[c]}</title></path>`;
     angle = end;
   });
-  // poora circle fill — background ring (agar kuch bhi na ho)
   $("pieSvg").innerHTML = slices;
   $("pieTotal").textContent = total;
   $("pieLegend").innerHTML = cats.map((c, i) => `
@@ -132,7 +143,7 @@
   };
   const resetCat = () => {
     document.querySelectorAll("#pieSvg .pie-arc").forEach(p => p.style.opacity = "1");
-    document.querySelectorAll(".pie-legend .leg").forEach(l => l.style.fontWeight = "400");
+    document.querySelectorAll(".pie-legend .leg").forEach(l => { l.style.fontWeight = "400"; });
     document.querySelectorAll(".tl-item").forEach(it => it.style.opacity = "1");
   };
   document.querySelectorAll(".pie-legend .leg").forEach(l => {
@@ -163,7 +174,7 @@
       });
     }));
 
-  /* ================= CATEGORIZED GALLERY (replace old) ================= */
+  /* ================= CATEGORIZED GALLERY ================= */
   const chipSec = $("chip");
   if (chipSec) chipSec.remove();
   if (gallerySec) {

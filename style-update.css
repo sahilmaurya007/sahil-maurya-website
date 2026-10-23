@@ -1,23 +1,23 @@
 /* ============================================================
-   STYLE UPDATE — news ticker, journey timeline, pie chart,
+   STYLE UPDATE — news banner, journey timeline, pie chart,
    categorized gallery. IS FILE KO EDIT MAT KARO.
    ============================================================ */
 
-/* ---------- news ticker ---------- */
-.ticker{position:relative;background:var(--soft);border-bottom:1px solid var(--border);overflow:hidden;display:flex;align-items:stretch}
-.ticker-label{flex:none;display:flex;align-items:center;gap:8px;padding:9px 16px;background:var(--grad-btn);color:#fff;font-family:'JetBrains Mono',monospace;font-size:.72rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;z-index:2}
-.ticker-label .dot{width:8px;height:8px;border-radius:50%;background:#fff;animation:blink 1.2s infinite}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
-.ticker-viewport{flex:1;overflow:hidden;position:relative}
-.ticker-track{display:flex;gap:44px;align-items:center;white-space:nowrap;position:absolute;top:0;left:0;height:100%;animation:tickerScroll 95s linear infinite;padding:0 22px}
-.ticker-viewport:hover .ticker-track{animation-play-state:paused}
-@keyframes tickerScroll{from{transform:translateX(100%)}to{transform:translateX(-100%)}}
-.ticker-item{display:inline-flex;align-items:center;gap:9px;font-size:.85rem;color:var(--text)}
-.ticker-item .ntype{font-family:'JetBrains Mono',monospace;font-size:.68rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;padding:2px 9px;border-radius:999px;background:var(--card);border:1px solid var(--border);color:var(--accent)}
-.ticker-item a{color:var(--accent);text-decoration:none}
-.ticker-item a:hover{text-decoration:underline}
-.ticker-item .ndate{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--muted)}
-@media(max-width:680px){.ticker-label span.txt{display:none}.ticker-track{animation-duration:70s}}
+/* ---------- news banner (A²DSL style, hero ke upar) ---------- */
+.news-banner{position:relative;min-height:280px;display:flex;align-items:flex-end;overflow:hidden;background:linear-gradient(115deg,#6366f1 0%,#a855f7 50%,#199baf 100%);border-bottom:1px solid var(--border)}
+.nb-media{position:absolute;inset:0}
+.nb-media img{width:100%;height:100%;object-fit:cover}
+.nb-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,8,30,.05) 20%,rgba(10,8,30,.82) 100%)}
+.nb-content{position:relative;z-index:2;padding-bottom:34px;padding-top:60px;width:100%}
+.nb-content .ntype{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.1em;padding:4px 13px;border-radius:999px;background:rgba(255,255,255,.92);color:#5d60e3;margin-right:10px}
+.nb-content .ndate{font-family:'JetBrains Mono',monospace;font-size:.74rem;color:rgba(255,255,255,.85)}
+.nb-text{color:#fff;font-size:clamp(1.05rem,2.4vw,1.5rem);font-weight:600;max-width:70ch;margin:12px 0 16px;text-shadow:0 2px 12px rgba(0,0,0,.5)}
+.nb-text a{color:#fff;text-decoration:underline;text-decoration-color:rgba(255,255,255,.6)}
+.nb-text a:hover{color:#ffd9d9}
+.nb-dots{display:flex;gap:8px}
+.nb-dot{width:9px;height:9px;border-radius:50%;border:none;background:rgba(255,255,255,.45);cursor:pointer;padding:0;transition:all .25s ease}
+.nb-dot.active{background:#fff;width:26px;border-radius:999px}
+@media(max-width:680px){.news-banner{min-height:220px}}
 
 /* ---------- journey timeline ---------- */
 .journey-layout{display:grid;grid-template-columns:1fr 340px;gap:32px;align-items:start}
@@ -35,13 +35,13 @@
 .tl-photo img{width:100%;height:100%;object-fit:cover}
 .tl-cat{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:.68rem;padding:2px 10px;border-radius:999px;background:var(--soft);border:1px solid var(--border);color:var(--muted);margin-bottom:6px}
 
-/* ---------- pie chart panel ---------- */
+/* ---------- pie chart panel (journey ke right side) ---------- */
 .journey-side{display:flex;flex-direction:column;gap:18px}
-.pie-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);position:sticky;top:86px}
+.pie-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow)}
 .pie-card h3{font-size:.95rem;margin-bottom:12px}
-.pie-wrap{position:relative;width:200px;height:200px;margin:8px auto 4px}
-.pie-wrap svg{width:100%;height:100%;display:block}
-.pie-arc{cursor:pointer;transition:opacity .2s ease;stroke:var(--card);stroke-width:1.5}
+.pie-wrap{position:relative;width:200px;height:200px;margin:8px auto 4px;flex:none}
+.pie-wrap svg{width:200px;height:200px;display:block;overflow:visible}
+.pie-arc{cursor:pointer;transition:opacity .2s ease}
 .pie-center{position:absolute;inset:0;display:grid;place-items:center;text-align:center;pointer-events:none}
 .pie-center .big{font-size:1.6rem;font-weight:700;background:var(--grad-ink);-webkit-background-clip:text;background-clip:text;color:transparent}
 .pie-center .small{font-size:.7rem;color:var(--muted)}
@@ -66,4 +66,4 @@
 .gal-item.clickable{cursor:pointer}
 
 /* ---------- responsive ---------- */
-@media(max-width:960px){.journey-layout{grid-template-columns:1fr}.pie-card{position:static}}
+@media(max-width:960px){.journey-layout{grid-template-columns:1fr}}
