@@ -1,23 +1,23 @@
 /* =====================================================
-   DATA (Part 3) — NEWS TICKER, JOURNEY (timeline + pie
+   DATA (Part 3) — NEWS BANNER, JOURNEY (timeline + pie
    chart), CATEGORIZED GALLERY.
    SIRF IS FILE KO EDIT KARO. Naya news/journey photo
    daalna ho to yahi se add karo. HTML/CSS/JS mat chhedo.
    ===================================================== */
 
-/* ---------- NEWS TICKER ----------
-   Header ke neeche right→left chalta hai (professional style).
+/* ---------- NEWS BANNER (A²DSL style, 10-12 sec me slide change) ----------
+   Har news ek badi banner slide hai — photo + type badge + text + date.
+   photo khali chhodoge to gradient background dikhega.
    Naya news upar wali line ki tarah add karo:
-   { type: "Conference", text: "...", link: "", date: "..." }
-   type me kuch bhi: Conference / Journal / Internship / Talk / Award / News */
+   { type: "Conference", text: "...", link: "", date: "...", photo: "image/xxx.jpg" } */
 const NEWS = [
-  { type: "Conference", text: "Paper accepted for ORAL presentation at VLSID 2027 — Reproducible Co-Design of Domain-Aware Sleep Switches", link: "", date: "2026-10-12" },
-  { type: "Award", text: "Certificate of Recognition — IEEE ISVLSI 2026", link: "", date: "2026-07-07" },
-  { type: "Conference", text: "32nd IEEE HiPC 2025, Hyderabad — Neuromorphic Adaptive Precision RISC-V Processor presented", link: "https://ieeexplore.ieee.org/document/11459250", date: "2025-12-17" },
-  { type: "Fellowship", text: "VLSID Fellow (2024, 2025, 2026) — International Conference on VLSI Design", link: "", date: "2025-01-01" },
-  { type: "Talk", text: "TA session — VL-401: RTL Design and Verification, Monsoon Sem 2025, IIT Mandi", link: "", date: "2025-11-27" },
-  { type: "Journal", text: "Paper accepted at IEEE ISVLSI 2026 — Optimized K2RED, Plantard, and Approximate Modular Multipliers for PQC", link: "", date: "2026-06-01" },
-  { type: "Workshop", text: "Hands-on Workshop on IC Design Tool at IIT Mandi", link: "", date: "2026-02-26" },
+  { type: "Conference", text: "Paper accepted for ORAL presentation at VLSID 2027 — Reproducible Co-Design of Domain-Aware Sleep Switches", link: "", date: "2026-10-12", photo: "image/sahil.jpeg" },
+  { type: "Award", text: "Certificate of Recognition — IEEE ISVLSI 2026", link: "", date: "2026-07-07", photo: "" },
+  { type: "Conference", text: "Presented this paper at 32nd IEEE HiPC 2025, Hyderabad — Neuromorphic Adaptive Precision RISC-V Processor", link: "https://ieeexplore.ieee.org/document/11459250", date: "2025-12-17", photo: "image/Poster contact.png" },
+  { type: "Fellowship", text: "VLSID Fellow (2024, 2025, 2026) — International Conference on VLSI Design", link: "", date: "2025-01-01", photo: "" },
+  { type: "Talk", text: "Teaching Assistant session — VL-401: RTL Design and Verification, Monsoon Sem 2025, IIT Mandi", link: "", date: "2025-11-27", photo: "" },
+  { type: "Journal", text: "Paper accepted at IEEE ISVLSI 2026 — Optimized K2RED, Plantard, and Approximate Modular Multipliers for PQC", link: "", date: "2026-06-01", photo: "" },
+  { type: "Workshop", text: "Hands-on Workshop on IC Design Tool at IIT Mandi", link: "", date: "2026-02-26", photo: "" },
 ];
 
 /* ---------- JOURNEY (Timeline + Pie Chart) ----------
@@ -35,7 +35,7 @@ const JOURNEY = [
   { date: "2024-01", title: "VLSID Fellow 2024", desc: "Selected as VLSID Fellow at the International Conference on VLSI Design.", section: "awards", photo: "", category: "Award" },
   { date: "2024-07", title: "Cadence RTL to GDS Flow — Certification", desc: "Completed Cadence RTL to GDSII flow certification (Entuple Technology).", section: "certifications", photo: "", category: "Certification" },
   { date: "2025-07", title: "Joined IIT Mandi — Research Scholar, A²DSL", desc: "Ph.D. Research Scholar at A²DSL, SCEE, IIT Mandi, under Dr. Bikram Paul.", section: "education", photo: "image/sahil.jpeg", category: "Education" },
-  { date: "2025-12", title: "HiPC 2025 — Neuromorphic RISC-V Processor Paper", desc: "Presented at 32nd IEEE HiPC 2025 Workshop, Hyderabad. First RISC-V processor with real-time precision scaling — 40–52% energy reduction.", section: "publications", photo: "image/Poster contact.png", category: "Publication" },
+  { date: "2025-12", title: "HiPC 2025 — Presented Neuromorphic RISC-V Processor Paper", desc: "Presented this paper at 32nd IEEE HiPC 2025 Workshop, Hyderabad. First RISC-V processor with real-time precision scaling — 40–52% energy reduction.", section: "publications", photo: "image/Poster contact.png", category: "Publication" },
   { date: "2026-07", title: "ISVLSI 2026 — Certificate of Recognition", desc: "IEEE Computer Society Annual Symposium on VLSI — Certificate of Recognition.", section: "awards", photo: "", category: "Award" },
   { date: "2026-10", title: "VLSID 2027 — Paper Accepted for Oral Presentation", desc: "Reproducible Co-Design of Domain-Aware Sleep Switches and Staggered Wake-Up Schedules.", section: "publications", photo: "", category: "Publication" },
 ];
@@ -73,7 +73,7 @@ const GALLERY_CATEGORIES = [
     { src: "image/arpit3.jpg", caption: "With Arpit" },
   ]},
   { name: "HiPC", photos: [
-    { src: "image/Poster contact.png", caption: "HiPC 2025 poster" },
+    { src: "image/Poster contact.png", caption: "Presented this paper at HiPC 2025" },
   ]},
   { name: "VLSID", photos: [
     { src: "image/sahil.jpeg", caption: "VLSID moment" },
