@@ -1,6 +1,6 @@
 /* ============================================================
-   THEMES — colour modes + 6 STYLE SKINS (poora UI change),
-   horizontal mode bar, in-website editor, lightbox, Tier 1.
+   THEMES — colour modes + 12 STYLE SKINS, mode bars apne
+   icon ke neeche, in-website editor, lightbox, Tier 1.
    IS FILE KO EDIT MAT KARO.
    ============================================================ */
 
@@ -77,21 +77,18 @@ html[data-theme="contrast"]{
 --shadow:none}
 
 /* ============================================================
-   STYLE SKINS (🖼️) — poora UI badal jata hai, jaise alag
-   website ho. Har skin radius, borders, fonts, shadows,
-   background pattern sab change karta hai.
+   STYLE SKINS (🖼️) — poora UI badalta hai
    ============================================================ */
 
-/* Glass — frosted glass cards */
-html[data-skin="glass"]{
---radius:22px}
+/* Glass */
+html[data-skin="glass"]{--radius:22px}
 html[data-skin="glass"] body{font-family:'Segoe UI',system-ui,sans-serif}
 html[data-skin="glass"] .card,html[data-skin="glass"] .about-card,html[data-skin="glass"] .news-box,html[data-skin="glass"] .tl-card,html[data-skin="glass"] .pie-card{background:color-mix(in srgb,var(--card) 62%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid color-mix(in srgb,#ffffff 35%,transparent)}
 html[data-skin="glass"] .btn{border-radius:14px}
 html[data-skin="glass"] header{background:color-mix(in srgb,var(--bg2) 55%,transparent);backdrop-filter:blur(18px)}
 html[data-skin="glass"] body::before{content:'';position:fixed;inset:0;z-index:-1;background:radial-gradient(560px 400px at 12% 8%,rgba(99,102,241,.20),transparent 60%),radial-gradient(520px 380px at 88% 82%,rgba(25,155,175,.18),transparent 60%)}
 
-/* Neon Dark — cyberpunk neon */
+/* Neon Dark */
 html[data-skin="neon"]{
 --radius:4px;--border:#3d1f6e;--bg:#0d0221;--bg2:#12042e;--card:#160737;--soft:#1d0a4a;
 --text:#e8e6f8;--muted:#9d8fd4;--accent:#ff2a6d;--accent2:#05d9e8;
@@ -104,7 +101,7 @@ html[data-skin="neon"] .hero-title,html[data-skin="neon"] .section-head h2{text-
 html[data-skin="neon"] .btn{border-radius:3px;letter-spacing:.06em;text-transform:uppercase}
 html[data-skin="neon"] body::before{content:'';position:fixed;inset:0;z-index:-1;background:repeating-linear-gradient(0deg,transparent 0 2px,rgba(5,217,232,.03) 2px 4px)}
 
-/* Paper — notebook / editorial */
+/* Paper */
 html[data-skin="paper"]{
 --radius:2px;--border:#d8cbb8;--bg:#faf4e6;--bg2:#fffdf6;--card:#fffdf6;--soft:#f2ead9;
 --text:#2f2a24;--muted:#6e665a;--accent:#8a5a24;
@@ -113,10 +110,10 @@ html[data-skin="paper"]{
 --shadow:0 2px 10px rgba(63,52,38,.10)}
 html[data-skin="paper"] body{font-family:Georgia,'Times New Roman',serif}
 html[data-skin="paper"] .card{border:1px solid #d8cbb8;border-left:4px solid #8a5a24}
-html[data-skin="paper"] .hero-title,html[data-skin="paper"] .section-head h2{font-family:Georgia,serif;letter-spacing:.01em}
+html[data-skin="paper"] .hero-title,html[data-skin="paper"] .section-head h2{font-family:Georgia,serif}
 html[data-skin="paper"] body::before{content:'';position:fixed;inset:0;z-index:-1;background-image:repeating-linear-gradient(transparent 0 27px,rgba(138,90,36,.07) 27px 28px)}
 
-/* Minimal Mono — clean B&W */
+/* Minimal Mono */
 html[data-skin="mono"]{
 --radius:0px;--border:#c9c9c9;--bg:#ffffff;--bg2:#ffffff;--card:#ffffff;--soft:#f4f4f4;
 --text:#111111;--muted:#5c5c5c;--accent:#111111;--accent2:#111111;--accent3:#111111;
@@ -128,9 +125,8 @@ html[data-skin="mono"] .card{border:1px solid #c9c9c9;box-shadow:none}
 html[data-skin="mono"] .btn{border-radius:0;border:1px solid #111;background:#111;color:#fff}
 html[data-skin="mono"] .btn-ghost{background:#fff;color:#111}
 html[data-skin="mono"] .brand-badge{background:#111;border-radius:0}
-html[data-skin="mono"] .kicker{color:#111;letter-spacing:.2em}
 
-/* Retro 80s — synthwave */
+/* Retro 80s */
 html[data-skin="retro"]{
 --radius:10px;--border:#ffb3d9;--bg:#1a0b2e;--bg2:#241242;--card:#2d1852;--soft:#38206b;
 --text:#fff4f8;--muted:#d8a8c8;--accent:#ff6ec7;--accent2:#ffd8a8;--accent3:#31d0ff;
@@ -142,19 +138,87 @@ html[data-skin="retro"] .hero-title,html[data-skin="retro"] .section-head h2{tex
 html[data-skin="retro"] .card{border:2px solid #ffb3d9}
 html[data-skin="retro"] body::before{content:'';position:fixed;inset:0;z-index:-1;background:linear-gradient(180deg,#1a0b2e 0%,#3b1258 55%,#ff6ec7 130%)}
 
+/* Aurora — soft pastel mesh */
+html[data-skin="aurora"]{
+--radius:20px;--bg:#f6f4fb;--bg2:#ffffff;--card:#ffffff;--soft:#eef0fa;
+--text:#2a2440;--muted:#6b6790;--border:#e4e1f2;--accent:#7c6cf0;
+--grad-ink:linear-gradient(115deg,#7c6cf0 0%,#b48cf2 50%,#6fd6c9 100%);
+--grad-btn:linear-gradient(115deg,#6f5ee8 0%,#a278ea 50%,#58c9bd 100%);
+--shadow:0 12px 32px rgba(124,108,240,.14)}
+html[data-skin="aurora"] body{font-family:'Nunito','Segoe UI',system-ui,sans-serif}
+html[data-skin="aurora"] .card{border-radius:20px}
+html[data-skin="aurora"] body::before{content:'';position:fixed;inset:0;z-index:-1;background:radial-gradient(640px 460px at 8% 4%,rgba(168,237,234,.45),transparent 55%),radial-gradient(560px 420px at 92% 20%,rgba(254,214,227,.45),transparent 55%),radial-gradient(700px 520px at 50% 100%,rgba(195,174,214,.45),transparent 60%)}
+
+/* Luxe Gold — dark premium + gold */
+html[data-skin="luxe"]{
+--radius:6px;--bg:#0f0f0f;--bg2:#171717;--card:#1c1c1c;--soft:#242424;
+--text:#f3eee1;--muted:#b8b09a;--border:#3a352a;--accent:#d4af37;
+--grad-ink:linear-gradient(115deg,#d4af37 0%,#f5e7a3 50%,#b8912e 100%);
+--grad-btn:linear-gradient(115deg,#c9a227 0%,#e9d27a 50%,#a87f22 100%);
+--shadow:0 10px 28px rgba(0,0,0,.55)}
+html[data-skin="luxe"] body{font-family:'Palatino Linotype','Georgia',serif}
+html[data-skin="luxe"] .card{border:1px solid #3a352a;border-top:2px solid #d4af37}
+html[data-skin="luxe"] .hero-title,html[data-skin="luxe"] .section-head h2{letter-spacing:.03em}
+html[data-skin="luxe"] body::before{content:'';position:fixed;inset:0;z-index:-1;background:radial-gradient(600px 340px at 50% -10%,rgba(212,175,55,.16),transparent 60%)}
+
+/* Sakura — soft pink japan */
+html[data-skin="sakura"]{
+--radius:18px;--bg:#fff5f8;--bg2:#fffafc;--card:#ffffff;--soft:#ffeef4;
+--text:#4a2c38;--muted:#9c7284;--border:#f7d9e4;--accent:#e0568c;
+--grad-ink:linear-gradient(115deg,#e0568c 0%,#f78fb3 50%,#f7a8c4 100%);
+--grad-btn:linear-gradient(115deg,#d14b7f 0%,#ef7fa9 50%,#f29cbd 100%);
+--shadow:0 10px 26px rgba(224,86,140,.12)}
+html[data-skin="sakura"] body{font-family:'Yu Gothic','Segoe UI',sans-serif}
+html[data-skin="sakura"] .card{border-radius:18px;border:1px solid #f7d9e4}
+html[data-skin="sakura"] body::before{content:'';position:fixed;inset:0;z-index:-1;background-image:radial-gradient(rgba(224,86,140,.16) 3px,transparent 3.5px);background-size:34px 34px}
+
+/* Carbon Pro — dark professional */
+html[data-skin="carbon"]{
+--radius:12px;--bg:#16181d;--bg2:#1b1e24;--card:#20242b;--soft:#282c34;
+--text:#e8eaee;--muted:#9aa0ab;--border:#333842;--accent:#4f9cff;
+--grad-ink:linear-gradient(115deg,#4f9cff 0%,#6fc1ff 50%,#8be0ff 100%);
+--grad-btn:linear-gradient(115deg,#3d86e6 0%,#5db0f5 50%,#7cccff 100%);
+--shadow:0 12px 30px rgba(0,0,0,.5)}
+html[data-skin="carbon"] body{font-family:'Segoe UI',system-ui,sans-serif}
+html[data-skin="carbon"] .card{border:1px solid #333842;border-left:3px solid #4f9cff}
+html[data-skin="carbon"] body::before{content:'';position:fixed;inset:0;z-index:-1;background:repeating-linear-gradient(45deg,transparent 0 6px,rgba(255,255,255,.015) 6px 12px)}
+
+/* Arctic — icy blue light */
+html[data-skin="arctic"]{
+--radius:16px;--bg:#f0f7ff;--bg2:#ffffff;--card:#ffffff;--soft:#e4eefb;
+--text:#16283e;--muted:#5b7390;--border:#cfdef0;--accent:#2f7fd6;
+--grad-ink:linear-gradient(115deg,#2f7fd6 0%,#57a8ee 50%,#6ed0f2 100%);
+--grad-btn:linear-gradient(115deg,#2b74c6 0%,#4d9be4 50%,#5fc0e8 100%);
+--shadow:0 10px 28px rgba(47,127,214,.13)}
+html[data-skin="arctic"] body{font-family:'Segoe UI',system-ui,sans-serif}
+html[data-skin="arctic"] .card{border-radius:16px;border:1px solid #cfdef0}
+html[data-skin="arctic"] body::before{content:'';position:fixed;inset:0;z-index:-1;background:radial-gradient(680px 420px at 20% -5%,rgba(47,127,214,.12),transparent 55%),radial-gradient(560px 380px at 95% 15%,rgba(110,208,242,.16),transparent 55%)}
+
+/* Candy Pop — playful gradient */
+html[data-skin="candy"]{
+--radius:24px;--bg:#fff0f6;--bg2:#ffffff;--card:#ffffff;--soft:#ffe4f1;
+--text:#3d2036;--muted:#8d6480;--border:#f6d3e6;--accent:#e04f9e;
+--grad-ink:linear-gradient(115deg,#e04f9e 0%,#a18cd1 50%,#fbc2eb 100%);
+--grad-btn:linear-gradient(115deg,#d64490 0%,#9478c7 50%,#eeb5dc 100%);
+--shadow:0 12px 30px rgba(224,79,158,.14)}
+html[data-skin="candy"] body{font-family:'Comic Sans MS','Chalkboard SE','Segoe UI',sans-serif}
+html[data-skin="candy"] .card{border-radius:24px;border:2px solid #f6d3e6}
+html[data-skin="candy"] body::before{content:'';position:fixed;inset:0;z-index:-1;background:linear-gradient(135deg,rgba(255,154,158,.25),rgba(161,140,209,.25) 50%,rgba(251,196,235,.25))}
+
 /* ============================================================
-   HORIZONTAL MODE BAR (news par overlap NAHI — sticky header
-   ke neeche chipti hai, horizontal chips me, space bachati hai)
+   MODE BARS — apne icon ke THEEK neeche khulte hain
+   (btn-wrap anchor), horizontal chips, news overlap nahi
    ============================================================ */
-.mode-bar{position:fixed;top:56px;right:12px;z-index:1100;max-width:min(660px,94vw);background:var(--card);border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow);padding:10px 12px;display:none}
+.btn-wrap{position:relative;display:inline-flex}
+.mode-bar{position:absolute;top:calc(100% + 10px);right:0;z-index:1100;max-width:min(480px,90vw);background:var(--card);border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow);padding:10px 12px;display:none}
 .mode-bar.open{display:block}
 .mode-bar-title{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
-.mode-chips{display:flex;flex-wrap:wrap;gap:6px;flex-direction:row}
+.mode-chips{display:flex;flex-wrap:wrap;gap:6px;flex-direction:row;justify-content:flex-end}
 .mode-chip{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;border:1px solid var(--border);background:var(--bg2);color:var(--text);font-size:.78rem;cursor:pointer;transition:all .15s ease;white-space:nowrap}
 .mode-chip:hover{border-color:var(--accent)}
 .mode-chip.active{border-color:var(--accent);box-shadow:0 0 0 2px color-mix(in srgb,var(--accent) 20%,transparent);font-weight:600}
 .mode-chip .swatch{width:14px;height:14px;border-radius:50%;flex:none;border:1px solid rgba(0,0,0,.15)}
-@media(max-width:640px){.mode-bar{left:12px;right:12px;max-width:none;top:52px}}
+@media(max-width:640px){.mode-bar{right:auto;left:50%;transform:translateX(-50%);max-width:92vw}}
 
 /* ---------- in-website editor modal ---------- */
 .ed-modal{position:fixed;inset:0;z-index:1300;background:rgba(8,6,22,.55);backdrop-filter:blur(3px);display:none;place-items:center;padding:16px}
@@ -176,8 +240,9 @@ html[data-skin="retro"] body::before{content:'';position:fixed;inset:0;z-index:-
 .ed-preview{background:var(--bg2);color:var(--text);border:1px solid var(--border)!important}
 .ed-save{background:linear-gradient(115deg,#5d60e3,#944bda 50%,#158191);color:#fff}
 
-/* ---------- pencil FAB ---------- */
+/* ---------- pencil FAB + lock badge ---------- */
 .edit-fab{position:fixed;bottom:22px;right:22px;z-index:950;width:54px;height:54px;border-radius:50%;border:none;cursor:pointer;background:var(--grad-btn);color:#fff;font-size:1.35rem;display:grid;place-items:center;box-shadow:0 12px 30px rgba(0,0,0,.3);padding:0}
+.edit-fab::after{content:'🔒';position:absolute;top:-4px;right:-4px;width:22px;height:22px;border-radius:50%;background:#fff;border:1px solid var(--border);font-size:.62rem;display:grid;place-items:center;box-shadow:0 2px 6px rgba(0,0,0,.25)}
 
 /* ---------- owner login ---------- */
 .login-mask{position:fixed;inset:0;z-index:1200;background:rgba(8,6,22,.55);display:none;place-items:center;padding:20px}
