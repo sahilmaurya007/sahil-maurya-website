@@ -23,11 +23,10 @@ const CERTIFICATIONS = [
 ];
 
 const AWARDS = [
-  { title: "Certificate of Recognition — ISVLSI 2026", issuer: "IEEE Computer Society Annual Symposium on VLSI (ISVLSI)", date: "2026" },
-  { title: "Certificate of Participation — 32nd IEEE HiPC 2025", issuer: "IEEE International Conference on High Performance Computing, Data, and Analytics, Hyderabad", date: "2025" },
-  { title: "Gold Medalist — Batch Topper, M.Tech VLSI & Embedded Systems (CGPA 9.11)", issuer: "IIIT Guwahati", date: "2023" },
-  { title: "VLSID Fellow (2024, 2025, 2026)", issuer: "International Conference on VLSI Design (VLSID)", date: "2024–2026" },
-  { title: "Best Paper Nominee", issuer: "IEEE SILCON 2024", date: "2024" },
+  { title: "Certificate of Recognition — ISVLSI 2026 (Tier 1 Conference)", issuer: "IEEE Computer Society Annual Symposium on VLSI (ISVLSI)", date: "2026" },
+  { title: "Certificate of Participation — 32nd IEEE HiPC 2025 (Tier 1 Conference)", issuer: "IEEE International Conference on High Performance Computing, Data, and Analytics, Hyderabad", date: "2025" },
+  { title: "Batch Topper — M.Tech VLSI & Embedded Systems (CGPA 9.11, 1st Rank)", issuer: "IIIT Guwahati", date: "2023" },
+  { title: "VLSID Fellow (2024, 2025, 2026) — Tier 1 Conference", issuer: "International Conference on VLSI Design (VLSID)", date: "2024–2026" },
   { title: "2nd Prize — Creative Writing Competition", issuer: "EN-LIT, Lucknow University", date: "" },
 ];
 
