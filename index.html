@@ -2,1241 +2,162 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Sahil Maurya - Research Scholar @ IIT Mandi | VLSI | PQC | RISC-V</title>
-
-<style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: 'Segoe UI', 'Roboto', 'Arial', sans-serif;
-    background-color: #eef2f5;
-    color: #1e2a3e;
-    line-height: 1.6;
-}
-
-/* Hero section with full width slider */
-.hero {
-    position: relative;
-    width: 100%;
-    height: 580px;
-    overflow: hidden;
-    margin-bottom: 30px;
-    background-color: #0a1a2a;
-}
-
-/* slider container */
-.slider-container {
-    position: relative;
-    width: 100%;
-    max-width: 1400px;
-    height: 100%;
-    margin: 0 auto;
-    overflow: hidden;
-}
-
-.slider {
-    position: relative;
-    width: 100%;
-    height: 100%;
-}
-
-.slide {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: center center;
-    background-repeat: no-repeat;
-    opacity: 0;
-    animation: kenBurnsSlide 72s infinite;
-    border-radius: 0;
-    transition: opacity 1s ease;
-}
-
-/* IIT Mandi images (public github raw) */
-.slide1 { background-image: url('https://raw.githubusercontent.com/sahilmaurya007/sahil-maurya-website/main/IIT%20Mandi%20Image%20Campus%20Gallery/Image1.jpeg'); animation-delay: 0s; }
-.slide2 { background-image: url('https://raw.githubusercontent.com/sahilmaurya007/sahil-maurya-website/main/IIT%20Mandi%20Image%20Campus%20Gallery/Image2.jpeg'); animation-delay: 6s; }
-.slide3 { background-image: url('https://raw.githubusercontent.com/sahilmaurya007/sahil-maurya-website/main/IIT%20Mandi%20Image%20Campus%20Gallery/Image3.jpeg'); animation-delay: 12s; }
-.slide4 { background-image: url('https://raw.githubusercontent.com/sahilmaurya007/sahil-maurya-website/main/IIT%20Mandi%20Image%20Campus%20Gallery/Image4.jpeg'); animation-delay: 18s; }
-.slide5 { background-image: url('https://raw.githubusercontent.com/sahilmaurya007/sahil-maurya-website/main/IIT%20Mandi%20Image%20Campus%20Gallery/Image5.jpeg'); animation-delay: 24s; }
-.slide6 { background-image: url('https://raw.githubusercontent.com/sahilmaurya007/sahil-maurya-website/main/IIT%20Mandi%20Image%20Campus%20Gallery/Image6.jpeg'); animation-delay: 30s; }
-.slide7 { background-image: url('https://raw.githubusercontent.com/sahilmaurya007/sahil-maurya-website/main/IIT%20Mandi%20Image%20Campus%20Gallery/Image7.jpeg'); animation-delay: 36s; }
-/* Personal chip images (relative path — assuming images exist in "image/" folder) */
-.slide8 { background-image: url('image/Best%20Imageee.png'); animation-delay: 42s; }
-.slide9 { background-image: url('image/Chip2GF180nm.png'); animation-delay: 48s; }
-.slide10 { background-image: url('image/chip1skywater130nm.png'); animation-delay: 54s; }
-.slide11 { background-image: url('image/chip3ASAPnm.png'); animation-delay: 60s; }
-.slide12 { background-image: url('image/chip4nangate45nm.png'); animation-delay: 66s; }
-
-/* Smooth keyframes with longer visibility */
-@keyframes kenBurnsSlide {
-    0% { opacity: 0; transform: scale(1); }
-    3% { opacity: 1; transform: scale(1.02); }
-    12% { opacity: 1; transform: scale(1.05); }
-    15% { opacity: 0; transform: scale(1.08); }
-    100% { opacity: 0; transform: scale(1); }
-}
-
-/* Hero overlay content */
-.hero-content {
-    position: absolute;
-    bottom: 12%;
-    left: 50%;
-    transform: translateX(-50%);
-    text-align: center;
-    color: white;
-    z-index: 15;
-    background: none;           /* ✅ Removes black box */
-    backdrop-filter: none;      /* ✅ Removes blur */
-  /* Hero overlay content */
-.hero-content {
-    position: absolute;
-    bottom: 12%;
-    left: 50%;
-    transform: translateX(-50%);
-    text-align: center;
-    color: white;
-    z-index: 15;
-    background: none !important;    
-    backdrop-filter: none !important; 
-    border: none !important;         
-    box-shadow: none !important;     
-    padding: 0; 
-    max-width: 85%;
-    width: auto;
-}
-
-.hero-content h1 {
-    font-size: 2.8rem;
-    margin-bottom: 12px;
-    color: white;
-    font-weight: 700;
-    text-shadow: 2px 2px 10px rgba(0,0,0,0.9); 
-}
-
-.hero-content p {
-    font-size: 1.2rem;
-    font-weight: 500;
-    color: #f8f9fa;
-    text-shadow: 1px 1px 8px rgba(0,0,0,0.9); 
-}
-    background: none !important;    /* Forces the box to disappear */
-    backdrop-filter: none !important; /* Removes the blur */
-    border: none !important;         /* Removes the white border */
-    box-shadow: none !important;     /* Removes the shadow box */
-    padding: 0; 
-    max-width: 85%;
-    width: auto;
-}
-
-.hero-content h1 {
-    font-size: 2.8rem;
-    margin-bottom: 12px;
-    color: white;
-    font-weight: 700;
-    text-shadow: 2px 2px 10px rgba(0,0,0,0.9); /* Makes text readable on images */
-}
-
-.hero-content p {
-    font-size: 1.2rem;
-    font-weight: 500;
-    color: #f8f9fa;
-    text-shadow: 1px 1px 8px rgba(0,0,0,0.9); /* Makes description readable */
-}
-    color: white;
-    border-bottom: none;
-    letter-spacing: 1px;
-    font-weight: 700;
-    text-shadow: 0 2px 5px rgba(0,0,0,0.5);
-}
-
-.hero-content p {
-    font-size: 1.2rem;
-    font-weight: 500;
-    color: #f8f9fa;
-}
-
-/* Main content card */
-.main-content {
-    max-width: 1300px;
-    margin: -40px auto 50px auto;
-    padding: 35px 55px;
-    background: white;
-    border-radius: 32px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-    position: relative;
-    z-index: 20;
-}
-
-h1.section-title {
-    color: #0a5c7e;
-    border-left: 6px solid #d9534f;
-    padding-left: 18px;
-    margin: 30px 0 20px 0;
-    font-size: 1.9rem;
-}
-
-h2 {
-    color: #c33c2e;
-    border-bottom: 2px solid #d9534f;
-    padding-bottom: 6px;
-    margin: 25px 0 15px 0;
-    font-weight: 600;
-}
-
-.navy-blue-light {
-    color: #1c6e8f;
-    font-weight: 600;
-    border-bottom: 2px solid #1c6e8f;
-    display: inline-block;
-    padding-bottom: 5px;
-    margin-top: 20px;
-}
-
-.highlight-blue {
-    color: #0077b6;
-    font-weight: 600;
-}
-
-.area-of-interest {
-    color: #0077b6;
-    font-weight: 600;
-    background: #e7f3fa;
-    display: inline-block;
-    padding: 4px 12px;
-    border-radius: 30px;
-}
-
-/* Profile area */
-.profile-section {
-    display: flex;
-    gap: 40px;
-    margin: 20px 0 30px;
-    flex-wrap: wrap;
-    align-items: center;
-    background: #f9fbfd;
-    padding: 20px;
-    border-radius: 28px;
-}
-
-.profile-img {
-    width: 170px;
-    height: 170px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 4px solid #1c6e8f;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-    background: #eef2fa;
-}
-
-.profile-info {
-    flex: 1;
-}
-
-.profile-info p {
-    margin: 8px 0;
-}
-
-.linkedin-profile {
-    display: inline-block;
-    background-color: #0a66c2;
-    color: white;
-    padding: 10px 28px;
-    border-radius: 40px;
-    margin: 12px 8px 0 0;
-    text-decoration: none;
-    font-weight: 600;
-    transition: 0.2s;
-    border: none;
-    font-size: 0.9rem;
-}
-
-.linkedin-profile:hover {
-    background-color: #004182;
-    transform: translateY(-2px);
-    text-decoration: none;
-    color: white;
-}
-
-/* coursework grid */
-.coursework-column {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 18px;
-    background: #f8f9fc;
-    padding: 20px;
-    border-radius: 20px;
-    margin: 15px 0;
-}
-
-.course-item {
-    padding: 6px 0;
-    border-bottom: 1px dashed #ccc;
-}
-
-/* publication cards */
-.publication-item {
-    margin-bottom: 22px;
-    padding: 18px 20px;
-    background: #ffffff;
-    border-left: 5px solid #1c6e8f;
-    border-radius: 16px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    transition: all 0.2s;
-}
-
-.publication-item:hover {
-    transform: translateX(6px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-}
-
-.publication-title {
-    font-weight: 800;
-    color: #0a5c7e;
-    font-size: 1.05rem;
-}
-
-.publication-venue {
-    color: #b43b2e;
-    font-weight: 600;
-    font-size: 0.9rem;
-}
-
-.publication-status {
-    color: #2c7a4d;
-    font-weight: 600;
-}
-
-/* chip gallery (ASIC designs) */
-.chip-gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
-    gap: 25px;
-    margin: 30px 0;
-}
-
-.chip-card {
-    background: linear-gradient(145deg, #14232e, #0c1820);
-    border-radius: 24px;
-    padding: 18px 12px;
-    text-align: center;
-    transition: all 0.3s;
-    box-shadow: 0 10px 18px rgba(0,0,0,0.2);
-}
-
-.chip-card:hover {
-    transform: translateY(-8px);
-    background: #1f3543;
-}
-
-.chip-card img {
-    width: 100%;
-    height: 150px;
-    object-fit: contain;
-    border-radius: 14px;
-    background: #ffffff10;
-    padding: 8px;
-}
-
-.chip-card p {
-    margin-top: 14px;
-    color: #7acbe8;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-}
-
-/* gallery grid for campus photos */
-.gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 22px;
-    margin: 25px 0;
-}
-
-.gallery-item {
-    background: #fff;
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-    transition: 0.25s ease;
-    cursor: pointer;
-}
-
-.gallery-item:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 18px 30px rgba(0,0,0,0.15);
-}
-
-.gallery-item img {
-    width: 100%;
-    height: 190px;
-    object-fit: cover;
-}
-
-.gallery-caption {
-    padding: 12px;
-    text-align: center;
-    font-size: 0.85rem;
-    background: #fefefe;
-    font-weight: 500;
-    color: #2c5368;
-}
-
-.nav-links {
-    list-style: none;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 15px;
-    padding: 20px 0 5px;
-    margin-bottom: 15px;
-    background: transparent;
-}
-
-.nav-links li a {
-    display: inline-block;
-    padding: 8px 22px;
-    background: #eef2f7;
-    border-radius: 40px;
-    color: #1e6f8f;
-    text-decoration: none;
-    font-weight: 600;
-    transition: all 0.2s;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-}
-
-.nav-links li a:hover {
-    background: #1c6e8f;
-    color: white;
-    transform: translateY(-2px);
-}
-
-.quote {
-    font-size: 1.4rem;
-    font-weight: 500;
-    color: #1c5c7a;
-    text-align: center;
-    padding: 30px 20px;
-    font-style: italic;
-    background: #e3f0f9;
-    border-radius: 40px;
-    margin: 35px 0;
-    border-left: 8px solid #d9534f;
-    border-right: 8px solid #d9534f;
-}
-
-footer {
-    text-align: center;
-    padding: 25px;
-    background: #0a1e2c;
-    color: #ccc;
-    border-radius: 30px 30px 0 0;
-    margin-top: 20px;
-}
-
-@media (max-width: 800px) {
-    .hero { height: 480px; }
-    .hero-content h1 { font-size: 1.8rem; padding: 0 10px; }
-    .hero-content p { font-size: 0.9rem; }
-    .main-content { padding: 20px 18px; margin-top: -30px; }
-    .profile-section { flex-direction: column; text-align: center; }
-    .coursework-column { grid-template-columns: 1fr; }
-    .hero-content { padding: 20px; bottom: 8%; width: 90%; }
-}
-
-@media (max-width: 480px) {
-    .hero { height: 400px; }
-    .hero-content h1 { font-size: 1.4rem; }
-}
-
-/* Gallery modal and filter styles */
-.filter-btns {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.filter-btns button {
-    margin: 5px;
-    padding: 8px 15px;
-    border: none;
-    border-radius: 20px;
-    background: #111;
-    color: #00bfff;
-    cursor: pointer;
-}
-
-.filter-btns button:hover {
-    background: #00bfff;
-    color: black;
-}
-
-.gallery-overlay {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    padding: 10px;
-    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
-}
-
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 999;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.95);
-    text-align: center;
-}
-
-.modal.active { display: block; }
-
-.modal img {
-    max-width: 90%;
-    max-height: 80%;
-    margin-top: 40px;
-}
-
-.close, .prev, .next {
-    position: absolute;
-    color: white;
-    font-size: 30px;
-    cursor: pointer;
-}
-
-.close { top: 20px; right: 40px; }
-.prev { top: 50%; left: 20px; }
-.next { top: 50%; right: 20px; }
-
-.gallery-item {
-    position: relative;
-}
-</style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sahil Maurya — Research Scholar, IIT Mandi</title>
+<meta name="description" content="Sahil Maurya — Research Scholar at IIT Mandi. VLSI Design, Hardware Security, Post-Quantum Cryptography, RISC-V, ASIC & FPGA.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-<div class="hero">
-    <div class="slider-container">
-        <div class="slider">
-            <div class="slide slide1"></div>
-            <div class="slide slide2"></div>
-            <div class="slide slide3"></div>
-            <div class="slide slide4"></div>
-            <div class="slide slide5"></div>
-            <div class="slide slide6"></div>
-            <div class="slide slide7"></div>
-            <div class="slide slide8"></div>
-            <div class="slide slide9"></div>
-            <div class="slide slide10"></div>
-            <div class="slide slide11"></div>
-            <div class="slide slide12"></div>
-        </div>
+<a class="skip" href="#main">Skip to the main content</a>
+<header>
+  <nav class="nav" aria-label="Primary">
+    <a class="brand" href="#top">
+      <span class="brand-badge">SM</span>
+      <span><span class="brand-name">Sahil Maurya</span><br><span class="brand-sub">Research Scholar · SCEE, IIT Mandi</span></span>
+    </a>
+    <button class="icon-btn" id="menuBtn" aria-label="Toggle menu">☰</button>
+    <div class="nav-links" id="navLinks">
+      <a href="#about">About</a><a href="#contact">Contact</a><a href="#education">Education</a>
+      <a href="#publications">Publications</a><a href="#projects">Projects</a><a href="#skills">Skills</a>
+      <a href="#coursework">Coursework</a><a href="#certifications">Certifications</a>
+      <a href="#awards">Achievements</a><a href="#chip">Chips</a><a href="#gallery">Gallery</a>
+      <a href="#references">References</a>
     </div>
-    <div class="hero-content">
-        <h1>Sahil Maurya</h1>
-        <p>Research Scholar @ IIT Mandi</p>
-        <p>VLSI | Post-Quantum Cryptography | RISC-V | ASIC & FPGA</p>
+    <button class="icon-btn" id="themeBtn" aria-label="Toggle dark mode" title="Light / Dark">🌙</button>
+  </nav>
+</header>
+<div id="top"></div>
+<main id="main">
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <p class="kicker" id="heroKicker"></p>
+      <h1 class="hero-title" id="heroName"></h1>
+      <p class="hero-sub" id="heroIntro"></p>
+      <div class="chips" id="heroTags"></div>
+      <div class="btn-row">
+        <a class="btn btn-primary" id="heroMailBtn" href="#">✉ Email me</a>
+        <a class="btn btn-ghost" href="#publications">See my research</a>
+        <a class="btn btn-ghost" id="heroScholarBtn" href="#">Google Scholar</a>
+      </div>
     </div>
-</div>
-
-
-<div class="main-content">
-    <div style="text-align: center; margin-bottom: 20px;">
-        <a href="https://www.linkedin.com/in/sahilmaurya007/" class="linkedin-profile" target="_blank">🔗 Visit my LinkedIn Profile</a>
-        <a href="ChipDesign.html" class="linkedin-profile">💻 ChipDesign With OpenSource By Sahil</a>
+    <div class="hero-photo-wrap">
+      <div class="hero-photo-ring">
+        <img class="hero-photo" id="heroPhoto" src="image/SAHIL.jpg" alt="Sahil Maurya">
+        <div class="hero-photo-fallback" id="photoFallback" style="display:none">SM</div>
+      </div>
     </div>
-
-    <ul class="nav-links">
-        <li><a href="#about">About</a></li>
-        <li><a href="#contact">Contact</a></li>
-        <li><a href="#education">Education</a></li>
+  </div>
+</section>
+<section id="about" class="alt">
+  <div class="wrap">
+    <div class="section-head reveal"><p class="kicker">01 · Profile</p><h2>About me</h2><div class="rule"></div></div>
+    <div class="about-layout">
+      <div class="about-body" id="aboutBody"></div>
+      <aside class="about-card" id="labCard"></aside>
+    </div>
+    <h3 class="sub-h">Research interests</h3>
+    <div class="pill-row" id="interestsRow"></div>
+  </div>
+</section>
+<section id="contact">
+  <div class="wrap">
+    <div class="section-head reveal"><p class="kicker">02 · Reach out</p><h2>Contact</h2><div class="rule"></div></div>
+    <div class="contact-grid" id="contactGrid"></div>
+  </div>
+</section>
+<section id="education" class="alt">
+  <div class="wrap">
+    <div class="section-head reveal"><p class="kicker">03 · Academics</p><h2>Education</h2><div class="rule"></div></div>
+    <div class="grid g2" id="eduGrid"></div>
+  </div>
+</section>
+<section id="publications">
+  <div class="wrap">
+    <div class="section-head reveal"><p class="kicker">04 · Latest work</p><h2>Publications</h2><div class="rule"></div></div>
+    <div class="grid" id="pubList"></div>
+  </div>
+</section>
+<section id="projects" class="alt">
+  <div class="wrap">
+    <div class="section-head reveal"><p class="kicker">05 · Research projects</p><h2>Projects</h2><div class="rule"></div></div>
+    <div class="grid g2" id="projGrid"></div>
+  </div>
+</section>
+<section id="skills">
+  <div class="wrap">
+    <div class="section-head reveal"><p class="kicker">06 · Toolchain</p><h2>Technical skills</h2><div class="rule"></div></div>
+    <div class="grid g2" id="skillsGrid"></div>
+  </div>
+</section>
+<section id="coursework" class="alt">
+  <div class="wrap">
+    <div class="section-head reveal"><p class="kicker">07 · In the classroom</p><h2>Relevant coursework</h2><div class="rule"></div></div>
+    <div class="pill-row" id="courseRow"></div>
+  </div>
+</section>
+<section id="certifications">
+  <div class="wrap">
+    <div class="section-head reveal"><p class="kicker">08 · Credentials</p><h2>Certifications</h2><div class="rule"></div></div>
+    <div class="grid g3" id="certGrid"></div>
+  </div>
+</section>
+<section id="awards" class="alt">
+  <div class="wrap">
+    <div class="section-head reveal"><p class="kicker">09 · Recognition</p><h2>Achievements &amp; Awards</h2><div class="rule"></div></div>
+    <div class="grid g2" id="awardGrid"></div>
+  </div>
+</section>
+<section id="chip">
+  <div class="wrap">
+    <div class="section-head reveal"><p class="kicker">10 · From the lab</p><h2>Chip design gallery — ASIC / FPGA</h2><div class="rule"></div></div>
+    <div class="gal g4" id="chipGal"></div>
+  </div>
+</section>
+<section id="gallery" class="alt">
+  <div class="wrap">
+    <div class="section-head reveal"><p class="kicker">11 · Moments</p><h2>Gallery</h2><div class="rule"></div></div>
+    <div class="gal g4" id="photoGal"></div>
+  </div>
+</section>
+<section id="references">
+  <div class="wrap">
+    <div class="section-head reveal"><p class="kicker">12 · Endorsements</p><h2>References</h2><div class="rule"></div></div>
+    <div class="grid g3" id="refGrid"></div>
+  </div>
+</section>
+<section class="alt">
+  <div class="wrap">
+    <div class="card reveal" style="text-align:center;padding:36px">
+      <div style="font-size:1.05rem;max-width:60ch;margin:0 auto" id="quoteText"></div>
+      <p class="muted" style="margin-top:10px" id="quoteBy"></p>
+    </div>
+  </div>
+</section>
+</main>
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <div class="foot-brand"><span class="brand-badge">SM</span><span><strong>Sahil Maurya</strong><br><span class="muted" style="font-size:.82rem">VLSI · Hardware Security · PQC · RISC-V</span></span></div>
+        <p class="muted" style="font-size:.86rem;max-width:34ch" id="footAddr"></p>
+      </div>
+      <div><h4>Elsewhere</h4><ul id="footLinks"></ul></div>
+      <div><h4>This site</h4><ul>
         <li><a href="#publications">Publications</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#skills">Skills</a></li>
-        <li><a href="#coursework">Coursework</a></li>
-        <li><a href="#certifications">Certifications</a></li>
-        <li><a href="#achievements">Achievements</a></li>
-        <li><a href="#chips">Chip Gallery</a></li>
         <li><a href="#gallery">Gallery</a></li>
-        <li><a href="#references">References</a></li>
-    </ul>
-
-    <div class="profile-section" id="about">
-        <img src="image/SAHIL.jpg" alt="Sahil Maurya" class="profile-img" onerror="this.src='image/sahil.jpeg'">
-        <div class="profile-info">
-            <h2 class="navy-blue-light">1. About Me</h2>
-            <p style="text-align: justify;">
-                Hello and welcome to my profile! I'm <strong>Sahil Maurya</strong>, currently a 
-                <strong style="color: #d9534f;">Research Scholar at the School of Computing & Electrical Engineering (SCEE), IIT Mandi</strong>. 
-                I am a <strong>VLSI and Hardware Security researcher</strong>, specializing in 
-                <strong>Post-Quantum Cryptography (PQC) Hardware Acceleration</strong>, 
-                <strong>Secure RISC-V SoC Architectures</strong>, 
-                <strong>Digital VLSI Design</strong>, and 
-                <strong>FPGA/ASIC Implementation</strong>.
-            </p>
-            <p style="text-align: justify; margin-top: 10px;">
-                Prior to joining IIT Mandi, I completed my M.Tech in VLSI & Embedded System from 
-                <strong>IIIT Guwahati</strong> with a CGPA of 9.11, securing the 
-                <strong>1st Rank</strong>. 
-                My research focuses on developing quantum-resistant cryptographic accelerators 
-                for NIST-standardized algorithms (CRYSTALS-Kyber, Dilithium) with optimized 
-                Power, Performance, and Area (PPA).
-            </p>
-        </div>
+        <li><a href="#contact">Contact</a></li>
+      </ul></div>
     </div>
-
-    <div id="contact">
-        <h2 class="navy-blue-light">2. Contact Information</h2>
-        <p>📞 +91-7270020537</p>
-        <p>📧 d24204@students.iitmandi.ac.in (IIT Mandi)</p>
-        <p>📧 sahil.maurya21@iiitg.ac.in</p>
-        <p>🏠 Janki Vihar Colony, Jankipuram, Lucknow, Uttar Pradesh - 226021</p>
-        <p>🏛️ Current: IIT Mandi, Kamand Campus, Mandi, Himachal Pradesh - 175075</p>
-    </div>
-
-    <div id="education">
-        <h2 class="navy-blue-light">3. Education</h2>
-        <ul>
-            <li><strong>IIT Mandi</strong> - Research Scholar (Ph.D.) at SCEE Department (2025 - Present) | CGPA: 8.33/10.0</li>
-            <li><strong>IIIT Guwahati</strong> - M.TECH VLSI & Embedded System (May 2023) | CGPA: 9.11 <span class="highlight-blue">- Gold Medalist</span></li>
-            <li><strong>University of Lucknow</strong> - B.TECH Electronics & Communication Engineering (2021) | 66.1%</li>
-            <li><strong>UP Board</strong> - Higher Secondary (2016) | 85% | Secondary (2014) | 85%</li>
-        </ul>
-    </div>
-
-    <div id="publications">
-        <h2 class="navy-blue-light">4. Publications</h2>
-        <div class="publication-item">
-            <div class="publication-title">Neuromorphic Adaptive Precision RISC-V Processor with Real-Time Precision Scaling and Neuronal State Management</div>
-            <div><span class="publication-venue">IEEE HiPC 2025</span> | <span class="publication-status">Accepted</span></div>
-            <div>First RISC-V processor with real-time precision scaling achieving 40-52% energy reduction.</div>
-        </div>
-        <div class="publication-item">
-            <div class="publication-title">Approximate Modular Multipliers for R-LWE Cryptosystems on FPGAs and ASICs</div>
-            <div><span class="publication-venue">IEEE SILCON 2024</span> | <span class="publication-status">Published</span></div>
-            <div>34% area reduction, 33% power savings with &lt;1% accuracy loss.</div>
-        </div>
-    </div>
-
-    <div id="projects">
-        <h2 class="navy-blue-light">5. Research Projects</h2>
-        <ul>
-            <li><strong>CRYSTALS-Kyber NTT Hardware Accelerator</strong> - High-throughput, side-channel resistant NTT architecture (245 MHz, 1.28 Gbps)</li>
-            <li><strong>Approximate Modular Multiplier for R-LWE</strong> - 34% area reduction, 33% power savings <span class="highlight-blue">[IEEE SILCON 2024]</span></li>
-            <li><strong>Toom-Cook Multipliers for Cryptosystem</strong> - 32-bit Toom-Cook 2.5 and 3 implementations on FPGA</li>
-            <li><strong>IoT Weather Monitoring System</strong> - Arduino UNO based system with cloud integration</li>
-        </ul>
-    </div>
-
-    <div id="skills">
-        <h2 class="navy-blue-light">6. Technical Skills</h2>
-        <p><strong>Languages:</strong> Verilog HDL, SystemVerilog, VHDL, Python, C, RISC-V Assembly, TCL</p>
-        <p><strong>EDA Tools:</strong> Xilinx Vivado, Cadence Genus/Innovus, OpenLane/OpenROAD, ModelSim, Intel Quartus</p>
-        <p><strong>Research Domains:</strong> Post-Quantum Cryptography (Kyber/Dilithium), RISC-V SoC, Digital VLSI, Side-Channel Analysis, Hardware Security</p>
-    </div>
-
-    <div id="coursework">
-        <h2 class="navy-blue-light">7. Relevant Coursework</h2>
-        <div class="coursework-column">
-            <ul>
-                <li>Post Quantum Security</li>
-                <li>Low Power VLSI</li>
-                <li>VLSI Circuits and System</li>
-                <li>Architectural Design of Digital ICs</li>
-            </ul>
-            <ul>
-                <li>Reconfigurable Computing</li>
-                <li>System Modelling Lab</li>
-                <li>VLSI CAD Lab</li>
-                <li>Digital VLSI Design</li>
-            </ul>
-        </div>
-    </div>
-
-    <div id="certifications">
-        <h2 class="navy-blue-light">8. Certifications</h2>
-        <ul>
-            <li>System Design Using Verilog HDL - Udemy (2022)</li>
-            <li>VSD Static Timing Analysis Parts 1 & 2 - Udemy (2025)</li>
-            <li>Python for Data Science, AI & Development - Coursera (2023)</li>
-            <li>Cadence RTL to GDS Flow - Entuple Technology (2024)</li>
-            <li>VLSI Design Flow using Vivado - CoreEL/Xilinx (2024)</li>
-        </ul>
-    </div>
-
-    <div id="achievements">
-        <h2 class="navy-blue-light">9. Achievements & Awards</h2>
-        <ul>
-            <li>🏅 <strong>Gold Medalist</strong> - Highest CGPA (9.11) in M.Tech ECE, IIIT Guwahati</li>
-            <li>🎯 <strong>IIT Mandi Research Scholar</strong> - SCEE Department (2025-Present)</li>
-            <li>📚 <strong>IEEE HiPC 2025</strong> & <strong>IEEE SILCON 2024</strong> Publications</li>
-            <li>⭐ <strong>Best Paper Nominee</strong> - IEEE SILCON 2024</li>
-            <li>✍️ 2nd Prize - Creative Writing competition, EN-LIT Lucknow University</li>
-        </ul>
-    </div>
-
-
-
-
-
-    
-<div id="chips">
-    <h2 class="navy-blue-light">🔬 Chip Design Gallery (ASIC / FPGA)</h2>
-
-    <style>
-        #chips {
-            margin-top: 50px;
-        }
-
-        .chip-gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 25px;
-            margin-top: 30px;
-        }
-
-        .chip-card {
-            position: relative;
-            border-radius: 18px;
-            overflow: hidden;
-            background: #0a0a0a;
-            cursor: pointer;
-            transform-style: preserve-3d;
-            transition: transform 0.2s ease, box-shadow 0.3s ease;
-        }
-
-        .chip-card:hover {
-            box-shadow: 0 20px 40px rgba(0,212,255,0.25);
-        }
-
-        .chip-card img {
-            width: 100%;
-            height: 220px;
-            object-fit: contain;
-            background: #000;
-            transition: transform 0.3s ease;
-        }
-
-        .chip-overlay {
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            padding: 12px;
-            background: linear-gradient(to top, rgba(0,0,0,0.85), transparent);
-        }
-
-        .chip-caption {
-            color: #ffcc00;
-            text-align: center;
-            font-size: 14px;
-            font-weight: 600;
-        }
-
-        /* 🔥 MODAL */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 9999;
-            padding-top: 40px;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.95);
-            backdrop-filter: blur(8px);
-        }
-
-        .modal-content {
-            display: block;
-            margin: auto;
-            max-width: 85%;
-            max-height: 80vh;
-            border-radius: 20px;
-            box-shadow: 0 0 40px rgba(0,212,255,0.4);
-            animation: zoom 0.4s ease;
-        }
-
-        @keyframes zoom {
-            from {transform: scale(0.8);}
-            to {transform: scale(1);}
-        }
-
-        .close {
-            position: absolute;
-            top: 20px;
-            right: 40px;
-            color: #fff;
-            font-size: 40px;
-            cursor: pointer;
-        }
-
-        .nav-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 40px;
-            color: white;
-            cursor: pointer;
-            padding: 10px;
-        }
-
-        .prev { left: 20px; }
-        .next { right: 20px; }
-    </style>
-
-    <div class="chip-gallery">
-
-        <div class="chip-card"><img src="image/Chip2GF180nm.png"><div class="chip-overlay"><div class="chip-caption">GF180nm Technology</div></div></div>
-        <div class="chip-card"><img src="image/chip1skywater130nm.png"><div class="chip-overlay"><div class="chip-caption">SkyWater 130nm</div></div></div>
-        <div class="chip-card"><img src="image/chip3ASAPnm.png"><div class="chip-overlay"><div class="chip-caption">ASAP 7nm</div></div></div>
-        <div class="chip-card"><img src="image/chip4nangate45nm.png"><div class="chip-overlay"><div class="chip-caption">Nangate 45nm</div></div></div>
-        <div class="chip-card"><img src="image/Complete soc.jpeg"><div class="chip-overlay"><div class="chip-caption">RISC-V SoC</div></div></div>
-        <div class="chip-card"><img src="image/Full_Adder_IOPlanning.png"><div class="chip-overlay"><div class="chip-caption">I/O Planning</div></div></div>
-        <div class="chip-card"><img src="image/full_adder_floarplanning.png"><div class="chip-overlay"><div class="chip-caption">Floorplan</div></div></div>
-        <div class="chip-card"><img src="image/Gemini_Generated_Image_ru8yh6ru8yh6ru8y.png"><div class="chip-overlay"><div class="chip-caption">Parashar View</div></div></div>
-
-    </div>
-
-    <!-- 🔥 MODAL -->
-    <div id="imgModal" class="modal">
-        <span class="close">&times;</span>
-        <img class="modal-content" id="modalImg">
-        <div class="nav-btn prev">&#10094;</div>
-        <div class="nav-btn next">&#10095;</div>
-    </div>
-
-    <script>
-        const cards = document.querySelectorAll('.chip-card img');
-        const modal = document.getElementById('imgModal');
-        const modalImg = document.getElementById('modalImg');
-        const closeBtn = document.querySelector('.close');
-        const nextBtn = document.querySelector('.next');
-        const prevBtn = document.querySelector('.prev');
-
-        let currentIndex = 0;
-
-        const images = Array.from(cards);
-
-        cards.forEach((img, index) => {
-            img.addEventListener('click', () => {
-                modal.style.display = "block";
-                modalImg.src = img.src;
-                currentIndex = index;
-            });
-        });
-
-        function showImage(index) {
-            modalImg.src = images[index].src;
-        }
-
-        nextBtn.onclick = () => {
-            currentIndex = (currentIndex + 1) % images.length;
-            showImage(currentIndex);
-        };
-
-        prevBtn.onclick = () => {
-            currentIndex = (currentIndex - 1 + images.length) % images.length;
-            showImage(currentIndex);
-        };
-
-        closeBtn.onclick = () => modal.style.display = "none";
-
-        window.onclick = (e) => {
-            if (e.target == modal) modal.style.display = "none";
-        };
-
-        // 🔥 Keyboard control
-        document.addEventListener('keydown', (e) => {
-            if (modal.style.display === "block") {
-                if (e.key === "ArrowRight") nextBtn.onclick();
-                if (e.key === "ArrowLeft") prevBtn.onclick();
-                if (e.key === "Escape") modal.style.display = "none";
-            }
-        });
-
-        // 🔥 3D Tilt Effect
-        document.querySelectorAll('.chip-card').forEach(card => {
-            card.addEventListener('mousemove', (e) => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-
-                const rotateX = -(y / rect.height - 0.5) * 10;
-                const rotateY = (x / rect.width - 0.5) * 10;
-
-                card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-            });
-
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = `rotateX(0) rotateY(0)`;
-            });
-        });
-    </script>
-</div>
-
-
-
-
-
-
-<div id="gallery">
-<h2 class="navy-blue-light">📸 Image Gallery</h2>
-
-<style>
-body { 
-    background: #0a0a0a; 
-    font-family: 'Segoe UI', sans-serif; 
-}
-
-.navy-blue-light {
-    text-align: center;
-    font-size: 32px;
-    color: #00bfff;
-    margin-bottom: 25px;
-}
-
-/* FILTER BUTTONS */
-.filter-btns {
-    text-align: center;
-    margin-bottom: 25px;
-}
-
-.filter-btns button {
-    margin: 5px;
-    padding: 8px 18px;
-    border: none;
-    border-radius: 20px;
-    background: #111;
-    color: #00bfff;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.filter-btns button:hover {
-    background: #00bfff;
-    color: black;
-}
-
-/* GRID */
-.gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 25px;
-}
-
-/* ITEM - NO BORDER */
-.gallery-item {
-    position: relative;
-    overflow: hidden;
-    border-radius: 18px;
-    cursor: pointer;
-    border: none;
-    outline: none;
-}
-
-/* IMAGE - NO BORDER */
-.gallery-item img {
-    width: 100%;
-    height: 260px;
-    object-fit: cover;
-    background: black;
-    filter: grayscale(100%) brightness(0.7);
-    transition: all 0.5s ease;
-    border: none;
-    outline: none;
-}
-
-/* HOVER EFFECT */
-.gallery-item:hover img {
-    filter: grayscale(0%) brightness(1);
-    transform: scale(0.95);
-}
-
-/* OVERLAY - NO BORDER, NO WHITE BOX */
-.gallery-overlay {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    padding: 12px;
-    background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
-    border: none;
-}
-
-/* CAPTION - YELLOW COLOR, NO WHITE BACKGROUND */
-.gallery-caption {
-    color: #ffcc00;
-    font-size: 14px;
-    font-weight: 500;
-    border: none;
-    background: transparent;
-}
-
-/* Style for the close button on new tab page */
-</style>
-
-<!-- FILTER -->
-<div class="filter-btns">
-    <button onclick="filterSelection('all')">All</button>
-    <button onclick="filterSelection('research')">Research</button>
-    <button onclick="filterSelection('life')">Life</button>
-    <button onclick="filterSelection('friends')">Friends</button>
-</div>
-
-<!-- GRID -->
-<div class="gallery-grid">
-
-    <div class="gallery-item research">
-        <a href="image/IIITGConvocation.JPG" target="_blank">
-            <img src="image/IIITGConvocation.JPG">
-        </a>
-        <div class="gallery-overlay"><div class="gallery-caption">IIITG Convocation</div></div>
-    </div>
-
-    <div class="gallery-item life">
-        <a href="image/sahil.jpeg" target="_blank">
-            <img src="image/sahil.jpeg">
-        </a>
-        <div class="gallery-overlay"><div class="gallery-caption">Convocation</div></div>
-    </div>
-
-    <div class="gallery-item life">
-        <a href="image/Sam.jpeg" target="_blank">
-            <img src="image/Sam.jpeg">
-        </a>
-        <div class="gallery-overlay"><div class="gallery-caption">Lake View</div></div>
-    </div>
-
-    <div class="gallery-item friends">
-        <a href="image/Friends.jpg" target="_blank">
-            <img src="image/Friends.jpg">
-        </a>
-        <div class="gallery-overlay"><div class="gallery-caption">Friends</div></div>
-    </div>
-
-    <div class="gallery-item life">
-        <a href="image/fly.JPG" target="_blank">
-            <img src="image/fly.JPG">
-        </a>
-        <div class="gallery-overlay"><div class="gallery-caption">Aviation Dream</div></div>
-    </div>
-
-    <div class="gallery-item friends">
-        <a href="image/arpit3.jpg" target="_blank">
-            <img src="image/arpit3.jpg">
-        </a>
-        <div class="gallery-overlay"><div class="gallery-caption">With Arpit</div></div>
-    </div>
-
-    <div class="gallery-item life">
-        <a href="image/Convocation.jpg" target="_blank">
-            <img src="image/Convocation.jpg">
-        </a>
-        <div class="gallery-overlay"><div class="gallery-caption">Convocation Day</div></div>
-    </div>
-
-    <div class="gallery-item research">
-        <a href="image/iiitg.jpg" target="_blank">
-            <img src="image/iiitg.jpg">
-        </a>
-        <div class="gallery-overlay"><div class="gallery-caption">IIIT Guwahati</div></div>
-    </div>
-
-    <div class="gallery-item research">
-        <a href="image/Poster%20Landscape.png" target="_blank">
-            <img src="image/Poster%20Landscape.png">
-        </a>
-        <div class="gallery-overlay"><div class="gallery-caption">Research Poster</div></div>
-    </div>
-
-    <div class="gallery-item research">
-        <a href="image/Poster%20contact.png" target="_blank">
-            <img src="image/Poster%20contact.png">
-        </a>
-        <div class="gallery-overlay"><div class="gallery-caption">Conference Poster</div></div>
-    </div>
-
-    <div class="gallery-item life">
-        <a href="image/WhatsApp%20Image%202026-03-05%20at%202.58.51%20PM.jpeg" target="_blank">
-            <img src="image/WhatsApp%20Image%202026-03-05%20at%202.58.51%20PM.jpeg">
-        </a>
-        <div class="gallery-overlay"><div class="gallery-caption">Recent Moment</div></div>
-    </div>
-
-</div>
-
-<script>
-function filterSelection(category) {
-    let items = document.getElementsByClassName("gallery-item");
-    for (let i = 0; i < items.length; i++) {
-        items[i].style.display =
-            (category === "all" || items[i].classList.contains(category))
-            ? "block" : "none";
-    }
-}
-
-// Add this script to handle closing the new tab when image is opened
-document.addEventListener('DOMContentLoaded', function() {
-    const links = document.querySelectorAll('.gallery-item a');
-    links.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const imgSrc = this.getAttribute('href');
-            const newWindow = window.open('', '_blank');
-            newWindow.document.write(`
-                <!DOCTYPE html>
-                <html>
-                <head>
-                    <title>Image View</title>
-                    <style>
-                        body {
-                            margin: 0;
-                            padding: 0;
-                            background: black;
-                            display: flex;
-                            justify-content: center;
-                            align-items: center;
-                            min-height: 100vh;
-                            font-family: Arial, sans-serif;
-                        }
-                        .container {
-                            position: relative;
-                            display: inline-block;
-                        }
-                        img {
-                            max-width: 90vw;
-                            max-height: 90vh;
-                            object-fit: contain;
-                            box-shadow: 0 0 20px rgba(0,0,0,0.5);
-                        }
-                        .close-btn {
-                            position: fixed;
-                            top: 20px;
-                            right: 30px;
-                            background: rgba(255,255,255,0.2);
-                            color: white;
-                            font-size: 30px;
-                            font-weight: bold;
-                            width: 50px;
-                            height: 50px;
-                            border-radius: 50%;
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-                            cursor: pointer;
-                            transition: 0.3s;
-                            z-index: 1000;
-                            border: 2px solid white;
-                            backdrop-filter: blur(5px);
-                        }
-                        .close-btn:hover {
-                            background: red;
-                            transform: scale(1.1);
-                        }
-                    </style>
-                </head>
-                <body>
-                    <div class="close-btn" onclick="window.close()">✕</div>
-                    <div class="container">
-                        <img src="${imgSrc}" alt="Image">
-                    </div>
-                    <script>
-                        document.addEventListener('keydown', function(e) {
-                            if(e.key === 'Escape') window.close();
-                        });
-                    <\/script>
-                </body>
-                </html>
-            `);
-            newWindow.document.close();
-        });
-    });
-});
-</script>
-
-</div>
-
-    
-
-
-
-
-
-
-
-
-    <div id="references">
-        <h2 class="navy-blue-light">📌 References</h2>
-        <ul>
-            <li><strong><a href="https://sites.google.com/view/drbjajodia/" target="_blank" style="color:#0077b6;">Dr. Babita Jajodia</a></strong> - M.Tech Supervisor, Assistant Professor at IIIT Guwahati</li>
-            <li><strong><a href="https://scholar.google.com/citations?user=XPJcy54AAAAJ&hl=en" target="_blank" style="color:#0077b6;">Dr. Rakesh Biswas</a></strong> - M.Tech Thesis Panelist, IIIT Guwahati</li>
-            <li><strong><a href="https://scholar.google.com/citations?user=W82wr6IAAAAJ&hl=en" target="_blank" style="color:#0077b6;">Dr. Siddharth Singh</a></strong> - B.Tech Supervisor, HOD at Lucknow University</li>
-        </ul>
-    </div>
-
-    <div class="quote">
-        "The future belongs to those who believe in the beauty of their dreams." - Eleanor Roosevelt
-    </div>
-
-    <div style="text-align: center; padding: 25px; border-top: 1px solid #eee; margin-top: 20px;">
-        <p style="color:#666;">© 2025 Sahil Maurya | IIT Mandi Research Scholar | Hardware Security & Post-Quantum Cryptography</p>
-        <p style="color:#888; font-size:0.85rem;">Last Updated: March 2026</p>
-    </div>
-</div>
-
-<script>
-    const galleryImages = [
-        "image/IIITGConvocation.JPG",
-        "image/sahil.jpeg",
-        "image/Sam.jpeg",
-        "image/Friends.jpg",
-        "image/fly.JPG",
-        "image/arpit3.jpg",
-        "image/Convocation.jpg",
-        "image/iiitg.jpg",
-        "image/Poster%20Landscape.png",
-        "image/Poster%20contact.png",
-        "image/WhatsApp%20Image%202026-03-05%20at%202.58.51%20PM.jpeg"
-    ];
-
-    let currentIndex = 0;
-    let autoSlide;
-
-    function openModal(index) {
-        currentIndex = index;
-        document.getElementById("modal").classList.add("active");
-        document.getElementById("modalImg").src = galleryImages[currentIndex];
-        autoSlide = setInterval(() => changeSlide(1), 3000);
-    }
-
-    function closeModal() {
-        document.getElementById("modal").classList.remove("active");
-        clearInterval(autoSlide);
-    }
-
-    function changeSlide(n) {
-        currentIndex = (currentIndex + n + galleryImages.length) % galleryImages.length;
-        document.getElementById("modalImg").src = galleryImages[currentIndex];
-    }
-
-    function filterSelection(category) {
-        let items = document.getElementsByClassName("gallery-item");
-        for (let i = 0; i < items.length; i++) {
-            if (category === "all" || items[i].classList.contains(category)) {
-                items[i].style.display = "block";
-            } else {
-                items[i].style.display = "none";
-            }
-        }
-    }
-</script>
-
+    <div class="copyright"><span id="footCopy"></span><span id="footUpd"></span></div>
+  </div>
+</footer>
+<script src="data.js"></script>
+<script src="data2.js"></script>
+<script src="app.js"></script>
+<script src="app2.js"></script>
 </body>
 </html>
