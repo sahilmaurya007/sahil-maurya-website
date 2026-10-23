@@ -1,16 +1,16 @@
-/* app5.js — 🎨 colour modes + 🖼️ STYLE SKINS. Panels apne icon ke theek neeche khulte hain. DO NOT EDIT. */
+/* app5.js - colour modes + style skins. Panels open under exact icon via JS. DO NOT EDIT. */
 (function () {
   "use strict";
   var MODES = [
-    { id: "light", label: "Day", icon: "☀", dot: "#ffffff" },
-    { id: "dark", label: "Night", icon: "🌙", dot: "#101019" },
-    { id: "sepia", label: "Sepia", icon: "📜", dot: "#f4ecd8" },
-    { id: "forest", label: "Sage Green", icon: "🌿", dot: "#eff5ee" },
-    { id: "ocean", label: "Ocean Blue", icon: "🌊", dot: "#e9f2f7" },
-    { id: "lavender", label: "Lavender", icon: "💜", dot: "#f3eff8" },
-    { id: "sunset", label: "Sunset", icon: "🌅", dot: "#fdf0ec" },
-    { id: "midnight", label: "Midnight", icon: "💙", dot: "#0a1024" },
-    { id: "contrast", label: "High Contrast", icon: "⬛", dot: "#ffffff" }
+    { id: "light", label: "Day", dot: "#ffffff" },
+    { id: "dark", label: "Night", dot: "#101019" },
+    { id: "sepia", label: "Sepia", dot: "#f4ecd8" },
+    { id: "forest", label: "Sage Green", dot: "#eff5ee" },
+    { id: "ocean", label: "Ocean Blue", dot: "#e9f2f7" },
+    { id: "lavender", label: "Lavender", dot: "#f3eff8" },
+    { id: "sunset", label: "Sunset", dot: "#fdf0ec" },
+    { id: "midnight", label: "Midnight", dot: "#0a1024" },
+    { id: "contrast", label: "High Contrast", dot: "#ffffff" }
   ];
   var SKINS = [
     { id: "classic", label: "Classic", dot: "linear-gradient(135deg,#6366f1,#a855f7 60%,#199baf)" },
@@ -37,39 +37,44 @@
 
   var modeBtn = document.getElementById("themeBtn");
   if (modeBtn) {
-    var wrap = document.createElement("span");
-    wrap.className = "btn-wrap";
-    modeBtn.parentNode.insertBefore(wrap, modeBtn);
-    wrap.appendChild(modeBtn);
     modeBtn.title = "Colour modes";
     modeBtn.setAttribute("aria-label", "Colour modes");
-    modeBtn.textContent = "🎨";
+    modeBtn.textContent = "\uD83C\uDFA8";
     var panel = document.createElement("div");
     panel.className = "mode-bar";
-    panel.innerHTML = "<div class='mode-bar-title'>🎨 Colour Modes</div><div class='mode-chips'>" +
+    panel.innerHTML = "<div class='mode-bar-title'>Colour Modes</div><div class='mode-chips'>" +
       MODES.map(function (t) {
-        return "<button class='mode-chip' data-theme='" + t.id + "'><span class='swatch' style='background:" + t.dot + "'></span>" + t.icon + " " + t.label + "</button>";
+        return "<button class='mode-chip' data-theme='" + t.id + "'><span class='swatch' style='background:" + t.dot + "'></span>" + t.label + "</button>";
       }).join("") + "</div>";
-    wrap.appendChild(panel);
+    document.body.appendChild(panel);
 
     var skinBtn = document.createElement("button");
     skinBtn.className = "icon-btn";
     skinBtn.id = "bgBtn";
     skinBtn.title = "Website style";
     skinBtn.setAttribute("aria-label", "Website style");
-    skinBtn.textContent = "🖼️";
-    var swrap = document.createElement("span");
-    swrap.className = "btn-wrap";
-    wrap.parentNode.insertBefore(swrap, wrap.nextSibling);
-    swrap.appendChild(skinBtn);
+    skinBtn.textContent = "\uD83D\uDDBC\uFE0F";
+    modeBtn.after(skinBtn);
 
     var skinBar = document.createElement("div");
     skinBar.className = "mode-bar skin-bar";
-    skinBar.innerHTML = "<div class='mode-bar-title'>🖼️ Website Style</div><div class='mode-chips'>" +
+    skinBar.innerHTML = "<div class='mode-bar-title'>Website Style</div><div class='mode-chips'>" +
       SKINS.map(function (s) {
         return "<button class='mode-chip' data-skin='" + s.id + "'><span class='swatch' style='background:" + s.dot + "'></span>" + s.label + "</button>";
       }).join("") + "</div>";
-    swrap.appendChild(skinBar);
+    document.body.appendChild(skinBar);
+
+    var placeUnder = function (btn, bar) {
+      var r = btn.getBoundingClientRect();
+      var vw = window.innerWidth || document.documentElement.clientWidth;
+      var width = Math.min(440, vw - 24);
+      var rightPx = Math.max(12, vw - r.right - 6);
+      bar.style.position = "fixed";
+      bar.style.top = (r.bottom + 8) + "px";
+      bar.style.right = rightPx + "px";
+      bar.style.left = "auto";
+      bar.style.width = width + "px";
+    };
 
     var sync = function () {
       panel.querySelectorAll("[data-theme]").forEach(function (b) { b.classList.toggle("active", b.dataset.theme === curMode); });
@@ -82,11 +87,25 @@
     skinBar.querySelectorAll("[data-skin]").forEach(function (b) {
       b.addEventListener("click", function () { curSkin = b.dataset.skin; doc.setAttribute("data-skin", curSkin); set("sm-skin", curSkin); sync(); });
     });
-    modeBtn.addEventListener("click", function (e) { e.stopPropagation(); skinBar.classList.remove("open"); panel.classList.toggle("open"); });
-    skinBtn.addEventListener("click", function (e) { e.stopPropagation(); panel.classList.remove("open"); skinBar.classList.toggle("open"); });
-    document.addEventListener("click", function (e) {
-      if (!wrap.contains(e.target)) panel.classList.remove("open");
-      if (!swrap.contains(e.target)) skinBar.classList.remove("open");
+    modeBtn.addEventListener("click", function (e) {
+      e.stopPropagation();
+      skinBar.classList.remove("open");
+      placeUnder(modeBtn, panel);
+      panel.classList.toggle("open");
     });
+    skinBtn.addEventListener("click", function (e) {
+      e.stopPropagation();
+      panel.classList.remove("open");
+      placeUnder(skinBtn, skinBar);
+      skinBar.classList.toggle("open");
+    });
+    document.addEventListener("click", function (e) {
+      if (!panel.contains(e.target) && e.target !== modeBtn) panel.classList.remove("open");
+      if (!skinBar.contains(e.target) && e.target !== skinBtn) skinBar.classList.remove("open");
+    });
+    window.addEventListener("scroll", function () {
+      if (panel.classList.contains("open")) placeUnder(modeBtn, panel);
+      if (skinBar.classList.contains("open")) placeUnder(skinBtn, skinBar);
+    }, { passive: true });
   }
 })();
