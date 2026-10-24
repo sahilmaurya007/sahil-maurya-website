@@ -28,21 +28,21 @@ window.EDITS = {
       "text": "Certificate of Recognition — IEEE ISVLSI 2026 (Tier 1 Conference)",
       "link": "",
       "date": "2026-07-07",
-      "photo": "image/news_1792869119517.jpg"
+      "photo": "image/news_1792869664918.jpg"
     },
     {
       "type": "Fellowship",
       "text": "VLSID Fellow (2024, 2025, 2026) — International Conference on VLSI Design (Tier 1 Conference)",
       "link": "",
       "date": "2025-01-01",
-      "photo": ""
+      "photo": "image/news_1792869686147.jpg"
     },
     {
       "type": "Talk",
       "text": "Teaching Assistant session — VL-401: RTL Design and Verification, Monsoon Sem 2025, IIT Mandi",
       "link": "",
       "date": "2025-11-27",
-      "photo": ""
+      "photo": "image/news_1792869708598.jpg"
     },
     {
       "type": "Journal",
@@ -56,6 +56,13 @@ window.EDITS = {
       "text": "Hands-on Workshop on IC Design Tool at IIT Mandi",
       "link": "",
       "date": "2026-02-26",
+      "photo": ""
+    },
+    {
+      "type": "Poster Presented at SCEE Samarthya 2026 - ITT Mandi",
+      "text": "",
+      "link": "",
+      "date": "2026-03-27",
       "photo": ""
     }
   ],
