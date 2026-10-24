@@ -21,28 +21,28 @@ window.EDITS = {
       "text": "Paper accepted for ORAL presentation at VLSID 2027 (Tier 1 Conference) — Reproducible Co-Design of Domain-Aware Sleep Switches",
       "link": "",
       "date": "2026-10-12",
-      "photo": "image/sahil.jpeg"
+      "photo": "image/news_1792868908867.jpg"
     },
     {
       "type": "Award",
       "text": "Certificate of Recognition — IEEE ISVLSI 2026 (Tier 1 Conference)",
       "link": "",
       "date": "2026-07-07",
-      "photo": "image/news_1792869664918.jpg"
+      "photo": "image/news_1792870105096.jpg"
     },
     {
       "type": "Fellowship",
       "text": "VLSID Fellow (2024, 2025, 2026) — International Conference on VLSI Design (Tier 1 Conference)",
       "link": "",
       "date": "2025-01-01",
-      "photo": "image/news_1792869686147.jpg"
+      "photo": ""
     },
     {
       "type": "Talk",
       "text": "Teaching Assistant session — VL-401: RTL Design and Verification, Monsoon Sem 2025, IIT Mandi",
       "link": "",
       "date": "2025-11-27",
-      "photo": "image/news_1792869708598.jpg"
+      "photo": ""
     },
     {
       "type": "Journal",
@@ -56,13 +56,6 @@ window.EDITS = {
       "text": "Hands-on Workshop on IC Design Tool at IIT Mandi",
       "link": "",
       "date": "2026-02-26",
-      "photo": ""
-    },
-    {
-      "type": "Poster Presented at SCEE Samarthya 2026 - ITT Mandi",
-      "text": "",
-      "link": "",
-      "date": "2026-03-27",
       "photo": ""
     }
   ],
