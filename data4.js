@@ -275,6 +275,10 @@ window.EDITS = {
         {
           "src": "image/Poster contact.png",
           "caption": "Conference poster"
+        },
+        {
+          "src": "image/7.jpeg",
+          "caption": "𝐓𝐞𝐚𝐜𝐡𝐢𝐧𝐠 𝐀𝐬𝐬𝐢𝐬𝐭𝐚𝐧𝐭 𝐬𝐞𝐬𝐬𝐢𝐨𝐧 𝐟𝐨𝐫 𝐕𝐋-𝟒𝟎𝟏: 𝐑𝐓𝐋 𝐃𝐞𝐬𝐢𝐠𝐧 𝐚𝐧𝐝 𝐕𝐞𝐫𝐢𝐟𝐢𝐜𝐚𝐭𝐢𝐨𝐧. · 𝐕𝐋-𝟒𝟎𝟏 𝐓𝐀𝐬𝐡𝐢𝐩 - 𝐌𝐨𝐧𝐬𝐨𝐨𝐧 𝐒𝐞𝐦 𝟐𝟎𝟐𝟓 · 2025-11-27 · Photo: Sahil Maurya"
         }
       ]
     },
