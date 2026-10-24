@@ -1,4 +1,4 @@
-/* app11.js - GUI editor shell. Direct const refs + SM.render exposure. DO NOT EDIT. */
+/* app11.js - GUI editor shell. Direct const refs + SM.render exposure. News/Gallery tabs app20/app21 me. DO NOT EDIT. */
 (function () {
   "use strict";
   var SM = window.SM_EDITOR;
@@ -64,25 +64,6 @@
     } else if (cur === "hero") {
       var t2 = SM.f(body, "Hero intro (tagline under your name)", SM.w.intro, true);
       t2.addEventListener("input", function () { SM.w.intro = t2.value; });
-    } else if (cur === "news") {
-      if (!SM.w.news.length) SM.emptyList(body, "News abhi khali hai - + Add news se naya add karo.");
-      SM.w.news.forEach(function (n, i) {
-        var c = SM.box(body, "News " + (i + 1));
-        var a = SM.f(c, "Type (Conference/Award/Journal/Talk/Fellowship/Workshop)", n.type);
-        a.addEventListener("input", function () { n.type = a.value; });
-        var b = SM.f(c, "News text", n.text, true);
-        b.addEventListener("input", function () { n.text = b.value; });
-        var l = SM.f(c, "Link (optional)", n.link);
-        l.addEventListener("input", function () { n.link = l.value; });
-        var d = SM.f(c, "Date (YYYY-MM-DD)", n.date);
-        d.addEventListener("input", function () { n.date = d.value; });
-        var p = SM.f(c, "Photo path e.g. image/xyz.jpg (optional)", n.photo);
-        p.addEventListener("input", function () { n.photo = p.value; });
-        SM.onDel(c, SM.w.news, i);
-      });
-      var an = document.createElement("button"); an.className = "ed-add"; an.textContent = "+ Add news"; an.type = "button";
-      an.addEventListener("click", function () { SM.w.news.push({ type: "Update", text: "", link: "", date: "", photo: "" }); render(); });
-      body.appendChild(an);
     } else if (cur === "visitors") {
       var list = [];
       try { list = JSON.parse(localStorage.getItem("sm-iplist") || "[]"); } catch (e) {}
