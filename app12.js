@@ -2,15 +2,16 @@
 (function () {
   "use strict";
   var SM = window.SM_EDITOR;
-  if (!SM || !SM.w) return;
-  /* extend working model */
+  if (!SM) return;
   SM.begin = (function (old) { return function () {
     old();
     SM.w.pubs = (window.PUBLICATIONS || []).map(function (p) { return { title: p.title || "", authors: p.authors || "", venue: p.venue || "", year: p.year || "", note: p.note || "", link: p.link || "" }; });
     SM.w.awards = (window.AWARDS || []).map(function (a) { return { title: a.title || "", issuer: a.issuer || "", date: a.date || "" }; });
-    SM.w.skills = (window.SKILLS || []).map(function (s) { return { category: (s.category || "").replace(/<[^>]+>/g, ""), items: (s.items || []).join(", "); });
+    SM.w.skills = (window.SKILLS || []).map(function (s) { return { category: (s.category || "").replace(/<[^>]+>/g, ""), items: (s.items || []).join(", ") }; });
     SM.w.journey = (window.JOURNEY || []).map(function (j) { return { date: j.date || "", title: j.title || "", desc: j.desc || "", cat: j.category || "" }; });
   }; })(SM.begin);
+
+  function addBtn(body, txt, fn) { var b = document.createElement("button"); b.className = "ed-add"; b.type = "button"; b.textContent = txt; b.addEventListener("click", fn); body.appendChild(b); }
 
   SM.renderTab = function (cur, body) {
     if (cur === "papers") {
@@ -53,7 +54,7 @@
       });
       addBtn(body, "+ Add milestone", function () { SM.w.journey.push({ date: "", title: "", desc: "", cat: "" }); });
     } else if (cur === "github") {
-      body.innerHTML = "<div class='ed-f'><label>One-time GitHub token (paste, save, private)</label><input id='ed-token' type='password'></div><div class='ed-f' style='color:var(--muted);font-size:.74rem'>Isse Save dabate hi changes SEEDHA draft branch par commit honge aur approve page par real diff dikhega (grey button khatam). Token sirf is browser me rehta hai.</div><button class='ed-add' id='ed-token-save' type='button'>Save token</button>";
+      body.innerHTML = "<div class='ed-f'><label>One-time GitHub token (paste + save, private)</label><input id='ed-token' type='password'></div><div class='ed-f' style='color:var(--muted);font-size:.74rem'>Save dabane par changes seedha draft branch par commit honge - approve page par REAL diff dikhega (grey button khatam). Token sirf is browser me store hota hai.</div><button class='ed-add' id='ed-token-save' type='button'>Save token</button>";
       var saved = ""; try { saved = localStorage.getItem("sm-token") || ""; } catch (e) {}
       document.getElementById("ed-token").value = saved;
       document.getElementById("ed-token-save").addEventListener("click", function () {
@@ -62,9 +63,7 @@
       });
     }
   };
-  function addBtn(body, txt, fn) { var b = document.createElement("button"); b.className = "ed-add"; b.type = "button"; b.textContent = txt; b.addEventListener("click", fn); body.appendChild(b); }
 
-  /* Preview */
   SM.preview = function () {
     applyLocal(SM.w);
     if (SM.reRender) SM.reRender();
@@ -80,7 +79,6 @@
     if (window.JOURNEY) { JOURNEY.length = 0; w.journey.forEach(function (j) { JOURNEY.push({ date: j.date, title: j.title, desc: j.desc, section: "education", photo: "", category: j.cat || "Milestone" }); }); }
   }
 
-  /* Save & Submit: data4.js commit on draft branch via GitHub API */
   SM.save = function () {
     var token = ""; try { token = localStorage.getItem("sm-token") || ""; } catch (e) {}
     if (!token) { SM.msg("Pehle GitHub tab me token save karo.", true); return; }
@@ -99,10 +97,10 @@
     SM.msg("Submitting...");
     fetch("https://api.github.com/repos/sahilmaurya007/sahil-maurya-website/contents/data4.js?ref=draft", {
       headers: { "Authorization": "token " + token, "Accept": "application/vnd.github+json" }
-    }).then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
+    }).then(function (r) { return r.json().then(function (j) { return { ok: r.ok, sha: j && j.sha }; }); })
       .then(function (res) {
         var body = { message: "Website editor updates", content: b64, branch: "draft" };
-        if (res.ok && res.j && res.j.sha) body.sha = res.j.sha;
+        if (res.ok && res.sha) body.sha = res.sha;
         return fetch("https://api.github.com/repos/sahilmaurya007/sahil-maurya-website/contents/data4.js", {
           method: "PUT",
           headers: { "Authorization": "token " + token, "Accept": "application/vnd.github+json", "Content-Type": "application/json" },
@@ -112,7 +110,7 @@
       .then(function (r) { return r.json(); })
       .then(function (j) {
         if (j.content) {
-          SM.msg("Submitted! Approve: ", false);
+          SM.msg("Submitted! ", false);
           var a = document.createElement("a");
           a.href = "https://github.com/sahilmaurya007/sahil-maurya-website/compare/main...draft?expand=1";
           a.target = "_blank"; a.rel = "noopener"; a.textContent = "Review & Approve";
