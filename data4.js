@@ -21,14 +21,14 @@ window.EDITS = {
       "text": "Paper accepted for ORAL presentation at VLSID 2027 (Tier 1 Conference) — Reproducible Co-Design of Domain-Aware Sleep Switches",
       "link": "",
       "date": "2026-10-12",
-      "photo": "image/news_1792868908867.jpg"
+      "photo": "image/sahil.jpeg"
     },
     {
       "type": "Award",
       "text": "Certificate of Recognition — IEEE ISVLSI 2026 (Tier 1 Conference)",
       "link": "",
       "date": "2026-07-07",
-      "photo": ""
+      "photo": "image/news_1792869119517.jpg"
     },
     {
       "type": "Fellowship",
