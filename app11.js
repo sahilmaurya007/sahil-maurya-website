@@ -1,4 +1,4 @@
-/* app11.js - GUI editor: shell, tabs, boxes for About/Hero/News/Visitors. DO NOT EDIT. */
+/* app11.js - GUI editor shell. Direct const refs + SM.render exposure. DO NOT EDIT. */
 (function () {
   "use strict";
   var SM = window.SM_EDITOR;
@@ -21,7 +21,6 @@
   ed.querySelector(".ed-close").addEventListener("click", function () { ed.classList.remove("open"); });
   ed.querySelector(".ed-logout").addEventListener("click", function () { if (SM.setLoggedOut) SM.setLoggedOut(); ed.classList.remove("open"); });
 
-  /* helpers */
   SM.f = function (parent, label, val, ta) {
     var w = document.createElement("div"); w.className = "ed-f";
     w.innerHTML = "<label>" + label + "</label>";
@@ -34,14 +33,16 @@
     c.innerHTML = "<div class='ed-cardbox-h'><b>" + title + "</b><button class='ed-del' type='button'>Delete</button></div>";
     parent.appendChild(c); return c;
   };
-  SM.onDel = function (card, arr, i) { card.querySelector(".ed-del").addEventListener("click", function () { arr.splice(i, 1); render(); }); };
+  SM.onDel = function (card, arr, i) { card.querySelector(".ed-del").addEventListener("click", function () { arr.splice(i, 1); SM.render(); }); };
+  SM.emptyList = function (body, txt) { var p = document.createElement("p"); p.style.cssText = "color:var(--muted);font-size:.78rem"; p.textContent = txt || "No items yet."; body.appendChild(p); };
 
-  /* working model - editor open hote hi current data snapshot */
+  var D = function (name, fallback) { try { var v = eval(name); return v == null ? fallback : v; } catch (e) { return fallback; } };
+
   SM.begin = function () {
     SM.w = {
-      about: (window.ABOUT || []).slice(),
-      intro: window.PROFILE ? PROFILE.intro : "",
-      news: (window.NEWS || []).map(function (x) { return { type: x.type || "Update", text: x.text || "", link: x.link || "", date: x.date || "", photo: x.photo || "" }; })
+      about: (D("ABOUT", []) || []).slice(),
+      intro: (D("PROFILE", {}) || {}).intro || "",
+      news: (D("NEWS", []) || []).map(function (x) { return { type: x.type || "Update", text: x.text || "", link: x.link || "", date: x.date || "", photo: x.photo || "" }; })
     };
   };
   SM.open = function () { SM.begin(); render(); ed.classList.add("open"); SM.msg(""); };
@@ -50,6 +51,7 @@
     ed.querySelectorAll(".ed-tab").forEach(function (b) { b.classList.toggle("active", b.dataset.t === cur); });
     var body = ed.querySelector(".ed-body-box"); body.innerHTML = "";
     if (cur === "about") {
+      if (!SM.w.about.length) SM.emptyList(body, "Bio abhi khali hai - + Add paragraph se likhna shuru karo.");
       SM.w.about.forEach(function (p, i) {
         var c = SM.box(body, "Paragraph " + (i + 1));
         var t = SM.f(c, "Bio paragraph", p, true);
@@ -63,6 +65,7 @@
       var t2 = SM.f(body, "Hero intro (tagline under your name)", SM.w.intro, true);
       t2.addEventListener("input", function () { SM.w.intro = t2.value; });
     } else if (cur === "news") {
+      if (!SM.w.news.length) SM.emptyList(body, "News abhi khali hai - + Add news se naya add karo.");
       SM.w.news.forEach(function (n, i) {
         var c = SM.box(body, "News " + (i + 1));
         var a = SM.f(c, "Type (Conference/Award/Journal/Talk/Fellowship/Workshop)", n.type);
@@ -93,4 +96,5 @@
     } else if (SM.renderTab) { SM.renderTab(cur, body); }
     else { body.innerHTML = "<p style='color:var(--muted)'>Loading...</p>"; }
   }
+  SM.render = render;
 })();
