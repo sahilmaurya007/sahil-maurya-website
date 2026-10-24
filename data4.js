@@ -261,10 +261,6 @@ window.EDITS = {
       "name": "Lab Moments",
       "photos": [
         {
-          "src": "image/sahil.jpeg",
-          "caption": "At the lab"
-        },
-        {
           "src": "image/WhatsApp Image 2026-03-05 at 2.58.51 PM.jpeg",
           "caption": "Lab moment"
         },
@@ -275,10 +271,6 @@ window.EDITS = {
         {
           "src": "image/Poster contact.png",
           "caption": "Conference poster"
-        },
-        {
-          "src": "image/7.jpeg",
-          "caption": "𝐓𝐞𝐚𝐜𝐡𝐢𝐧𝐠 𝐀𝐬𝐬𝐢𝐬𝐭𝐚𝐧𝐭 𝐬𝐞𝐬𝐬𝐢𝐨𝐧 𝐟𝐨𝐫 𝐕𝐋-𝟒𝟎𝟏: 𝐑𝐓𝐋 𝐃𝐞𝐬𝐢𝐠𝐧 𝐚𝐧𝐝 𝐕𝐞𝐫𝐢𝐟𝐢𝐜𝐚𝐭𝐢𝐨𝐧. · 𝐕𝐋-𝟒𝟎𝟏 𝐓𝐀𝐬𝐡𝐢𝐩 - 𝐌𝐨𝐧𝐬𝐨𝐨𝐧 𝐒𝐞𝐦 𝟐𝟎𝟐𝟓 · 2025-11-27 · Photo: Sahil Maurya"
         }
       ]
     },
@@ -377,6 +369,10 @@ window.EDITS = {
         {
           "src": "image/sahil.jpeg",
           "caption": "ISVLSI 2026"
+        },
+        {
+          "src": "ISVLSI 2026",
+          "caption": "Royal Bengal Kolkata "
         }
       ]
     }
@@ -386,12 +382,12 @@ window.SM_APPLY = function (e) {
   if (!e) return;
   if (e.ABOUT && typeof ABOUT !== "undefined") { ABOUT.length = 0; e.ABOUT.forEach(function (p) { ABOUT.push(p); }); }
   if (e.intro && typeof PROFILE !== "undefined") PROFILE.intro = e.intro;
+  if (e.PHOTO && typeof PROFILE !== "undefined") PROFILE.photo = e.PHOTO;
   if (e.NEWS && typeof NEWS !== "undefined") { NEWS.length = 0; e.NEWS.forEach(function (x) { NEWS.push(x); }); }
   if (e.PUBLICATIONS && typeof PUBLICATIONS !== "undefined") { PUBLICATIONS.length = 0; e.PUBLICATIONS.forEach(function (x) { PUBLICATIONS.push(x); }); }
   if (e.AWARDS && typeof AWARDS !== "undefined") { AWARDS.length = 0; e.AWARDS.forEach(function (x) { AWARDS.push(x); }); }
   if (e.SKILLS && typeof SKILLS !== "undefined") { SKILLS.length = 0; e.SKILLS.forEach(function (x) { SKILLS.push(x); }); }
   if (e.JOURNEY && typeof JOURNEY !== "undefined") { JOURNEY.length = 0; e.JOURNEY.forEach(function (x) { JOURNEY.push(x); }); }
-  if (e.PHOTO && typeof PROFILE !== "undefined") PROFILE.photo = e.PHOTO;
   if (e.GALLERY && e.GALLERY.length && typeof GALLERY_CATEGORIES !== "undefined") { GALLERY_CATEGORIES.length = 0; e.GALLERY.forEach(function (x) { GALLERY_CATEGORIES.push(x); }); }
 };
 SM_APPLY(EDITS);
