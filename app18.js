@@ -11,7 +11,14 @@
       ABOUT: w.about,
       intro: w.intro,
       NEWS: w.news,
-      PUBLICATIONS: w.pubs,
+      PUBLICATIONS: (w.pubs || []).map(function (p) {
+        return {
+          title: p.title || "", authors: p.authors || "", venue: p.venue || "", year: p.year || "",
+          note: p.note || "", link: p.link || "", doi: p.doi || "", pdf: p.pdf || "",
+          bibtex: p.bibtex || "", type: p.cat || "", status: p.status || "Published",
+          tags: (p.tags || "").split(",").map(function (q) { return q.trim(); }).filter(Boolean)
+        };
+      }),
       AWARDS: w.awards,
       SKILLS: w.skills.map(function (s) { return { category: s.category, items: s.items.split(",").map(function (q) { return q.trim(); }).filter(Boolean) }; }),
       JOURNEY: w.journey.map(function (j) { return { date: j.date, title: j.title, desc: j.desc, section: "education", photo: "", category: j.cat || "Milestone" }; }),
