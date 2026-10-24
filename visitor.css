@@ -1,0 +1,23 @@
+/* visitor counter styles */
+.visit-chip{display:inline-flex;align-items:center;gap:6px;margin-left:10px;padding:6px 12px;border-radius:999px;border:1px solid var(--border);background:var(--bg2);color:var(--muted);font-size:.78rem;font-family:'JetBrains Mono',monospace}
+.visit-chip b{color:var(--text);font-size:.82rem}
+.visit-foot{position:fixed;bottom:22px;left:22px;z-index:900;display:flex;gap:10px;align-items:center;padding:10px 16px;border-radius:14px;border:1px solid var(--border);background:var(--card);box-shadow:var(--shadow);font-size:.78rem}
+.visit-foot .vf-ic{font-size:1.1rem}
+.visit-foot b{font-size:.8rem}
+.visit-foot span{font-family:'JetBrains Mono',monospace;color:var(--accent)}
+.ip-fab{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);z-index:900;width:44px;height:44px;border-radius:50%;border:1px solid var(--border);cursor:pointer;background:var(--card);color:var(--text);font-size:1.05rem;display:none;place-items:center;box-shadow:var(--shadow)}
+.ip-panel{position:fixed;bottom:78px;left:50%;transform:translateX(-50%);z-index:940;width:min(340px,90vw);max-height:300px;overflow:auto;background:var(--card);border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow);padding:12px;display:none}
+.ip-panel.open{display:block}
+.ip-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-size:.85rem}
+.ip-note{font-size:.68rem;color:var(--muted)}
+.ip-row{display:flex;justify-content:space-between;gap:10px;padding:6px 4px;border-bottom:1px dashed var(--border);font-family:'JetBrains Mono',monospace;font-size:.72rem}
+.ip-row.muted{color:var(--muted)}
+.ip-time{color:var(--muted)}
+/* editor fixes */
+.ed-photo-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.ed-photo-btn{padding:8px 14px;border-radius:10px;border:1px solid var(--accent);background:var(--bg2);color:var(--accent);font-size:.8rem;font-weight:600;cursor:pointer}
+.ed-photo-hint{font-size:.72rem;color:var(--muted)}
+.ed-note .ok{color:#16a34a}
+a.ed-approve{display:inline-block;margin-top:6px;padding:9px 16px;border-radius:10px;background:linear-gradient(115deg,#16a34a,#0e8a5f);color:#fff!important;text-decoration:none;font-weight:600;font-size:.82rem;cursor:pointer}
+a.ed-approve:hover{filter:brightness(1.08)}
+@media(max-width:480px){.visit-foot{left:12px;bottom:12px;padding:8px 12px}.ip-fab{left:auto;right:12px;transform:none;bottom:78px}.ip-panel{right:12px;left:auto;transform:none}}

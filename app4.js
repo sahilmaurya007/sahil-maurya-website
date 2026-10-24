@@ -1,7 +1,11 @@
-/* app4.js — loader (DO NOT EDIT). Loads app5.js (modes+skins) and app6.js (editor+lightbox). */
+/* app4.js - loader (DO NOT EDIT). Injects visitor.css + loads app5/7/8/9/10. */
 (function () {
   "use strict";
-  ["app5.js", "app6.js"].forEach(function (src) {
+  var link = document.createElement("link");
+  link.rel = "stylesheet";
+  link.href = "visitor.css";
+  document.head.appendChild(link);
+  ["app5.js", "app7.js", "app8.js", "app9.js", "app10.js"].forEach(function (src) {
     var s = document.createElement("script");
     s.src = src;
     document.body.appendChild(s);
