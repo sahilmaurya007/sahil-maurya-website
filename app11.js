@@ -14,7 +14,7 @@
   SM.ed = ed;
   SM.msg = function (t, err) { var m = ed.querySelector(".ed-msg"); m.textContent = t || ""; m.className = "ed-msg" + (err ? " ed-err" : ""); };
 
-  var TABS = [["about", "About"], ["hero", "Hero"], ["news", "News"], ["papers", "Papers"], ["awards", "Awards"], ["skills", "Skills"], ["journey", "Journey"], ["visitors", "Visitors"], ["github", "GitHub"]];
+  var TABS = [["about", "About"], ["hero", "Hero"], ["news", "News"], ["papers", "Papers"], ["awards", "Awards"], ["skills", "Skills"], ["journey", "Journey"], ["photo", "Photo"], ["gallery", "Gallery"], ["visitors", "Visitors"], ["github", "GitHub"]];
   var cur = "about";
   ed.querySelector(".ed-tabs").innerHTML = TABS.map(function (t) { return "<button class='ed-tab' data-t='" + t[0] + "'>" + t[1] + "</button>"; }).join("");
   ed.querySelectorAll(".ed-tab").forEach(function (b) { b.addEventListener("click", function () { cur = b.dataset.t; render(); }); });
