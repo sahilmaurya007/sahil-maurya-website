@@ -31,13 +31,6 @@ window.EDITS = {
       "photo": ""
     },
     {
-      "type": "Conference",
-      "text": "Presented this paper at 32nd IEEE HiPC 2025 (Tier 1 Conference), Hyderabad — Neuromorphic Adaptive Precision RISC-V Processor",
-      "link": "https://ieeexplore.ieee.org/document/11459250",
-      "date": "2025-12-17",
-      "photo": "image/Poster contact.png"
-    },
-    {
       "type": "Fellowship",
       "text": "VLSID Fellow (2024, 2025, 2026) — International Conference on VLSI Design (Tier 1 Conference)",
       "link": "",
@@ -80,7 +73,13 @@ window.EDITS = {
       "venue": "VLSI Design (VLSID 2027) — Tier 1 Conference",
       "year": 2027,
       "note": "Accepted for oral presentation at VLSID 2027 🎉",
-      "link": ""
+      "link": "",
+      "doi": "",
+      "pdf": "",
+      "bibtex": "",
+      "type": "",
+      "status": "Published",
+      "tags": []
     },
     {
       "title": "Towards Efficient Post-Quantum Cryptography: Implementations of Optimized K2RED, Plantard, and Approximate Modular Multipliers",
@@ -88,7 +87,13 @@ window.EDITS = {
       "venue": "IEEE Computer Society Annual Symposium on VLSI (ISVLSI 2026) — Tier 1 Conference",
       "year": 2026,
       "note": "Certificate of Recognition — ISVLSI 2026.",
-      "link": ""
+      "link": "",
+      "doi": "",
+      "pdf": "",
+      "bibtex": "",
+      "type": "",
+      "status": "Published",
+      "tags": []
     },
     {
       "title": "Neuromorphic Adaptive Precision RISC-V Processor with Real-Time Precision Scaling and Neuronal State Management",
@@ -96,7 +101,13 @@ window.EDITS = {
       "venue": "IEEE HiPC 2025 Workshop (HiPCW) — Tier 1 Conference",
       "year": 2025,
       "note": "First RISC-V processor with real-time precision scaling, achieving 40–52% energy reduction.",
-      "link": "https://ieeexplore.ieee.org/document/11459250"
+      "link": "https://ieeexplore.ieee.org/document/11459250",
+      "doi": "",
+      "pdf": "",
+      "bibtex": "",
+      "type": "",
+      "status": "Published",
+      "tags": []
     },
     {
       "title": "Approximate Modular Multipliers for R-LWE Cryptosystems on FPGAs and ASICs",
@@ -104,7 +115,13 @@ window.EDITS = {
       "venue": "IEEE Silchar Subsection Conference (SILCON 2024)",
       "year": 2024,
       "note": "34% area reduction, 33% power savings with <1% accuracy loss.",
-      "link": "https://ieeexplore.ieee.org/document/10910421"
+      "link": "https://ieeexplore.ieee.org/document/10910421",
+      "doi": "",
+      "pdf": "",
+      "bibtex": "",
+      "type": "",
+      "status": "Published",
+      "tags": []
     }
   ],
   "AWARDS": [
