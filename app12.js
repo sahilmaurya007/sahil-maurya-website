@@ -28,7 +28,7 @@
         var l = SM.f(c, "Link (optional)", p.link); l.addEventListener("input", function () { p.link = l.value; });
         SM.onDel(c, SM.w.pubs, i);
       });
-      addBtn(body, "+ Add paper", function () { SM.w.pubs.push({ title: "", authors: "", venue: "", year: "", note: "", link: "" }); render(); });
+      addBtn(body, "+ Add paper", function () { SM.w.pubs.push({ title: "", authors: "", venue: "", year: "", note: "", link: "" }); SM.render(); });
     } else if (cur === "awards") {
       if (!SM.w.awards.length) empty(body, "Awards abhi khali hai - + Add award se naya add karo.");
       SM.w.awards.forEach(function (a0, i) {
@@ -38,7 +38,7 @@
         var d = SM.f(c, "Date/Year", a0.date); d.addEventListener("input", function () { a0.date = d.value; });
         SM.onDel(c, SM.w.awards, i);
       });
-      addBtn(body, "+ Add award", function () { SM.w.awards.push({ title: "", issuer: "", date: "" }); render(); });
+      addBtn(body, "+ Add award", function () { SM.w.awards.push({ title: "", issuer: "", date: "" }); SM.render(); });
     } else if (cur === "skills") {
       if (!SM.w.skills.length) empty(body, "Skills abhi khali hai - + Add category se naya add karo.");
       SM.w.skills.forEach(function (s, i) {
@@ -47,7 +47,7 @@
         var b = SM.f(c, "Items (comma separated)", s.items, true); b.addEventListener("input", function () { s.items = b.value; });
         SM.onDel(c, SM.w.skills, i);
       });
-      addBtn(body, "+ Add category", function () { SM.w.skills.push({ category: "", items: "" }); render(); });
+      addBtn(body, "+ Add category", function () { SM.w.skills.push({ category: "", items: "" }); SM.render(); });
     } else if (cur === "journey") {
       if (!SM.w.journey.length) empty(body, "Journey abhi khali hai - + Add milestone se naya add karo.");
       SM.w.journey.forEach(function (j, i) {
@@ -58,7 +58,7 @@
         var k = SM.f(c, "Category (Education/Publication/Award/Certification)", j.cat); k.addEventListener("input", function () { j.cat = k.value; });
         SM.onDel(c, SM.w.journey, i);
       });
-      addBtn(body, "+ Add milestone", function () { SM.w.journey.push({ date: "", title: "", desc: "", cat: "" }); render(); });
+      addBtn(body, "+ Add milestone", function () { SM.w.journey.push({ date: "", title: "", desc: "", cat: "" }); SM.render(); });
     } else if (cur === "github") {
       body.innerHTML = "<div class='ed-f'><label>One-time GitHub token (paste + save, private)</label><input id='ed-token' type='password'></div><div class='ed-f' style='color:var(--muted);font-size:.74rem'>Save hone ke baad Save &amp; Submit changes seedha draft branch par commit karega - approve page par REAL diff dikhega. Token sirf is browser me store hota hai.</div><button class='ed-add' id='ed-token-save' type='button'>Save token</button>";
       var saved = ""; try { saved = localStorage.getItem("sm-token") || ""; } catch (e) {}
