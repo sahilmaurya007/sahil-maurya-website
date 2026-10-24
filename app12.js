@@ -1,20 +1,23 @@
-/* app12.js - Papers/Awards/Skills/Journey/GitHub-token tabs + Preview/Save. DO NOT EDIT. */
+/* app12.js - Papers/Awards/Skills/Journey/GitHub tabs + Preview/Save. Direct const refs. DO NOT EDIT. */
 (function () {
   "use strict";
   var SM = window.SM_EDITOR;
   if (!SM) return;
+  var D = function (n, f) { try { var v = eval(n); return v == null ? f : v; } catch (e) { return f; } };
   SM.begin = (function (old) { return function () {
     old();
-    SM.w.pubs = (window.PUBLICATIONS || []).map(function (p) { return { title: p.title || "", authors: p.authors || "", venue: p.venue || "", year: p.year || "", note: p.note || "", link: p.link || "" }; });
-    SM.w.awards = (window.AWARDS || []).map(function (a) { return { title: a.title || "", issuer: a.issuer || "", date: a.date || "" }; });
-    SM.w.skills = (window.SKILLS || []).map(function (s) { return { category: (s.category || "").replace(/<[^>]+>/g, ""), items: (s.items || []).join(", ") }; });
-    SM.w.journey = (window.JOURNEY || []).map(function (j) { return { date: j.date || "", title: j.title || "", desc: j.desc || "", cat: j.category || "" }; });
+    SM.w.pubs = (D("PUBLICATIONS", []) || []).map(function (p) { return { title: p.title || "", authors: p.authors || "", venue: p.venue || "", year: p.year || "", note: p.note || "", link: p.link || "" }; });
+    SM.w.awards = (D("AWARDS", []) || []).map(function (a) { return { title: a.title || "", issuer: a.issuer || "", date: a.date || "" }; });
+    SM.w.skills = (D("SKILLS", []) || []).map(function (s) { return { category: (s.category || "").replace(/<[^>]+>/g, ""), items: (s.items || []).join(", ") }; });
+    SM.w.journey = (D("JOURNEY", []) || []).map(function (j) { return { date: j.date || "", title: j.title || "", desc: j.desc || "", cat: j.category || "" }; });
   }; })(SM.begin);
 
   function addBtn(body, txt, fn) { var b = document.createElement("button"); b.className = "ed-add"; b.type = "button"; b.textContent = txt; b.addEventListener("click", fn); body.appendChild(b); }
+  function empty(body, txt) { var p = document.createElement("p"); p.style.cssText = "color:var(--muted);font-size:.78rem"; p.textContent = txt; body.appendChild(p); }
 
   SM.renderTab = function (cur, body) {
     if (cur === "papers") {
+      if (!SM.w.pubs.length) empty(body, "Papers abhi khali hai - + Add paper se naya add karo.");
       SM.w.pubs.forEach(function (p, i) {
         var c = SM.box(body, "Paper " + (i + 1));
         var a = SM.f(c, "Title", p.title); a.addEventListener("input", function () { p.title = a.value; });
@@ -25,8 +28,9 @@
         var l = SM.f(c, "Link (optional)", p.link); l.addEventListener("input", function () { p.link = l.value; });
         SM.onDel(c, SM.w.pubs, i);
       });
-      addBtn(body, "+ Add paper", function () { SM.w.pubs.push({ title: "", authors: "", venue: "", year: "", note: "", link: "" }); });
+      addBtn(body, "+ Add paper", function () { SM.w.pubs.push({ title: "", authors: "", venue: "", year: "", note: "", link: "" }); render(); });
     } else if (cur === "awards") {
+      if (!SM.w.awards.length) empty(body, "Awards abhi khali hai - + Add award se naya add karo.");
       SM.w.awards.forEach(function (a0, i) {
         var c = SM.box(body, "Award " + (i + 1));
         var a = SM.f(c, "Title", a0.title); a.addEventListener("input", function () { a0.title = a.value; });
@@ -34,16 +38,18 @@
         var d = SM.f(c, "Date/Year", a0.date); d.addEventListener("input", function () { a0.date = d.value; });
         SM.onDel(c, SM.w.awards, i);
       });
-      addBtn(body, "+ Add award", function () { SM.w.awards.push({ title: "", issuer: "", date: "" }); });
+      addBtn(body, "+ Add award", function () { SM.w.awards.push({ title: "", issuer: "", date: "" }); render(); });
     } else if (cur === "skills") {
+      if (!SM.w.skills.length) empty(body, "Skills abhi khali hai - + Add category se naya add karo.");
       SM.w.skills.forEach(function (s, i) {
         var c = SM.box(body, "Category " + (i + 1));
         var a = SM.f(c, "Category name", s.category); a.addEventListener("input", function () { s.category = a.value; });
         var b = SM.f(c, "Items (comma separated)", s.items, true); b.addEventListener("input", function () { s.items = b.value; });
         SM.onDel(c, SM.w.skills, i);
       });
-      addBtn(body, "+ Add category", function () { SM.w.skills.push({ category: "", items: "" }); });
+      addBtn(body, "+ Add category", function () { SM.w.skills.push({ category: "", items: "" }); render(); });
     } else if (cur === "journey") {
+      if (!SM.w.journey.length) empty(body, "Journey abhi khali hai - + Add milestone se naya add karo.");
       SM.w.journey.forEach(function (j, i) {
         var c = SM.box(body, "Milestone " + (i + 1));
         var d = SM.f(c, "Date (YYYY-MM)", j.date); d.addEventListener("input", function () { j.date = d.value; });
@@ -52,9 +58,9 @@
         var k = SM.f(c, "Category (Education/Publication/Award/Certification)", j.cat); k.addEventListener("input", function () { j.cat = k.value; });
         SM.onDel(c, SM.w.journey, i);
       });
-      addBtn(body, "+ Add milestone", function () { SM.w.journey.push({ date: "", title: "", desc: "", cat: "" }); });
+      addBtn(body, "+ Add milestone", function () { SM.w.journey.push({ date: "", title: "", desc: "", cat: "" }); render(); });
     } else if (cur === "github") {
-      body.innerHTML = "<div class='ed-f'><label>One-time GitHub token (paste + save, private)</label><input id='ed-token' type='password'></div><div class='ed-f' style='color:var(--muted);font-size:.74rem'>Save dabane par changes seedha draft branch par commit honge - approve page par REAL diff dikhega (grey button khatam). Token sirf is browser me store hota hai.</div><button class='ed-add' id='ed-token-save' type='button'>Save token</button>";
+      body.innerHTML = "<div class='ed-f'><label>One-time GitHub token (paste + save, private)</label><input id='ed-token' type='password'></div><div class='ed-f' style='color:var(--muted);font-size:.74rem'>Save hone ke baad Save &amp; Submit changes seedha draft branch par commit karega - approve page par REAL diff dikhega. Token sirf is browser me store hota hai.</div><button class='ed-add' id='ed-token-save' type='button'>Save token</button>";
       var saved = ""; try { saved = localStorage.getItem("sm-token") || ""; } catch (e) {}
       document.getElementById("ed-token").value = saved;
       document.getElementById("ed-token-save").addEventListener("click", function () {
@@ -70,13 +76,13 @@
     SM.msg("Preview applied (this tab only). Save & Submit for permanent.");
   };
   function applyLocal(w) {
-    if (window.ABOUT) { ABOUT.length = 0; w.about.forEach(function (p) { ABOUT.push(p); }); }
-    if (window.PROFILE) PROFILE.intro = w.intro;
-    if (window.NEWS) { NEWS.length = 0; w.news.forEach(function (x) { NEWS.push(x); }); }
-    if (window.PUBLICATIONS) { PUBLICATIONS.length = 0; w.pubs.forEach(function (x) { PUBLICATIONS.push(x); }); }
-    if (window.AWARDS) { AWARDS.length = 0; w.awards.forEach(function (x) { AWARDS.push(x); }); }
-    if (window.SKILLS) { SKILLS.length = 0; w.skills.forEach(function (s) { SKILLS.push({ category: s.category, items: s.items.split(",").map(function (q) { return q.trim(); }).filter(Boolean) }); }); }
-    if (window.JOURNEY) { JOURNEY.length = 0; w.journey.forEach(function (j) { JOURNEY.push({ date: j.date, title: j.title, desc: j.desc, section: "education", photo: "", category: j.cat || "Milestone" }); }); }
+    if (typeof ABOUT !== "undefined") { ABOUT.length = 0; w.about.forEach(function (p) { ABOUT.push(p); }); }
+    if (typeof PROFILE !== "undefined") PROFILE.intro = w.intro;
+    if (typeof NEWS !== "undefined") { NEWS.length = 0; w.news.forEach(function (x) { NEWS.push(x); }); }
+    if (typeof PUBLICATIONS !== "undefined") { PUBLICATIONS.length = 0; w.pubs.forEach(function (x) { PUBLICATIONS.push(x); }); }
+    if (typeof AWARDS !== "undefined") { AWARDS.length = 0; w.awards.forEach(function (x) { AWARDS.push(x); }); }
+    if (typeof SKILLS !== "undefined") { SKILLS.length = 0; w.skills.forEach(function (s) { SKILLS.push({ category: s.category, items: s.items.split(",").map(function (q) { return q.trim(); }).filter(Boolean) }); }); }
+    if (typeof JOURNEY !== "undefined") { JOURNEY.length = 0; w.journey.forEach(function (j) { JOURNEY.push({ date: j.date, title: j.title, desc: j.desc, section: "education", photo: "", category: j.cat || "Milestone" }); }); }
   }
 
   SM.save = function () {
@@ -92,7 +98,8 @@
       SKILLS: w.skills.map(function (s) { return { category: s.category, items: s.items.split(",").map(function (q) { return q.trim(); }).filter(Boolean) }; }),
       JOURNEY: w.journey.map(function (j) { return { date: j.date, title: j.title, desc: j.desc, section: "education", photo: "", category: j.cat || "Milestone" }; })
     };
-    var content = "/* data4.js - editor overrides (auto-generated). DO NOT EDIT MANUALLY. */\nwindow.EDITS = " + JSON.stringify(edits, null, 2) + ";\nwindow.SM_APPLY = function (e) {\n  if (!e) return;\n  if (e.ABOUT && window.ABOUT) { ABOUT.length = 0; e.ABOUT.forEach(function (p) { ABOUT.push(p); }); }\n  if (e.intro && window.PROFILE) PROFILE.intro = e.intro;\n  if (e.NEWS && window.NEWS) { NEWS.length = 0; e.NEWS.forEach(function (x) { NEWS.push(x); }); }\n  if (e.PUBLICATIONS && window.PUBLICATIONS) { PUBLICATIONS.length = 0; e.PUBLICATIONS.forEach(function (x) { PUBLICATIONS.push(x); }); }\n  if (e.AWARDS && window.AWARDS) { AWARDS.length = 0; e.AWARDS.forEach(function (x) { AWARDS.push(x); }); }\n  if (e.SKILLS && window.SKILLS) { SKILLS.length = 0; e.SKILLS.forEach(function (x) { SKILLS.push(x); }); }\n  if (e.JOURNEY && window.JOURNEY) { JOURNEY.length = 0; e.JOURNEY.forEach(function (x) { JOURNEY.push(x); }); }\n};\nSM_APPLY(EDITS);\n";
+    var applyFn = "window.SM_APPLY = function (e) {\n  if (!e) return;\n  if (e.ABOUT && typeof ABOUT !== \"undefined\") { ABOUT.length = 0; e.ABOUT.forEach(function (p) { ABOUT.push(p); }); }\n  if (e.intro && typeof PROFILE !== \"undefined\") PROFILE.intro = e.intro;\n  if (e.NEWS && typeof NEWS !== \"undefined\") { NEWS.length = 0; e.NEWS.forEach(function (x) { NEWS.push(x); }); }\n  if (e.PUBLICATIONS && typeof PUBLICATIONS !== \"undefined\") { PUBLICATIONS.length = 0; e.PUBLICATIONS.forEach(function (x) { PUBLICATIONS.push(x); }); }\n  if (e.AWARDS && typeof AWARDS !== \"undefined\") { AWARDS.length = 0; e.AWARDS.forEach(function (x) { AWARDS.push(x); }); }\n  if (e.SKILLS && typeof SKILLS !== \"undefined\") { SKILLS.length = 0; e.SKILLS.forEach(function (x) { SKILLS.push(x); }); }\n  if (e.JOURNEY && typeof JOURNEY !== \"undefined\") { JOURNEY.length = 0; e.JOURNEY.forEach(function (x) { JOURNEY.push(x); }); }\n};\n";
+    var content = "/* data4.js - editor overrides (auto-generated). DO NOT EDIT MANUALLY. */\nwindow.EDITS = " + JSON.stringify(edits, null, 2) + ";\n" + applyFn + "SM_APPLY(EDITS);\n";
     var b64 = btoa(unescape(encodeURIComponent(content)));
     SM.msg("Submitting...");
     fetch("https://api.github.com/repos/sahilmaurya007/sahil-maurya-website/contents/data4.js?ref=draft", {
