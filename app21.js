@@ -1,0 +1,138 @@
+/* app21.js - Gallery column design: category dropdown (existing + Others), photo fields: event, date taken, caption, click by. DO NOT EDIT. */
+(function () {
+  "use strict";
+  var SM = window.SM_EDITOR;
+  if (!SM) return;
+  var oldRT = SM.renderTab;
+  SM.renderTab = function (cur, body) {
+    if (cur !== "gallery") { if (oldRT) oldRT(cur, body); return; }
+    renderGallery(body);
+  };
+
+  function renderGallery(body) {
+    /* ---- COLUMN 1: category select + new ---- */
+    var lay = document.createElement("div");
+    lay.style.cssText = "display:flex;gap:14px;flex-wrap:wrap;align-items:flex-start";
+    var col1 = document.createElement("div");
+    col1.style.cssText = "flex:1 1 220px;min-width:220px";
+    var col2 = document.createElement("div");
+    col2.style.cssText = "flex:2 1 380px;min-width:300px";
+    lay.appendChild(col1); lay.appendChild(col2);
+    body.appendChild(lay);
+
+    /* category list with select buttons */
+    var lab = document.createElement("div");
+    lab.style.cssText = "font-size:.72rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px";
+    lab.textContent = "Select album / category";
+    col1.appendChild(lab);
+    var curIdx = SM.w.gallery._sel == null ? 0 : SM.w.gallery._sel;
+    var ul = document.createElement("div");
+    ul.style.cssText = "display:flex;flex-direction:column;gap:6px;margin-bottom:10px";
+    SM.w.gallery.forEach(function (cat, ci) {
+      var row = document.createElement("button");
+      row.type = "button";
+      row.className = "ed-tab" + (ci === curIdx ? " active" : "");
+      row.style.cssText = "justify-content:flex-start;text-align:left";
+      row.textContent = (ci === curIdx ? "> " : "") + (cat.name || "Untitled");
+      row.addEventListener("click", function () { SM.w.gallery._sel = ci; SM.render(); });
+      ul.appendChild(row);
+    });
+    col1.appendChild(ul);
+
+    /* Others: naya category naam dena */
+    var otherBox = document.createElement("div"); otherBox.className = "ed-cardbox";
+    otherBox.innerHTML = "<div class='ed-cardbox-h'><b>Add new album</b></div>";
+    var oname = SM.f(otherBox, "Naya album ka naam (e.g. Seminar 2027)", "");
+    var obtn = document.createElement("button"); obtn.type = "button"; obtn.className = "ed-add"; obtn.textContent = "Create album";
+    obtn.addEventListener("click", function () {
+      var nm = oname.value.trim();
+      if (!nm) { SM.msg("Album ka naam likho.", true); return; }
+      SM.w.gallery.push({ name: nm, photos: [] });
+      SM.w.gallery._sel = SM.w.gallery.length - 1;
+      SM.render();
+      SM.msg("Album '" + nm + "' created! Ab photos upload karo.");
+    });
+    otherBox.appendChild(obtn);
+    col1.appendChild(otherBox);
+
+    /* ---- COLUMN 2: selected album ke photos ---- */
+    var cat = SM.w.gallery[curIdx];
+    if (!cat) { col2.innerHTML = "<p style='color:var(--muted)'>Koi album select karo ya naya banao.</p>"; return; }
+    var head = document.createElement("div"); head.className = "ed-cardbox";
+    head.innerHTML = "<div class='ed-cardbox-h'><b>Album: " + (cat.name || "Untitled") + "</b><button class='ed-del' type='button'>Delete album</button></div>";
+    head.querySelector(".ed-del").addEventListener("click", function () {
+      SM.w.gallery.splice(curIdx, 1);
+      SM.w.gallery._sel = 0;
+      SM.render();
+    });
+    var rn = SM.f(head, "Album name (rename)", cat.name);
+    rn.addEventListener("input", function () { cat.name = rn.value; });
+    col2.appendChild(head);
+
+    cat.photos.forEach(function (p, pi) {
+      var pc = document.createElement("div"); pc.className = "ed-cardbox"; pc.style.margin = "0 0 8px";
+      pc.innerHTML = "<div class='ed-cardbox-h'><b>Photo " + (pi + 1) + "</b><button class='ed-del' type='button'>Delete</button></div>";
+      if (p.src) {
+        var prev = document.createElement("img");
+        prev.src = p.src;
+        prev.style.cssText = "width:100%;max-width:220px;height:auto;display:block;border-radius:8px;margin-bottom:8px;object-fit:contain;background:var(--bg)";
+        pc.insertBefore(prev, pc.firstChild.nextSibling);
+      }
+      var ev = SM.f(pc, "Event (e.g. HiPC 2025, Convocation)", p.event || "");
+      ev.addEventListener("input", function () { p.event = ev.value; });
+      var dt = SM.f(pc, "Date taken", p.date || "");
+      dt.addEventListener("input", function () { p.date = dt.value; });
+      var cap = SM.f(pc, "Caption / description", p.caption || "", true);
+      cap.addEventListener("input", function () { p.caption = cap.value; });
+      var ck = SM.f(pc, "Click by (photographer)", p.clickby || "");
+      ck.addEventListener("input", function () { p.clickby = ck.value; });
+      var src = SM.f(pc, "Photo path", p.src || "");
+      src.addEventListener("input", function () { p.src = src.value; });
+      pc.querySelector(".ed-del").addEventListener("click", function () { cat.photos.splice(pi, 1); SM.render(); });
+      col2.appendChild(pc);
+    });
+
+    /* multi-upload + single crop upload */
+    col2.appendChild(multiUpload(cat, function () { SM.render(); SM.msg("Uploaded! Event/date/caption/click-by likho."); }));
+    col2.appendChild(SM.pickCropUpload("Upload single photo (crop optional)", function (path) {
+      cat.photos.push({ src: path, caption: "", date: "", event: "", clickby: "" });
+      SM.render();
+      SM.msg("Uploaded! Details bharo, phir Save & Submit.");
+    }));
+    var addp = document.createElement("button"); addp.type = "button"; addp.className = "ed-add"; addp.textContent = "+ Add photo by path";
+    addp.addEventListener("click", function () { cat.photos.push({ src: "", caption: "", date: "", event: "", clickby: "" }); SM.render(); });
+    col2.appendChild(addp);
+  }
+
+  function multiUpload(cat, onDone) {
+    var wrap = document.createElement("div"); wrap.className = "ed-f";
+    wrap.innerHTML = "<label>Add multiple photos to this album</label>";
+    var fi = document.createElement("input"); fi.type = "file"; fi.accept = "image/*"; fi.multiple = true; fi.style.display = "none";
+    var selBtn = document.createElement("button"); selBtn.type = "button"; selBtn.className = "ed-add"; selBtn.textContent = "Choose photos (multi-select)";
+    var st = document.createElement("div"); st.style.cssText = "font-size:.72rem;color:var(--muted);margin-top:4px";
+    selBtn.addEventListener("click", function () { fi.click(); });
+    fi.addEventListener("change", function () {
+      var files = Array.from(fi.files || []);
+      if (!files.length) return;
+      st.textContent = "Uploading " + files.length + " photos...";
+      var done = 0, okCount = 0;
+      files.forEach(function (file, idx) {
+        SM.processImage(file, null, function (out) {
+          if (!out) { done++; check(); return; }
+          var name = "image/" + Date.now() + "_" + idx + ".jpg";
+          SM.putImage(name, out.b64, function () {
+            cat.photos.push({ src: name, caption: "", date: "", event: "", clickby: "" });
+            okCount++; done++; check();
+          }, function () { done++; check(); }, null);
+        });
+      });
+      function check() {
+        if (done < files.length) return;
+        st.textContent = okCount + "/" + files.length + " uploaded!";
+        onDone();
+      }
+    });
+    wrap.appendChild(selBtn); wrap.appendChild(fi); wrap.appendChild(st);
+    return wrap;
+  }
+})();

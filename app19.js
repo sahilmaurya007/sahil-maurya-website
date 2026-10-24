@@ -1,4 +1,4 @@
-/* app19.js - gallery photos ke neeche date dikhana (caption ke saath). DO NOT EDIT. */
+/* app19.js - gallery details: event, date taken, click by - live site par neeche. DO NOT EDIT. */
 (function () {
   "use strict";
   var findPhoto = function (src) {
@@ -16,13 +16,19 @@
       var cap = fig ? fig.querySelector(".gal-cap") : null;
       if (!cap || fig.dataset.dated) return;
       var p = findPhoto(img.getAttribute("src"));
-      if (p && p.date) {
+      if (p) {
         fig.dataset.dated = "1";
-        var d = document.createElement("span");
-        d.className = "gal-date";
-        d.textContent = " · " + p.date;
-        d.style.cssText = "color:var(--muted);font-size:.78em";
-        cap.appendChild(d);
+        var extra = [];
+        if (p.event) extra.push(p.event);
+        if (p.date) extra.push(p.date);
+        if (p.clickby) extra.push("Click by " + p.clickby);
+        if (extra.length) {
+          var d = document.createElement("div");
+          d.className = "gal-meta";
+          d.textContent = extra.join(" · ");
+          d.style.cssText = "color:var(--muted);font-size:.74em;margin-top:2px";
+          cap.appendChild(d);
+        }
       }
     });
   };
