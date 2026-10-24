@@ -1,7 +1,6 @@
 /* ============================================================
-   RENDERER (app.js) — IS FILE KO EDIT KARNE KI ZAROORAT NAHI.
-   Saara content data.js aur data2.js se aata hai.
-   Theme switching ab app5.js me hai (Light/Night + Background).
+   RENDERER (app.js) - IS FILE KO EDIT KARNE KI ZAROORAT NAHI.
+   Content data.js/data2.js se aata hai.
    ============================================================ */
 (function () {
   "use strict";
@@ -23,10 +22,17 @@
   const scholar = (PROFILE.links || []).find(l => /scholar/i.test(l.label));
   if (scholar) $("heroScholarBtn").href = scholar.url;
   else $("heroScholarBtn").style.display = "none";
+
+  /* profile photo: extension fallback chain (.jpg -> .jpeg -> .JPG -> .png) */
   const photo = $("heroPhoto");
-  photo.src = PROFILE.photo;
   photo.alt = PROFILE.name;
+  const base = PROFILE.photo.replace(/\.(jpg|jpeg|png|JPG|JPEG|PNG)$/i, "");
+  const tryList = [PROFILE.photo, base + ".jpeg", base + ".JPG", base + ".png"];
+  let pi = 0;
+  photo.src = tryList[0];
   photo.addEventListener("error", () => {
+    pi += 1;
+    if (pi < tryList.length) { photo.src = tryList[pi]; return; }
     photo.style.display = "none";
     $("photoFallback").style.display = "grid";
   });
@@ -39,16 +45,16 @@
     <div class="lab-row"><span class="lab-k">Email</span>
       <a href="mailto:${esc(PROFILE.email)}">${esc(PROFILE.email)}</a></div>
     ${PROFILE.inLabSince ? `<div class="lab-row"><span class="lab-k">In the lab</span><span>${esc(PROFILE.inLabSince)}</span></div>` : ""}
-    ${PROFILE.links && PROFILE.links.length ? `<div class="lab-row"><span class="lab-k">Elsewhere</span><span>${PROFILE.links.map(l =>
+    ${PROFILE.links && PROFILE.links.length ? `<div class="lab-row"><span class="lab-k">Connect</span><span>${PROFILE.links.map(l =>
       `<a href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.label)}</a>`).join(" · ")}</span></div>` : ""}
   `;
 
   const contacts = [
-    { lab: "Email (IIT Mandi)", ico: "📧", html: `<a href="mailto:${esc(PROFILE.email)}">${esc(PROFILE.email)}</a>` },
-    { lab: "Email (Previous)",  ico: "📧", html: `<a href="mailto:${esc(PROFILE.emailAlt)}">${esc(PROFILE.emailAlt)}</a>` },
-    { lab: "Current Address", ico: "🏛️", html: esc(PROFILE.currentAddress) },
-    { lab: "Home Address", ico: "🏠", html: esc(PROFILE.address) },
-    { lab: "Elsewhere", ico: "🔗", html: (PROFILE.links || []).map(l =>
+    { lab: "Email (IIT Mandi)", ico: "\uD83D\uDCE7", html: `<a href="mailto:${esc(PROFILE.email)}">${esc(PROFILE.email)}</a>` },
+    { lab: "Email (Previous)",  ico: "\uD83D\uDCE7", html: `<a href="mailto:${esc(PROFILE.emailAlt)}">${esc(PROFILE.emailAlt)}</a>` },
+    { lab: "Current Address", ico: "\uD83C\uDFDB\uFE0F", html: esc(PROFILE.currentAddress) },
+    { lab: "Home Address", ico: "\uD83C\uDFE0", html: esc(PROFILE.address) },
+    { lab: "Connect", ico: "\uD83D\uDD17", html: (PROFILE.links || []).map(l =>
       `<a href="${esc(l.url)}" target="_blank" rel="noopener" style="margin-right:8px">${esc(l.label)}</a>`).join("") },
   ];
   $("contactGrid").innerHTML = contacts.map(c => `
