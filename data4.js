@@ -35,7 +35,7 @@ window.EDITS = {
       "text": "VLSID Fellow (2024, 2025, 2026) — International Conference on VLSI Design (Tier 1 Conference)",
       "link": "",
       "date": "2025-01-01",
-      "photo": ""
+      "photo": "image/news_1792870141864.jpg"
     },
     {
       "type": "Talk",
@@ -49,7 +49,7 @@ window.EDITS = {
       "text": "Paper accepted at IEEE ISVLSI 2026 (Tier 1 Conference) — Optimized K2RED, Plantard, and Approximate Modular Multipliers for PQC",
       "link": "",
       "date": "2026-06-01",
-      "photo": ""
+      "photo": "image/news_1792870149986.jpg"
     },
     {
       "type": "Workshop",
@@ -57,6 +57,20 @@ window.EDITS = {
       "link": "",
       "date": "2026-02-26",
       "photo": ""
+    },
+    {
+      "type": "Update",
+      "text": "",
+      "link": "",
+      "date": "",
+      "photo": ""
+    },
+    {
+      "type": "Poster Presented at SCEE Samarthya 2026 - IIT Mandi",
+      "text": "",
+      "link": "",
+      "date": "2026-03-27",
+      "photo": "image/news_1792870405030.jpg"
     }
   ],
   "PUBLICATIONS": [
