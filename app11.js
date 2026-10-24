@@ -1,4 +1,4 @@
-/* app11.js - GUI editor: shell, tabs, boxes. Reads live data via direct const refs. DO NOT EDIT. */
+/* app11.js - GUI editor shell. Direct const refs + SM.render exposure. DO NOT EDIT. */
 (function () {
   "use strict";
   var SM = window.SM_EDITOR;
@@ -33,16 +33,15 @@
     c.innerHTML = "<div class='ed-cardbox-h'><b>" + title + "</b><button class='ed-del' type='button'>Delete</button></div>";
     parent.appendChild(c); return c;
   };
-  SM.onDel = function (card, arr, i) { card.querySelector(".ed-del").addEventListener("click", function () { arr.splice(i, 1); render(); }); };
-  SM.emptyList = function (body, txt) { var p = document.createElement("p"); p.style.cssText = "color:var(--muted);font-size:.78rem"; p.textContent = txt || "No items yet - Add se naya banao."; body.appendChild(p); };
+  SM.onDel = function (card, arr, i) { card.querySelector(".ed-del").addEventListener("click", function () { arr.splice(i, 1); SM.render(); }); };
+  SM.emptyList = function (body, txt) { var p = document.createElement("p"); p.style.cssText = "color:var(--muted);font-size:.78rem"; p.textContent = txt || "No items yet."; body.appendChild(p); };
 
-  /* LIVE DATA getter - direct const refs (const window par attach NAHI hota) */
   var D = function (name, fallback) { try { var v = eval(name); return v == null ? fallback : v; } catch (e) { return fallback; } };
 
   SM.begin = function () {
     SM.w = {
       about: (D("ABOUT", []) || []).slice(),
-      intro: D("PROFILE", {}) ? D("PROFILE").intro : "",
+      intro: (D("PROFILE", {}) || {}).intro || "",
       news: (D("NEWS", []) || []).map(function (x) { return { type: x.type || "Update", text: x.text || "", link: x.link || "", date: x.date || "", photo: x.photo || "" }; })
     };
   };
@@ -97,4 +96,5 @@
     } else if (SM.renderTab) { SM.renderTab(cur, body); }
     else { body.innerHTML = "<p style='color:var(--muted)'>Loading...</p>"; }
   }
+  SM.render = render;
 })();
