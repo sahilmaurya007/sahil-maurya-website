@@ -365,16 +365,7 @@ window.EDITS = {
     },
     {
       "name": "ISVLSI",
-      "photos": [
-        {
-          "src": "image/sahil.jpeg",
-          "caption": "ISVLSI 2026"
-        },
-        {
-          "src": "ISVLSI 2026",
-          "caption": "Royal Bengal Kolkata "
-        }
-      ]
+      "photos": []
     }
   ]
 };
