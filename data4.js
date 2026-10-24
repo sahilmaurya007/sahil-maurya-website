@@ -28,7 +28,7 @@ window.EDITS = {
       "text": "Certificate of Recognition — IEEE ISVLSI 2026 (Tier 1 Conference)",
       "link": "",
       "date": "2026-07-07",
-      "photo": ""
+      "photo": "image/news_1792870105096.jpg"
     },
     {
       "type": "Fellowship",
