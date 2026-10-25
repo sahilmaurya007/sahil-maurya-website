@@ -1,4 +1,4 @@
-/* app5.js - colour modes + style skins. Bars header ke andar khulte hain. DO NOT EDIT. */
+/* app5.js - colour modes + style skins + 3D skin + share-theme. DO NOT EDIT. */
 (function () {
   "use strict";
   var MODES = [
@@ -24,7 +24,8 @@
     { id: "sakura", label: "Sakura", dot: "linear-gradient(135deg,#ffd7e8,#ffb7d5 50%,#ffe9f3)" },
     { id: "carbon", label: "Carbon Pro", dot: "linear-gradient(135deg,#16181d,#2d3138 50%,#454b54)" },
     { id: "arctic", label: "Arctic", dot: "linear-gradient(135deg,#f0f7ff,#dbeafe 50%,#e0f2fe)" },
-    { id: "candy", label: "Candy Pop", dot: "linear-gradient(135deg,#ff9a9e,#a18cd1 50%,#fbc2eb)" }
+    { id: "candy", label: "Candy Pop", dot: "linear-gradient(135deg,#ff9a9e,#a18cd1 50%,#fbc2eb)" },
+    { id: "three", label: "3D", dot: "linear-gradient(135deg,#ff9d2f,#212121 50%,#7c4dff)" }
   ];
   var doc = document.documentElement;
   var get = function (k, d) { try { return localStorage.getItem(k) || d; } catch (e) { return d; } };
@@ -64,6 +65,11 @@
         return "<button class='mode-chip' data-skin='" + s.id + "'><span class='swatch' style='background:" + s.dot + "'></span>" + s.label + "</button>";
       }).join("") + "</div>";
     header.appendChild(skinBar);
+
+    /* 3D skin CSS - cards ko perspective/tilt */
+    var threeCss = document.createElement("style");
+    threeCss.textContent = "html[data-skin='three'] body{background:radial-gradient(1200px 600px at 70% -10%,#3b2f63,transparent),radial-gradient(900px 500px at 10% 110%,#0f2b46,transparent),#12131a}html[data-skin='three'] .card{transform:perspective(900px) rotateX(2deg);box-shadow:0 18px 40px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.12)}html[data-skin='three'] .card:hover{transform:perspective(900px) rotateX(0deg) translateY(-4px) scale(1.02);box-shadow:0 28px 60px rgba(0,0,0,.6)}html[data-skin='three'] .section-head h2,html[data-skin='three'] .hero-title{text-shadow:0 2px 0 rgba(0,0,0,.4),0 10px 24px rgba(124,77,255,.35)}html[data-skin='three'] .card h3{text-shadow:0 1px 1px rgba(0,0,0,.45)}html[data-skin='three'] header{box-shadow:0 10px 30px rgba(0,0,0,.55)}";
+    document.head.appendChild(threeCss);
 
     var sync = function () {
       panel.querySelectorAll("[data-theme]").forEach(function (b) { b.classList.toggle("active", b.dataset.theme === curMode); });
