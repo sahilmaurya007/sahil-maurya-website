@@ -1,4 +1,4 @@
-/* app33.js - Editor: news me MULTIPLE photos (add/replace/delete). DO NOT EDIT. */
+/* app33.js - Editor: news MULTI photos + per-news Update button (Delete ke saath). DO NOT EDIT. */
 (function () {
   "use strict";
   var SM = window.SM_EDITOR;
@@ -12,12 +12,21 @@
   var oldRT = SM.renderTab;
   SM.renderTab = function (cur, body) {
     if (cur !== "news") { if (oldRT) oldRT(cur, body); return; }
-    if (oldRT) oldRT(cur, body); /* app20 base render (fields + drag-drop) */
+    if (oldRT) oldRT(cur, body);
     var w = SM.w;
     var cards = body.querySelectorAll(".ed-cardbox");
     w.news.forEach(function (n, i) {
       var c = cards[i];
       if (!c) return;
+      /* header me Delete ke saath UPDATE button */
+      var head = c.querySelector(".ed-cardbox-h");
+      if (head && !head.querySelector(".ed-upd")) {
+        var ub = document.createElement("button");
+        ub.type = "button"; ub.className = "ed-upd"; ub.textContent = "Update";
+        ub.style.cssText = "background:none;border:1px solid #16a34a;color:#16a34a;border-radius:7px;padding:3px 10px;font-size:.72rem;cursor:pointer;margin-right:6px";
+        ub.addEventListener("click", function () { SM.save(); });
+        head.appendChild(ub);
+      }
       var oldPrev = c.querySelector("img");
       if (oldPrev && oldPrev.parentElement === c && !oldPrev.dataset.keep) oldPrev.remove();
       var mgr = document.createElement("div"); mgr.className = "ed-f";
@@ -42,7 +51,7 @@
               var name = "image/news_" + Date.now() + "_" + pi + ".jpg";
               SM.putImage(name, out.b64, function () {
                 n.photos[pi] = name; n.photo = n.photos[0];
-                SM.render(); SM.msg("Photo replaced! Save & Submit dabao.");
+                SM.render(); SM.msg("Photo replaced! Update/Save dabao.");
               }, function (e) { SM.msg("Replace fail: " + e, true); });
             });
           }
@@ -70,7 +79,7 @@
         function chk() {
           if (done < files.length) return;
           n.photo = n.photos[0] || "";
-          SM.render(); SM.msg("Photos added! (" + n.photos.length + " total). Save & Submit.");
+          SM.render(); SM.msg("Photos added! (" + n.photos.length + " total). Update/Save dabao.");
         }
       });
       mgr.appendChild(ab); mgr.appendChild(fi);
