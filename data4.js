@@ -21,42 +21,56 @@ window.EDITS = {
       "text": "Paper accepted for ORAL presentation at VLSID 2027 (Tier 1 Conference) — Reproducible Co-Design of Domain-Aware Sleep Switches",
       "link": "",
       "date": "2026-10-12",
-      "photo": "image/news_1792868908867.jpg"
+      "photo": "image/news_1792868908867.jpg",
+      "photos": [
+        "image/news_1792868908867.jpg"
+      ]
     },
     {
       "type": "Award",
       "text": "Certificate of Recognition — IEEE ISVLSI 2026 (Tier 1 Conference)",
       "link": "",
       "date": "2026-07-07",
-      "photo": "image/news_1792870105096.jpg"
+      "photo": "image/news_1792870105096.jpg",
+      "photos": [
+        "image/news_1792870105096.jpg"
+      ]
     },
     {
       "type": "Talk",
       "text": "Teaching Assistant session — VL-401: RTL Design and Verification, Monsoon Sem 2025, IIT Mandi",
       "link": "",
       "date": "2025-11-27",
-      "photo": ""
+      "photo": "",
+      "photos": []
     },
     {
       "type": "Journal",
       "text": "Paper accepted at IEEE ISVLSI 2026 (Tier 1 Conference) — Optimized K2RED, Plantard, and Approximate Modular Multipliers for PQC",
       "link": "",
       "date": "2026-06-01",
-      "photo": "image/news_1792870149986.jpg"
+      "photo": "image/news_1792870149986.jpg",
+      "photos": [
+        "image/news_1792870149986.jpg"
+      ]
     },
     {
       "type": "Workshop",
       "text": "Hands-on Workshop on IC Design Tool at IIT Mandi",
       "link": "",
       "date": "2026-02-26",
-      "photo": ""
+      "photo": "",
+      "photos": []
     },
     {
       "type": "Update",
       "text": "VLSID Fellow (2024, 2025, 2026) — International Conference on VLSI Design **(Tier 1 Conference)**\n",
       "link": "",
       "date": "2025-01-01",
-      "photo": "image/news_1792938600183.jpg"
+      "photo": "image/news_1792938600183.jpg",
+      "photos": [
+        "image/news_1792938600183.jpg"
+      ]
     }
   ],
   "PUBLICATIONS": [
