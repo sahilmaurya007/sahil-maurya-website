@@ -272,7 +272,7 @@ window.EDITS = {
       "category": "Publication"
     }
   ],
-  "PHOTO": "image/1792937669663.jpg",
+  "PHOTO": "image/1792938102543.jpg",
   "GALLERY": [
     {
       "name": "Lab Moments",
