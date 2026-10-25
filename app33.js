@@ -1,31 +1,27 @@
-/* app33.js - Editor: news me MULTIPLE photos (add/replace/delete) + har photo full/crop option. DO NOT EDIT. */
+/* app33.js - Editor: news me MULTIPLE photos (add/replace/delete). DO NOT EDIT. */
 (function () {
   "use strict";
   var SM = window.SM_EDITOR;
   if (!SM) return;
-  /* NEWS load me photos array preserve karo */
   SM.begin = (function (old) { return function () {
     old();
     (SM.w.news || []).forEach(function (n) {
       if (!n.photos || !n.photos.length) n.photos = n.photo ? [n.photo] : [];
     });
   }; })(SM.begin);
-
-  /* news render ko hook: har news ke photos section */
   var oldRT = SM.renderTab;
   SM.renderTab = function (cur, body) {
     if (cur !== "news") { if (oldRT) oldRT(cur, body); return; }
-    /* app20 ne render kiya hoga - ab har news card me photos manager daalo */
+    if (oldRT) oldRT(cur, body); /* app20 base render (fields + drag-drop) */
     var w = SM.w;
     var cards = body.querySelectorAll(".ed-cardbox");
     w.news.forEach(function (n, i) {
       var c = cards[i];
       if (!c) return;
-      /* purana single photo preview hata ke photos grid banao */
       var oldPrev = c.querySelector("img");
-      if (oldPrev && oldPrev.parentElement === c) oldPrev.remove();
+      if (oldPrev && oldPrev.parentElement === c && !oldPrev.dataset.keep) oldPrev.remove();
       var mgr = document.createElement("div"); mgr.className = "ed-f";
-      mgr.innerHTML = "<label>Photos (" + (n.photos ? n.photos.length : 0) + ") - har photo: replace/delete, neeche add bhi kar sakte ho</label>";
+      mgr.innerHTML = "<label>Photos (" + (n.photos ? n.photos.length : 0) + ") - Replace / Delete / Add more</label>";
       var grid = document.createElement("div");
       grid.style.cssText = "display:flex;gap:8px;flex-wrap:wrap;margin-bottom:6px";
       (n.photos || []).forEach(function (p, pi) {
@@ -57,7 +53,6 @@
       });
       if (!(n.photos || []).length) grid.innerHTML = "<span style='font-size:.74rem;color:var(--muted)'>Koi photo nahi - neeche se add karo</span>";
       mgr.appendChild(grid);
-      /* add more photos: multi-select */
       var fi = document.createElement("input"); fi.type = "file"; fi.accept = "image/*"; fi.multiple = true; fi.style.display = "none";
       var ab = document.createElement("button"); ab.type = "button"; ab.className = "ed-add"; ab.textContent = "+ Add photos (multi-select)"; ab.style.marginBottom = "0";
       ab.addEventListener("click", function () { fi.click(); });
@@ -67,8 +62,8 @@
         var done = 0;
         files.forEach(function (f, ix) {
           SM.processImage(f, null, function (out) {
-            var name = out ? "image/news_" + Date.now() + "_" + ix + ".jpg" : null;
-            if (!name) { done++; chk(); return; }
+            if (!out) { done++; chk(); return; }
+            var name = "image/news_" + Date.now() + "_" + ix + ".jpg";
             SM.putImage(name, out.b64, function () { n.photos.push(name); done++; chk(); }, function () { done++; chk(); });
           });
         });
