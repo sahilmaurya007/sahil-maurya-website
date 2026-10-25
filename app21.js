@@ -1,4 +1,4 @@
-/* app21.js - Gallery column design: category dropdown (existing + Others), photo fields: event, date taken, caption, click by. DO NOT EDIT. */
+/* app21.js - Gallery editor: + resize-upload option (custom width). DO NOT EDIT. */
 (function () {
   "use strict";
   var SM = window.SM_EDITOR;
@@ -10,7 +10,6 @@
   };
 
   function renderGallery(body) {
-    /* ---- COLUMN 1: category select + new ---- */
     var lay = document.createElement("div");
     lay.style.cssText = "display:flex;gap:14px;flex-wrap:wrap;align-items:flex-start";
     var col1 = document.createElement("div");
@@ -20,7 +19,6 @@
     lay.appendChild(col1); lay.appendChild(col2);
     body.appendChild(lay);
 
-    /* category list with select buttons */
     var lab = document.createElement("div");
     lab.style.cssText = "font-size:.72rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px";
     lab.textContent = "Select album / category";
@@ -39,7 +37,6 @@
     });
     col1.appendChild(ul);
 
-    /* Others: naya category naam dena */
     var otherBox = document.createElement("div"); otherBox.className = "ed-cardbox";
     otherBox.innerHTML = "<div class='ed-cardbox-h'><b>Add new album</b></div>";
     var oname = SM.f(otherBox, "Naya album ka naam (e.g. Seminar 2027)", "");
@@ -55,7 +52,6 @@
     otherBox.appendChild(obtn);
     col1.appendChild(otherBox);
 
-    /* ---- COLUMN 2: selected album ke photos ---- */
     var cat = SM.w.gallery[curIdx];
     if (!cat) { col2.innerHTML = "<p style='color:var(--muted)'>Koi album select karo ya naya banao.</p>"; return; }
     var head = document.createElement("div"); head.className = "ed-cardbox";
@@ -88,11 +84,33 @@
       ck.addEventListener("input", function () { p.clickby = ck.value; });
       var src = SM.f(pc, "Photo path", p.src || "");
       src.addEventListener("input", function () { p.src = src.value; });
+      /* RESIZE: purani photo ko naye width par re-upload */
+      if (p.src) {
+        var rz = document.createElement("button"); rz.type = "button"; rz.className = "ed-add"; rz.style.margin = "0 0 8px";
+        rz.textContent = "Resize this photo";
+        var rzi = document.createElement("input"); rzi.type = "file"; rzi.accept = "image/*"; rzi.style.display = "none";
+        var rzw = SM.f(pc, "Resize width (px, e.g. 800/1200/1600)", "1200");
+        rzw.style.marginBottom = "4px";
+        rz.addEventListener("click", function () { rzi.click(); });
+        rzi.addEventListener("change", function () {
+          if (!rzi.files || !rzi.files[0]) return;
+          var maxW = parseInt(rzw.value, 10) || 1200;
+          window.SM_RESIZE(rzi.files[0], maxW, function (b64, w, h) {
+            var name = "image/gal_" + Date.now() + "_" + pi + ".jpg";
+            SM.putImage(name, b64, function () {
+              p.src = name;
+              SM.render();
+              SM.msg("Resized to " + w + "x" + h + " & uploaded! Save & Submit dabao.");
+            }, function (er) { SM.msg("Resize upload fail: " + er, true); }, "Uploading resized...");
+          });
+        });
+        pc.appendChild(rzi);
+        pc.insertBefore(rz, rzi);
+      }
       pc.querySelector(".ed-del").addEventListener("click", function () { cat.photos.splice(pi, 1); SM.render(); });
       col2.appendChild(pc);
     });
 
-    /* multi-upload + single crop upload */
     col2.appendChild(multiUpload(cat, function () { SM.render(); SM.msg("Uploaded! Event/date/caption/click-by likho."); }));
     col2.appendChild(SM.pickCropUpload("Upload single photo (crop optional)", function (path) {
       cat.photos.push({ src: path, caption: "", date: "", event: "", clickby: "" });
