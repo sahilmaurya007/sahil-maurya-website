@@ -1,4 +1,4 @@
-/* app20.js - News tab: drag-drop photo upload + crop per news. DO NOT EDIT. */
+/* app20.js - News tab: drag-drop + crop/full toggle + multi-photo add. DO NOT EDIT. */
 (function () {
   "use strict";
   var SM = window.SM_EDITOR;
@@ -13,6 +13,7 @@
     }
     w.news.forEach(function (n, i) {
       var c = SM.box(body, "News " + (i + 1));
+      if (!n.photos || !n.photos.length) n.photos = n.photo ? [n.photo] : [];
       if (n.photo) {
         var prev = document.createElement("img");
         prev.src = n.photo;
@@ -28,7 +29,7 @@
       var d = SM.f(c, "Date (YYYY-MM-DD)", n.date);
       d.addEventListener("input", function () { n.date = d.value; });
 
-      /* ---- DRAG-DROP + crop zone ---- */
+      /* ---- DRAG-DROP + crop/full mode ---- */
       var dz = document.createElement("div");
       dz.style.cssText = "border:2px dashed var(--accent);border-radius:12px;padding:14px 10px;text-align:center;font-size:.78rem;color:var(--accent);cursor:pointer;margin-bottom:8px";
       dz.textContent = "Drag & drop photo here (ya click karke choose karo)";
@@ -40,15 +41,36 @@
       var boxEl = document.createElement("div");
       boxEl.style.cssText = "position:absolute;border:2px dashed #16a34a;background:rgba(22,163,74,.15);display:none;pointer-events:none";
       bx.appendChild(imgEl); bx.appendChild(boxEl);
-      var upBtn = document.createElement("button"); upBtn.type = "button"; upBtn.className = "ed-add"; upBtn.textContent = "Upload (crop optional)"; upBtn.style.display = "none";
+      /* mode toggle: Crop / Full */
+      var modeRow = document.createElement("div");
+      modeRow.style.cssText = "display:flex;gap:6px;margin-bottom:6px";
+      var cropMode = true;
+      var mCrop = document.createElement("button"); mCrop.type = "button"; mCrop.textContent = "Crop mode";
+      var mFull = document.createElement("button"); mFull.type = "button"; mFull.textContent = "Full photo";
+      [mCrop, mFull].forEach(function (mb) {
+        mb.style.cssText = "flex:1;padding:6px;border-radius:8px;border:1px solid var(--border);background:none;color:var(--text);font-size:.74rem;cursor:pointer";
+      });
+      var syncMode = function () {
+        mCrop.style.background = cropMode ? "var(--accent)" : "none";
+        mCrop.style.color = cropMode ? "#fff" : "var(--text)";
+        mFull.style.background = !cropMode ? "var(--accent)" : "none";
+        mFull.style.color = !cropMode ? "#fff" : "var(--text)";
+        bx.style.display = file && cropMode ? "block" : (file ? "none" : "none");
+        if (!cropMode) { boxEl.style.display = "none"; }
+      };
+      mCrop.addEventListener("click", function () { cropMode = true; syncMode(); });
+      mFull.addEventListener("click", function () { cropMode = false; crop = null; syncMode(); });
+      modeRow.appendChild(mCrop); modeRow.appendChild(mFull);
+      syncMode();
+      var upBtn = document.createElement("button"); upBtn.type = "button"; upBtn.className = "ed-add"; upBtn.textContent = "Upload photo"; upBtn.style.display = "none";
       var st = document.createElement("div"); st.style.cssText = "font-size:.72rem;color:var(--muted);margin-top:4px";
       var file = null, crop = null, drag = false, x0 = 0, y0 = 0;
 
       function pick(f) {
         file = f;
-        st.textContent = "Selected: " + f.name + " - drag karke crop select karo (optional)";
+        st.textContent = cropMode ? "Selected: " + f.name + " - crop select karo (ya Full mode on karo)" : "Selected: " + f.name + " - FULL photo upload hogi";
         var fr = new FileReader();
-        fr.onload = function () { imgEl.src = fr.result; imgEl.style.display = "block"; bx.style.display = "block"; upBtn.style.display = "block"; };
+        fr.onload = function () { imgEl.src = fr.result; imgEl.style.display = "block"; upBtn.style.display = "block"; syncMode(); };
         fr.readAsDataURL(f);
         crop = null; boxEl.style.display = "none";
       }
@@ -62,7 +84,10 @@
         e.preventDefault(); e.stopPropagation(); dz.style.background = "transparent";
         if (e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0]) pick(e.dataTransfer.files[0]);
       });
-      imgEl.addEventListener("mousedown", function (e) { drag = true; var r = imgEl.getBoundingClientRect(); x0 = e.clientX - r.left; y0 = e.clientY - r.top; boxEl.style.display = "block"; e.preventDefault(); });
+      imgEl.addEventListener("mousedown", function (e) {
+        if (!cropMode) return;
+        drag = true; var r = imgEl.getBoundingClientRect(); x0 = e.clientX - r.left; y0 = e.clientY - r.top; boxEl.style.display = "block"; e.preventDefault();
+      });
       document.addEventListener("mousemove", function (e) {
         if (!drag) return;
         var r = imgEl.getBoundingClientRect();
@@ -85,21 +110,23 @@
       upBtn.addEventListener("click", function () {
         if (!file) { st.textContent = "Pehle photo choose/drop karo."; return; }
         st.textContent = "Processing + uploading...";
-        SM.processImage(file, crop, function (out) {
+        var useCrop = cropMode ? crop : null;
+        SM.processImage(file, useCrop, function (out) {
           if (!out) { st.textContent = "Image process fail"; return; }
           var name = "image/news_" + Date.now() + ".jpg";
           SM.putImage(name, out.b64, function () {
             n.photo = name;
+            n.photos.push(name);
             SM.render();
-            SM.msg("Photo uploaded + linked to News " + (i + 1) + "! Save & Submit dabao.");
+            SM.msg("Photo uploaded! News " + (i + 1) + " me " + n.photos.length + " photos. Save & Submit dabao.");
           }, function (er) { st.textContent = er; }, "Uploading...");
         });
       });
-      c.appendChild(dz); c.appendChild(fi); c.appendChild(bx); c.appendChild(upBtn); c.appendChild(st);
+      c.appendChild(dz); c.appendChild(fi); c.appendChild(modeRow); c.appendChild(bx); c.appendChild(upBtn); c.appendChild(st);
       SM.onDel(c, w.news, i);
     });
     var an = document.createElement("button"); an.type = "button"; an.className = "ed-add"; an.textContent = "+ Add news";
-    an.addEventListener("click", function () { w.news.push({ type: "Update", text: "", link: "", date: "", photo: "" }); SM.render(); });
+    an.addEventListener("click", function () { w.news.push({ type: "Update", text: "", link: "", date: "", photo: "", photos: [] }); SM.render(); });
     body.appendChild(an);
   };
 })();
