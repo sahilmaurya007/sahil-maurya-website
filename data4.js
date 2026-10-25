@@ -56,7 +56,7 @@ window.EDITS = {
       "text": "VLSID Fellow (2024, 2025, 2026) — International Conference on VLSI Design **(Tier 1 Conference)**\n",
       "link": "",
       "date": "2025-01-01",
-      "photo": "image/news_1792938600183.jpg"
+      "photo": "image/news_1792938665522.jpg"
     }
   ],
   "PUBLICATIONS": [
