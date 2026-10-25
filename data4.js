@@ -57,20 +57,6 @@ window.EDITS = {
       "link": "",
       "date": "2026-02-26",
       "photo": ""
-    },
-    {
-      "type": "Update",
-      "text": "",
-      "link": "",
-      "date": "",
-      "photo": ""
-    },
-    {
-      "type": "Poster Presented at SCEE Samarthya 2026 - IIT Mandi",
-      "text": "",
-      "link": "",
-      "date": "2026-03-27",
-      "photo": "image/news_1792870405030.jpg"
     }
   ],
   "PUBLICATIONS": [
