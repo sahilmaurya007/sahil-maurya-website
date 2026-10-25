@@ -1,4 +1,4 @@
-/* app7.js - pencil + login gate: eye toggle, AES-GCM session (persistent), lockout, theme share. DO NOT EDIT. */
+/* app7.js - pencil + login gate: eye toggle, AES-GCM session, 3-FAIL = 6 HOUR LOCK. DO NOT EDIT. */
 (function () {
   "use strict";
   var USER_ID = "sahil.maurya21@iiitg.ac.in";
@@ -47,7 +47,7 @@
   var SM = { loggedIn: false, open: null };
   window.SM_EDITOR = SM;
 
-  /* page reload par AES token verify - login persist (tab switch bug fix) */
+  /* page reload par AES token verify - login persist */
   try {
     var savedTok = localStorage.getItem("sm-auth-2");
     if (savedTok) verifyToken(savedTok, function (ok) { if (ok) { loggedIn = true; SM.loggedIn = true; } });
@@ -71,7 +71,22 @@
     eye.textContent = show ? "\uD83D\uDE48" : "\uD83D\uDC41";
   });
 
-  var fails = 0, lockedUntil = 0;
+  /* ---- BRUTE-FORCE LOCK: 3 galat attempts = 6 GHANTE block (persist localStorage) ---- */
+  var BLOCK_KEY = "sm-blocked-until";
+  var FAIL_KEY = "sm-login-fails";
+  var BLOCK_HOURS = 6;
+  var getBlockedUntil = function () { try { return parseInt(localStorage.getItem(BLOCK_KEY) || "0", 10); } catch (e) { return 0; } };
+  var setBlockedUntil = function (t) { try { localStorage.setItem(BLOCK_KEY, String(t)); } catch (e) {} };
+  var getFails = function () { try { return parseInt(localStorage.getItem(FAIL_KEY) || "0", 10); } catch (e) { return 0; } };
+  var setFails = function (n) { try { localStorage.setItem(FAIL_KEY, String(n)); } catch (e) {} };
+  var blockedUntil = getBlockedUntil();
+  var fails = getFails();
+  var fmtHrs = function (ms) {
+    var mins = Math.ceil(ms / 60000);
+    if (mins < 60) return mins + " min";
+    return (Math.round((mins / 60) * 10) / 10) + " hrs";
+  };
+
   fab.addEventListener("click", function () {
     if (!loggedIn) { mask.classList.add("open"); return; }
     if (SM.open) SM.open();
@@ -80,7 +95,10 @@
   mask.querySelector("#loginForm").addEventListener("submit", function (e) {
     e.preventDefault();
     var err = document.getElementById("loginErr");
-    if (Date.now() < lockedUntil) { err.textContent = "Bahut attempts fail - " + Math.ceil((lockedUntil - Date.now()) / 1000) + "s baad try karo."; return; }
+    if (Date.now() < blockedUntil) {
+      err.textContent = "SECURITY LOCK - kai galat attempts. " + fmtHrs(blockedUntil - Date.now()) + " baad try karo.";
+      return;
+    }
     var id = document.getElementById("lid").value.trim().toLowerCase();
     var pw = lpass.value;
     if (id === USER_ID && hp(pw) === PASS_HASH) {
@@ -90,12 +108,17 @@
       document.getElementById("lid").value = "";
       lpass.value = "";
       err.textContent = "";
-      fails = 0;
+      fails = 0; setFails(0);
       if (SM.open) SM.open();
     } else {
-      fails++;
-      if (fails >= 5) lockedUntil = Date.now() + 30000;
-      err.textContent = "Incorrect ID or password." + (fails >= 5 ? " (30s lock)" : "");
+      fails++; setFails(fails);
+      if (fails >= 3) {
+        blockedUntil = Date.now() + BLOCK_HOURS * 3600 * 1000;
+        setBlockedUntil(blockedUntil);
+        err.textContent = "3 galat attempts! SECURITY LOCK - " + BLOCK_HOURS + " hours ke liye blocked.";
+      } else {
+        err.textContent = "Incorrect ID or password. (Attempts left: " + (3 - fails) + ")";
+      }
     }
   });
   SM.setLoggedOut = function () {

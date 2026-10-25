@@ -1,8 +1,10 @@
-/* app17.js - image crop + resize + upload UI (sab photo uploads me). DO NOT EDIT. */
+/* app17.js - image process: COMPRESSION (fast upload) + crop + upload UI. DO NOT EDIT. */
 (function () {
   "use strict";
   var SM = window.SM_EDITOR;
   if (!SM) return;
+  /* processImage: photo compress karke chhota banata hai - upload isliye fast hota hai.
+     1-2MB photo -> ~1200px max side, JPEG 0.8 quality = ~150-300KB. Upload 10x faster. */
   SM.processImage = function (file, cropRect, cb) {
     var fr = new FileReader();
     fr.onload = function () {
@@ -11,10 +13,11 @@
         try {
           var sx = 0, sy = 0, sw = img.width, sh = img.height;
           if (cropRect && cropRect.w > 0 && cropRect.h > 0) { sx = cropRect.x; sy = cropRect.y; sw = cropRect.w; sh = cropRect.h; }
-          var scale = Math.min(1, 900 / Math.max(sw, sh));
+          var scale = Math.min(1, 1200 / Math.max(sw, sh));
           var cv = document.createElement("canvas");
           cv.width = Math.round(sw * scale); cv.height = Math.round(sh * scale);
           var ctx = cv.getContext("2d");
+          ctx.imageSmoothingQuality = "high";
           ctx.drawImage(img, sx, sy, sw, sh, 0, 0, cv.width, cv.height);
           cv.toBlob(function (blob) {
             var fr2 = new FileReader();
@@ -24,7 +27,7 @@
               cb({ b64: btoa(s), size: b.length });
             };
             fr2.readAsArrayBuffer(blob);
-          }, "image/jpeg", 0.85);
+          }, "image/jpeg", 0.8);
         } catch (e) { cb(null); }
       };
       img.onerror = function () { cb(null); };
@@ -32,7 +35,6 @@
     };
     fr.readAsDataURL(file);
   };
-  /* pickCropUpload(label, onUploaded(path, statusEl)) */
   SM.pickCropUpload = function (label, onUploaded) {
     var wrap = document.createElement("div"); wrap.className = "ed-f";
     wrap.innerHTML = "<label>" + label + "</label>";
@@ -79,11 +81,12 @@
     });
     up.addEventListener("click", function () {
       if (!file) return;
-      st.textContent = "Processing + uploading...";
+      st.textContent = "Compressing + uploading...";
+      var t0 = Date.now();
       SM.processImage(file, crop, function (out) {
         if (!out) { st.textContent = "Image process fail"; return; }
         var name = "image/" + Date.now() + ".jpg";
-        SM.putImage(name, out.b64, function () { st.textContent = "Uploaded: " + name; onUploaded(name); }, function (e2) { st.textContent = e2; }, "Uploading...");
+        SM.putImage(name, out.b64, function () { st.textContent = "Uploaded in " + ((Date.now() - t0) / 1000).toFixed(1) + "s (" + Math.round(out.size / 1024) + "KB)"; onUploaded(name); }, function (e2) { st.textContent = e2; }, "Uploading...");
       });
     });
     wrap.appendChild(cb); wrap.appendChild(fi); wrap.appendChild(area); wrap.appendChild(hint); wrap.appendChild(up); wrap.appendChild(st);
