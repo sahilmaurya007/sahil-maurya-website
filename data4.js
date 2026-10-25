@@ -31,13 +31,6 @@ window.EDITS = {
       "photo": "image/news_1792870105096.jpg"
     },
     {
-      "type": "Fellowship",
-      "text": "VLSID Fellow (2024, 2025, 2026) — International Conference on VLSI Design (Tier 1 Conference)",
-      "link": "",
-      "date": "2025-01-01",
-      "photo": "image/news_1792870141864.jpg"
-    },
-    {
       "type": "Talk",
       "text": "Teaching Assistant session — VL-401: RTL Design and Verification, Monsoon Sem 2025, IIT Mandi",
       "link": "",
@@ -60,17 +53,10 @@ window.EDITS = {
     },
     {
       "type": "Update",
-      "text": "",
+      "text": "VLSID Fellow (2024, 2025, 2026) — International Conference on VLSI Design **(Tier 1 Conference)**\n",
       "link": "",
-      "date": "",
-      "photo": ""
-    },
-    {
-      "type": "Poster Presented at SCEE Samarthya 2026 - IIT Mandi",
-      "text": "",
-      "link": "",
-      "date": "2026-03-27",
-      "photo": "image/news_1792870405030.jpg"
+      "date": "2025-01-01",
+      "photo": "image/news_1792938600183.jpg"
     }
   ],
   "PUBLICATIONS": [
@@ -286,7 +272,7 @@ window.EDITS = {
       "category": "Publication"
     }
   ],
-  "PHOTO": "image/SAHIL.jpg",
+  "PHOTO": "image/1792938102543.jpg",
   "GALLERY": [
     {
       "name": "Lab Moments",
