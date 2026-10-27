@@ -28,13 +28,15 @@
   const renderNews = () => {
     const n = NEWS[newsIdx];
     const label = n.link
-      ? `<a href="${esc(n.link)}" target="_blank" rel="noopener">${esc(n.text)}</a>`
+      ? `<a href="${esc(n.link)}" target="_blank" rel="_blank noopener">${esc(n.text)}</a>`
       : esc(n.text);
+    /* photo fallback: n.photo empty ho to photos array ki pehli photo use karo */
+    const ph = n.photo || (Array.isArray(n.photos) && n.photos.length ? n.photos[0] : "");
     news.innerHTML = `
     <div class="wrap news-layout">
       <div class="news-media">
-        ${n.photo
-          ? `<img src="${esc(n.photo)}" alt="${esc(n.text)}" onerror="this.parentElement.classList.add('noimg')">`
+        ${ph
+          ? `<img src="${esc(ph)}" alt="${esc(n.text)}">`
           : `<div class="news-grad"><span class="ng-txt">${esc(n.type)}</span></div>`}
         <div class="news-media-cap">
           <span class="ntype">${esc(n.type)}</span>
@@ -157,9 +159,9 @@
     document.querySelectorAll(".tl-item").forEach(it => { it.style.opacity = (it.querySelector(".tl-cat").textContent === cat) ? "1" : ".25"; });
   };
   const resetCat = () => {
-    document.querySelectorAll("#pieSvg .pie-arc").forEach(p => p.style.opacity = "1");
+    document.querySelectorAll("#pieSvg .pie-arc").forEach(p => { p.style.opacity = "1"; });
     document.querySelectorAll(".pie-legend .leg").forEach(l => { l.style.fontWeight = "400"; });
-    document.querySelectorAll(".tl-item").forEach(it => it.style.opacity = "1");
+    document.querySelectorAll(".tl-item").forEach(it => { it.style.opacity = "1"; });
   };
   document.querySelectorAll(".pie-legend .leg").forEach(l => {
     l.addEventListener("mouseenter", () => focusCat(l.dataset.cat));

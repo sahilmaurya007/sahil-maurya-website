@@ -1,8 +1,11 @@
-/* app32.js - news photo FULL show + rich text live + footer horizontal. DO NOT EDIT. */
+/* app32.js - news photo FULL show + mobile-safe min-height + rich text live + footer horizontal. DO NOT EDIT. */
 (function () {
   "use strict";
   var css = document.createElement("style");
-  css.textContent = ".news-media{min-height:auto!important}.news-media img{object-fit:contain!important;object-position:center center!important;background:var(--soft);opacity:1!important;max-width:100%}.news-media.noimg img{display:none}.foot{gap:10px 28px!important;align-items:start}.foot h4{margin-bottom:6px}.foot ul li{font-size:.8rem;margin-bottom:3px}@media (max-width:760px){.news-media img{width:100%;height:auto}}";
+  /* FIX: min-height:auto photo column ko mobile par collapse kar deta tha (img absolute hai, khud height nahi banata).
+     Desktop par grid stretch se chal jata tha, mobile single-column me height 0 = photo gayab.
+     Ab: min-height restored + img forced full-fill. */
+  css.textContent = ".news-media{min-height:clamp(230px,36vw,340px)!important}.news-media img{object-fit:contain!important;object-position:center center!important;background:var(--soft);opacity:1!important;max-width:100%}.news-media.noimg img{display:none}.news-media .news-grad{position:absolute;inset:0}.foot{gap:10px 28px!important;align-items:start}.foot h4{margin-bottom:6px}.foot ul li{font-size:.8rem;margin-bottom:3px}@media(max-width:760px){.news-media{min-height:250px!important}.news-media img{left:0;right:0;top:0;bottom:0;width:100%;height:100%}}";
   document.head.appendChild(css);
   var rich = function (s) {
     if (s == null) return "";
