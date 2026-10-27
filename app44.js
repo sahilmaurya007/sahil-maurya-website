@@ -1,4 +1,4 @@
-/* app44.js - BLOG SHARE (theme-aware) + READER COUNTER (eye + count only). DO NOT EDIT. */
+/* app44.js - BLOG SHARE (theme-aware) + READER COUNTER (eye + count only). English messages. DO NOT EDIT. */
 (function () {
   "use strict";
   if (window.SM_SHARE_DONE) return;
@@ -42,7 +42,7 @@
       else fb();
       function fb() { var i = document.createElement("input"); i.value = txt; document.body.appendChild(i); i.select(); try { document.execCommand("copy"); } catch (e) {} i.remove(); if (msg) alert(msg); }
     };
-    bar.querySelector(".ss-link").addEventListener("click", function () { doCopy(makeLink(), "Blog link copy ho gaya! 🎨"); });
+    bar.querySelector(".ss-link").addEventListener("click", function () { doCopy(makeLink(), "Link copied ✓"); });
     bar.querySelector(".ss-wa").addEventListener("click", function () { window.open("https://wa.me/?text=" + encodeURIComponent("Siyahi-e-Sahil: " + curTitle() + " — " + makeLink()), "_blank"); });
     bar.querySelector(".ss-tw").addEventListener("click", function () { window.open("https://twitter.com/intent/tweet?text=" + encodeURIComponent("Siyahi-e-Sahil: " + curTitle()) + "&url=" + encodeURIComponent(makeLink()), "_blank"); });
   };
