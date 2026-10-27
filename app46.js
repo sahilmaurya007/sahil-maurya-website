@@ -23,7 +23,6 @@
     if (buf.trim()) out.push(buf.trim());
     return out.filter(function (x) { return x.length > 1; });
   };
-  /* batch 3-3 + progress */
   var translateBatched = function (sents, onProg) {
     var results = new Array(sents.length);
     var groups = [];
@@ -53,7 +52,6 @@
       next(0);
     });
   };
-  /* global export */
   window.SM_HINDI_TR = { splitSents: splitSents, translateBatched: translateBatched };
   var init = function () {
     if (!window.SM_TTS) return false;
@@ -79,7 +77,6 @@
           play.disabled = true;
           play.textContent = "⏳ 0%";
           var host = bar.closest(".blog-modal");
-          /* BOOK MODE FIX: text dono containers se lo (body + page-holder) */
           var bodyEl = host ? host.querySelector(".blog-art-body") : null;
           var hold = host ? host.querySelector(".blog-pghold") : null;
           var txt = ((bodyEl ? bodyEl.textContent : "") + " " + (hold ? hold.textContent : "")).replace(/\s+/g, " ").trim();
@@ -100,7 +97,6 @@
           if (lang.value === "hi-t") {
             var g = TTS.groups("hi");
             if (vsel && g.length) {
-              var fill = bar._fill;
               vsel.innerHTML = g.map(function (x, i) { return "<option value='" + i + "'>" + x.label + "</option>"; }).join("");
               vsel.value = "0";
             }
@@ -112,5 +108,5 @@
     return true;
   };
   var tryInit = setInterval(function () { if (init()) clearInterval(tryInit); }, 400);
-  setTimeout(function () { clearInterval(tryInit); }, 20000;
+  setTimeout(function () { clearInterval(tryInit); }, 20000);
 })();
