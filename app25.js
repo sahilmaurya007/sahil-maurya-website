@@ -1,4 +1,4 @@
-/* app25.js - shared buildData4 (data4.js content) — BLOGS included. DO NOT EDIT. */
+/* app25.js - shared buildData4 (data4.js content) — BLOGS (with photos) included. DO NOT EDIT. */
 (function () {
   "use strict";
   var SM = window.SM_EDITOR;
@@ -10,7 +10,7 @@
       intro: w.intro,
       NEWS: w.news,
       BLOGS: (w.blogs || []).map(function (b) {
-        return { title: b.title || "", tag: b.tag || "Blog", date: b.date || "", body: b.body || "" };
+        return { title: b.title || "", tag: b.tag || "Blog", date: b.date || "", body: b.body || "", photos: Array.isArray(b.photos) ? b.photos.filter(Boolean) : [] };
       }),
       PUBLICATIONS: (w.pubs || []).map(function (p) {
         return { title: p.title || "", authors: p.authors || "", venue: p.venue || "", year: p.year || "", note: p.note || "", link: p.link || "", doi: p.doi || "", pdf: p.pdf || "", bibtex: p.bibtex || "", type: p.cat || "", status: p.status || "Published", tags: (p.tags || "").split(",").map(function (q) { return q.trim(); }).filter(Boolean) };
