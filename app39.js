@@ -1,4 +1,4 @@
-/* app39.js - BLOGS "Sahil Speaks": interactive reader (themes via app41). Full story (blogbody1-3.js). DO NOT EDIT. */
+/* app39.js - BLOGS "Sahil Speaks": interactive reader + BOOK MODE (page flip). Full story (blogbody1-3.js). DO NOT EDIT. */
 (function () {
   "use strict";
   if (window.SM_BLOGS_DONE) return;
@@ -26,24 +26,28 @@
     t = t.replace(/\*\*/g, "");
     return t;
   };
-  /* md(): line-by-line - Devanagari lines -> shayari block (line breaks preserved) */
+  /* md(): paragraphs me wrap - Devanagari lines shayari block (line-breaks preserved) */
   var md = function (s) {
     if (s == null) return "";
     var lines = String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").split("\n");
-    var out = [], shay = [];
-    var flush = function () {
+    var out = [], para = [], shay = [];
+    var fp = function () {
+      if (para.length) { out.push("<p>" + para.join(" ") + "</p>"); para = []; }
+    };
+    var fs = function () {
       if (shay.length) { out.push("<div class='blog-shayari'><span class='bs-q'>❝</span>" + shay.map(function (l) { return inl(l); }).join("<br>") + "</div>"); shay = []; }
     };
     lines.forEach(function (raw) {
       var line = raw.replace(/^\s+|\s+$/g, "");
-      if (/[\u0900-\u097F]/.test(line)) { shay.push(line); return; }
-      flush();
-      if (!line) { out.push(""); return; }
-      if (/^###\s+/.test(line)) { out.push("<h3>" + inl(line.replace(/^###\s+/, "")) + "</h3>"); return; }
-      if (/^---$/.test(line)) { out.push("<hr style='border:none;border-top:1px solid var(--border);margin:18px 0'>"); return; }
-      out.push(inl(line));
+      if (/[\u0900-\u097F]/.test(line)) { fp(); shay.push(line); return; }
+      fs();
+      if (!line) { fp(); return; }
+      if (/^###\s+/.test(line)) { fp(); out.push("<h3>" + inl(line.replace(/^###\s+/, "")) + "</h3>"); return; }
+      if (/^---$/.test(line)) { fp(); out.push("<hr style='border:none;border-top:1px solid var(--border);margin:18px 0'>"); return; }
+      if (line.indexOf("<img") === 0) { fp(); out.push(line); return; }
+      para.push(inl(line));
     });
-    flush();
+    fp(); fs();
     return out.join("\n");
   };
   var esc = function (s) { return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"); };
@@ -68,36 +72,90 @@
 
   var modal = document.createElement("div");
   modal.className = "blog-modal";
-  modal.innerHTML = "<div class='blog-article'><button class='blog-close' aria-label='Close'>✕</button><div class='blog-themes'><span>Reader:</span><div class='bt-dot' data-t='' title='Default' style='background:var(--card)'></div><div class='bt-dot' data-t='btheme-sep' title='Sepia' style='background:#f8f1e3'></div><div class='bt-dot' data-t='btheme-night' title='Night' style='background:#12141c'></div><div class='bt-dot' data-t='btheme-forest' title='Forest' style='background:#eaf3ea'></div><div class='bt-dot' data-t='btheme-ocean' title='Ocean' style='background:#e7f1f8'></div><div class='bt-dot' data-t='btheme-rose' title='Rose' style='background:#fdeef2'></div></div><div class='blog-art-body'></div></div>";
+  modal.innerHTML = "<div class='blog-article'><button class='blog-close' aria-label='Close'>✕</button><div class='blog-themes'><span>Reader:</span><div class='bt-dot' data-t='' title='Default' style='background:var(--card)'></div><div class='bt-dot' data-t='btheme-sep' title='Sepia' style='background:#f8f1e3'></div><div class='bt-dot' data-t='btheme-night' title='Night' style='background:#12141c'></div><div class='bt-dot' data-t='btheme-forest' title='Forest' style='background:#eaf3ea'></div><div class='bt-dot' data-t='btheme-ocean' title='Ocean' style='background:#e7f1f8'></div><div class='bt-dot' data-t='btheme-rose' title='Rose' style='background:#fdeef2'></div><button class='bt-book' type='button' title='Book mode: page palto kar padho'>📖 Book mode</button></div><div class='blog-pghold'></div><div class='blog-art-body'></div></div>";
   document.body.appendChild(modal);
   var art = modal.querySelector(".blog-article");
+  var hold = modal.querySelector(".blog-pghold");
+  var bodyEl = modal.querySelector(".blog-art-body");
+  var curTheme = "";
+  /* BOOK MODE: content ko pages me baant kar flip karne wala feel */
+  var pgIdx = 0, pgEls = [];
+  var buildPages = function () {
+    pgEls = Array.prototype.slice.call(hold.children);
+    var per = 6, pages = [];
+    for (var i = 0; i < pgEls.length; i += per) pages.push(pgEls.slice(i, i + per));
+    return pages;
+  };
+  var showPage = function (n, pages) {
+    pgEls.forEach(function (el) { el.classList.remove("on"); });
+    pages[n].forEach(function (el) { el.classList.add("on"); });
+    pgIdx = n;
+    var bar = modal.querySelector(".blog-bookbar");
+    bar.innerHTML = "<button class='bb-prev bb-btn' type='button' " + (n === 0 ? "disabled" : "") + ">← Previous</button><span class='bb-count'>Page " + (n + 1) + " / " + pages.length + "</span><button class='bb-next bb-btn' type='button' " + (n === pages.length - 1 ? "disabled" : "") + ">Next →</button>";
+    modal.querySelector(".bb-prev").onclick = function () { showPage(n - 1, pages); modal.scrollTop = 0; };
+    modal.querySelector(".bb-next").onclick = function () { showPage(n + 1, pages); modal.scrollTop = 0; };
+  };
   modal.addEventListener("click", function (e) {
     if (e.target === modal || e.target.classList.contains("blog-close")) { modal.classList.remove("open"); return; }
     if (e.target.classList.contains("bt-dot")) {
-      art.className = "blog-article" + (e.target.dataset.t ? " " + e.target.dataset.t : "");
-      modal.querySelectorAll(".bt-dot").forEach(function (d) { d.classList.toggle("sel", d === e.target); });
+      curTheme = e.target.dataset.t || "";
+      applyView();
+      return;
+    }
+    if (e.target.classList.contains("bt-book")) {
+      e.target.classList.toggle("on");
+      applyView();
+      return;
     }
   });
+  function applyView() {
+    var book = modal.querySelector(".bt-book").classList.contains("on");
+    art.className = "blog-article" + (curTheme ? " " + curTheme : "");
+    if (book) {
+      bodyEl.style.display = "none";
+      var pages = buildPages();
+      hold.innerHTML = "";
+      pages.forEach(function (pg, pi) {
+        var d = document.createElement("div");
+        d.className = "blog-page" + (pi === 0 ? " on" : "");
+        pg.forEach(function (el) { d.appendChild(el); });
+        hold.appendChild(d);
+      });
+      hold.style.display = "block";
+      showPage(0, pages.length ? Array.from(hold.querySelectorAll(".blog-page")).map(function (pd) { return Array.prototype.slice.call(pd.children); }) : [[]]);
+    } else {
+      hold.style.display = "none";
+      bodyEl.style.display = "block";
+      var back = hold.querySelectorAll(".blog-art-txt > *");
+      back.forEach(function (el) { bodyEl.querySelector(".blog-art-txt").appendChild(el); });
+    }
+  }
   document.addEventListener("keydown", function (e) { if (e.key === "Escape") modal.classList.remove("open"); });
 
   var render = function () {
     var src = (window.BLOGS && window.BLOGS.length) ? window.BLOGS : DEFAULT_BLOGS;
     var list = src.slice().sort(function (a, b) { return (b.date || "").localeCompare(a.date || ""); });
     if (!list.length) {
-      sec.innerHTML = "<div class='wrap'><div class='section-head'><p class='kicker'>🖋️ · Blog</p><h2>🖋️ Blogs - Sahil Speaks</h2><div class='rule'></div></div><p class='blog-empty'>No blogs published yet. Coming soon! ✍️</p></div>";
+      sec.innerHTML = "<div class='wrap'><div class='section-head'><p class='kicker'>༺ 🪶 ✒️ ༻</p><h2>༺ 🪶 ✒️ ༻ Blogs - Sahil Speaks</h2><div class='rule'></div></div><p class='blog-empty'>No blogs published yet. Coming soon! ✍️</p></div>";
       return;
     }
-    sec.innerHTML = "<div class='wrap'><div class='section-head'><p class='kicker'>🖋️ · Blog</p><h2>🖋️ Blogs - Sahil Speaks</h2><div class='rule'></div><p class='muted'>Click a title to read - reader themes se padho, shayari ka maza lo.</p></div><div class='blog-grid'>" + list.map(function (b, i) {
+    sec.innerHTML = "<div class='wrap'><div class='section-head'><p class='kicker'>༺ 🪶 ✒️ ༻</p><h2>༺ 🪶 ✒️ ༻ Blogs - Sahil Speaks</h2><div class='rule'></div></div><div class='blog-grid'>" + list.map(function (b, i) {
       var txt = (b.body || "").replace(/!\[[^\]]*\]\([^)]*\)/g, "").replace(/[#*\-]{2,}/g, "").replace(/\s+/g, " ").trim();
       var ex = txt.length > 180 ? txt.slice(0, 180) + "…" : txt;
       var th = (Array.isArray(b.photos) && b.photos.length) ? "<img class='blog-thumb' src='" + esc(b.photos[0]) + "' alt='' loading='lazy'>" : "";
-      return "<article class='blog-card' data-i='" + i + "'>" + th + "<span class='blog-tag'>" + esc(b.tag || "Blog") + "</span><h3 class='blog-title'>" + esc(b.title || "Untitled") + "</h3><p class='blog-excerpt'>" + esc(ex) + "</p><div class='blog-meta'><span class='blog-ico'>🖋️</span><span>" + esc(b.date || "") + "</span><span style='margin-left:auto' class='blog-readmore'>Read →</span></div></article>";
+      return "<article class='blog-card' data-i='" + i + "'>" + th + "<span class='blog-tag'>" + esc(b.tag || "Blog") + "</span><h3 class='blog-title'>" + esc(b.title || "Untitled") + "</h3><p class='blog-excerpt'>" + esc(ex) + "</p><div class='blog-meta'><span class='blog-ico'>༺ 🪶 ✒️ ༻</span><span>" + esc(b.date || "") + "</span><span style='margin-left:auto' class='blog-readmore'>Read →</span></div></article>";
     }).join("") + "</div></div>";
     sec.querySelectorAll(".blog-card").forEach(function (c) {
       c.addEventListener("click", function () {
         var b = list[+c.dataset.i];
         var ph = (Array.isArray(b.photos) && b.photos.length) ? b.photos.map(function (p) { return "<img class='blog-art-photo' src='" + esc(p) + "' alt='' loading='lazy'>"; }).join("") : "";
-        modal.querySelector(".blog-art-body").innerHTML = "<span class='blog-art-tag'>" + esc(b.tag || "Blog") + "</span><h2 class='blog-art-title'>" + esc(b.title || "") + "</h2><div class='blog-art-date'>" + esc(b.date || "") + "</div>" + ph + "<div class='blog-art-txt'>" + md(b.body || "") + "</div>";
+        bodyEl.innerHTML = "<span class='blog-art-tag'>" + esc(b.tag || "Blog") + "</span><h2 class='blog-art-title'>" + esc(b.title || "") + "</h2><div class='blog-art-date'>" + esc(b.date || "") + "</div>" + ph + "<div class='blog-art-txt'>" + md(b.body || "") + "</div>";
+        hold.innerHTML = "";
+        hold.style.display = "none";
+        bodyEl.style.display = "block";
+        modal.querySelector(".bt-book").classList.remove("on");
+        curTheme = "";
+        art.className = "blog-article";
         modal.classList.add("open");
         modal.scrollTop = 0;
       });
