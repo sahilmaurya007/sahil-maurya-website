@@ -1,4 +1,4 @@
-/* app45.js - PODCAST MODE (2-voice: host + storyteller) + all-voices dropdown (male+female sab) + status display. DO NOT EDIT. */
+/* app45.js - PODCAST MODE (Hindi + English dono): 2-voice host+storyteller, auto script, reliable stop, Chrome cut fix. DO NOT EDIT. */
 (function () {
   "use strict";
   if (window.SM_PODCAST_DONE) return;
@@ -6,99 +6,125 @@
   var TTS = window.SM_TTS;
   if (!TTS) return;
   var css = document.createElement("style");
-  css.textContent = ".sm-podbtn{padding:5px 12px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:.72rem;font-weight:600;cursor:pointer;margin-left:auto;flex:none}.sm-podbtn:hover{border-color:var(--accent);color:var(--accent)}.sm-podbtn.on{background:var(--grad-btn);color:#fff;border-color:transparent}.sm-podstat{display:none;font-family:'JetBrains Mono',monospace;font-size:.62rem;color:var(--muted);margin:8px 0 0;padding:6px 10px;border-radius:8px;background:var(--soft);border:1px dashed var(--border)}.sm-podstat.show{display:block}";
+  css.textContent = ".sm-podbtn{padding:5px 12px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:.72rem;font-weight:600;cursor:pointer;margin-left:auto;flex:none}.sm-podbtn:hover{border-color:var(--accent);color:var(--accent)}.sm-podbtn.on{background:var(--grad-btn);color:#fff;border-color:transparent}.sm-podlang{padding:5px 8px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:.72rem;flex:none}.sm-podstat{display:none;font-family:'JetBrains Mono',monospace;font-size:.64rem;color:var(--muted);margin:8px 0 0;padding:7px 10px;border-radius:8px;background:var(--soft);border:1px dashed var(--border)}.sm-podstat.show{display:block}";
   document.head.appendChild(css);
-  var pickVoice = function (lang, wantFemale) {
+  /* voice pick: host=female-ish, storyteller=male-ish (available ho to) */
+  var pick = function (lang, wantFemale) {
     var list = TTS.byLang(lang);
     if (!list.length) return null;
-    var f = list.findIndex(function (v) { return /female|zira|swara|kalpana|neerja|heera|madhur/i.test(v.name); });
-    var m = list.findIndex(function (v) { return /male|hemant|ravi|david|mark|george|prabhat/i.test(v.name); });
+    var f = list.findIndex(function (v) { return /female|zira|swara|kalpana|neerja|heera|leah|aria/i.test(v.name); });
+    var m = list.findIndex(function (v) { return /male|hemant|ravi|david|mark|george|prabhat|madhur/i.test(v.name); });
     if (wantFemale) return list[f > -1 ? f : 0];
     return list[m > -1 ? m : (f > -1 ? f : 0)];
   };
-  /* PODCAST SCRIPT: story se 2-voice podcast script banata hai */
-  var makeScript = function (title, body) {
+  /* PODCAST SCRIPT builder - lang 'hi' ya 'en' */
+  var makeScript = function (title, body, lang) {
     var paras = String(body).replace(/\*\*/g, "").split(/\n\s*\n/).map(function (p) { return p.replace(/\s+/g, " ").trim(); }).filter(function (p) { return p.length > 25; });
+    var H = lang === "hi";
     var lines = [];
-    lines.push({ r: "host", t: "Namaste doston! Welcome to Siyahi-e-Sahil podcast. Main hoon aapka host." });
-    lines.push({ r: "host", t: "Aaj ki episode me ek khoobsurat kahani hai - " + title + ". Yeh kahani hai ek engineer ki, ek chip ki, ek sawaal ki, aur zindagi ki. Chaliye shuru karte hain!" });
+    if (H) {
+      lines.push({ r: "host", t: "नमस्ते दोस्तों! Welcome to Siyahi-e-Sahil podcast. मैं हूँ आपकी host." });
+      lines.push({ r: "host", t: "आज की episode में एक खूबसूरत कहानी है - " + title + "। ये कहानी है एक engineer की, एक chip की, एक सवाल की, और ज़िंदगी की। चलिए शुरू करते हैं!" });
+    } else {
+      lines.push({ r: "host", t: "Hello friends! Welcome to the Siyahi-e-Sahil podcast. I am your host." });
+      lines.push({ r: "host", t: "Today's episode is a beautiful story - " + title + ". A story of an engineer, a chip, a question, and life itself. Let's begin!" });
+    }
     var pi = 0;
+    var CH = H ? ["सोचो ज़रा, कितनी गहरी बात है ये!", "हम्म, दिल को छूने वाली बात।", "ये point सोचने पर मजबूर कर देता है।", "Interesting! आगे बढ़ते हैं।", "सच में? ये तो कमाल है!", "अब आती है इस कहानी का सबसे खूबसूरत हिस्सा।"] : ["Just think about that for a moment!", "Hmm, that touches the heart.", "That point really makes you think.", "Interesting! Let's move ahead.", "Really? That's amazing!", "And now comes the most beautiful part of this story."];
+    var SHW = H ? "वाह! कितनी खूबसूरत शायरी है।" : "Wow! What beautiful poetry.";
     paras.forEach(function (p, i) {
-      if (/[\u0900-\u097F]/.test(p)) { lines.push({ r: "story", t: p }); lines.push({ r: "host", t: "Wah! Kitni khoobsurat shayari hai." }); return; }
+      if (/[\u0900-\u097F]/.test(p)) { lines.push({ r: "story", t: p }); lines.push({ r: "host", t: SHW }); return; }
       lines.push({ r: "story", t: p });
       pi++;
-      if (pi % 4 === 0 && i < paras.length - 1) {
-        var cmts = ["Socho zara, kitni gehri baat hai yeh!", "Hmm, dil ko chhoone wali baat.", "Yeh point sochne par majboor kar deta hai.", "Interesting! Aage badhte hain.", "Sach me? Yeh to kamaal hai!", "Ab aati hai is kahani ka sabse khoobsurat hissa."];
-        lines.push({ r: "host", t: cmts[(pi / 4 - 1) % cmts.length] });
-      }
+      if (pi % 4 === 0 && i < paras.length - 1) lines.push({ r: "host", t: CH[(pi / 4 - 1) % CH.length] });
     });
-    lines.push({ r: "host", t: "Toh doston, kaisi lagi yeh kahani? Mujhe lagta hai yeh sirf hardware ki kahani nahi thi - yeh thi zindagi ki. Milte hain agli episode me. Tab tak ke liye - happy listening! Aur yaad rakhna: Program. Play. Repeat!" });
+    lines.push(H
+      ? { r: "host", t: "तो दोस्तों, कैसी लगी ये कहानी? मुझे लगता है ये सिर्फ hardware की कहानी नहीं थी - ये थी ज़िंदगी की। मिलते हैं अगली episode में। Tab tak - happy listening! Program. Play. Repeat!" }
+      : { r: "host", t: "So friends, how did you find this story? I don't think it was only about hardware - it was about life. See you in the next episode. Until then - happy listening! Program. Play. Repeat!" });
     return lines;
   };
-  /* PLAYER: 2-voice sequential */
+  /* PLAYER: 2-voice + gen-token stop + keep-alive (Chrome silent stop fix) */
   var Pod = {
-    lines: [], i: 0, stop: false, host: null, story: null, statusEl: null, onDone: null,
-    say: function () {
+    lines: [], i: 0, gen: 0, ticker: null, host: null, story: null, statusEl: null, onDone: null,
+    say: function (myGen) {
       var self = this;
-      if (this.stop || this.i >= this.lines.length) { if (this.onDone) this.onDone(); return; }
+      if (this.gen !== myGen) return;
+      if (this.i >= this.lines.length) { this.finish(myGen); return; }
       var L = this.lines[this.i++];
       var v = L.r === "host" ? this.host : this.story;
       var u = new SpeechSynthesisUtterance(L.t);
-      if (v) { u.voice = v; u.lang = v.lang; }
-      u.rate = 0.95; u.pitch = L.r === "host" ? 1.15 : 1;
-      if (this.statusEl) this.statusEl.textContent = "🎙 " + (L.r === "host" ? "Host" : "Storyteller") + " bol raha hai... (line " + this.i + " / " + this.lines.length + ")";
-      u.onend = function () { setTimeout(function () { self.say(); }, 380); };
-      u.onerror = function () { setTimeout(function () { self.say(); }, 200); };
+      if (v) { u.voice = v; u.lang = v.lang; } else u.lang = "hi-IN";
+      u.rate = 0.95; u.pitch = L.r === "host" ? 1.12 : 1;
+      if (this.statusEl) this.statusEl.textContent = "🎙 " + (L.r === "host" ? "Host" : "Storyteller") + ": (" + this.i + "/" + this.lines.length + ")";
+      u.onend = function () {
+        if (self.gen !== myGen) return;
+        setTimeout(function () {
+          if (self.gen !== myGen) return;
+          try { if (speechSynthesis.speaking || speechSynthesis.pending) { speechSynthesis.resume(); return; } } catch (e) {}
+          self.say(myGen);
+        }, 380);
+      };
+      u.onerror = function () { if (self.gen !== myGen) return; setTimeout(function () { self.say(myGen); }, 200); };
       speechSynthesis.speak(u);
+    },
+    finish: function (myGen) {
+      if (this.gen !== myGen) return;
+      if (this.ticker) { clearInterval(this.ticker); this.ticker = null; }
+      if (this.statusEl) this.statusEl.textContent = "✅ Podcast khatam! Milte hain agli episode me. 🎧";
+      if (this.onDone) this.onDone();
     },
     start: function (lines, host, story, statusEl, onDone) {
       if (!window.speechSynthesis) { alert("Audio is browser me support nahi hai."); return; }
-      speechSynthesis.cancel();
-      this.lines = lines; this.i = 0; this.stop = false; this.host = host; this.story = story; this.statusEl = statusEl; this.onDone = onDone;
-      this.say();
+      try { speechSynthesis.cancel(); } catch (e) {}
+      this.lines = lines; this.i = 0; this.host = host; this.story = story; this.statusEl = statusEl; this.onDone = onDone;
+      this.gen++;
+      var myGen = this.gen, self = this;
+      /* keep-alive: Chrome ~15s silent-stop - resume jhatka */
+      if (this.ticker) clearInterval(this.ticker);
+      this.ticker = setInterval(function () {
+        if (self.gen !== myGen) { clearInterval(self.ticker); self.ticker = null; return; }
+        try { if (speechSynthesis.speaking || speechSynthesis.pending) speechSynthesis.resume(); } catch (e) {}
+      }, 8000);
+      this.say(myGen);
     },
-    halt: function () { this.stop = true; try { speechSynthesis.cancel(); } catch (e) {} if (this.statusEl) this.statusEl.classList.remove("show"); }
+    halt: function () {
+      this.gen++;
+      if (this.ticker) { clearInterval(this.ticker); this.ticker = null; }
+      try { speechSynthesis.cancel(); } catch (e) {}
+      if (this.statusEl) { this.statusEl.textContent = "⏹ Podcast stop ho gaya."; }
+    }
   };
-  /* BLOG READER me podcast button */
+  /* BLOG READER: podcast lang select + button */
   var wireBlog = function () {
     var modal = document.querySelector(".blog-modal");
     var themes = modal && modal.querySelector(".blog-themes");
     if (!modal || !themes || modal.dataset.pod) return;
     modal.dataset.pod = "1";
+    var langSel = document.createElement("select");
+    langSel.className = "sm-podlang";
+    langSel.innerHTML = "<option value='hi'>🎙 Hindi podcast</option><option value='en'>🎙 English podcast</option>";
+    themes.appendChild(langSel);
     var btn = document.createElement("button");
-    btn.type = "button"; btn.className = "sm-podbtn"; btn.textContent = "🎙 Podcast mode";
+    btn.type = "button"; btn.className = "sm-podbtn"; btn.textContent = "🎙 Podcast";
     themes.appendChild(btn);
     var stat = document.createElement("div");
     stat.className = "sm-podstat";
+    modal.querySelector(".blog-article").appendChild(stat);
     var bodyEl = modal.querySelector(".blog-art-body"), hold = modal.querySelector(".blog-pghold");
     var getTxt = function () { return ((bodyEl ? bodyEl.textContent : "") + " " + (hold ? hold.textContent : "")).replace(/\s+/g, " ").trim(); };
     var playing = false;
+    var reset = function () { playing = false; btn.classList.remove("on"); btn.textContent = "🎙 Podcast"; };
     btn.addEventListener("click", function () {
-      if (playing) { Pod.halt(); playing = false; btn.classList.remove("on"); btn.textContent = "🎙 Podcast mode"; stat.classList.remove("show"); return; }
+      if (playing) { Pod.halt(); reset(); stat.classList.remove("show"); return; }
+      var lang = langSel.value;
       var title = (modal.querySelector(".blog-art-title") || {}).textContent || "Sahil ki kahani";
-      var lines = makeScript(title, getTxt());
+      var lines = makeScript(title, getTxt(), lang);
       if (!lines.length) return;
       playing = true; btn.classList.add("on"); btn.textContent = "⏹ Stop podcast"; stat.classList.add("show");
-      Pod.start(lines, pickVoice("hi", true), pickVoice("hi", false), stat, function () { playing = false; btn.classList.remove("on"); btn.textContent = "🎙 Podcast mode"; stat.textContent = "✅ Podcast khatam! Milte hais agli baar."; });
+      stat.textContent = "🎙 Podcast shuru...";
+      Pod.start(lines, pick(lang, true), pick(lang, false), stat, reset);
     });
-    modal.querySelector(".blog-article").appendChild(stat);
   };
   var tryWire = setInterval(function () { wireBlog(); if (document.querySelector(".blog-modal[data-pod]")) clearInterval(tryWire); }, 800);
   setTimeout(function () { clearInterval(tryWire); }, 30000);
-  /* FIX: app43 ke audio bar me female auto-select hata kar SAB voices + default = pehli (male bhi ho sakti hai) */
-  var fixBars = function () {
-    document.querySelectorAll(".sm-audbar").forEach(function (bar) {
-      if (bar.dataset.vfix) return;
-      bar.dataset.vfix = "1";
-      var lang = bar.querySelector(".sa-lang"), vsel = bar.querySelector(".sa-voice");
-      if (!lang || !vsel) return;
-      var fill = function () {
-        var list = TTS.byLang(lang.value === "hi" ? "hi" : "en");
-        vsel.innerHTML = list.length ? list.map(function (v, i) { return "<option value='" + i + "'>" + v.name + " (" + v.lang + ")" + (/female|zira|swara|kalpana|neerja|heera/i.test(v.name) ? " ♀" : /male|hemant|ravi|david|mark|george/i.test(v.name) ? " ♂" : "") + "</option>"; }).join("") : "<option value=''>Browser voice (default)</option>";
-      };
-      fill();
-      lang.addEventListener("change", fill);
-    });
-  };
-  setInterval(fixBars, 2000);
 })();
