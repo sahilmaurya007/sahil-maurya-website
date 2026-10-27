@@ -2,7 +2,7 @@
 (function () {
   "use strict";
   var css = document.createElement("style");
-  css.textContent = ".news-media{min-height:auto!important}.news-media img{object-fit:contain!important;object-position:center center!important;background:var(--soft)}.foot{gap:10px 28px!important;align-items:start}.foot h4{margin-bottom:6px}.foot ul li{font-size:.8rem;margin-bottom:3px}";
+  css.textContent = ".news-media{min-height:auto!important}.news-media img{object-fit:contain!important;object-position:center center!important;background:var(--soft);opacity:1!important;max-width:100%}.news-media.noimg img{display:none}.foot{gap:10px 28px!important;align-items:start}.foot h4{margin-bottom:6px}.foot ul li{font-size:.8rem;margin-bottom:3px}@media (max-width:760px){.news-media img{width:100%;height:auto}}";
   document.head.appendChild(css);
   var rich = function (s) {
     if (s == null) return "";
