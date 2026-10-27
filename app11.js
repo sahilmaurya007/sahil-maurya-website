@@ -75,8 +75,7 @@
       body.appendChild(prev);
       var dz = document.createElement("div"); dz.className = "ed-logo-drop";
       dz.textContent = curLogo ? "Logo uploaded - click/drop karke REPLACE karo" : "Drag & drop logo here (ya click) - full logo dikhega, top-right corner me";
-      var fi = FileReader ? document.createElement("input") : null;
-      fi.type = "file"; fi.accept = "image/*"; fi.style.display = "none";
+      var fi = document.createElement("input"); fi.type = "file"; fi.accept = "image/*"; fi.style.display = "none";
       dz.addEventListener("click", function () { fi.click(); });
       ["dragover", "dragenter"].forEach(function (ev) { dz.addEventListener(ev, function (e) { e.preventDefault(); e.stopPropagation(); }); });
       dz.addEventListener("drop", function (e) { e.preventDefault(); e.stopPropagation(); if (e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0]) pick(e.dataTransfer.files[0]); });
@@ -105,7 +104,7 @@
             }, function (er) { dz.textContent = "Upload fail: " + er; }, "Uploading logo...");
           };
           img.src = fr.result;
-        } upload = null;
+        };
         fr.readAsDataURL(f);
       }
       body.appendChild(dz); body.appendChild(fi);
@@ -117,9 +116,9 @@
       try { list = JSON.parse(localStorage.getItem("sm-iplist") || "[]"); } catch (e) {}
       body.innerHTML = "<div class='ed-f' style='color:var(--muted);font-size:.78rem'>Private - sirf aapko dikhta hai. Har visit ka IP + time (is browser me recorded).</div>";
       list.slice().reverse().forEach(function (v) {
-        blink-c = SM.box(body, v.t || "");
+        var c = SM.box(body, v.t || "");
         c.querySelector(".ed-cardbox-h").innerHTML = "<b>" + (v.ip || "-") + "</b>";
-        c.innerHTML += "<div style='font-size:.74rem;color:var(--muted)'>Time: " + ( (v.t || "") + "</div>";
+        c.innerHTML += "<div style='font-size:.74rem;color:var(--muted)'>Time: " + (v.t || "") + "</div>";
       });
       if (!list.length) body.innerHTML += "<p style='color:var(--muted);font-size:.8rem'>Abhi koi visit record nahi hui.</p>";
     } else if (SM.renderTab) { SM.renderTab(cur, body); }
