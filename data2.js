@@ -53,7 +53,6 @@ const PHOTO_GALLERY = [
   { src: "image/sahil.jpeg", caption: "Convocation Day" },
   { src: "image/iiitg.jpg", caption: "IIIT Guwahati" },
   { src: "image/Poster Landscape.png", caption: "Research Poster" },
-  { src: "image/Poster contact.png", caption: "Conference Poster" },
   { src: "image/WhatsApp Image 2026-03-05 at 2.58.51 PM.jpeg", caption: "Recent Moment" },
 ];
 
