@@ -1,4 +1,4 @@
-/* app47.js - BOOK MODE HINDI TRANSLATE: blog ko Hindi me PADHNE ka option (text translate, book pages me). DO NOT EDIT. */
+/* app47.js - BOOK HINDI TRANSLATE: blog ko Hindi me padhne ka button. NO lookbehind (old browser safe). DO NOT EDIT. */
 (function () {
   "use strict";
   if (window.SM_BOOKTR_DONE) return;
@@ -11,40 +11,41 @@
     if (window.SM_HINDI_TR) { HTR = window.SM_HINDI_TR; clearInterval(waitHTR); }
   }, 500);
   setTimeout(function () { clearInterval(waitHTR); }, 15000);
+  var paraSplit = function (s) {
+    var out = [], buf = "";
+    for (var i = 0; i < s.length; i++) {
+      buf += s[i];
+      if (/[।.!?]/.test(s[i]) && (i === s.length - 1 || s[i + 1] === " ")) { out.push(buf.trim()); buf = ""; }
+    }
+    if (buf.trim()) out.push(buf.trim());
+    return out.filter(Boolean);
+  };
   var wire = function () {
     var modal = document.querySelector(".blog-modal");
     var themes = modal && modal.querySelector(".blog-themes");
     if (!modal || !themes || modal.dataset.htr) return;
     modal.dataset.htr = "1";
     var btn = document.createElement("button");
-    btn.type = "button"; btn.className = "sm-htrbtn"; btn.textContent = "🅷 पढ़ें: हिन्दी में";
+    btn.type = "button"; btn.className = "sm-htrbtn"; btn.textContent = "🅷 पढ़ें: हिन्दी";
     btn.title = "Blog ko Hindi me padho (translate)";
     themes.appendChild(btn);
     var stat = document.createElement("span");
     stat.className = "sm-htrstat";
     themes.appendChild(stat);
     var bodyEl = modal.querySelector(".blog-art-body"), hold = modal.querySelector(".blog-pghold");
-    var bookBtn = null;
+    var origHTML = null;
     var busy = false;
     btn.addEventListener("click", function () {
       if (busy) return;
       if (!HTR) { stat.textContent = "Translate module load nahi hua"; return; }
-      /* toggle back to English (restore) */
       if (btn.classList.contains("on")) {
-        var restore = modal.querySelector(".blog-close");
-        if (restore) restore.click();
-        setTimeout(function () {
-          var cards = document.querySelectorAll(".blog-card");
-          var t = window.SM_CUR_BLOG_TITLE || "";
-          for (var i = 0; i < cards.length; i++) {
-            var te = cards[i].querySelector(".blog-title");
-            if (te && te.textContent.trim() === t) { cards[i].click(); break; }
-          }
-        }, 300);
-        stat.textContent = "";
+        var txtEl = bodyEl.querySelector(".blog-art-txt");
+        if (txtEl && origHTML !== null) txtEl.innerHTML = origHTML;
+        btn.classList.remove("on");
+        btn.textContent = "🅷 पढ़ें: हिन्दी";
+        stat.textContent = "English वापस ✅";
         return;
       }
-      /* text nikal lo (visible mode me se) */
       var txt = ((bodyEl ? bodyEl.textContent : "") + " " + (hold ? hold.textContent : "")).replace(/\s+/g, " ").trim();
       if (!txt) return;
       busy = true;
@@ -52,19 +53,21 @@
       var sents = HTR.splitSents(txt);
       HTR.translateBatched(sents, function (p) { btn.textContent = "⏳ " + p + "%"; }).then(function (arr) {
         var hindi = arr.join(" ");
-        var title = (modal.querySelector(".blog-art-title") || {}).textContent || "Sahil ki kahani";
-        /* render Hindi text in reader (original me revert ke liye restore flow) */
-        var txtEl = bodyEl.querySelector(".blog-art-txt") || bodyEl;
+        var txtEl = bodyEl.querySelector(".blog-art-txt");
+        if (!txtEl) { busy = false; btn.textContent = "🅷 पढ़ें: हिन्दी"; return; }
+        origHTML = txtEl.innerHTML;
+        var bookBtn = modal.querySelector(".bt-book");
+        if (bookBtn && bookBtn.classList.contains("on")) bookBtn.click();
+        var paras = paraSplit(hindi);
         txtEl.innerHTML = "";
-        var paras = hindi.split(/(?<=[।.!?])\s+/);
         for (var i = 0; i < paras.length; i++) {
-          if (!paras[i].trim()) continue;
           var p = document.createElement("p");
-          p.textContent = paras[i].trim();
+          p.style.margin = "0 0 14px";
+          p.textContent = paras[i];
           txtEl.appendChild(p);
         }
         busy = false;
-        btn.textContent = "🅔 English (वापस)";
+        btn.textContent = "🅔 English वापस";
         btn.classList.add("on");
         stat.textContent = "हिन्दी अनुवाद ✅";
       });
