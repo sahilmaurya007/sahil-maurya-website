@@ -1,4 +1,4 @@
-/* app45.js - PODCAST MODE (Hindi+English): grouped voice selects (Host/Storyteller alag-alag), watchdog stuck-line replay. DO NOT EDIT. */
+/* app45.js - PODCAST (Hindi+English): FULL-READ (stuck line skip-ahead), Host/Storyteller voice selects + Deep Male. DO NOT EDIT. */
 (function () {
   "use strict";
   if (window.SM_PODCAST_DONE) return;
@@ -33,7 +33,7 @@
       : { r: "host", t: "So friends, how did you find this story? I don't think it was only about hardware - it was about life. See you in the next episode. Until then - happy listening! Program. Play. Repeat!" });
     return lines;
   };
-  /* Pod: 2-voice + watchdog stuck-line replay (4-line stop fix) */
+  /* Pod: FULL-READ watchdog - stuck line 2 retry fir SKIP-AHEAD */
   var Pod = {
     lines: [], i: 0, gen: 0, ticker: null, host: null, story: null, statusEl: null, onDone: null, retries: {},
     say: function (myGen, isRetry) {
@@ -43,16 +43,24 @@
       var L = this.lines[this.i];
       var v = L.r === "host" ? this.host : this.story;
       var u = new SpeechSynthesisUtterance(L.t);
-      if (v) { u.voice = v; u.lang = v.lang; } else u.lang = "hi-IN";
-      u.rate = 0.95; u.pitch = L.r === "host" ? 1.12 : 1;
+      if (v) { u.voice = v.voice || v; u.lang = v.lang || (v.voice && v.voice.lang) || "hi-IN"; }
+      u.rate = 0.95;
+      if (v && v.deep) u.pitch = L.r === "host" ? 0.9 : 0.72;
+      else u.pitch = L.r === "host" ? 1.12 : 1;
       if (this.statusEl) this.statusEl.textContent = "🎙 " + (L.r === "host" ? "Host" : "Storyteller") + ": line " + (this.i + 1) + "/" + this.lines.length;
       u.onend = function () {
         if (self.gen !== myGen) return;
         self.i++;
         setTimeout(function () { self.say(myGen, false); }, 350);
       };
-      u.onerror = function () { if (self.gen !== myGen) return; setTimeout(function () { self.say(myGen, true); }, 250); };
-      speechSynthesis.speak(u);
+      u.onerror = function () {
+        if (self.gen !== myGen) return;
+        var key = "p" + self.i;
+        self.retries[key] = (self.retries[key] || 0) + 1;
+        if (self.retries[key] <= 2) setTimeout(function () { self.say(myGen, true); }, 250);
+        else { self.i++; setTimeout(function () { self.say(myGen, false); }, 150); }
+      };
+      try { speechSynthesis.speak(u); } catch (e) {}
     },
     finish: function (myGen) {
       if (this.gen !== myGen) return;
@@ -66,20 +74,21 @@
       this.lines = lines; this.i = 0; this.host = host; this.story = story; this.statusEl = statusEl; this.onDone = onDone; this.retries = {};
       this.gen++;
       var myGen = this.gen, self = this;
-      /* WATCHDOG: line atak jaye (4-line stop bug) to wahi line dobara bolega */
       if (this.ticker) clearInterval(this.ticker);
       var lastHeard = Date.now();
       this.ticker = setInterval(function () {
         if (self.gen !== myGen) { clearInterval(self.ticker); self.ticker = null; return; }
         try {
-          if (speechSynthesis.speaking || speechSynthesis.pending) { lastHeard = Date.now(); speechSynthesis.resume(); return; }
-          if (Date.now() - lastHeard > 4500) {
-            var key = "p" + self.i;
-            self.retries[key] = (self.retries[key] || 0) + 1;
-            if (self.retries[key] <= 3) { self.say(myGen, true); lastHeard = Date.now(); }
-          }
+          if (speechSynthesis.speaking || speechSynthesis.pending) { lastHeard = Date.now(); return; }
+          var idle = Date.now() - lastHeard;
+          if (idle < 3500) return;
+          var key = "p" + self.i;
+          self.retries[key] = (self.retries[key] || 0) + 1;
+          if (self.retries[key] <= 2) { self.say(myGen, true); }
+          else { self.i++; self.say(myGen, false); }
+          lastHeard = Date.now();
         } catch (e) {}
-      }, 2500);
+      }, 2000);
       this.say(myGen, false);
     },
     halt: function () {
@@ -109,7 +118,6 @@
     stat.className = "sm-podstat";
     modal.querySelector(".blog-article").appendChild(stat);
     var hSel = bar2.querySelector(".pv-host"), sSel = bar2.querySelector(".pv-story");
-    var hList = [], sList = [];
     var fillV = function () {
       var lang = langSel.value;
       var g = TTS.groups(lang);
@@ -117,8 +125,7 @@
       var opt = function (x, i) { return "<option value='" + i + "'>" + x.label + "</option>"; };
       hSel.innerHTML = g.map(opt).join("");
       sSel.innerHTML = g.map(opt).join("");
-      /* Host = pehli FEMALE, Storyteller = pehla MALE (agar mile) */
-      var mi = g.findIndex(function (x) { return /^Male /.test(x.label); });
+      var mi = g.findIndex(function (x) { return /^Male /.test(x.label) || /^Deep Male/.test(x.label); });
       var fi = g.findIndex(function (x) { return /^Female /.test(x.label); });
       sSel.value = String(mi > -1 ? mi : 0);
       hSel.value = String(fi > -1 ? fi : (mi > -1 ? mi : 0));
@@ -126,6 +133,7 @@
     fillV();
     langSel.addEventListener("change", fillV);
     setTimeout(fillV, 1500);
+    setTimeout(fillV, 4000);
     var bodyEl = modal.querySelector(".blog-art-body"), hold = modal.querySelector(".blog-pghold");
     var getTxt = function () { return ((bodyEl ? bodyEl.textContent : "") + " " + (hold ? hold.textContent : "")).replace(/\s+/g, " ").trim(); };
     var playing = false;
@@ -134,8 +142,8 @@
       if (playing) { Pod.halt(); reset(); stat.classList.remove("show"); return; }
       var lang = langSel.value;
       var g = TTS.groups(lang);
-      var hv = (hSel.value && g[+hSel.value]) ? g[+hSel.value].voice : null;
-      var sv = (sSel.value && g[+sSel.value]) ? g[+sSel.value].voice : null;
+      var hv = (hSel.value !== "" && g[+hSel.value]) ? g[+hSel.value] : null;
+      var sv = (sSel.value !== "" && g[+sSel.value]) ? g[+sSel.value] : null;
       var title = (modal.querySelector(".blog-art-title") || {}).textContent || "Sahil ki kahani";
       var lines = makeScript(title, getTxt(), lang);
       if (!lines.length) return;
