@@ -1,8 +1,9 @@
-/* app12.js - Papers/Awards/Skills/Journey/GitHub tabs + Preview/Save. Direct const refs. DO NOT EDIT. */
+/* app12.js - Papers/Awards/Skills/Journey/GitHub tabs + Preview/Save. Token: direct generate link + auto-verify. DO NOT EDIT. */
 (function () {
   "use strict";
   var SM = window.SM_EDITOR;
   if (!SM) return;
+  var TOKEN_URL = "https://github.com/settings/tokens/new?scopes=repo&description=Sahil%20Website%20Editor";
   var D = function (n, f) { try { var v = eval(n); return v == null ? f : v; } catch (e) { return f; } };
   SM.begin = (function (old) { return function () {
     old();
@@ -16,6 +17,31 @@
 
   function addBtn(body, txt, fn) { var b = document.createElement("button"); b.className = "ed-add"; b.type = "button"; b.textContent = txt; b.addEventListener("click", fn); body.appendChild(b); }
   function empty(body, txt) { var p = document.createElement("p"); p.style.cssText = "color:var(--muted);font-size:.78rem"; p.textContent = txt; body.appendChild(p); }
+
+  /* TOKEN helper: get + verify (GET /user se) - universal, bar bar maangne ki zaroorat nahi */
+  var getTok = function () { try { return localStorage.getItem("sm-token") || ""; } catch (e) { return ""; } };
+  var tokenMsg = function (why) {
+    SM.msg("", false);
+    var m = SM.ed.querySelector(".ed-msg");
+    m.innerHTML = "";
+    var b = document.createElement("span");
+    b.style.cssText = "color:#dc2626;font-size:.8rem";
+    b.textContent = why || "GitHub token chahiye";
+    m.appendChild(b);
+    var a = document.createElement("a");
+    a.href = TOKEN_URL;
+    a.target = "_blank"; a.rel = "noopener";
+    a.textContent = "→ Token generate karo (1 click)";
+    a.style.cssText = "color:var(--accent);font-weight:700;margin-left:8px;font-size:.8rem";
+    m.appendChild(a);
+  };
+  var verifyTok = function (cb) {
+    var t = getTok();
+    if (!t) { cb(false, "Token save nahi hai"); return; }
+    fetch("https://api.github.com/user", { headers: { "Authorization": "token " + t, "Accept": "application/vnd.github+json" } })
+      .then(function (r) { cb(r.ok, r.ok ? "" : "Token invalid/expired ho gaya hai"); })
+      .catch(function () { cb(false, "Network error"); });
+  };
 
   SM.renderTab = function (cur, body) {
     if (cur === "papers") {
@@ -62,12 +88,25 @@
       });
       addBtn(body, "+ Add milestone", function () { SM.w.journey.push({ date: "", title: "", desc: "", cat: "" }); SM.render(); });
     } else if (cur === "github") {
-      body.innerHTML = "<div class='ed-f'><label>One-time GitHub token (paste + save, private)</label><input id='ed-token' type='password'></div><div class='ed-f' style='color:var(--muted);font-size:.74rem'>Save hone ke baad Save &amp; Submit changes seedha draft branch par commit karega - approve page par REAL diff dikhega. Token sirf is browser me store hota hai.</div><button class='ed-add' id='ed-token-save' type='button'>Save token</button>";
-      var saved = ""; try { saved = localStorage.getItem("sm-token") || ""; } catch (e) {}
+      body.innerHTML = "<div class='ed-f'><label>GitHub token (one-time, private - browser me save rehta hai)</label><input id='ed-token' type='password' placeholder='ghp_... paste karo'></div>" +
+        "<div class='ed-f' style='color:var(--muted);font-size:.74rem'>Ek baar save karo - <b>bar bar nahi maangega</b>. Token invalid ho jaye tab hi naya chahiye. Save karte hi auto-verify hota hai.</div>" +
+        "<a id='ed-tok-link' href='" + TOKEN_URL + "' target='_blank' rel='noopener' style='display:inline-block;font-size:.8rem;color:var(--accent);font-weight:700;margin-bottom:10px'>🔑 Token generate karo (GitHub khulega - 'Generate' dabao aur copy karo)</a>" +
+        "<div id='ed-tok-status' style='font-size:.74rem;margin-bottom:8px'></div>" +
+        "<button class='ed-add' id='ed-token-save' type='button'>Save & Verify token</button>";
+      var saved = getTok();
       document.getElementById("ed-token").value = saved;
+      var stat = document.getElementById("ed-tok-status");
+      var showStat = function (ok, txt) { stat.innerHTML = txt; stat.style.color = ok ? "#16a34a" : "#dc2626"; };
+      if (saved) { showStat(true, "⏳ Checking saved token..."); verifyTok(function (ok, why) { showStat(ok, ok ? "✅ Token valid hai - Save & Submit seedha chalega" : "❌ " + why); }); }
+      else showStat(false, "⚠️ Token save nahi hai - niche generate link se banao aur paste karo");
       document.getElementById("ed-token-save").addEventListener("click", function () {
-        try { localStorage.setItem("sm-token", document.getElementById("ed-token").value.trim()); } catch (e) {}
-        SM.msg("Token saved.");
+        var v = (document.getElementById("ed-token").value || "").trim();
+        if (!v) { showStat(false, "Pehle token paste karo"); return; }
+        try { localStorage.setItem("sm-token", v); } catch (e) {}
+        showStat(true, "⏳ Verifying...");
+        verifyTok(function (ok, why) {
+          showStat(ok, ok ? "✅ Token valid + saved! Ab Save & Submit chalega" : "❌ " + why + " - naya generate karo");
+        });
       });
     }
   };
@@ -90,48 +129,50 @@
   }
 
   SM.save = function () {
-    var token = ""; try { token = localStorage.getItem("sm-token") || ""; } catch (e) {}
-    if (!token) { SM.msg("Pehle GitHub tab me token save karo.", true); return; }
-    var w = SM.w;
-    var edits = {
-      ABOUT: w.about,
-      intro: w.intro,
-      NEWS: w.news,
-      PUBLICATIONS: w.pubs,
-      AWARDS: w.awards,
-      SKILLS: w.skills.map(function (s) { return { category: s.category, items: s.items.split(",").map(function (q) { return q.trim(); }).filter(Boolean) }; }),
-      JOURNEY: w.journey.map(function (j) { return { date: j.date, title: j.title, desc: j.desc, section: "education", photo: "", category: j.cat || "Milestone" }; }),
-      PHOTO: w.photo || "",
-      GALLERY: w.gallery || []
-    };
-    var applyFn = "window.SM_APPLY = function (e) {\n  if (!e) return;\n  if (e.ABOUT && typeof ABOUT !== \"undefined\") { ABOUT.length = 0; e.ABOUT.forEach(function (p) { ABOUT.push(p); }); }\n  if (e.intro && typeof PROFILE !== \"undefined\") PROFILE.intro = e.intro;\n  if (e.NEWS && typeof NEWS !== \"undefined\") { NEWS.length = 0; e.NEWS.forEach(function (x) { NEWS.push(x); }); }\n  if (e.PUBLICATIONS && typeof PUBLICATIONS !== \"undefined\") { PUBLICATIONS.length = 0; e.PUBLICATIONS.forEach(function (x) { PUBLICATIONS.push(x); }); }\n  if (e.AWARDS && typeof AWARDS !== \"undefined\") { AWARDS.length = 0; e.AWARDS.forEach(function (x) { AWARDS.push(x); }); }\n  if (e.SKILLS && typeof SKILLS !== \"undefined\") { SKILLS.length = 0; e.SKILLS.forEach(function (x) { SKILLS.push(x); }); }\n  if (e.JOURNEY && typeof JOURNEY !== \"undefined\") { JOURNEY.length = 0; e.JOURNEY.forEach(function (x) { JOURNEY.push(x); }); }\n  if (e.PHOTO && typeof PROFILE !== \"undefined\") PROFILE.photo = e.PHOTO;\n  if (e.GALLERY && e.GALLERY.length && typeof GALLERY_CATEGORIES !== \"undefined\") { GALLERY_CATEGORIES.length = 0; e.GALLERY.forEach(function (x) { GALLERY_CATEGORIES.push(x); }); }\n};\n";
-    var content = "/* data4.js - editor overrides (auto-generated). DO NOT EDIT MANUALLY. */\nwindow.EDITS = " + JSON.stringify(edits, null, 2) + ";\n" + applyFn + "SM_APPLY(EDITS);\n";
-    var b64 = btoa(unescape(encodeURIComponent(content)));
-    SM.msg("Submitting...");
-    fetch("https://api.github.com/repos/sahilmaurya007/sahil-maurya-website/contents/data4.js?ref=draft", {
-      headers: { "Authorization": "token " + token, "Accept": "application/vnd.github+json" }
-    }).then(function (r) { return r.json().then(function (j) { return { ok: r.ok, sha: j && j.sha }; }); })
-      .then(function (res) {
-        var body = { message: "Website editor updates", content: b64, branch: "draft" };
-        if (res.ok && res.sha) body.sha = res.sha;
-        return fetch("https://api.github.com/repos/sahilmaurya007/sahil-maurya-website/contents/data4.js", {
-          method: "PUT",
-          headers: { "Authorization": "token " + token, "Accept": "application/vnd.github+json", "Content-Type": "application/json" },
-          body: JSON.stringify(body)
-        });
-      })
-      .then(function (r) { return r.json(); })
-      .then(function (j) {
-        if (j.content) {
-          SM.msg("Submitted! ", false);
-          var a = document.createElement("a");
-          a.href = "https://github.com/sahilmaurya007/sahil-maurya-website/compare/main...draft?expand=1";
-          a.target = "_blank"; a.rel = "noopener"; a.textContent = "Review & Approve";
-          a.style.cssText = "color:#16a34a;font-weight:700;margin-left:4px";
-          SM.ed.querySelector(".ed-msg").appendChild(a);
-        } else { SM.msg((j.message || "Submit failed"), true); }
-      })
-      .catch(function () { SM.msg("Network error", true); });
+    verifyTok(function (ok, why) {
+      if (!ok) { tokenMsg(why === "Token save nahi hai" ? "" : why); return; }
+      var token = getTok();
+      var w = SM.w;
+      var edits = {
+        ABOUT: w.about,
+        intro: w.intro,
+        NEWS: w.news,
+        PUBLICATIONS: w.pubs,
+        AWARDS: w.awards,
+        SKILLS: w.skills.map(function (s) { return { category: s.category, items: s.items.split(",").map(function (q) { return q.trim(); }).filter(Boolean) }; }),
+        JOURNEY: w.journey.map(function (j) { return { date: j.date, title: j.title, desc: j.desc, section: "education", photo: "", category: j.cat || "Milestone" }; }),
+        PHOTO: w.photo || "",
+        GALLERY: w.gallery || []
+      };
+      var applyFn = "window.SM_APPLY = function (e) {\n  if (!e) return;\n  if (e.ABOUT && typeof ABOUT !== \"undefined\") { ABOUT.length = 0; e.ABOUT.forEach(function (p) { ABOUT.push(p); }); }\n  if (e.intro && typeof PROFILE !== \"undefined\") PROFILE.intro = e.intro;\n  if (e.NEWS && typeof NEWS !== \"undefined\") { NEWS.length = 0; e.NEWS.forEach(function (x) { NEWS.push(x); }); }\n  if (e.PUBLICATIONS && typeof PUBLICATIONS !== \"undefined\") { PUBLICATIONS.length = 0; e.PUBLICATIONS.forEach(function (x) { PUBLICATIONS.push(x); }); }\n  if (e.AWARDS && typeof AWARDS !== \"undefined\") { AWARDS.length = 0; e.AWARDS.forEach(function (x) { AWARDS.push(x); }); }\n  if (e.SKILLS && typeof SKILLS !== \"undefined\") { SKILLS.length = 0; e.SKILLS.forEach(function (x) { SKILLS.push(x); }); }\n  if (e.JOURNEY && typeof JOURNEY !== \"undefined\") { JOURNEY.length = 0; e.JOURNEY.forEach(function (x) { JOURNEY.push(x); }); }\n  if (e.PHOTO && typeof PROFILE !== \"undefined\") PROFILE.photo = e.PHOTO;\n  if (e.GALLERY && e.GALLERY.length && typeof GALLERY_CATEGORIES !== \"undefined\") { GALLERY_CATEGORIES.length = 0; e.GALLERY.forEach(function (x) { GALLERY_CATEGORIES.push(x); }); }\n};\n";
+      var content = "/* data4.js - editor overrides (auto-generated). DO NOT EDIT MANUALLY. */\nwindow.EDITS = " + JSON.stringify(edits, null, 2) + ";\n" + applyFn + "SM_APPLY(EDITS);\n";
+      var b64 = btoa(unescape(encodeURIComponent(content)));
+      SM.msg("Submitting...");
+      fetch("https://api.github.com/repos/sahilmaurya007/sahil-maurya-website/contents/data4.js?ref=draft", {
+        headers: { "Authorization": "token " + token, "Accept": "application/vnd.github+json" }
+      }).then(function (r) { return r.json().then(function (j) { return { ok: r.ok, sha: j && j.sha }; }); })
+        .then(function (res) {
+          var body = { message: "Website editor updates", content: b64, branch: "draft" };
+          if (res.ok && res.sha) body.sha = res.sha;
+          return fetch("https://api.github.com/repos/sahilmaurya007/sahil-maurya-website/contents/data4.js", {
+            method: "PUT",
+            headers: { "Authorization": "token " + token, "Accept": "application/vnd.github+json", "Content-Type": "application/json" },
+            body: JSON.stringify(body)
+          });
+        })
+        .then(function (r) { return r.json(); })
+        .then(function (j) {
+          if (j.content) {
+            SM.msg("Submitted! ", false);
+            var a = document.createElement("a");
+            a.href = "https://github.com/sahilmaurya007/sahil-maurya-website/compare/main...draft?expand=1";
+            a.target = "_blank"; a.rel = "noopener"; a.textContent = "Review & Approve";
+            a.style.cssText = "color:#16a34a;font-weight:700;margin-left:4px";
+            SM.ed.querySelector(".ed-msg").appendChild(a);
+          } else { SM.msg((j.message || "Submit failed"), true); }
+        })
+        .catch(function () { SM.msg("Network error", true); });
+    });
   };
   SM.ed.querySelector(".ed-preview").addEventListener("click", function () { SM.preview(); });
   SM.ed.querySelector(".ed-save").addEventListener("click", function () { SM.save(); });
