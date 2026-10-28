@@ -1,16 +1,12 @@
-/* app31.js - GLOBAL visitor counter (countapi - har browser/device par same total) + device/browser/country/city log. DO NOT EDIT. */
+/* app31.js - IP/device log (private) + display sync. Hit ab app9 karta hai (duplicate count fix). DO NOT EDIT. */
 (function () {
   "use strict";
-  var pad = function (n) { return String(n).padStart(6, "0"); };
   var setNum = function (n) {
     var a = document.getElementById("visitNum"), b = document.getElementById("visitNum2");
-    if (a) a.textContent = pad(n);
-    if (b) b.textContent = pad(n);
+    if (a) a.textContent = String(n).padStart(6, "0");
+    if (b) b.textContent = String(n).padStart(6, "0");
   };
-  fetch("https://countapi.mileshilliard.com/api/v1/hit/sm-sahil-global-visits").then(function (r) { return r.json(); }).then(function (d) {
-    if (d && typeof d.value === "number") setNum(d.value);
-  }).catch(function () {});
-  /* device + browser + country + city log (private, sirf aapko) */
+  /* device + browser + country + city log (private, sirf owner ko) */
   var dev = function () {
     var ua = navigator.userAgent || "";
     var os = /Windows/i.test(ua) ? "Windows" : /Android/i.test(ua) ? "Android" : /iPhone|iPad/i.test(ua) ? "iOS" : /Mac/i.test(ua) ? "Mac" : /Linux/i.test(ua) ? "Linux" : "Unknown OS";
