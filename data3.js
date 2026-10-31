@@ -47,11 +47,11 @@ const GALLERY_CATEGORIES = [
     { src: "image/Full_Adder_IOPlanning.png", caption: "I/O Planning" },
     { src: "image/full_adder_floarplanning.png", caption: "Floorplan" },
   ]},
-  { name: "IIT Mandi", photos: [
+  { name: "IIT Mandi Snapshot", photos: [
     { src: "image/Best Imageee.png", caption: "IIT Mandi campus" },
     { src: "image/fly.JPG", caption: "Aviation dream" },
   ]},
-  { name: "IIIT Guwahati", photos: [
+  { name: "IIIT Guwahati Moments", photos: [
     { src: "image/IIITGConvocation.JPG", caption: "IIITG Convocation" },
     { src: "image/Convocation.jpg", caption: "Convocation" },
     { src: "image/iiitg.jpg", caption: "IIIT Guwahati campus" },
