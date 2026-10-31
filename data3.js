@@ -7,7 +7,7 @@
 
 /* ---------- NEWS BANNER ---------- */
 const NEWS = [
-  { type: "Conference", text: "Paper accepted for ORAL presentation at VLSID 2027 (Tier 1 Conference) — Reproducible Co-Design of Domain-Aware Sleep Switches", link: "", date: "2026-10-12", photo: "image/sahil.jpeg" },
+  { type: "Conference", text: "Paper accepted for ORAL presentation at VLSID 2027 (Tier 1 Conference) — Reproducible Co-Design of Domain-Aware Sleep Switches", link: "", date: "2026-10-12", photo: "image/sahiil.jpeg" },
   { type: "Award", text: "Certificate of Recognition — IEEE ISVLSI 2026 (Tier 1 Conference)", link: "", date: "2026-07-07", photo: "" },
   { type: "Conference", text: "Presented this paper at 32nd IEEE HiPC 2025 (Tier 1 Conference), Hyderabad — Neuromorphic Adaptive Precision RISC-V Processor", link: "https://ieeexplore.ieee.org/document/11459250", date: "2025-12-17", photo: "" },
   { type: "Fellowship", text: "VLSID Fellow (2024, 2025, 2026) — International Conference on VLSI Design (Tier 1 Conference)", link: "", date: "2025-01-01", photo: "" },
@@ -25,7 +25,7 @@ const JOURNEY = [
   { date: "2023-08", title: "SILCON 2024 Paper — Approximate Modular Multipliers for R-LWE", desc: "Published at IEEE Silchar Subsection Conference 2024 — 34% area reduction, 33% power savings.", section: "publications", photo: "", category: "Publication" },
   { date: "2024-01", title: "VLSID Fellow 2024", desc: "Selected as VLSID Fellow at the International Conference on VLSI Design (Tier 1 Conference).", section: "awards", photo: "", category: "Award" },
   { date: "2024-07", title: "Cadence RTL to GDS Flow — Certification", desc: "Completed Cadence RTL to GDSII flow certification (Entuple Technology).", section: "certifications", photo: "", category: "Certification" },
-  { date: "2025-07", title: "Joined IIT Mandi — Research Scholar, A²DSL", desc: "Ph.D. Research Scholar at A²DSL, SCEE, IIT Mandi, under Dr. Bikram Paul.", section: "education", photo: "image/sahil.jpeg", category: "Education" },
+  { date: "2025-07", title: "Joined IIT Mandi — Research Scholar, A²DSL", desc: "Ph.D. Research Scholar at A²DSL, SCEE, IIT Mandi, under Dr. Bikram Paul.", section: "education", photo: "image/sahiil.jpeg", category: "Education" },
   { date: "2025-12", title: "HiPC 2025 (Tier 1) — Presented Neuromorphic RISC-V Processor Paper", desc: "Presented this paper at 32nd IEEE HiPC 2025 Workshop, Hyderabad. First RISC-V processor with real-time precision scaling — 40–52% energy reduction.", section: "publications", photo: "", category: "Publication" },
   { date: "2026-07", title: "ISVLSI 2026 (Tier 1) — Certificate of Recognition", desc: "IEEE Computer Society Annual Symposium on VLSI — Certificate of Recognition.", section: "awards", photo: "", category: "Award" },
   { date: "2026-10", title: "VLSID 2027 (Tier 1) — Paper Accepted for Oral Presentation", desc: "Reproducible Co-Design of Domain-Aware Sleep Switches and Staggered Wake-Up Schedules.", section: "publications", photo: "", category: "Publication" },
@@ -34,7 +34,7 @@ const JOURNEY = [
 /* ---------- CATEGORIZED GALLERY ---------- */
 const GALLERY_CATEGORIES = [
   { name: "Lab Moments", photos: [
-    { src: "image/sahil.jpeg", caption: "At the lab" },
+    { src: "image/sahiil.jpeg", caption: "At the lab" },
     { src: "image/WhatsApp Image 2026-03-05 at 2.58.51 PM.jpeg", caption: "Lab moment" },
     { src: "image/Poster Landscape.png", caption: "Research poster at A²DSL" },
   ]},
@@ -59,9 +59,9 @@ const GALLERY_CATEGORIES = [
     { src: "image/arpit3.jpg", caption: "With Arpit" },
   ]},
   { name: "VLSID", photos: [
-    { src: "image/sahil.jpeg", caption: "VLSID moment" },
+    { src: "image/sahiil.jpeg", caption: "VLSID moment" },
   ]},
   { name: "ISVLSI", photos: [
-    { src: "image/sahil.jpeg", caption: "ISVLSI 2026" },
+    { src: "image/sahiil.jpeg", caption: "ISVLSI 2026" },
   ]},
 ];
