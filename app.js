@@ -65,13 +65,29 @@
     `<a class="con-pill" href="${esc(l.url)}" target="_blank" rel="noopener">` +
     `<span class="con-pill-ico">${linkIco(l.label)}</span>${esc(l.label)}</a>`).join("");
 
+  /* ---------- Location card: live Google Maps embed (IIT Mandi North Campus, Kamand) ---------- */
+  const mapEmbed = `
+    <div class="loc-map">
+      <iframe class="loc-map-iframe"
+        src="https://www.google.com/maps?q=IIT+Mandi+North+Campus,+Kamand,+Mandi,+Himachal+Pradesh+175005&output=embed"
+        title="Map — SCEE, IIT Mandi North Campus"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        allowfullscreen></iframe>
+      <div class="loc-map-cap">
+        <span class="loc-map-t">SCEE, IIT Mandi North Campus</span>
+        <a class="loc-map-link" href="https://www.google.com/maps?q=IIT+Mandi+North+Campus,+Kamand,+Mandi,+Himachal+Pradesh+175005"
+          target="_blank" rel="noopener">Open in Google Maps ↗</a>
+      </div>
+    </div>`;
+
   const contacts = [
     { lab: "Email (IIT Mandi)", ico: "✉️", html: `<a href="mailto:${esc(PROFILE.email)}">${esc(PROFILE.email)}</a>` },
     { lab: "Email (Previous)",  ico: "✉️", html: `<a href="mailto:${esc(PROFILE.emailAlt)}">${esc(PROFILE.emailAlt)}</a>` },
     { lab: "Current Address", ico: "🏛️", html: esc(PROFILE.currentAddress) },
     { lab: "Home Address", ico: "🏠", html: esc(PROFILE.address) },
     { lab: "Connect", ico: "🔗", html: linkPills },
-    { lab: "Location", ico: "📍", html: `SCEE, IIT Mandi North Campus` },
+    { lab: "Location", ico: "📍", html: mapEmbed },
   ];
   $("contactGrid").innerHTML = contacts.map(c => `
     <div class="contact-item"><span class="ico">${c.ico}</span>

@@ -1,4 +1,4 @@
-/* app21.js - Gallery editor: + resize-upload option (custom width). DO NOT EDIT. */
+/* app21.js - Gallery editor: + resize-upload option (custom width) + photo priority reorder (up/down). DO NOT EDIT. */
 (function () {
   "use strict";
   var SM = window.SM_EDITOR;
@@ -67,7 +67,11 @@
 
     cat.photos.forEach(function (p, pi) {
       var pc = document.createElement("div"); pc.className = "ed-cardbox"; pc.style.margin = "0 0 8px";
-      pc.innerHTML = "<div class='ed-cardbox-h'><b>Photo " + (pi + 1) + "</b><button class='ed-del' type='button'>Delete</button></div>";
+      /* header: priority up/down + delete */
+      pc.innerHTML = "<div class='ed-cardbox-h'><b>Photo " + (pi + 1) + "</b><span style='display:flex;gap:4px;align-items:center'>" +
+        "<button class='ed-mv' type='button' title='Move up — higher priority' " + (pi === 0 ? "disabled" : "") + ">&#8593; Up</button>" +
+        "<button class='ed-mv dn' type='button' title='Move down — lower priority' " + (pi === cat.photos.length - 1 ? "disabled" : "") + ">&#8595; Down</button>" +
+        "<button class='ed-del' type='button'>Delete</button></span></div>";
       if (p.src) {
         var prev = document.createElement("img");
         prev.src = p.src;
@@ -84,6 +88,20 @@
       ck.addEventListener("input", function () { p.clickby = ck.value; });
       var src = SM.f(pc, "Photo path", p.src || "");
       src.addEventListener("input", function () { p.src = src.value; });
+      /* PRIORITY REORDER: photo upar/neeche karo */
+      var mvBtns = pc.querySelectorAll(".ed-mv");
+      if (mvBtns[0]) mvBtns[0].addEventListener("click", function () {
+        if (pi === 0) return;
+        cat.photos.splice(pi - 1, 0, cat.photos.splice(pi, 1)[0]);
+        SM.render();
+        SM.msg("Photo upar move hui (priority up). Save & Submit dabao.");
+      });
+      if (mvBtns[1]) mvBtns[1].addEventListener("click", function () {
+        if (pi === cat.photos.length - 1) return;
+        cat.photos.splice(pi + 1, 0, cat.photos.splice(pi, 1)[0]);
+        SM.render();
+        SM.msg("Photo neeche move hui (priority down). Save & Submit dabao.");
+      });
       /* RESIZE: purani photo ko naye width par re-upload */
       if (p.src) {
         var rz = document.createElement("button"); rz.type = "button"; rz.className = "ed-add"; rz.style.margin = "0 0 8px";
