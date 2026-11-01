@@ -27,10 +27,6 @@
 
   const renderNews = () => {
     const n = NEWS[newsIdx];
-    const label = n.link
-      ? `<a href="${esc(n.link)}" target="_blank" rel="_blank noopener">${esc(n.text)}</a>`
-      : esc(n.text);
-    /* photo fallback: n.photo empty ho to photos array ki pehli photo use karo */
     const ph = n.photo || (Array.isArray(n.photos) && n.photos.length ? n.photos[0] : "");
     news.innerHTML = `
     <div class="wrap news-layout">
@@ -87,7 +83,7 @@
   journey.innerHTML = `
   <div class="wrap">
     <div class="section-head"><p class="kicker">10 · Milestones</p><h2>My Journey — year by year</h2><div class="rule"></div>
-    <p class="muted">Timeline card par click karo — seedha us section par pahunch jaoge. Legend par hover karke category filter dekho.</p></div>
+    <p class="muted">Click a timeline card to jump to that section. Hover the legend to filter by category.</p></div>
     <div class="journey-layout">
       <div class="tl" id="tlList"></div>
       <aside class="journey-side">
@@ -197,8 +193,7 @@
   if (gallerySec) {
     gallerySec.innerHTML = `
     <div class="wrap">
-      <div class="section-head"><p class="kicker">11 · Moments</p><h2>Gallery</h2><div class="rule"></div>
-      <p class="muted">Category tabs se choose karo — photos image/ folder me daalo aur data3.js me line add karo.</p></div>
+      <div class="section-head"><p class="kicker">11 · Moments</p><h2>Gallery</h2><div class="rule"></div></div>
       <div class="cat-tabs" id="catTabs"></div>
       <div class="gal g4" id="catGal"></div>
     </div>`;
@@ -213,7 +208,7 @@
   const renderCatGal = () => {
     const cat = GALLERY_CATEGORIES.find(c => c.name === activeCat);
     if (!cat || !cat.photos.length) {
-      $("catGal").innerHTML = `<p class="muted">Is category me abhi koi photo nahi hai.</p>`;
+      $("catGal").innerHTML = `<p class="muted">No photos in this category yet.</p>`;
       return;
     }
     $("catGal").innerHTML = cat.photos.map(g => {
