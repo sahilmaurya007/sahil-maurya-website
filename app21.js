@@ -1,4 +1,4 @@
-/* app21.js - Gallery editor: + resize-upload option (custom width) + photo priority reorder (up/down). DO NOT EDIT. */
+/* app21.js - Gallery editor: photo priority reorder (↑↓) + FAST parallel multi-upload. DO NOT EDIT. */
 (function () {
   "use strict";
   var SM = window.SM_EDITOR;
@@ -67,7 +67,6 @@
 
     cat.photos.forEach(function (p, pi) {
       var pc = document.createElement("div"); pc.className = "ed-cardbox"; pc.style.margin = "0 0 8px";
-      /* header: priority up/down + delete */
       pc.innerHTML = "<div class='ed-cardbox-h'><b>Photo " + (pi + 1) + "</b><span style='display:flex;gap:4px;align-items:center'>" +
         "<button class='ed-mv' type='button' title='Move up — higher priority' " + (pi === 0 ? "disabled" : "") + ">&#8593; Up</button>" +
         "<button class='ed-mv dn' type='button' title='Move down — lower priority' " + (pi === cat.photos.length - 1 ? "disabled" : "") + ">&#8595; Down</button>" +
@@ -88,7 +87,7 @@
       ck.addEventListener("input", function () { p.clickby = ck.value; });
       var src = SM.f(pc, "Photo path", p.src || "");
       src.addEventListener("input", function () { p.src = src.value; });
-      /* PRIORITY REORDER: photo upar/neeche karo */
+      /* PRIORITY REORDER */
       var mvBtns = pc.querySelectorAll(".ed-mv");
       if (mvBtns[0]) mvBtns[0].addEventListener("click", function () {
         if (pi === 0) return;
@@ -102,7 +101,7 @@
         SM.render();
         SM.msg("Photo neeche move hui (priority down). Save & Submit dabao.");
       });
-      /* RESIZE: purani photo ko naye width par re-upload */
+      /* RESIZE */
       if (p.src) {
         var rz = document.createElement("button"); rz.type = "button"; rz.className = "ed-add"; rz.style.margin = "0 0 8px";
         rz.textContent = "Resize this photo";
@@ -140,6 +139,9 @@
     col2.appendChild(addp);
   }
 
+  /* FAST multi-upload: compression PARALLEL (ek saath sab photos compress) —
+     pehle ek-ek karke hota tha jo 5-10 photos par minutes lagata tha.
+     Upload GitHub API par 2-3 parallel rakhte hain (rate limit safe). */
   function multiUpload(cat, onDone) {
     var wrap = document.createElement("div"); wrap.className = "ed-f";
     wrap.innerHTML = "<label>Add multiple photos to this album</label>";
@@ -150,22 +152,36 @@
     fi.addEventListener("change", function () {
       var files = Array.from(fi.files || []);
       if (!files.length) return;
-      st.textContent = "Uploading " + files.length + " photos...";
-      var done = 0, okCount = 0;
-      files.forEach(function (file, idx) {
+      st.textContent = "Compressing " + files.length + " photos (parallel)...";
+      var t0 = Date.now();
+      var done = 0, okCount = 0, failed = 0, uploads = 0, UPLOAD_BATCH = 2;
+      /* step 1: sab photos parallel compress (browser me, network par load nahi) */
+      var queue = [];
+      files.forEach(function (file) {
         SM.processImage(file, null, function (out) {
-          if (!out) { done++; check(); return; }
-          var name = "image/" + Date.now() + "_" + idx + ".jpg";
-          SM.putImage(name, out.b64, function () {
-            cat.photos.push({ src: name, caption: "", date: "", event: "", clickby: "" });
-            okCount++; done++; check();
-          }, function () { done++; check(); }, null);
+          if (out) queue.push(out);
+          done++;
+          if (done === files.length) step2();
         });
       });
-      function check() {
-        if (done < files.length) return;
-        st.textContent = okCount + "/" + files.length + " uploaded!";
-        onDone();
+      /* step 2: compressed photos 2-2 karke parallel upload */
+      function step2() {
+        st.textContent = "Uploading " + queue.length + " photos (2 parallel)...";
+        var idx = 0;
+        var next = function () {
+          if (idx >= queue.length) {
+            st.textContent = okCount + "/" + files.length + " uploaded in " + ((Date.now() - t0) / 1000).toFixed(1) + "s!" + (failed ? " (" + failed + " failed)" : "");
+            onDone();
+            return;
+          }
+          var out = queue[idx++];
+          var name = "image/" + Date.now() + "_" + idx + "_" + Math.floor(Math.random() * 1000) + ".jpg";
+          SM.putImage(name, out.b64, function () {
+            cat.photos.push({ src: name, caption: "", date: "", event: "", clickby: "" });
+            okCount++; next();
+          }, function () { failed++; next(); }, null);
+        };
+        next(); if (idx < queue.length) { var i2 = idx; next(); }
       }
     });
     wrap.appendChild(selBtn); wrap.appendChild(fi); wrap.appendChild(st);

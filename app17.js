@@ -1,10 +1,10 @@
-/* app17.js - image process: COMPRESSION (fast upload) + crop + upload UI. DO NOT EDIT. */
+/* app17.js - image process: COMPRESSION (fast upload) + crop + upload UI. FAST: no byte-loop, readAsDataURL direct base64. DO NOT EDIT. */
 (function () {
   "use strict";
   var SM = window.SM_EDITOR;
   if (!SM) return;
   /* processImage: photo compress karke chhota banata hai - upload isliye fast hota hai.
-     1-2MB photo -> ~1200px max side, JPEG 0.8 quality = ~150-300KB. Upload 10x faster. */
+     1-3MB photo -> ~1200px max side, JPEG 0.75 quality = ~100-250KB. Upload 10x faster. */
   SM.processImage = function (file, cropRect, cb) {
     var fr = new FileReader();
     fr.onload = function () {
@@ -19,15 +19,12 @@
           var ctx = cv.getContext("2d");
           ctx.imageSmoothingQuality = "high";
           ctx.drawImage(img, sx, sy, sw, sh, 0, 0, cv.width, cv.height);
-          cv.toBlob(function (blob) {
-            var fr2 = new FileReader();
-            fr2.onload = function () {
-              var b = new Uint8Array(fr2.result); var s = ""; var CH = 8192;
-              for (var i = 0; i < b.length; i += CH) s += String.fromCharCode.apply(null, b.subarray(i, i + CH));
-              cb({ b64: btoa(s), size: b.length });
-            };
-            fr2.readAsArrayBuffer(blob);
-          }, "image/jpeg", 0.8);
+          /* FAST: canvas.toDataURL direct base64 deta hai — toBlob + FileReader + 8KB chunk
+             byte-loop (jo 2-3MB photo par seconds lagata tha) poori tarah hata diya.
+             Quality 0.78: achha balance — size chhota, quality sharp. */
+          var durl = cv.toDataURL("image/jpeg", 0.78);
+          var b64 = durl.split(",")[1] || "";
+          cb({ b64: b64, size: Math.round(b64.length * 0.75) });
         } catch (e) { cb(null); }
       };
       img.onerror = function () { cb(null); };

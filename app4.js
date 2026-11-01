@@ -1,12 +1,12 @@
-/* app4.js - loader v42 (cache-busted, audio engine first + visitor fix). DO NOT EDIT. */
+/* app4.js - loader v44 (cache-busted, audio engine first + visitor fix). DO NOT EDIT. */
 (function () {
   "use strict";
   var link = document.createElement("link");
   link.rel = "stylesheet";
   link.href = "visitor.css";
   document.head.appendChild(link);
-  var V = "42";
-  var CORE = ["app5.js", "app7.js", "app9.js", "app31.js", "app48.js", "app10.js", "app11.js", "app12.js", "app13.js", "app16.js", "app17.js", "app15.js", "app25.js", "app20.js", "app33.js", "app21.js", "app22.js", "app18.js", "app24.js", "app19.js", "app23.js", "app29.js", "app28.js", "app30.js", "app32.js", "app34.js", "app35.js", "app36.js", "app37.js", "app38.js", "blogbody1.js", "blogbody2.js", "blogbody3.js", "app39.js", "app40.js", "app41.js"];
+  var V = "44";
+  var CORE = ["app5.js", "app7.js", "app9.js", "app31.js", "app48.js", "app10.js", "app11.js", "app12.js", "app13.js", "app14.js", "app16.js", "app17.js", "app15.js", "app25.js", "app20.js", "app33.js", "app21.js", "app22.js", "app18.js", "app24.js", "app19.js", "app23.js", "app29.js", "app28.js", "app30.js", "app32.js", "app34.js", "app35.js", "app36.js", "app37.js", "app38.js", "blogbody1.js", "blogbody2.js", "blogbody3.js", "app39.js", "app40.js", "app41.js"];
   var AUD = ["app42.js", "app43.js", "app44.js", "app45.js", "app46.js", "app47.js"];
   var add = function (src) {
     var s = document.createElement("script");
