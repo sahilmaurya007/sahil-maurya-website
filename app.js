@@ -49,13 +49,29 @@
       `<a href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.label)}</a>`).join(" · ")}</span></div>` : ""}
   `;
 
+  /* ---------- Connect links: platform symbol ke saath pill-boxes ---------- */
+  const linkIco = (label) => {
+    const l = String(label || "").toLowerCase();
+    if (/scholar/.test(l))  return "🎓";
+    if (/linkedin/.test(l)) return "💼";
+    if (/researchgate/.test(l)) return "🧪";
+    if (/youtube/.test(l))  return "▶️";
+    if (/github/.test(l))   return "🐙";
+    if (/twitter|x\.com/.test(l)) return "🐦";
+    if (/orcid/.test(l))    return "🆔";
+    return "🔗";
+  };
+  const linkPills = (PROFILE.links || []).map(l =>
+    `<a class="con-pill" href="${esc(l.url)}" target="_blank" rel="noopener">` +
+    `<span class="con-pill-ico">${linkIco(l.label)}</span>${esc(l.label)}</a>`).join("");
+
   const contacts = [
-    { lab: "Email (IIT Mandi)", ico: "\uD83D\uDCE7", html: `<a href="mailto:${esc(PROFILE.email)}">${esc(PROFILE.email)}</a>` },
-    { lab: "Email (Previous)",  ico: "\uD83D\uDCE7", html: `<a href="mailto:${esc(PROFILE.emailAlt)}">${esc(PROFILE.emailAlt)}</a>` },
-    { lab: "Current Address", ico: "\uD83C\uDFDB\uFE0F", html: esc(PROFILE.currentAddress) },
-    { lab: "Home Address", ico: "\uD83C\uDFE0", html: esc(PROFILE.address) },
-    { lab: "Connect", ico: "\uD83D\uDD17", html: (PROFILE.links || []).map(l =>
-      `<a href="${esc(l.url)}" target="_blank" rel="noopener" style="margin-right:8px">${esc(l.label)}</a>`).join("") },
+    { lab: "Email (IIT Mandi)", ico: "✉️", html: `<a href="mailto:${esc(PROFILE.email)}">${esc(PROFILE.email)}</a>` },
+    { lab: "Email (Previous)",  ico: "✉️", html: `<a href="mailto:${esc(PROFILE.emailAlt)}">${esc(PROFILE.emailAlt)}</a>` },
+    { lab: "Current Address", ico: "🏛️", html: esc(PROFILE.currentAddress) },
+    { lab: "Home Address", ico: "🏠", html: esc(PROFILE.address) },
+    { lab: "Connect", ico: "🔗", html: linkPills },
+    { lab: "Location", ico: "📍", html: `SCEE, IIT Mandi North Campus` },
   ];
   $("contactGrid").innerHTML = contacts.map(c => `
     <div class="contact-item"><span class="ico">${c.ico}</span>
