@@ -77,7 +77,12 @@
 .cat-tab.active{background:var(--grad-btn);color:#fff;border-color:transparent}
 .gal-item.clickable{cursor:pointer}
 
+/* ---------- contact section: connect link pills ---------- */
+.contact-item .con-pill{display:inline-flex;align-items:center;gap:6px;padding:5px 12px 5px 8px;margin:3px 6px 3px 0;border:1px solid var(--border);border-radius:999px;background:var(--soft);color:var(--text);text-decoration:none;font-size:.82rem;font-weight:500;white-space:nowrap;transition:all .2s ease}
+.contact-item .con-pill:hover{border-color:var(--accent);color:var(--accent);background:var(--card);transform:translateY(-1px);box-shadow:0 3px 10px rgba(99,102,241,.12)}
+.contact-item .con-pill-ico{font-size:.9rem;line-height:1;flex:none}
+
 /* ---------- responsive (news + journey auto-fit) ---------- */
 @media(max-width:1024px){.journey-layout{grid-template-columns:1fr}.pie-card{position:static}}
 @media(max-width:960px){.news-layout{grid-template-columns:1fr}.news-media{min-height:260px}.news-list{max-height:300px}}
-@media(max-width:480px){.news-media{min-height:220px}.pie-wrap{width:170px;height:170px}.pie-wrap svg{width:170px;height:170px}}
+@media(max-width:480px){.news-media{min-height:220px}.pie-wrap{width:170px;height:170px}.pie-wrap svg{width:170px;height:170px}.contact-item .con-pill{margin:3px 4px 3px 0;padding:4px 10px 4px 7px;font-size:.78rem}}
