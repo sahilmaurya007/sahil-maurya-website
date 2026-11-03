@@ -55,6 +55,7 @@
     if (/scholar/.test(l))  return "🎓";
     if (/linkedin/.test(l)) return "💼";
     if (/researchgate/.test(l)) return "🧪";
+    if (/music/.test(l))    return "🎵";
     if (/youtube/.test(l))  return "▶️";
     if (/github/.test(l))   return "🐙";
     if (/twitter|x\.com/.test(l)) return "🐦";

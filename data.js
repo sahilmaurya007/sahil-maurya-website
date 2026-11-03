@@ -7,7 +7,7 @@
 
 const SITE = {
   footerNote: "© 2026 Sahil Maurya · IIT Mandi Research Scholar · Hardware Security & Post-Quantum Cryptography",
-  lastUpdated: "October 2026",
+  lastUpdated: "November 2026",
 };
 
 const PROFILE = {
@@ -26,6 +26,7 @@ const PROFILE = {
     { label: "LinkedIn", url: "https://www.linkedin.com/in/sahilmaurya007/" },
     { label: "ResearchGate", url: "https://www.researchgate.net/profile/Sahil-Maurya-2" },
     { label: "YouTube", url: "https://www.youtube.com/@Turning_Coffee_Into_Silicon" },
+    { label: "My Music Channel", url: "https://www.youtube.com/@SURELIAStudio" },
   ],
 };
 
@@ -34,11 +35,11 @@ const ABOUT = [
   "My research focuses on 𝐕𝐋𝐒𝐈 𝐝𝐞𝐬𝐢𝐠𝐧, 𝐝𝐢𝐠𝐢𝐭𝐚𝐥 𝐡𝐚𝐫𝐝𝐰𝐚𝐫𝐞 𝐚𝐫𝐜𝐡𝐢𝐭𝐞𝐜𝐭𝐮𝐫𝐞𝐬, 𝐡𝐚𝐫𝐝𝐰𝐚𝐫𝐞 𝐬𝐞𝐜𝐮𝐫𝐢𝐭𝐲, 𝐑𝐈𝐒𝐂-𝐕 𝐚𝐫𝐜𝐡𝐢𝐭𝐞𝐜𝐭𝐮𝐫𝐞𝐬, 𝐩𝐨𝐬𝐭-𝐪𝐮𝐚𝐧𝐭𝐮𝐦 𝐜𝐫𝐲𝐩𝐭𝐨𝐠𝐫𝐚𝐩𝐡𝐲, 𝐚𝐧𝐝 𝐞𝐟𝐟𝐢𝐜𝐢𝐞𝐧𝐭 𝐅𝐏𝐆𝐀 𝐚𝐧𝐝 𝐀𝐒𝐈𝐂 𝐢𝐦𝐩𝐥𝐞𝐦𝐞𝐧𝐭𝐚𝐭𝐢𝐨𝐧𝐬. I am passionate about translating innovative ideas into practical hardware solutions, with research contributions associated with prestigious international conferences and reputed technical forums, including 𝐈𝐄𝐄𝐄 𝐈𝐒𝐕𝐋𝐒𝐈, 𝐕𝐋𝐒𝐈𝐃, 𝐇𝐢𝐏𝐂, 𝐚𝐧𝐝 𝐈𝐄𝐄𝐄 𝐒𝐢𝐥𝐢𝐜𝐨𝐧. In particular, I work on quantum-resistant cryptographic accelerators for NIST-standardized algorithms (CRYSTALS-Kyber, Dilithium) with optimized Power, Performance, and Area (PPA).",
   "I enjoy experimenting with 𝐄𝐃𝐀 𝐭𝐨𝐨𝐥𝐬 such as 𝐂𝐚𝐝𝐞𝐧𝐜𝐞, 𝐒𝐲𝐧𝐨𝐩𝐬𝐲𝐬, 𝐒𝐢𝐞𝐦𝐞𝐧𝐬 𝐄𝐃𝐀 (𝐌𝐞𝐧𝐭𝐨𝐫 𝐆𝐫𝐚𝐩𝐡𝐢𝐜𝐬), 𝐚𝐧𝐝 𝐗𝐢𝐥𝐢𝐧𝐱 𝐕𝐢𝐯𝐚𝐝𝐨, along with open-source tools such as OpenLane, OpenROAD, and Yosys for digital design, FPGA prototyping, and ASIC implementation.",
   "I believe in the power of 𝐡𝐚𝐫𝐝 𝐰𝐨𝐫𝐤, 𝐬𝐦𝐚𝐫𝐭 𝐰𝐨𝐫𝐤, 𝐚𝐧𝐝 𝐜𝐫𝐞𝐚𝐭𝐢𝐧𝐠 𝐚𝐧 𝐢𝐦𝐩𝐚𝐜𝐭 𝐭𝐡𝐚𝐭 𝐬𝐩𝐞𝐚𝐤𝐬 𝐟𝐨𝐫 𝐢𝐭𝐬𝐞𝐥𝐟. Life is a precious, one-time journey, and I aspire to make mine meaningful enough to leave a lasting impression. I don't just want to pass through life; I want to build something worthwhile, create memories that endure, and let my work tell a story long after the moment has passed.",
-  "“𝐇𝐚𝐦𝐚𝐫𝐞 𝐛𝐚𝐚𝐝 𝐚𝐛 𝐦𝐞𝐡𝐟𝐢𝐥 𝐦𝐞𝐢𝐧 𝐚𝐟𝐬𝐚𝐚𝐧𝐞 𝐛𝐚𝐲𝐚𝐚𝐧 𝐡𝐨𝐧𝐠𝐞, 𝐁𝐚𝐡𝐚𝐚𝐫𝐞𝐢𝐧 𝐡𝐮𝐦𝐤𝐨 𝐝𝐡𝐨𝐨𝐧𝐝𝐡𝐡𝐞𝐧𝐠𝐢, 𝐧𝐚 𝐣𝐚𝐚𝐧𝐞 𝐡𝐮𝐦 𝐤𝐚𝐡𝐚𝐚𝐧 𝐡𝐨𝐧𝐠𝐞.” ❤️",
+  "“𝐇𝐚𝐦𝐚𝐫𝐞 𝐛𝐚𝐚𝐝 𝐚𝐛 𝐦𝐞𝐡𝐟𝐢𝐥 𝐦𝐞𝐢𝐧 𝐚𝐟𝐬𝐚𝐚𝐧𝐞 𝐛𝐚𝐲𝐚𝐚𝐧 𝐡𝐨𝐧𝐠𝐞, 𝐁𝐚𝐡𝐚𝐚𝐫𝐞𝐢𝐧 𝐡𝐮𝐦𝐤𝐨 𝐝𝐡𝐨𝐨𝐧𝐝𝐡𝐡𝐞𝐧𝐠𝐢, 𝐍𝐚 𝐣𝐚𝐚𝐧𝐞 𝐡𝐮𝐦 𝐤𝐚𝐡𝐚𝐚𝐧 𝐡𝐨𝐧𝐠𝐞.” ❤️",
   "Beyond silicon, circuits, and code, I find inspiration in the timeless beauty of history, the melody of music, and the emotions hidden within words. I enjoy 𝐭𝐫𝐚𝐯𝐞𝐥𝐥𝐢𝐧𝐠, 𝐩𝐡𝐨𝐭𝐨𝐠𝐫𝐚𝐩𝐡𝐲, 𝐞𝐱𝐩𝐥𝐨𝐫𝐢𝐧𝐠 𝐡𝐢𝐬𝐭𝐨𝐫𝐢𝐜𝐚𝐥 𝐩𝐥𝐚𝐜𝐞𝐬, 𝐰𝐫𝐢𝐭𝐢𝐧𝐠 𝐬𝐡𝐚𝐲𝐚𝐫𝐢 𝐚𝐧𝐝 𝐩𝐨𝐞𝐭𝐫𝐲, 𝐚𝐧𝐝 𝐥𝐢𝐬𝐭𝐞𝐧𝐢𝐧𝐠 𝐭𝐨 𝐦𝐮𝐬𝐢𝐜 𝐚𝐧𝐝 𝐠𝐡𝐚𝐳𝐚𝐥𝐬. Cricket and hockey bring out my competitive spirit, reminding me that life, much like research, demands patience, teamwork, and perseverance.",
   "I believe 𝐬𝐜𝐢𝐞𝐧𝐜𝐞 𝐭𝐞𝐚𝐜𝐡𝐞𝐬 𝐮𝐬 𝐭𝐨 𝐮𝐧𝐝𝐞𝐫𝐬𝐭𝐚𝐧𝐝 𝐭𝐡𝐞 𝐰𝐨𝐫𝐥𝐝, 𝐰𝐡𝐢𝐥𝐞 𝐩𝐨𝐞𝐭𝐫𝐲 𝐭𝐞𝐚𝐜𝐡𝐞𝐬 𝐮𝐬 𝐭𝐨 𝐟𝐞𝐞𝐥 𝐢𝐭. I find equal fascination in a thoughtfully designed circuit and a beautifully written couplet — in the logic of a processor and the magic of an unspoken emotion.",
   "And somewhere within me lives the spirit of Lucknow: 𝐚 𝐥𝐢𝐭𝐭𝐥𝐞 𝐨𝐥𝐝-𝐬𝐜𝐡𝐨𝐨𝐥, 𝐡𝐨𝐩𝐞𝐥𝐞𝐬𝐬𝐥𝐲 𝐫𝐨𝐦𝐚𝐧𝐭𝐢𝐜, 𝐚𝐧𝐝 𝐟𝐨𝐫𝐞𝐯𝐞𝐫 𝐢𝐧 𝐥𝐨𝐯𝐞 𝐰𝐢𝐭𝐡 𝐢𝐭𝐬 𝐭𝐞𝐡𝐳𝐞𝐞𝐛. A place where a smile can begin a conversation, a “𝐣𝐚𝐧𝐚𝐛” can make an ordinary moment feel special, and even love knows how to arrive with grace.",
-  "“𝐃𝐢𝐥𝐥𝐢 𝐤𝐚 𝐫𝐚𝐬𝐭𝐚 𝐝𝐢𝐥 𝐬𝐞 𝐣𝐚𝐚𝐭𝐚 𝐡𝐚𝐢, 𝐭𝐡𝐨𝐝𝐚 𝐭𝐡𝐚𝐡𝐚𝐫𝐢𝐲𝐞, 𝐮𝐬𝐬𝐞 𝐩𝐞𝐡𝐥𝐞 𝐋𝐮𝐜𝐤𝐧𝐨𝐰 𝐚𝐚𝐭𝐚 𝐡𝐚𝐢.” ❤️",
+  "“𝐃𝐢𝐥𝐥𝐢 𝐤𝐚 𝐫𝐚𝐬𝐭𝐚 𝐝𝐢𝐥 𝐬𝐞 𝐣𝐚𝐚𝐭𝐚 𝐡𝐚𝐢, 𝐭𝐡𝐨𝐝𝐚 𝐭𝐡𝐡𝐚𝐡𝐚𝐫𝐢𝐲𝐞, 𝐮𝐬𝐬𝐞 𝐩𝐞𝐡𝐥𝐞 𝐋𝐮𝐜𝐤𝐧𝐨𝐰 𝐚𝐚𝐭𝐚 𝐡𝐚𝐢.” ❤️",
   "Wherever life takes me — from the intricate world of microchips to the serene mountains of Himachal — I will always carry a little Lucknow in my heart.",
   "𝐌𝐮𝐬𝐤𝐮𝐫𝐚𝐢𝐲𝐞, 𝐣𝐚𝐧𝐚𝐛… 𝐚𝐚𝐩 𝐋𝐮𝐜𝐤𝐧𝐨𝐰 𝐦𝐢𝐧 𝐡𝐚𝐢𝐧! ✨",
   "And as I continue this journey of discovery, I hold close a thought that inspires me to dream beyond boundaries: “𝐓𝐡𝐞 𝐟𝐮𝐭𝐮𝐫𝐞 𝐛𝐞𝐥𝐨𝐧𝐠𝐬 𝐭𝐨 𝐭𝐡𝐨𝐬𝐞 𝐰𝐡𝐨 𝐛𝐞𝐥𝐢𝐞𝐯𝐞 𝐢𝐧 𝐭𝐡𝐞 𝐛𝐞𝐚𝐮𝐭𝐲 𝐨𝐟 𝐭𝐡𝐞𝐢𝐫 𝐝𝐫𝐞𝐚𝐦𝐬.” — Eleanor Roosevelt",
