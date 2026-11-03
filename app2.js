@@ -76,7 +76,13 @@
 
   $("quoteText").textContent = QUOTE.text;
   $("quoteBy").textContent = QUOTE.by;
-  $("footAddr").textContent = PROFILE.currentAddress;
+
+  /* ---------- Footer: address + location link (Google Maps) ---------- */
+  const mapQ = encodeURIComponent("SCEE, IIT Mandi North Campus, Kamand, Mandi, Himachal Pradesh");
+  $("footAddr").innerHTML =
+    `${esc(PROFILE.currentAddress)}<br>` +
+    `<a class="foot-loc" href="https://www.google.com/maps?q=${mapQ}" target="_blank" rel="noopener">` +
+    `📍 SCEE, IIT Mandi North Campus ↗</a>`;
   $("footLinks").innerHTML = (PROFILE.links || []).map(l =>
     `<li><a href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.label)}</a></li>`).join("");
   $("footCopy").textContent = SITE.footerNote;
